@@ -31,4 +31,7 @@
   --earth-2:      #79804f;  /* mittel — Kicker der Fokus-Sektion */
   --earth-3:      #9a8f76;  /* warm — Kategorie-Label der Karten */
   --earth-line:   #c8cf9c;  /* Rahmen Advertorial-Badge */
+
+  /* Layout — geteilt, weil die Web-Items px-[var(--page-x)] nutzen */
+  --page-x:       clamp(20px, 4vw, 56px);  /* Seitenränder links/rechts */
 }
