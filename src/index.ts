@@ -15,3 +15,8 @@ export { default as Footer } from './components/Footer'
 export { default as Chrome } from './components/Chrome'
 export { default as Logo } from './components/Logo'
 export * from './lib/navigation' // SiteNav, NavItem, NavGroup, LocaleField
+
+// Custom-Items (einmal entwickelt, nicht als Riegel editierbar):
+export { default as HeaderAnimation } from './components/HeaderAnimation' // Hero-Video
+export { default as AskArtDus } from './components/AskArtDus' // Digitaler Concierge
+export { withBase } from './lib/assets' // Asset-Basis-Auflösung

@@ -25,6 +25,7 @@ import { NewsletterHeroItem } from "./items/NewsletterHeroItem";
 import { Fragment } from "react";
 import { loc, type Cta, type ImageRef, type Section } from "../lib/sections";
 import { localizeHref } from "../lib/slugs";
+import { withBase } from "../lib/assets";
 
 type Lang = "de" | "en";
 
@@ -35,11 +36,12 @@ type Lang = "de" | "en";
 type Slots = Record<string, React.ReactNode>;
 const SLOT_TYPES = ["programmArtWalks", "programmSchedule", "programmCurated"];
 
-// Sanity-CDN-Bild skalieren; lokale /images/-Pfade unverändert lassen.
-function img(image?: ImageRef, w = 1600): string {
+// Sanity-CDN-Bild skalieren; lokale /images/-Pfade über die Asset-Basis
+// auflösen (leer = lokal, z. B. in Webby = Website-Adresse).
+function imgUrl(image: ImageRef | undefined, w: number, base?: string): string {
   const url = image?.url;
   if (!url) return "";
-  if (!url.includes("cdn.sanity.io")) return url;
+  if (!url.includes("cdn.sanity.io")) return withBase(url, base);
   const sep = url.includes("?") ? "&" : "?";
   return `${url}${sep}w=${w}&q=75&auto=format`;
 }
@@ -57,12 +59,14 @@ function resolveCta(cta: Cta | undefined, lang: Lang): { label: string; href: st
 // Mappt einen Baukasten-Abschnitt auf Annalenas Item-Komponente.
 // Unbekannte/leere Abschnitte werden übersprungen — die Seite bricht nie.
 // `magazine` speist den Magazin-Streifen (kuratierte Artikel von der Seite).
-function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots): React.ReactNode {
+function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots, base: string): React.ReactNode {
   // Code-Riegel (Marker im CMS): den passenden Slot-Knoten rendern.
   if (SLOT_TYPES.includes(s._type)) {
     const node = slots[s._type];
     return node ? <Fragment key={s._key}>{node}</Fragment> : null;
   }
+  // Bild-URLs über die Asset-Basis auflösen (lokal in AD27, Website-Adresse in Webby).
+  const img = (image?: ImageRef, w = 1600) => imgUrl(image, w, base);
   switch (s._type) {
     case "ticker": {
       const items = (s.items ?? []).map((i) => loc(i, lang)).filter(Boolean);
@@ -80,7 +84,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           body={loc(s.body, lang)}
           primaryCta={primary}
           secondaryCta={resolveCta(s.secondaryCta, lang)}
-          videoSrc={s.videoUrl || undefined}
+          videoSrc={withBase(s.videoUrl, base) || undefined}
           poster={img(s.poster) || undefined}
         />
       );
@@ -213,7 +217,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           kicker={loc(s.kicker, lang)}
           title={loc(s.title, lang)}
           body={loc(s.body, lang)}
-          videoSrc={s.videoUrl || undefined}
+          videoSrc={withBase(s.videoUrl, base) || undefined}
           poster={img(s.poster) || undefined}
         />
       );
@@ -458,11 +462,13 @@ export default function SectionRenderer({
   lang,
   magazine = [],
   slots = {},
+  assetBase = "",
 }: {
   sections: Section[];
   lang: Lang;
   magazine?: MagCard[];
   slots?: Slots;
+  assetBase?: string;
 }) {
-  return <>{sections.map((s) => renderSection(s, lang, magazine, slots))}</>;
+  return <>{sections.map((s) => renderSection(s, lang, magazine, slots, assetBase))}</>;
 }
