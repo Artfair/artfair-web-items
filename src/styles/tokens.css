@@ -1,0 +1,34 @@
+/* =============================================================
+   Farb-Tokens — KANONISCHE QUELLE (Token-Konsolidierung 2026)
+   ----------------------------------------------------------------
+   Einzige Quelle der Wahrheit für Farben. Die Tailwind-Config
+   spiegelt dieselben Namen als var()-Referenzen (text-ink,
+   bg-paper, …) — Werte werden NUR hier geändert.
+   Keine hartcodierten Hex-Werte im Komponenten-Code.
+   ============================================================= */
+
+:root {
+  /* Basis — Monochrom */
+  --ink:          #0D0C0B;  /* Text, starke Rahmen, dunkle Flächen, Footer */
+  --paper:        #F6F4F0;  /* Standard-Hintergrund */
+
+  /* Akzent — nur CTA/Signature-Kontexte */
+  --accent:       #e7fa31;  /* Lime: Willkommens-Block, Menü-Unterstreichung (nur Meta-Spalte), Bot-Tab, Advertorial-Badge, Status-Punkt, Magazin-Link */
+  --accent-soft:  #f1f5d6;  /* Hintergrund Fokus-Sektion */
+
+  /* Text-Abstufungen */
+  --gray-1:       #333333;
+  --gray-2:       #555555;
+  --gray-3:       #666666;
+  --gray-4:       #888888;
+
+  /* Linien */
+  --line-soft:    #ececec;
+  --line:         #d8d8d8;
+
+  /* Erdtöne — ausschließlich Fokus-Sektion (Advertorial) der Startseite */
+  --earth-1:      #5c6033;  /* dunkel — Advertorial-Badge-Text */
+  --earth-2:      #79804f;  /* mittel — Kicker der Fokus-Sektion */
+  --earth-3:      #9a8f76;  /* warm — Kategorie-Label der Karten */
+  --earth-line:   #c8cf9c;  /* Rahmen Advertorial-Badge */
+}
