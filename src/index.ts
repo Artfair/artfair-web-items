@@ -6,7 +6,10 @@ export * from './lib/slugs' // DE_SLUGS + localizeHref()
 
 // Anzeige-Regal: der SectionRenderer mappt Abschnitte auf die Web-Items.
 export { default as SectionRenderer } from './components/SectionRenderer'
-export { type MagCard } from './components/items/MagazineStripItem'
+
+// Web-Items einzeln (der „Schrank") — Konsumenten können jedes Bauteil direkt
+// importieren; gepflegt wird es nur hier im Paket.
+export * from './components/items'
 
 // Rahmen: Header (Mega-Menü), Footer, Chrome (Layout-Klammer), Logo.
 // nav-Daten kommen als Prop (Konsument fetcht siteNavigation selbst).

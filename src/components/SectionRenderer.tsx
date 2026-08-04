@@ -61,6 +61,8 @@ function resolveCta(cta: Cta | undefined, lang: Lang): { label: string; href: st
 // Unbekannte/leere Abschnitte werden übersprungen — die Seite bricht nie.
 // `magazine` speist den Magazin-Streifen (kuratierte Artikel von der Seite).
 function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots, base: string): React.ReactNode {
+  // Ausgeblendete Riegel (im Webby-Editor „Ausblenden") erscheinen nicht.
+  if ((s as { hidden?: boolean }).hidden) return null;
   // Code-Riegel (Marker im CMS): den passenden Slot-Knoten rendern.
   if (SLOT_TYPES.includes(s._type)) {
     const node = slots[s._type];
