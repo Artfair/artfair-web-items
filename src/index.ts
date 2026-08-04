@@ -13,7 +13,7 @@ export * from './components/items'
 
 // Rahmen: Header (Mega-Menü), Footer, Chrome (Layout-Klammer), Logo.
 // nav-Daten kommen als Prop (Konsument fetcht siteNavigation selbst).
-export { default as Header } from './components/Header'
+export { default as Header, type MagazineTeaser } from './components/Header'
 export { default as Footer } from './components/Footer'
 export { default as Chrome } from './components/Chrome'
 export { default as Logo } from './components/Logo'
