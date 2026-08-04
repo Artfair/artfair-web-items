@@ -1,4 +1,5 @@
 import { TickerItem } from "./items/TickerItem";
+import { SpacerItem } from "./items/SpacerItem";
 import { HeroSplitItem } from "./items/HeroSplitItem";
 import { FactsRowItem } from "./items/FactsRowItem";
 import { CtaBandItem } from "./items/CtaBandItem";
@@ -68,6 +69,9 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
   // Bild-URLs über die Asset-Basis auflösen (lokal in AD27, Website-Adresse in Webby).
   const img = (image?: ImageRef, w = 1600) => imgUrl(image, w, base);
   switch (s._type) {
+    case "spacer":
+      return <SpacerItem key={s._key} color={s.color} height={s.height} />;
+
     case "ticker": {
       const items = (s.items ?? []).map((i) => loc(i, lang)).filter(Boolean);
       if (items.length === 0) return null;

@@ -383,8 +383,18 @@ export interface SlotMarkerSection {
   anchor?: string;
 }
 
+// Abstandhalter: leeres, farbiges Band (kein Text) — reine Layout-Luft.
+export interface SpacerSection {
+  _key: string;
+  _type: "spacer";
+  anchor?: string;
+  color?: string; // Hintergrundfarbe (Hex aus fester Palette); leer = transparent
+  height?: string; // CSS-Höhe, z. B. "64px"
+}
+
 export type Section =
   | SlotMarkerSection
+  | SpacerSection
   | TickerSection
   | HeroSplitSection
   | FactsRowSection
