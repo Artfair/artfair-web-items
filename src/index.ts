@@ -20,3 +20,8 @@ export * from './lib/navigation' // SiteNav, NavItem, NavGroup, LocaleField
 export { default as HeaderAnimation } from './components/HeaderAnimation' // Hero-Video
 export { default as AskArtDus } from './components/AskArtDus' // Digitaler Concierge
 export { withBase } from './lib/assets' // Asset-Basis-Auflösung
+
+// Programm-Custom-Items (feste Code-Riegel: Art Walks, Talks-Fahrplan, Kuratiert):
+export { ProgrammArtWalks } from './components/programm/ProgrammArtWalks'
+export { ProgrammSchedule } from './components/programm/ProgrammSchedule'
+export { ProgrammCurated } from './components/programm/ProgrammCurated'
