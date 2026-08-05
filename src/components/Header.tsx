@@ -258,7 +258,7 @@ export default function Header({
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? "Menü schließen" : "Menü"}
             aria-expanded={menuOpen}
-            className="flex flex-col justify-center gap-[5px] w-[42px] h-[34px] px-2 py-1.5 cursor-pointer"
+            className="-mr-2 flex flex-col justify-center gap-[5px] w-[42px] h-[34px] px-2 py-1.5 cursor-pointer"
           >
             <span className="block h-[2px] w-full bg-artdus-black" />
             <span className="block h-[2px] w-full bg-artdus-black" />
