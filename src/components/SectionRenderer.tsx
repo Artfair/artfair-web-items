@@ -1,5 +1,6 @@
 import { TickerItem } from "./items/TickerItem";
 import { SpacerItem } from "./items/SpacerItem";
+import { ContactBlockItem } from "./items/ContactBlockItem";
 import { HeroSplitItem } from "./items/HeroSplitItem";
 import { FactsRowItem } from "./items/FactsRowItem";
 import { CtaBandItem } from "./items/CtaBandItem";
@@ -73,6 +74,14 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
   switch (s._type) {
     case "spacer":
       return <SpacerItem key={s._key} color={s.color} height={s.height} />;
+
+    case "contactBlock": {
+      const cards = (s.cards ?? [])
+        .map((c) => ({ name: loc(c.name, lang), lines: loc(c.lines, lang), contact: loc(c.contact, lang) }))
+        .filter((c) => c.name || c.lines || c.contact);
+      if (cards.length === 0) return null;
+      return <ContactBlockItem key={s._key} anchor={s.anchor} heading={loc(s.heading, lang)} cards={cards} />;
+    }
 
     case "ticker": {
       const items = (s.items ?? []).map((i) => loc(i, lang)).filter(Boolean);

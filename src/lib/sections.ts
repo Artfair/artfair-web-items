@@ -392,9 +392,24 @@ export interface SpacerSection {
   height?: string; // CSS-Höhe, z. B. "64px"
 }
 
+export interface ContactCardData {
+  _key?: string;
+  name?: Loc;
+  lines?: Loc; // Adresse, mehrzeilig
+  contact?: Loc; // Telefon/E-Mail, mehrzeilig
+}
+export interface ContactBlockSection {
+  _key: string;
+  _type: "contactBlock";
+  anchor?: string;
+  heading?: Loc;
+  cards?: ContactCardData[];
+}
+
 export type Section =
   | SlotMarkerSection
   | SpacerSection
+  | ContactBlockSection
   | TickerSection
   | HeroSplitSection
   | FactsRowSection
