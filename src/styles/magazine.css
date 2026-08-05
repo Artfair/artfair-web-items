@@ -18,6 +18,40 @@
   --radius-pill: 100px;
 }
 
+/* Basis der Magazin-Bausteine (lagen früher in AD27 globals.css → hier ins
+   Paket geholt, damit die Seite auch in Webby vollständig aussieht). */
+.mag-kicker {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.mag-rule { border-top: 1px solid var(--color-line); }
+.mag-pill {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--color-ink);
+  color: var(--color-ink);
+  background: transparent;
+  text-decoration: none;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+.mag-pill:hover {
+  background: var(--color-ink);
+  color: var(--color-bg, #fff);
+}
+.mag-pill--active {
+  background: var(--mag-accent, #eafc32);
+  border-color: var(--mag-accent, #eafc32);
+  color: #0d0c0b;
+}
+
 /* Aktives Pill = Akzent, hover = invertiert (override globals.css im Magazin) */
 .magazine-theme .mag-pill--active {
   background: var(--mag-accent);
