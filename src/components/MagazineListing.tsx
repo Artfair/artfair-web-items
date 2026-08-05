@@ -87,41 +87,29 @@ export function MagazineListing({
   featured,
   mosaic,
   mostRead,
+  chrome = true,
 }: {
   lang: 'de' | 'en'
-  heading: string
+  heading?: string
   intro?: string | null
-  pills: MagListPill[]
+  pills?: MagListPill[]
   featured: MagListCard | null
   mosaic: MagListCard[]
   mostRead: MagListCard[]
+  // chrome=true rendert die ganze Seite (Rahmen: .magazine-theme/.mag-wrap +
+  // Masthead + Nav). chrome=false rendert NUR den Inhalt (Standfirst + Hero +
+  // Mosaik + Sidebar + Extra) — für Konsumenten, die Rahmen/Masthead/Nav selbst
+  // liefern (AD27-Layout). Webby nutzt chrome=true.
+  chrome?: boolean
 }) {
   const readMore = lang === 'de' ? 'Weiterlesen' : 'Read more'
   const mostReadLabel = lang === 'de' ? 'Meistgelesen' : 'Most Read'
   const mosaicMain = mosaic.slice(0, 6)
   const mosaicExtra = mosaic.slice(6)
 
-  return (
-    <div className="magazine-theme">
-      <div className="mag-wrap">
-        <header className="mag-masthead">
-          <h1 className="mag-masthead__title">{heading}</h1>
-        </header>
-
-        <nav className="mag-nav">
-          {pills.map((p) => (
-            <a
-              key={p.key}
-              href={p.href}
-              data-view={p.key}
-              className={`mag-pill${p.active ? ' mag-pill--active' : ''}`}
-            >
-              {p.label}
-            </a>
-          ))}
-        </nav>
-
-        {intro && <p className="mag-standfirst">{intro}</p>}
+  const inner = (
+    <>
+      {intro && <p className="mag-standfirst">{intro}</p>}
 
         {featured && (
           <a href={featured.href} data-article={featured.id} className="mag-hero">
@@ -210,6 +198,32 @@ export function MagazineListing({
             ))}
           </div>
         )}
+    </>
+  )
+
+  if (!chrome) return inner
+
+  return (
+    <div className="magazine-theme">
+      <div className="mag-wrap">
+        <header className="mag-masthead">
+          <h1 className="mag-masthead__title">{heading}</h1>
+        </header>
+
+        <nav className="mag-nav">
+          {(pills ?? []).map((p) => (
+            <a
+              key={p.key}
+              href={p.href}
+              data-view={p.key}
+              className={`mag-pill${p.active ? ' mag-pill--active' : ''}`}
+            >
+              {p.label}
+            </a>
+          ))}
+        </nav>
+
+        {inner}
       </div>
     </div>
   )
