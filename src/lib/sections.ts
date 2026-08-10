@@ -406,10 +406,98 @@ export interface ContactBlockSection {
   cards?: ContactCardData[];
 }
 
+// „Über uns & Kontakt" — die GANZE Seite als EIN Item (AboutPageItem).
+// Layout/Optik bleiben fest im Code; hier nur die editierbaren Inhalte.
+export interface AboutQuote {
+  text?: Loc;
+  author?: string; // z. B. „N. N."
+  role?: Loc; // z. B. „Direktion · 2026"
+  draft?: boolean; // zeigt den Hinweis „Zitat-Entwurf zur Freigabe"
+}
+export interface AboutSectionRow {
+  _key: string;
+  name?: string;
+  body?: Loc;
+}
+export interface AboutTeamMember {
+  _key: string;
+  name?: string;
+  role?: Loc;
+  email?: string;
+  phone?: string;
+}
+export interface AboutEnquiryLink {
+  _key: string;
+  href?: string;
+  label?: Loc;
+  acid?: boolean; // true = Acid-Unterstrich-Link, false = Mono-Kontaktlink
+}
+export interface AboutEnquiryBlock {
+  _key: string;
+  heading?: Loc;
+  body?: Loc;
+  links?: AboutEnquiryLink[];
+}
+export interface AboutAddress {
+  _key: string;
+  label?: Loc;
+  name?: Loc; // Umbruch mit \n
+  lines?: Loc; // Umbruch mit \n
+  phone?: string;
+  email?: string;
+  tone?: "lime" | "black";
+}
+export interface AboutPageSection {
+  _key: string;
+  _type: "aboutPage";
+  heroTitle?: Loc;
+  heroBody?: Loc;
+  heroPrimaryCta?: Cta;
+  heroSecondaryCta?: Cta;
+  heroVideoUrl?: string;
+  heroPoster?: ImageRef;
+  visionEyebrow?: Loc;
+  visionHeading?: Loc;
+  visionBody?: Loc;
+  visionQuote?: AboutQuote;
+  collectorsEyebrow?: Loc;
+  collectorsHeading?: Loc;
+  collectorsBody?: Loc;
+  collectorsImage?: ImageRef;
+  collectorsQuote?: AboutQuote;
+  arealImage?: ImageRef;
+  arealLabel?: Loc;
+  arealBody?: Loc;
+  profileEyebrow?: Loc;
+  profileHeading?: Loc;
+  profileSections?: AboutSectionRow[];
+  profileThemesLabel?: Loc;
+  profileThemes?: string[];
+  profileQuote?: AboutQuote;
+  profileImage?: ImageRef;
+  contactAnchor?: string;
+  contactEyebrow?: Loc;
+  contactHeading?: Loc;
+  contactBody?: Loc;
+  contactCta?: Cta;
+  contactAddressLine?: Loc;
+  contactPhone?: string;
+  teamEyebrow?: Loc;
+  teamHeading?: Loc;
+  team?: AboutTeamMember[];
+  enquiriesEyebrow?: Loc;
+  enquiriesHeading?: Loc;
+  enquiries?: AboutEnquiryBlock[];
+  addressesEyebrow?: Loc;
+  addressesHeading?: Loc;
+  addresses?: AboutAddress[];
+}
+
 export type Section =
   | SlotMarkerSection
   | SpacerSection
   | ContactBlockSection
+  | AboutPageSection
   | TickerSection
   | HeroSplitSection
   | FactsRowSection
