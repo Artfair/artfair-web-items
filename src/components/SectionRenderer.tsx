@@ -24,8 +24,9 @@ import { SalesHeroItem } from "./items/SalesHeroItem";
 import { InfoHeaderItem } from "./items/InfoHeaderItem";
 import { ListHeaderItem } from "./items/ListHeaderItem";
 import { NewsletterHeroItem } from "./items/NewsletterHeroItem";
+import { AboutPageItem } from "./items/AboutPageItem";
 import { Fragment } from "react";
-import { loc, type Cta, type ImageRef, type Section } from "../lib/sections";
+import { loc, type Cta, type ImageRef, type Section, type AboutQuote } from "../lib/sections";
 import { localizeHref } from "../lib/slugs";
 import { withBase } from "../lib/assets";
 
@@ -463,6 +464,95 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           submitLabel={lang === "de" ? "Abonnieren" : "Subscribe"}
           thanksText={lang === "de" ? "Danke! Wir melden uns." : "Thank you! We’ll be in touch."}
           images={images}
+        />
+      );
+    }
+
+    case "aboutPage": {
+      const q = (x?: AboutQuote) => ({
+        text: loc(x?.text, lang),
+        author: x?.author ?? "",
+        role: loc(x?.role, lang),
+        draft: !!x?.draft,
+      });
+      const im = (x?: ImageRef) => (img(x) ? { src: img(x), alt: x?.alt ?? "" } : undefined);
+      const linkHref = (href?: string) => {
+        if (!href) return "";
+        if (/^(mailto:|tel:|https?:|#)/.test(href)) return href;
+        return localizeHref(href, lang);
+      };
+      return (
+        <AboutPageItem
+          key={s._key}
+          heroTitle={loc(s.heroTitle, lang)}
+          heroBody={loc(s.heroBody, lang)}
+          heroPrimaryCta={resolveCta(s.heroPrimaryCta, lang)}
+          heroSecondaryCta={resolveCta(s.heroSecondaryCta, lang)}
+          heroVideoSrc={s.heroVideoUrl || undefined}
+          heroPoster={img(s.heroPoster) || undefined}
+          visionEyebrow={loc(s.visionEyebrow, lang)}
+          visionHeading={loc(s.visionHeading, lang)}
+          visionBody={loc(s.visionBody, lang)}
+          visionQuote={q(s.visionQuote)}
+          collectorsEyebrow={loc(s.collectorsEyebrow, lang)}
+          collectorsHeading={loc(s.collectorsHeading, lang)}
+          collectorsBody={loc(s.collectorsBody, lang)}
+          collectorsImage={im(s.collectorsImage)}
+          collectorsQuote={q(s.collectorsQuote)}
+          arealImage={im(s.arealImage)}
+          arealLabel={loc(s.arealLabel, lang)}
+          arealBody={loc(s.arealBody, lang)}
+          profileEyebrow={loc(s.profileEyebrow, lang)}
+          profileHeading={loc(s.profileHeading, lang)}
+          profileSections={(s.profileSections ?? [])
+            .map((r) => ({ name: r.name ?? "", body: loc(r.body, lang) }))
+            .filter((r) => r.name || r.body)}
+          profileThemesLabel={loc(s.profileThemesLabel, lang)}
+          profileThemes={(s.profileThemes ?? []).filter(Boolean)}
+          profileQuote={q(s.profileQuote)}
+          profileImage={im(s.profileImage)}
+          contactAnchor={s.contactAnchor || "kontakt"}
+          contactEyebrow={loc(s.contactEyebrow, lang)}
+          contactHeading={loc(s.contactHeading, lang)}
+          contactBody={loc(s.contactBody, lang)}
+          contactCta={resolveCta(s.contactCta, lang)}
+          contactAddressLine={loc(s.contactAddressLine, lang)}
+          contactPhone={s.contactPhone ?? ""}
+          teamEyebrow={loc(s.teamEyebrow, lang)}
+          teamHeading={loc(s.teamHeading, lang)}
+          team={(s.team ?? [])
+            .map((m) => ({
+              name: m.name ?? "",
+              role: loc(m.role, lang),
+              email: m.email ?? "",
+              phone: m.phone ?? "",
+            }))
+            .filter((m) => m.name || m.email)}
+          enquiriesEyebrow={loc(s.enquiriesEyebrow, lang)}
+          enquiriesHeading={loc(s.enquiriesHeading, lang)}
+          enquiries={(s.enquiries ?? [])
+            .map((b) => ({
+              heading: loc(b.heading, lang),
+              body: loc(b.body, lang),
+              links: (b.links ?? []).map((l) => ({
+                href: linkHref(l.href),
+                label: loc(l.label, lang),
+                acid: !!l.acid,
+              })),
+            }))
+            .filter((b) => b.heading || b.body)}
+          addressesEyebrow={loc(s.addressesEyebrow, lang)}
+          addressesHeading={loc(s.addressesHeading, lang)}
+          addresses={(s.addresses ?? [])
+            .map((a) => ({
+              label: loc(a.label, lang),
+              name: loc(a.name, lang),
+              lines: loc(a.lines, lang),
+              phone: a.phone ?? "",
+              email: a.email ?? "",
+              tone: (a.tone === "black" ? "black" : "lime") as "black" | "lime",
+            }))
+            .filter((a) => a.name || a.lines)}
         />
       );
     }
