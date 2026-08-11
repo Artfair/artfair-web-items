@@ -58,6 +58,7 @@ export interface FactsRowSection {
   _key: string;
   _type: "factsRow";
   anchor?: string; // Sprungmarke (z. B. "oeffnungszeiten")
+  kicker?: Loc; // kurze Einordnungszeile über den Badges (z. B. „Auf einen Blick.")
   facts?: Fact[];
 }
 
@@ -69,11 +70,16 @@ export interface CtaBandSection {
   eyebrow?: Loc;
   heading?: Loc;
   body?: Loc;
+  // Ansprechperson, abgesetzt vom Fließtext (z. B. Johanna Sucec · VIP Management)
+  contactName?: string;
+  contactRole?: Loc;
+  contactPhone?: string;
   cta?: Cta;
   image?: ImageRef;
 }
 
-// 05 — Text + CTA (TextCtaItem)
+// 05 — Text + CTA (TextCtaItem) — Eyebrow und CTA sind optional; ohne beides
+// wird der Riegel zur ruhigen Textsektion (z. B. „Unabhängig buchbar").
 export interface TextCtaSection {
   _key: string;
   _type: "textCta";
@@ -334,6 +340,7 @@ export interface SalesHeroSection {
   primaryCta?: Cta; // Acid-Knopf
   secondaryCta?: Cta;
   images?: SlideData[]; // erstes Bild = Basis (Pflicht fürs Rendern)
+  imageCaption?: Loc; // dezente Bildunterschrift unter der Slideshow
 }
 
 // 22 — Info-Header (InfoHeaderItem, Typ 4) — trägt die H1, pro Seite max.
@@ -373,6 +380,31 @@ export interface NewsletterHeroSection {
   title?: Loc;
   body?: Loc;
   images?: SlideData[]; // zwei gestapelte Fotos rechts
+}
+
+// 25 — Anfrage-Formular (InquiryFormItem) — Business meets Art, Sektion 7.
+// Felder/Dropdown-Optionen sind editierbar. Versand: `action` = POST-Route
+// des Konsumenten (Andock-Stelle fürs AD27-Backend); ohne `action` bestätigt
+// das Formular nur clientseitig, es wird nichts verschickt.
+export interface InquiryFormSection {
+  _key: string;
+  _type: "inquiryForm";
+  anchor?: string; // Ziel der „Anfrage senden"-Knöpfe (z. B. "anfrage")
+  eyebrow?: Loc;
+  heading?: Loc;
+  intro?: Loc;
+  companyLabel?: Loc; // Pflichtfeld: Unternehmen
+  contactLabel?: Loc; // Pflichtfeld: Ansprechpartner + Position
+  periodLabel?: Loc; // Pflichtfeld: gewünschter Zeitraum
+  periodOptions?: Loc[]; // Messetage AD27
+  guestsLabel?: Loc; // Pflichtfeld: ungefähre Gästezahl
+  guestOptions?: Loc[]; // Ranges, z. B. „bis 5 Gäste"
+  contextLabel?: Loc; // optionales Freitextfeld: Kontext/Anlass
+  contextPlaceholder?: Loc;
+  submitLabel?: Loc;
+  confirmation?: Loc; // Bestätigungstext nach dem Absenden
+  action?: string; // POST-Ziel, z. B. "/api/business-inquiry"
+  errorText?: Loc; // Meldung bei fehlgeschlagenem Versand
 }
 
 // Marker für feste, im Code gepflegte Riegel (Talks-Fahrplan usw.): im CMS nur
@@ -521,7 +553,8 @@ export type Section =
   | SalesHeroSection
   | InfoHeaderSection
   | ListHeaderSection
-  | NewsletterHeroSection;
+  | NewsletterHeroSection
+  | InquiryFormSection;
 
 export type SectionType = Section["_type"];
 

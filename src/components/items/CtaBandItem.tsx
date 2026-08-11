@@ -37,6 +37,7 @@ export function CtaBandItem({
   eyebrow,
   heading,
   body,
+  contact,
   cta,
   imageSrc,
   imageAlt,
@@ -45,6 +46,8 @@ export function CtaBandItem({
   eyebrow: string;
   heading: string; // Zeilenumbruch als \n
   body: string;
+  // Ansprechperson, abgesetzt vom Fließtext (statt Kontaktdaten im body).
+  contact?: { name: string; role?: string; phone?: string };
   cta: { label: string; href: string };
   imageSrc: string;
   imageAlt: string;
@@ -60,6 +63,24 @@ export function CtaBandItem({
           {heading}
         </h2>
         <p className="text-[17px] leading-[1.6] text-neutral-300 max-w-[44ch]">{body}</p>
+        {contact && (
+          <div className="border-l-2 border-artdus-lime pl-5">
+            <span className="block text-[16px] font-medium text-white">{contact.name}</span>
+            {contact.role && (
+              <span className="block text-[12px] font-semibold tracking-[0.14em] uppercase text-neutral-400 mt-1">
+                {contact.role}
+              </span>
+            )}
+            {contact.phone && (
+              <a
+                href={`tel:${contact.phone.replace(/[\s-]+/g, "")}`}
+                className="inline-block font-mono text-[14px] text-neutral-300 mt-2.5 hover:underline underline-offset-[3px]"
+              >
+                {contact.phone}
+              </a>
+            )}
+          </div>
+        )}
         <CtaLink
           href={cta.href}
           className="self-start text-[13px] font-semibold tracking-[0.14em] uppercase text-artdus-black bg-artdus-lime px-[30px] py-[15px] mt-1.5"

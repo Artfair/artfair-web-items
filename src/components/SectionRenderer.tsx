@@ -25,8 +25,9 @@ import { InfoHeaderItem } from "./items/InfoHeaderItem";
 import { ListHeaderItem } from "./items/ListHeaderItem";
 import { NewsletterHeroItem } from "./items/NewsletterHeroItem";
 import { AboutPageItem } from "./items/AboutPageItem";
+import { InquiryFormItem } from "./items/InquiryFormItem";
 import { Fragment } from "react";
-import { loc, type Cta, type ImageRef, type Section, type AboutQuote } from "../lib/sections";
+import { loc, type Cta, type ImageRef, type Loc, type Section, type AboutQuote } from "../lib/sections";
 import { localizeHref } from "../lib/slugs";
 import { withBase } from "../lib/assets";
 
@@ -111,7 +112,9 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
         .map((f) => ({ label: loc(f.label, lang), value: loc(f.value, lang), muted: f.muted }))
         .filter((f) => f.label || f.value);
       if (facts.length === 0) return null;
-      return <FactsRowItem key={s._key} id={s.anchor} facts={facts} />;
+      return (
+        <FactsRowItem key={s._key} id={s.anchor} kicker={loc(s.kicker, lang) || undefined} facts={facts} />
+      );
     }
 
     case "ctaBand": {
@@ -124,6 +127,15 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           eyebrow={loc(s.eyebrow, lang)}
           heading={loc(s.heading, lang)}
           body={loc(s.body, lang)}
+          contact={
+            s.contactName
+              ? {
+                  name: s.contactName,
+                  role: loc(s.contactRole, lang) || undefined,
+                  phone: s.contactPhone || undefined,
+                }
+              : undefined
+          }
           cta={cta}
           imageSrc={img(s.image)}
           imageAlt={s.image?.alt ?? ""}
@@ -132,16 +144,16 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
     }
 
     case "textCta": {
-      const cta = resolveCta(s.cta, lang);
-      if (!cta) return null;
+      // Ohne CTA als ruhige Textsektion rendern — aber nie ganz leer.
+      if (!loc(s.heading, lang) && !loc(s.body, lang)) return null;
       return (
         <TextCtaItem
           key={s._key}
           id={s.anchor}
-          eyebrow={loc(s.eyebrow, lang)}
+          eyebrow={loc(s.eyebrow, lang) || undefined}
           heading={loc(s.heading, lang)}
           body={loc(s.body, lang)}
-          cta={cta}
+          cta={resolveCta(s.cta, lang)}
           imageSrc={img(s.image) || undefined}
           imageAlt={s.image?.alt ?? ""}
         />
@@ -417,6 +429,40 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           secondaryCta={resolveCta(s.secondaryCta, lang)}
           images={images}
           imageAlt={s.images?.[0]?.image?.alt ?? ""}
+          imageCaption={loc(s.imageCaption, lang) || undefined}
+        />
+      );
+    }
+
+    case "inquiryForm": {
+      if (!loc(s.heading, lang)) return null;
+      const opts = (list?: Loc[]) => (list ?? []).map((o) => loc(o, lang)).filter(Boolean);
+      return (
+        <InquiryFormItem
+          key={s._key}
+          id={s.anchor}
+          eyebrow={loc(s.eyebrow, lang) || undefined}
+          heading={loc(s.heading, lang)}
+          intro={loc(s.intro, lang) || undefined}
+          companyLabel={loc(s.companyLabel, lang)}
+          contactLabel={loc(s.contactLabel, lang)}
+          periodLabel={loc(s.periodLabel, lang)}
+          periodOptions={opts(s.periodOptions)}
+          guestsLabel={loc(s.guestsLabel, lang)}
+          guestOptions={opts(s.guestOptions)}
+          contextLabel={loc(s.contextLabel, lang)}
+          contextPlaceholder={loc(s.contextPlaceholder, lang) || undefined}
+          optionalHint="optional"
+          selectPlaceholder={lang === "de" ? "Bitte wählen" : "Please choose"}
+          submitLabel={loc(s.submitLabel, lang)}
+          confirmation={loc(s.confirmation, lang)}
+          action={s.action || undefined}
+          errorText={
+            loc(s.errorText, lang) ||
+            (lang === "de"
+              ? "Senden fehlgeschlagen — bitte versuchen Sie es erneut."
+              : "Sending failed — please try again.")
+          }
         />
       );
     }

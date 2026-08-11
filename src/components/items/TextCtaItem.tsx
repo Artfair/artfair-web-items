@@ -2,6 +2,8 @@
 // Text und ein Button; optional mit Foto als zweiter Hälfte (Bild links,
 // Gegenstück zum dunklen CTA-Band mit Bild rechts). Für Partner-Verweise
 // wie den Hotelpartner. Externe Ziele (http/https) öffnen in neuem Tab.
+// Eyebrow und CTA sind optional — ohne beides wird der Abschnitt zur ruhigen
+// Textsektion (z. B. „Vertrauen" / „Unabhängig buchbar" auf Business meets Art).
 
 export function TextCtaItem({
   id,
@@ -13,32 +15,36 @@ export function TextCtaItem({
   imageAlt,
 }: {
   id?: string; // Sprungmarke für Menü-Links (z. B. "hotels")
-  eyebrow: string;
+  eyebrow?: string;
   heading: string; // Zeilenumbruch als \n
   body: string;
-  cta: { label: string; href: string };
+  cta?: { label: string; href: string };
   imageSrc?: string;
   imageAlt?: string;
 }) {
-  const isExternal = /^https?:/.test(cta.href);
+  const isExternal = cta ? /^https?:/.test(cta.href) : false;
 
   const content = (
     <>
-      <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase">
-        <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
-        {eyebrow}
-      </span>
+      {eyebrow && (
+        <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase">
+          <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
+          {eyebrow}
+        </span>
+      )}
       <h2 className="font-light text-[clamp(30px,3.8vw,54px)] leading-[1.04] tracking-[-0.02em] whitespace-pre-line">
         {heading}
       </h2>
       <p className="text-[17px] leading-[1.6] text-neutral-600 max-w-[52ch]">{body}</p>
-      <a
-        href={cta.href}
-        {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-        className="self-start text-[13px] font-semibold tracking-[0.14em] uppercase text-white bg-artdus-black px-[30px] py-[15px]"
-      >
-        {cta.label} →
-      </a>
+      {cta && (
+        <a
+          href={cta.href}
+          {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          className="self-start text-[13px] font-semibold tracking-[0.14em] uppercase text-white bg-artdus-black px-[30px] py-[15px]"
+        >
+          {cta.label} →
+        </a>
+      )}
     </>
   );
 

@@ -20,6 +20,7 @@ export function SalesHeroItem({
   secondaryCta,
   images,
   imageAlt,
+  imageCaption,
 }: {
   id?: string
   eyebrow: string
@@ -29,6 +30,7 @@ export function SalesHeroItem({
   secondaryCta?: {label: string; href: string}
   images: string[]
   imageAlt?: string
+  imageCaption?: string // dezente Bildunterschrift unter der Slideshow (z. B. „Business meets Art, AD26")
 }) {
   const [active, setActive] = useState(0)
 
@@ -74,19 +76,24 @@ export function SalesHeroItem({
             </div>
           )}
         </div>
-        <div className="relative min-h-[380px] md:min-h-[560px] overflow-hidden">
-          {images.map((src, i) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              key={src}
-              src={src}
-              alt={i === 0 ? (imageAlt ?? '') : ''}
-              aria-hidden={i === 0 ? undefined : true}
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
-                i === 0 || i === active ? 'opacity-100' : 'opacity-0'
-              }`}
-            />
-          ))}
+        <div className="flex flex-col">
+          <div className="relative flex-1 min-h-[380px] md:min-h-[560px] overflow-hidden">
+            {images.map((src, i) => (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                key={src}
+                src={src}
+                alt={i === 0 ? (imageAlt ?? '') : ''}
+                aria-hidden={i === 0 ? undefined : true}
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+                  i === 0 || i === active ? 'opacity-100' : 'opacity-0'
+                }`}
+              />
+            ))}
+          </div>
+          {imageCaption && (
+            <p className="text-[12px] leading-[1.5] text-neutral-500 mt-2.5">{imageCaption}</p>
+          )}
         </div>
       </div>
     </section>
