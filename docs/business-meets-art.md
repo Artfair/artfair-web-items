@@ -1,19 +1,39 @@
 # Business meets Art — Umbau der Landingpage (Content-Spez 8/2026)
 
-Handoff für das AD27-Team. Alle Bauteile liegen ab **v0.7.0** im Paket
-`@artfair/web-items` — in AD27 selbst ist nur die Seitenbestückung
-(`app/[lang]/business-meets-art/page.tsx`) auszutauschen, siehe fertige
-Komposition unten.
+Handoff für das AD27-Team. Alle Bauteile liegen ab **v0.9.0** im Paket
+`@artfair/web-items`.
 
-## Was ist neu im Paket (v0.7.0)
+## Empfohlener Weg: die ganze Seite als EIN Item (v0.9.0)
+
+`BusinessPageItem` ist die komplette Landingpage als ein Custom-Item
+(Muster `AboutPageItem`) — **als Ganzes editierbar in Webby** über den
+Section-Typ `businessPage` (inkl. eingebettetem Anfrage-Formular als
+`inquiry`-Objekt). Integration in AD27 wie bei `/about` (PR #66):
+
+1. `@artfair/web-items` auf `#semver:^0.9.0` heben (Achtung: `^0.6.x`
+   erlaubt kein 0.7/0.8/0.9 — die Zeile muss wirklich geändert werden).
+2. In Webby/Sanity eine `sitePage-business-meets-art` mit einem
+   `businessPage`-Abschnitt pflegen (Inhalte: siehe Komposition unten,
+   Feldnamen identisch). Webby muss dafür seine gespiegelte `sections.ts`
+   nachziehen.
+3. `app/[lang]/business-meets-art/page.tsx` rendert die sitePage-Abschnitte
+   über den `SectionRenderer`; als Fallback dient `<BusinessPageItem …/>`
+   mit denselben Inhalten hartkodiert (Props = die Werte aus der
+   Komposition unten, `inquiry` gebündelt als Objekt).
+
+Feste Sprungmarken im Item: `#vertrauen`, `#fakten`, `#format`,
+`#unabhaengig`, `#kontakt`, `#anfrage`.
+
+## Was ist neu im Paket
 
 | Bauteil | Änderung |
 | --- | --- |
+| `BusinessPageItem` | **NEU (v0.9.0)** — ganze Business-Seite als ein Item; Section-Typ `businessPage` |
 | `SalesHeroItem` | optionales `imageCaption` — dezente Bildunterschrift unter der Slideshow |
 | `FactsRowItem` | optionales `kicker` — Einordnungszeile über den Badges („Auf einen Blick.") |
 | `TextCtaItem` | `eyebrow` und `cta` jetzt optional — ohne beides eine ruhige Textsektion |
 | `CtaBandItem` | optionales `contact` — Ansprechperson abgesetzt vom Fließtext |
-| `InquiryFormItem` | **NEU** — Anfrage-Formular (Sektion 7); Bestätigung noch clientseitig, Backend folgt |
+| `InquiryFormItem` | **NEU (v0.7.0)** — Anfrage-Formular (Sektion 7); `action`-Prop als Backend-Andockstelle |
 
 Alle Erweiterungen sind rückwärtskompatibel (bestehende Seiten rendern
 unverändert). Die Baukasten-Typen (`sections.ts`) und der `SectionRenderer`
@@ -54,10 +74,13 @@ Entscheidungen bei Umsetzung (bitte gegenchecken):
   Annalena 12.8.) plus 9.–11. April 2027 (aus AD27-Inhalten) plus
   „Noch offen / flexibel".
 
-## Fertige Seitenbestückung für AD27
+## Inhalte (Referenz-Komposition, DE/EN)
 
-Ersetzt den Body von `app/[lang]/business-meets-art/page.tsx`
-(Metadata-Block kann bleiben; ggf. Description an neue Subline angleichen):
+Die verbindlichen Texte und Bilder für alle Sektionen — entweder als
+`businessPage`-Section in Webby pflegen (empfohlen, Feldnamen identisch)
+oder als granulare Riegel-Komposition direkt in
+`app/[lang]/business-meets-art/page.tsx` einsetzen (Metadata-Block kann
+bleiben; ggf. Description an neue Subline angleichen):
 
 ```tsx
 import {SalesHeroItem} from '@/components/items/SalesHeroItem'

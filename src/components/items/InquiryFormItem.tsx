@@ -15,6 +15,29 @@ const labelClass = 'block text-[13px] font-medium tracking-[0.1em] uppercase mb-
 const fieldClass =
   'w-full text-[15px] text-artdus-black px-[16px] py-[13px] border border-artdus-black bg-white outline-none placeholder:text-neutral-500 focus:border-artdus-lime focus:ring-1 focus:ring-artdus-lime'
 
+// Props auch als Typ exportiert — das BusinessPageItem bettet das Formular
+// als Teilobjekt ein (inquiry-Prop) und reicht sie 1:1 durch.
+export interface InquiryFormProps {
+  id?: string // Sprungmarke (z. B. "anfrage") — Ziel der „Anfrage senden"-Knöpfe
+  eyebrow?: string
+  heading: string
+  intro?: string
+  companyLabel: string // Pflichtfeld: Unternehmen
+  contactLabel: string // Pflichtfeld: Ansprechpartner + Position
+  periodLabel: string // Pflichtfeld: gewünschter Zeitraum (Dropdown)
+  periodOptions: string[] // Messetage AD27
+  guestsLabel: string // Pflichtfeld: ungefähre Gästezahl (Dropdown-Ranges)
+  guestOptions: string[]
+  contextLabel: string // optionales Freitextfeld: Kontext/Anlass
+  contextPlaceholder?: string
+  optionalHint?: string // Zusatz hinter optionalen Labels, z. B. "optional"
+  selectPlaceholder?: string // leere erste Dropdown-Zeile, z. B. "Bitte wählen"
+  submitLabel: string
+  confirmation: string // Bestätigungstext nach dem Absenden
+  action?: string // POST-Ziel (API-Route des Konsumenten); ohne: nur clientseitige Bestätigung
+  errorText?: string // Meldung, wenn der Versand über `action` fehlschlägt
+}
+
 export function InquiryFormItem({
   id,
   eyebrow,
@@ -34,26 +57,7 @@ export function InquiryFormItem({
   confirmation,
   action,
   errorText,
-}: {
-  id?: string // Sprungmarke (z. B. "anfrage") — Ziel der „Anfrage senden"-Knöpfe
-  eyebrow?: string
-  heading: string
-  intro?: string
-  companyLabel: string // Pflichtfeld: Unternehmen
-  contactLabel: string // Pflichtfeld: Ansprechpartner + Position
-  periodLabel: string // Pflichtfeld: gewünschter Zeitraum (Dropdown)
-  periodOptions: string[] // Messetage AD27
-  guestsLabel: string // Pflichtfeld: ungefähre Gästezahl (Dropdown-Ranges)
-  guestOptions: string[]
-  contextLabel: string // optionales Freitextfeld: Kontext/Anlass
-  contextPlaceholder?: string
-  optionalHint?: string // Zusatz hinter optionalen Labels, z. B. "optional"
-  selectPlaceholder?: string // leere erste Dropdown-Zeile, z. B. "Bitte wählen"
-  submitLabel: string
-  confirmation: string // Bestätigungstext nach dem Absenden
-  action?: string // POST-Ziel (API-Route des Konsumenten); ohne: nur clientseitige Bestätigung
-  errorText?: string // Meldung, wenn der Versand über `action` fehlschlägt
-}) {
+}: InquiryFormProps) {
   const uid = useId()
   const [done, setDone] = useState(false)
   const [sending, setSending] = useState(false)

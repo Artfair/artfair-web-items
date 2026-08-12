@@ -386,10 +386,9 @@ export interface NewsletterHeroSection {
 // Felder/Dropdown-Optionen sind editierbar. Versand: `action` = POST-Route
 // des Konsumenten (Andock-Stelle fürs AD27-Backend); ohne `action` bestätigt
 // das Formular nur clientseitig, es wird nichts verschickt.
-export interface InquiryFormSection {
-  _key: string;
-  _type: "inquiryForm";
-  anchor?: string; // Ziel der „Anfrage senden"-Knöpfe (z. B. "anfrage")
+// Die Felder sind geteilt: einzeln als inquiryForm-Riegel ODER eingebettet
+// in die businessPage (inquiry-Objekt).
+export interface InquiryFormFields {
   eyebrow?: Loc;
   heading?: Loc;
   intro?: Loc;
@@ -405,6 +404,11 @@ export interface InquiryFormSection {
   confirmation?: Loc; // Bestätigungstext nach dem Absenden
   action?: string; // POST-Ziel, z. B. "/api/business-inquiry"
   errorText?: Loc; // Meldung bei fehlgeschlagenem Versand
+}
+export interface InquiryFormSection extends InquiryFormFields {
+  _key: string;
+  _type: "inquiryForm";
+  anchor?: string; // Ziel der „Anfrage senden"-Knöpfe (z. B. "anfrage")
 }
 
 // 26 — Newsletter-Anmeldeseite (NewsletterPageItem) — die GANZE Landingpage
@@ -586,11 +590,46 @@ export interface AboutPageSection {
   addresses?: AboutAddress[];
 }
 
+// „Business meets Art" — die GANZE Landingpage als EIN Item (BusinessPageItem,
+// Muster AboutPageItem). Reihenfolge/Anker sind fest im Code; hier nur die
+// editierbaren Inhalte. Das Anfrage-Formular hängt als inquiry-Objekt dran.
+export interface BusinessPageSection {
+  _key: string;
+  _type: "businessPage";
+  heroEyebrow?: Loc;
+  heroTitle?: Loc;
+  heroBody?: Loc;
+  heroPrimaryCta?: Cta;
+  heroSecondaryCta?: Cta;
+  heroImages?: SlideData[]; // erstes Bild = Basis (Pflicht fürs Rendern)
+  heroImageCaption?: Loc;
+  trustEyebrow?: Loc;
+  trustHeading?: Loc;
+  trustBody?: Loc;
+  factsKicker?: Loc; // z. B. „Auf einen Blick."
+  facts?: Fact[];
+  includedEyebrow?: Loc;
+  includedHeading?: Loc;
+  includedCards?: TrioCardData[];
+  independentHeading?: Loc;
+  independentBody?: Loc;
+  contactEyebrow?: Loc;
+  contactHeading?: Loc;
+  contactBody?: Loc;
+  contactName?: string; // Ansprechperson, abgesetzt vom Fließtext
+  contactRole?: Loc;
+  contactPhone?: string;
+  contactCta?: Cta;
+  contactImage?: ImageRef;
+  inquiry?: InquiryFormFields; // ohne heading entfällt das Formular
+}
+
 export type Section =
   | SlotMarkerSection
   | SpacerSection
   | ContactBlockSection
   | AboutPageSection
+  | BusinessPageSection
   | TickerSection
   | HeroSplitSection
   | FactsRowSection

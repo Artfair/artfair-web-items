@@ -25,10 +25,19 @@ import { InfoHeaderItem } from "./items/InfoHeaderItem";
 import { ListHeaderItem } from "./items/ListHeaderItem";
 import { NewsletterHeroItem } from "./items/NewsletterHeroItem";
 import { AboutPageItem } from "./items/AboutPageItem";
-import { InquiryFormItem } from "./items/InquiryFormItem";
+import { InquiryFormItem, type InquiryFormProps } from "./items/InquiryFormItem";
+import { BusinessPageItem } from "./items/BusinessPageItem";
 import { NewsletterPageItem } from "./items/NewsletterPageItem";
 import { Fragment } from "react";
-import { loc, type Cta, type ImageRef, type Loc, type Section, type AboutQuote } from "../lib/sections";
+import {
+  loc,
+  type Cta,
+  type ImageRef,
+  type Loc,
+  type Section,
+  type AboutQuote,
+  type InquiryFormFields,
+} from "../lib/sections";
 import { localizeHref } from "../lib/slugs";
 import { withBase } from "../lib/assets";
 
@@ -59,6 +68,40 @@ function withLang(href: string, lang: Lang): string {
 function resolveCta(cta: Cta | undefined, lang: Lang): { label: string; href: string } | undefined {
   if (!cta?.href || cta.hidden) return undefined;
   return { label: loc(cta.label, lang), href: cta.href };
+}
+
+// Anfrage-Formular-Felder auflösen — geteilt zwischen dem inquiryForm-Riegel
+// und dem in die businessPage eingebetteten Formular. Ohne heading: undefined
+// (Formular entfällt).
+function resolveInquiry(
+  f: InquiryFormFields | undefined,
+  lang: Lang,
+): Omit<InquiryFormProps, "id"> | undefined {
+  if (!f || !loc(f.heading, lang)) return undefined;
+  const opts = (list?: Loc[]) => (list ?? []).map((o) => loc(o, lang)).filter(Boolean);
+  return {
+    eyebrow: loc(f.eyebrow, lang) || undefined,
+    heading: loc(f.heading, lang),
+    intro: loc(f.intro, lang) || undefined,
+    companyLabel: loc(f.companyLabel, lang),
+    contactLabel: loc(f.contactLabel, lang),
+    periodLabel: loc(f.periodLabel, lang),
+    periodOptions: opts(f.periodOptions),
+    guestsLabel: loc(f.guestsLabel, lang),
+    guestOptions: opts(f.guestOptions),
+    contextLabel: loc(f.contextLabel, lang),
+    contextPlaceholder: loc(f.contextPlaceholder, lang) || undefined,
+    optionalHint: "optional",
+    selectPlaceholder: lang === "de" ? "Bitte wählen" : "Please choose",
+    submitLabel: loc(f.submitLabel, lang),
+    confirmation: loc(f.confirmation, lang),
+    action: f.action || undefined,
+    errorText:
+      loc(f.errorText, lang) ||
+      (lang === "de"
+        ? "Senden fehlgeschlagen — bitte versuchen Sie es erneut."
+        : "Sending failed — please try again."),
+  };
 }
 
 // Mappt einen Baukasten-Abschnitt auf Annalenas Item-Komponente.
@@ -436,34 +479,65 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
     }
 
     case "inquiryForm": {
-      if (!loc(s.heading, lang)) return null;
-      const opts = (list?: Loc[]) => (list ?? []).map((o) => loc(o, lang)).filter(Boolean);
+      const inquiry = resolveInquiry(s, lang);
+      if (!inquiry) return null;
+      return <InquiryFormItem key={s._key} id={s.anchor} {...inquiry} />;
+    }
+
+    case "businessPage": {
+      const heroImages = (s.heroImages ?? [])
+        .filter((sl) => sl.image?.url)
+        .map((sl) => img(sl.image, 1400));
+      if (heroImages.length === 0) return null;
+      const contactImage = img(s.contactImage)
+        ? { src: img(s.contactImage), alt: s.contactImage?.alt ?? "" }
+        : undefined;
       return (
-        <InquiryFormItem
+        <BusinessPageItem
           key={s._key}
-          id={s.anchor}
-          eyebrow={loc(s.eyebrow, lang) || undefined}
-          heading={loc(s.heading, lang)}
-          intro={loc(s.intro, lang) || undefined}
-          companyLabel={loc(s.companyLabel, lang)}
-          contactLabel={loc(s.contactLabel, lang)}
-          periodLabel={loc(s.periodLabel, lang)}
-          periodOptions={opts(s.periodOptions)}
-          guestsLabel={loc(s.guestsLabel, lang)}
-          guestOptions={opts(s.guestOptions)}
-          contextLabel={loc(s.contextLabel, lang)}
-          contextPlaceholder={loc(s.contextPlaceholder, lang) || undefined}
-          optionalHint="optional"
-          selectPlaceholder={lang === "de" ? "Bitte wählen" : "Please choose"}
-          submitLabel={loc(s.submitLabel, lang)}
-          confirmation={loc(s.confirmation, lang)}
-          action={s.action || undefined}
-          errorText={
-            loc(s.errorText, lang) ||
-            (lang === "de"
-              ? "Senden fehlgeschlagen — bitte versuchen Sie es erneut."
-              : "Sending failed — please try again.")
+          heroEyebrow={loc(s.heroEyebrow, lang)}
+          heroTitle={loc(s.heroTitle, lang)}
+          heroBody={loc(s.heroBody, lang)}
+          heroPrimaryCta={resolveCta(s.heroPrimaryCta, lang)}
+          heroSecondaryCta={resolveCta(s.heroSecondaryCta, lang)}
+          heroImages={heroImages}
+          heroImageAlt={s.heroImages?.[0]?.image?.alt ?? ""}
+          heroImageCaption={loc(s.heroImageCaption, lang) || undefined}
+          trustEyebrow={loc(s.trustEyebrow, lang)}
+          trustHeading={loc(s.trustHeading, lang)}
+          trustBody={loc(s.trustBody, lang)}
+          factsKicker={loc(s.factsKicker, lang)}
+          facts={(s.facts ?? [])
+            .map((f) => ({ label: loc(f.label, lang), value: loc(f.value, lang) }))
+            .filter((f) => f.label || f.value)}
+          includedEyebrow={loc(s.includedEyebrow, lang)}
+          includedHeading={loc(s.includedHeading, lang)}
+          includedCards={(s.includedCards ?? [])
+            .map((c) => ({
+              imageSrc: img(c.image),
+              imageAlt: c.image?.alt ?? "",
+              label: loc(c.label, lang),
+              title: loc(c.title, lang),
+              body: loc(c.body, lang),
+            }))
+            .filter((c) => c.title || c.body || c.imageSrc)}
+          independentHeading={loc(s.independentHeading, lang)}
+          independentBody={loc(s.independentBody, lang)}
+          contactEyebrow={loc(s.contactEyebrow, lang)}
+          contactHeading={loc(s.contactHeading, lang)}
+          contactBody={loc(s.contactBody, lang)}
+          contactPerson={
+            s.contactName
+              ? {
+                  name: s.contactName,
+                  role: loc(s.contactRole, lang) || undefined,
+                  phone: s.contactPhone || undefined,
+                }
+              : undefined
           }
+          contactCta={resolveCta(s.contactCta, lang)}
+          contactImage={contactImage}
+          inquiry={resolveInquiry(s.inquiry, lang)}
         />
       );
     }
