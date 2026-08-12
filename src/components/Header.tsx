@@ -55,7 +55,7 @@ const MENU = {
     ],
     moreHead: "Mehr von der Art Düsseldorf",
     more: [
-      { label: "Newsletter", href: "/#newsletter" },
+      { label: "Newsletter", href: "/de/newsletter" },
       { label: "Magazin", href: "/de/magazine" },
       { label: "Partner", href: "/partner" },
       { label: "Presse", href: "/press" },
@@ -116,7 +116,7 @@ const MENU = {
     ],
     moreHead: "More from Art Düsseldorf",
     more: [
-      { label: "Newsletter", href: "/en#newsletter" },
+      { label: "Newsletter", href: "/en/newsletter" },
       { label: "Magazine", href: "/en/magazine" },
       { label: "Partners", href: "/partner" },
       { label: "Press", href: "/press" },

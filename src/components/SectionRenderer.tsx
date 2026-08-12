@@ -26,6 +26,7 @@ import { ListHeaderItem } from "./items/ListHeaderItem";
 import { NewsletterHeroItem } from "./items/NewsletterHeroItem";
 import { AboutPageItem } from "./items/AboutPageItem";
 import { InquiryFormItem } from "./items/InquiryFormItem";
+import { NewsletterPageItem } from "./items/NewsletterPageItem";
 import { Fragment } from "react";
 import { loc, type Cta, type ImageRef, type Loc, type Section, type AboutQuote } from "../lib/sections";
 import { localizeHref } from "../lib/slugs";
@@ -599,6 +600,75 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
               tone: (a.tone === "black" ? "black" : "lime") as "black" | "lime",
             }))
             .filter((a) => a.name || a.lines)}
+        />
+      );
+    }
+
+    case "newsletterPage": {
+      if (!loc(s.heroTitle, lang)) return null;
+      const im = (x?: ImageRef, w = 1600) => (img(x, w) ? { src: img(x, w), alt: x?.alt ?? "" } : undefined);
+      const de = lang === "de";
+      return (
+        <NewsletterPageItem
+          key={s._key}
+          id={s.anchor}
+          heroEyebrow={loc(s.heroEyebrow, lang)}
+          heroTitle={loc(s.heroTitle, lang)}
+          heroBody={loc(s.heroBody, lang)}
+          emailPlaceholder={loc(s.emailPlaceholder, lang) || (de ? "E-Mail-Adresse" : "Email address")}
+          submitLabel={loc(s.submitLabel, lang) || (de ? "Anmelden" : "Sign up")}
+          showLanguageToggle={s.showLanguageToggle ?? true}
+          defaultLanguage={lang}
+          consentText={
+            loc(s.consentText, lang) ||
+            (de
+              ? "Ich möchte den Newsletter der Art Düsseldorf per E-Mail erhalten. Die Anmeldung wird erst mit meiner Bestätigung wirksam (Double-Opt-in); eine Abmeldung ist jederzeit über den Link in jeder Ausgabe möglich. Mehr dazu in der"
+              : "I would like to receive the Art Düsseldorf newsletter by email. My subscription only becomes active once confirmed (double opt-in); I can unsubscribe at any time via the link in every issue. For details, see the")
+          }
+          privacyLabel={loc(s.privacyLabel, lang) || (de ? "Datenschutzerklärung" : "privacy policy")}
+          privacyHref={withLang(s.privacyHref || "/datenschutz", lang)}
+          confirmation={
+            loc(s.confirmation, lang) ||
+            (de
+              ? "Fast geschafft — bitte bestätigen Sie Ihre Anmeldung über den Link in Ihrem Postfach."
+              : "Almost there — please confirm your subscription via the link in your inbox.")
+          }
+          errorText={
+            loc(s.errorText, lang) ||
+            (de
+              ? "Senden fehlgeschlagen — bitte versuchen Sie es erneut."
+              : "Sending failed — please try again.")
+          }
+          action={s.action || undefined}
+          benefitsEyebrow={loc(s.benefitsEyebrow, lang)}
+          benefitsHeading={loc(s.benefitsHeading, lang)}
+          benefits={(s.benefits ?? [])
+            .map((b) => ({ eyebrow: loc(b.eyebrow, lang), title: loc(b.title, lang), body: loc(b.body, lang) }))
+            .filter((b) => b.title || b.body)}
+          mosaic={(s.mosaic ?? [])
+            .map((sl) => im(sl.image, 1200))
+            .filter((x): x is { src: string; alt: string } => !!x)}
+          previewEyebrow={loc(s.previewEyebrow, lang)}
+          previewHeading={loc(s.previewHeading, lang)}
+          previewUrl={s.previewUrl || "mail.artduesseldorf.com"}
+          phoneLabel={loc(s.phoneLabel, lang) || "Mail"}
+          mailImage={im(s.mailImage, 1200)}
+          mailSubject={loc(s.mailSubject, lang) || "Collector Insights #6 — AD27"}
+          mailFrom={s.mailFrom || undefined}
+          mockSender={loc(s.mockSender, lang) || undefined}
+          mockInboxLabel={loc(s.mockInboxLabel, lang) || undefined}
+          mockTeaser={loc(s.mockTeaser, lang) || undefined}
+          mockDate={loc(s.mockDate, lang) || undefined}
+          mockInbox={(s.mockInbox ?? [])
+            .map((r) => ({subject: loc(r.subject, lang), teaser: loc(r.teaser, lang), date: loc(r.date, lang)}))
+            .filter((r) => r.subject)}
+          mockMastheadKicker={loc(s.mockMastheadKicker, lang) || undefined}
+          mockKicker={loc(s.mockKicker, lang) || undefined}
+          mockTitle={loc(s.mockTitle, lang) || undefined}
+          mockText={loc(s.mockText, lang) || undefined}
+          mockLinkLabel={loc(s.mockLinkLabel, lang) || undefined}
+          quoteText={loc(s.quoteText, lang)}
+          quoteAttribution={loc(s.quoteAttribution, lang)}
         />
       );
     }

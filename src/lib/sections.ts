@@ -407,6 +407,67 @@ export interface InquiryFormSection {
   errorText?: Loc; // Meldung bei fehlgeschlagenem Versand
 }
 
+// 26 — Newsletter-Anmeldeseite (NewsletterPageItem) — die GANZE Landingpage
+// als EIN Item (wie aboutPage). Design-Handoff „Newsletter Landingpage"
+// (11.8.2026), übersetzt in die Haus-Entscheidungen: Weissenhof statt Serif,
+// schwarzer Submit-Knopf, keine eigene Top Bar, stilisierte Geräterahmen,
+// DSGVO-Hinweis unterm Formular. Micro-Copy (Placeholder, Consent, Fehler)
+// hat Renderer-Fallbacks und muss im CMS nicht gepflegt werden.
+export interface NewsletterBenefit {
+  _key: string;
+  eyebrow?: Loc;
+  title?: Loc;
+  body?: Loc;
+}
+export interface MockInboxRowData {
+  _key: string;
+  subject?: Loc;
+  teaser?: Loc;
+  date?: Loc;
+}
+export interface NewsletterPageSection {
+  _key: string;
+  _type: "newsletterPage";
+  anchor?: string;
+  heroEyebrow?: Loc;
+  heroTitle?: Loc;
+  heroBody?: Loc;
+  emailPlaceholder?: Loc;
+  submitLabel?: Loc;
+  showLanguageToggle?: boolean; // DE/EN-Pills (Newsletter-Sprache); Default an
+  consentText?: Loc; // DSGVO-Hinweis; Datenschutz-Link wird angehängt
+  privacyLabel?: Loc; // Linktext, z. B. „Datenschutzerklärung"
+  privacyHref?: string; // Default /datenschutz
+  confirmation?: Loc; // Bestätigung nach dem Absenden (Double-Opt-in-Hinweis)
+  errorText?: Loc;
+  action?: string; // POST-Ziel (email + language); ohne: clientseitige Bestätigung
+  benefitsEyebrow?: Loc;
+  benefitsHeading?: Loc;
+  benefits?: NewsletterBenefit[];
+  mosaic?: SlideData[]; // bis zu 4 Fotos: 1. groß (2×2), 2./3. quadratisch, 4. breit
+  previewEyebrow?: Loc;
+  previewHeading?: Loc;
+  previewUrl?: string; // Adresszeile im stilisierten Browser-Rahmen
+  phoneLabel?: Loc; // Titelzeile im Phone-Rahmen, Default „Mail"
+  mailImage?: ImageRef; // Foto im Beispiel-Newsletter (Mockup-Inhalt ist Code)
+  mailSubject?: Loc; // Betreffzeile des Beispiel-Newsletters
+  // Mockup-Feinheiten (alle optional; leere Felder fallen auf die Sprach-
+  // Defaults des Items zurück — so ist jedes Detail über Webby anpassbar):
+  mailFrom?: string; // Absenderadresse im Mail-Kopf, Default newsletter@art-dus.de
+  mockSender?: Loc; // Absendername (Posteingang, Mail-Kopf, Masthead-Wortmarke)
+  mockInboxLabel?: Loc; // Überschrift der Posteingang-Spalte
+  mockTeaser?: Loc; // Vorschautext der aktiven (geöffneten) Mail
+  mockDate?: Loc; // Datums-Label der aktiven Mail, z. B. „Heute"
+  mockInbox?: MockInboxRowData[]; // weitere Posteingang-Zeilen (Default: 3 Beispiele)
+  mockMastheadKicker?: Loc; // Zeile unter der Wortmarke, Default „Newsletter · AD27"
+  mockKicker?: Loc; // Eyebrow im Beispiel-Newsletter
+  mockTitle?: Loc; // Headline im Beispiel-Newsletter
+  mockText?: Loc; // Fließtext im Beispiel-Newsletter
+  mockLinkLabel?: Loc; // Link-Beschriftung, z. B. „Weiterlesen"
+  quoteText?: Loc; // Testimonial (Stand 11.8.2026: Platzhalter, wird ersetzt)
+  quoteAttribution?: Loc;
+}
+
 // Marker für feste, im Code gepflegte Riegel (Talks-Fahrplan usw.): im CMS nur
 // Typ + _key, der Inhalt kommt als React-Knoten über SectionRenderer `slots`.
 export interface SlotMarkerSection {
@@ -554,7 +615,8 @@ export type Section =
   | InfoHeaderSection
   | ListHeaderSection
   | NewsletterHeroSection
-  | InquiryFormSection;
+  | InquiryFormSection
+  | NewsletterPageSection;
 
 export type SectionType = Section["_type"];
 

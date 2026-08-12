@@ -41,6 +41,7 @@ const LINKS = {
   de: [
     { label: "Tickets", href: "/tickets" },
     { label: "Anreise", href: "/visit#anreise" },
+    { label: "Newsletter", href: "/newsletter" },
     { label: "Presse", href: "/press" },
     { label: "Kontakt", href: "mailto:info@art-dus.de" },
     { label: "Impressum", href: "/imprint" },
@@ -49,6 +50,7 @@ const LINKS = {
   en: [
     { label: "Tickets", href: "/tickets" },
     { label: "Getting here", href: "/visit#anreise" },
+    { label: "Newsletter", href: "/newsletter" },
     { label: "Press", href: "/press" },
     { label: "Contact", href: "mailto:info@art-dus.de" },
     { label: "Imprint", href: "/imprint" },
