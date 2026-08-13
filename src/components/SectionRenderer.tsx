@@ -29,6 +29,7 @@ import { InquiryFormItem, type InquiryFormProps } from "./items/InquiryFormItem"
 import { BusinessPageItem } from "./items/BusinessPageItem";
 import { NewsletterPageItem } from "./items/NewsletterPageItem";
 import { FaqPageItem } from "./items/FaqPageItem";
+import { PartnerPageItem } from "./items/PartnerPageItem";
 import { Fragment } from "react";
 import {
   loc,
@@ -572,6 +573,67 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
               : "No results — try a different term or choose another topic.")
           }
           categories={categories}
+        />
+      );
+    }
+
+    case "partnerPage": {
+      const heroImage = img(s.heroImage);
+      if (!heroImage) return null;
+      const heroLogos = (s.heroLogos ?? [])
+        .filter((l) => l.image?.url)
+        .map((l) => ({ src: img(l.image, 480), alt: l.image?.alt ?? "" }));
+      const features = (s.features ?? [])
+        .map((f) => ({
+          id: f.anchor || undefined,
+          eyebrow: loc(f.eyebrow, lang),
+          heading: loc(f.heading, lang),
+          imageSrc: img(f.image),
+          imageAlt: f.image?.alt ?? "",
+          title: loc(f.title, lang),
+          body: loc(f.body, lang),
+          link: resolveCta(f.link, lang),
+        }))
+        .filter((f) => f.imageSrc && (f.title || f.body));
+      const logoGroups = (s.logoGroups ?? [])
+        .map((g) => ({
+          id: g.anchor || undefined,
+          eyebrow: loc(g.eyebrow, lang),
+          heading: loc(g.heading, lang),
+          logos: (g.logos ?? [])
+            .filter((l) => l.image?.url)
+            .map((l) => ({ src: img(l.image, 320), name: l.image?.alt ?? "", href: l.href })),
+        }))
+        .filter((g) => g.logos.length > 0);
+      const contactImage = img(s.contactImage)
+        ? { src: img(s.contactImage), alt: s.contactImage?.alt ?? "" }
+        : undefined;
+      return (
+        <PartnerPageItem
+          key={s._key}
+          heroEyebrow={loc(s.heroEyebrow, lang)}
+          heroTitle={loc(s.heroTitle, lang)}
+          heroBody={loc(s.heroBody, lang)}
+          heroPrimaryCta={resolveCta(s.heroPrimaryCta, lang)}
+          heroSecondaryCta={resolveCta(s.heroSecondaryCta, lang)}
+          heroImage={{ src: heroImage, alt: s.heroImage?.alt ?? "" }}
+          heroLogos={heroLogos}
+          features={features}
+          logoGroups={logoGroups}
+          contactEyebrow={loc(s.contactEyebrow, lang)}
+          contactHeading={loc(s.contactHeading, lang)}
+          contactBody={loc(s.contactBody, lang)}
+          contactPerson={
+            s.contactName
+              ? {
+                  name: s.contactName,
+                  role: loc(s.contactRole, lang) || undefined,
+                  phone: s.contactPhone || undefined,
+                }
+              : undefined
+          }
+          contactCta={resolveCta(s.contactCta, lang)}
+          contactImage={contactImage}
         />
       );
     }

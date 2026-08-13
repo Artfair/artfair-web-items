@@ -504,6 +504,52 @@ export interface FaqPageSection {
   categories?: FaqCategoryData[];
 }
 
+// 28 — Partner-Seite (PartnerPageItem) — die GANZE Partner-Seite als EIN Item
+// (Muster aboutPage). Übernimmt die in AD27 neu aufgebaute Komposition
+// (Partner-Hero → Partner-Porträts → Logo-Raster → CTA-Band), damit die
+// Inhalte in Webby gepflegt werden können. Porträts und Logo-Gruppen sind
+// Listen — Partner kommen und gehen von Ausgabe zu Ausgabe, deshalb keine
+// festen Slots. Der Anker des CTA-Bands ist fest (#werde-partner); die
+// „Partner werden"-Knöpfe der Seite zeigen dorthin.
+export interface PartnerPortraitData {
+  _key: string;
+  anchor?: string; // z. B. "headline-partner"
+  eyebrow?: Loc; // z. B. „Im Porträt"
+  heading?: Loc; // z. B. „Headline Partner."
+  image?: ImageRef; // großes Foto (Pflicht fürs Rendern)
+  title?: Loc; // Partnername
+  body?: Loc;
+  link?: Cta;
+}
+export interface PartnerLogoGroupData {
+  _key: string;
+  anchor?: string; // z. B. "exhibition-partner"
+  eyebrow?: Loc; // z. B. „Auf der Messe"
+  heading?: Loc; // z. B. „Exhibition Partner."
+  logos?: LogoData[]; // alt = Partnername
+}
+export interface PartnerPageSection {
+  _key: string;
+  _type: "partnerPage";
+  heroEyebrow?: Loc;
+  heroTitle?: Loc; // H1, z. B. „Unsere Partner."
+  heroBody?: Loc;
+  heroPrimaryCta?: Cta; // zeigt üblicherweise auf #werde-partner
+  heroSecondaryCta?: Cta;
+  heroImage?: ImageRef; // Foto rechts (Pflicht fürs Rendern)
+  heroLogos?: LogoData[]; // weißes Karussell; alt = Partnername
+  features?: PartnerPortraitData[]; // Headline/Main Partner usw.
+  logoGroups?: PartnerLogoGroupData[]; // Exhibition/VIP/Media usw.
+  contactEyebrow?: Loc;
+  contactHeading?: Loc; // Zeilenumbruch als \n
+  contactBody?: Loc;
+  contactName?: string; // Ansprechperson, abgesetzt vom Fließtext
+  contactRole?: Loc;
+  contactPhone?: string;
+  contactCta?: Cta;
+  contactImage?: ImageRef;
+}
+
 // Marker für feste, im Code gepflegte Riegel (Talks-Fahrplan usw.): im CMS nur
 // Typ + _key, der Inhalt kommt als React-Knoten über SectionRenderer `slots`.
 export interface SlotMarkerSection {
@@ -688,7 +734,8 @@ export type Section =
   | NewsletterHeroSection
   | InquiryFormSection
   | NewsletterPageSection
-  | FaqPageSection;
+  | FaqPageSection
+  | PartnerPageSection;
 
 export type SectionType = Section["_type"];
 
