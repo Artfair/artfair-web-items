@@ -28,6 +28,7 @@ import { AboutPageItem } from "./items/AboutPageItem";
 import { InquiryFormItem, type InquiryFormProps } from "./items/InquiryFormItem";
 import { BusinessPageItem } from "./items/BusinessPageItem";
 import { NewsletterPageItem } from "./items/NewsletterPageItem";
+import { FaqPageItem } from "./items/FaqPageItem";
 import { Fragment } from "react";
 import {
   loc,
@@ -538,6 +539,39 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           contactCta={resolveCta(s.contactCta, lang)}
           contactImage={contactImage}
           inquiry={resolveInquiry(s.inquiry, lang)}
+        />
+      );
+    }
+
+    case "faqPage": {
+      const categories = (s.categories ?? [])
+        .map((c) => ({
+          label: loc(c.label, lang),
+          faqs: (c.faqs ?? [])
+            .map((f) => ({ q: loc(f.question, lang), a: loc(f.answer, lang) }))
+            .filter((f) => f.q && f.a),
+        }))
+        .filter((c) => c.label && c.faqs.length > 0);
+      if (categories.length === 0) return null;
+      const switchCta = resolveCta(s.switchCta, lang);
+      const de = lang === "de";
+      return (
+        <FaqPageItem
+          key={s._key}
+          id={s.anchor}
+          title={loc(s.title, lang)}
+          intro={loc(s.intro, lang) || undefined}
+          switchCta={switchCta ? { label: switchCta.label, href: withLang(switchCta.href, lang) } : undefined}
+          searchPlaceholder={loc(s.searchPlaceholder, lang) || (de ? "Frage suchen …" : "Search questions …")}
+          searchLabel={de ? "FAQ durchsuchen" : "Search the FAQ"}
+          allLabel={loc(s.allLabel, lang) || (de ? "Alle Themen" : "All topics")}
+          emptyText={
+            loc(s.emptyText, lang) ||
+            (de
+              ? "Keine Treffer — versuchen Sie einen anderen Begriff oder wählen Sie ein anderes Thema."
+              : "No results — try a different term or choose another topic.")
+          }
+          categories={categories}
         />
       );
     }

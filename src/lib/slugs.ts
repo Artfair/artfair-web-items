@@ -20,7 +20,9 @@ export const DE_SLUGS: Record<string, string> = {
   talks: "programm",
   exhibitors: "aussteller",
   magazine: "magazin",
-  "gallery-faq": "galerie-faq",
+  // Plural „Galerien" (Annalena 13.8.2026) — die alte Live-Seite lief unter
+  // /de/faq-fuer-galerien, die neue heißt einheitlich Galerien-FAQ.
+  "gallery-faq": "galerien-faq",
   imprint: "impressum",
 };
 

@@ -472,6 +472,38 @@ export interface NewsletterPageSection {
   quoteAttribution?: Loc;
 }
 
+// 27 — FAQ-Seite (FaqPageItem) — die GANZE FAQ-Seite als EIN Item (Muster
+// aboutPage). Ersetzt den in AD27 fest verdrahteten FaqExplorer, damit die
+// Inhalte in Webby gepflegt werden können (Besucher-FAQ und Galerie-FAQ sind
+// zwei Dokumente desselben Typs). Design-Entscheidungen Annalena 13.8.2026:
+// ohne Eyebrow, Plus-Zeichen schwarz auf Lime-Quadrat, Umschalt-Knopf zur
+// jeweils anderen FAQ-Seite (per hidden-Schalter ausblendbar — Galerie-FAQ
+// launcht im September, Besucher-FAQ folgt vor der Messe).
+// Fragen hängen strukturell an ihrer Kategorie (Gruppen), kein Text-Abgleich;
+// Suche/Pills liefert das Item selbst. Micro-Copy hat Renderer-Fallbacks.
+export interface FaqQaData {
+  _key: string;
+  question?: Loc;
+  answer?: Loc; // mehrzeilig, Absätze mit Leerzeile (\n\n)
+}
+export interface FaqCategoryData {
+  _key: string;
+  label?: Loc; // Pill-Beschriftung, z. B. „Termine und Fristen"
+  faqs?: FaqQaData[];
+}
+export interface FaqPageSection {
+  _key: string;
+  _type: "faqPage";
+  anchor?: string;
+  title?: Loc; // H1, z. B. „Galerie-FAQ."
+  intro?: Loc; // kurze Einordnung unter der Headline
+  switchCta?: Cta; // schwarzer Knopf rechts („Zum Besucher-FAQ"); hidden = weg
+  searchPlaceholder?: Loc; // Default „Frage suchen …"
+  allLabel?: Loc; // Default „Alle Themen"
+  emptyText?: Loc; // Meldung ohne Treffer
+  categories?: FaqCategoryData[];
+}
+
 // Marker für feste, im Code gepflegte Riegel (Talks-Fahrplan usw.): im CMS nur
 // Typ + _key, der Inhalt kommt als React-Knoten über SectionRenderer `slots`.
 export interface SlotMarkerSection {
@@ -655,7 +687,8 @@ export type Section =
   | ListHeaderSection
   | NewsletterHeroSection
   | InquiryFormSection
-  | NewsletterPageSection;
+  | NewsletterPageSection
+  | FaqPageSection;
 
 export type SectionType = Section["_type"];
 
