@@ -26,13 +26,15 @@ Band ohne Heading/CTA/Bild entfällt).
 ## Integration in AD27 (wie /about, PR #66)
 
 1. `@artfair/web-items` auf `#semver:^0.11.0` heben.
-2. **Webby** muss seine gespiegelte `sections.ts` nachziehen (neuer Typ
-   `partnerPage` + `PartnerPortraitData` + `PartnerLogoGroupData`), dann eine
-   `sitePage-partner` mit einem `partnerPage`-Abschnitt pflegen — Inhalte:
-   siehe Referenz unten, Feldnamen identisch zur bisherigen Seite.
-3. `app/[lang]/partner/page.tsx` rendert die sitePage-Abschnitte über den
-   `SectionRenderer`; als Fallback `<PartnerPageItem …/>` mit denselben
-   Inhalten hartkodiert. Der Metadata-Block der Seite kann bleiben.
+2. **Webby ist vorbereitet** (13.8.2026): eigener Editor unter
+   `/website/partner` (Dokument `sitePage-partner`, Pfad `/partner`,
+   Entwurf → Vorschau → Live), gespiegelte `sections.ts` inkl. `partnerPage`,
+   Erst-Bestückung mit der Referenz unten (`src/lib/partnerSeed.ts`),
+   „Bearbeiten"-Knopf in der Navigations-Steuerung.
+3. `app/[lang]/partner/page.tsx` liest die Abschnitte aus `sitePage-partner`
+   und rendert sie über den `SectionRenderer` (Muster FAQ/About); als
+   Fallback `<PartnerPageItem …/>` mit denselben Inhalten hartkodiert. Der
+   Metadata-Block der Seite kann bleiben.
 
 ## Referenz-Komposition (Inhalte der bereits gebauten AD27-Seite)
 
