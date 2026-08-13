@@ -22,8 +22,9 @@ export function ContactBlockItem({
   return (
     <section id={anchor} className="px-[var(--page-x)] py-[clamp(48px,7vw,110px)] scroll-mt-14">
       {heading && (
-        <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase mb-[clamp(24px,3vw,44px)]">
-          <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
+        // Ohne Lime-Punkt (Eyebrows abgeschafft, Annalena 13.8.2026) — die
+        // Überschrift bleibt, sie benennt die Adresskarten.
+        <span className="block text-[13px] font-semibold tracking-[0.14em] uppercase mb-[clamp(24px,3vw,44px)]">
           {heading}
         </span>
       )}

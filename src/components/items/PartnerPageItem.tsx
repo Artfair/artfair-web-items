@@ -19,7 +19,8 @@ type Cta = {label: string; href: string}
 
 export interface PartnerPortrait {
   id?: string // Sprungmarke, z. B. "headline-partner"
-  eyebrow: string
+  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
+  eyebrow?: string
   heading: string
   imageSrc: string
   imageAlt: string
@@ -30,13 +31,15 @@ export interface PartnerPortrait {
 
 export interface PartnerLogoGroup {
   id?: string // Sprungmarke, z. B. "exhibition-partner"
-  eyebrow: string
+  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
+  eyebrow?: string
   heading: string
   logos: GridLogo[]
 }
 
 export function PartnerPageItem(props: {
-  heroEyebrow: string
+  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
+  heroEyebrow?: string
   heroTitle: string
   heroBody: string
   heroPrimaryCta?: Cta
@@ -45,7 +48,8 @@ export function PartnerPageItem(props: {
   heroLogos: PartnerHeroLogo[]
   features: PartnerPortrait[]
   logoGroups: PartnerLogoGroup[]
-  contactEyebrow: string
+  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
+  contactEyebrow?: string
   contactHeading: string // Zeilenumbruch als \n
   contactBody: string
   contactPerson?: {name: string; role?: string; phone?: string}
@@ -56,7 +60,6 @@ export function PartnerPageItem(props: {
   return (
     <div className="bg-white text-artdus-black pt-14 animate-fade-in">
       <PartnerHeroItem
-        eyebrow={p.heroEyebrow}
         title={p.heroTitle}
         body={p.heroBody}
         primaryCta={p.heroPrimaryCta}
@@ -72,7 +75,6 @@ export function PartnerPageItem(props: {
         <PartnerFeatureItem
           key={f.id ?? i}
           id={f.id}
-          eyebrow={f.eyebrow}
           heading={f.heading}
           imageSrc={f.imageSrc}
           imageAlt={f.imageAlt}
@@ -86,7 +88,6 @@ export function PartnerPageItem(props: {
         <LogoGridItem
           key={g.id ?? i}
           id={g.id}
-          eyebrow={g.eyebrow}
           heading={g.heading}
           logos={g.logos}
         />
@@ -95,7 +96,6 @@ export function PartnerPageItem(props: {
       {p.contactHeading && p.contactCta && p.contactImage?.src && (
         <CtaBandItem
           id="werde-partner"
-          eyebrow={p.contactEyebrow}
           heading={p.contactHeading}
           body={p.contactBody}
           contact={p.contactPerson?.name ? p.contactPerson : undefined}

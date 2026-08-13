@@ -16,6 +16,18 @@ Editor (Webby) — damit sie garantiert dieselben Items im gleichen Look rendern
   Animationen). Beide Apps binden es als Tailwind-Preset ein.
 - `src/styles/tokens.css` — die Farb-Variablen (einzige Quelle).
 
+## Design-Regeln
+
+- **Keine Eyebrows** (seit v0.12.0, Annalena 13.8.2026): Die kleine
+  Versalzeile mit Lime-Quadrat über Überschriften ist abgeschafft — kein Item
+  rendert sie mehr, neue Items bekommen weder ein `eyebrow`- noch ein
+  `kicker`-Feld. Die alten Props/Section-Felder bleiben als `@deprecated`
+  bestehen (Daten- und API-Kompatibilität für AD27/Webby), werden aber
+  ignoriert. Ausnahmen (bewusst behalten): der Kicker im Willkommen-Panel und
+  in den Advertorial-Karten der Startseite (eigener Look, ohne Lime-Punkt),
+  die Rubrik-Labels des Magazins und der Beispiel-Newsletter im
+  `NewsletterPageItem` (Mockup-Inhalt).
+
 ## Einbinden (Konsument)
 
 ```jsonc

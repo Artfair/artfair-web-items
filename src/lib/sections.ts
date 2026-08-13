@@ -7,6 +7,12 @@
 // An den Item-Komponenten wird NICHTS geändert — nur ihre Props als CMS-Felder
 // abgebildet (Texte als {de,en}, Bilder als {url,alt}).
 // Siehe HANDOFF-Baukasten-fuer-Annalena.md.
+//
+// DESIGN-REGEL (Annalena 13.8.2026): Eyebrows sind abgeschafft — die kleine
+// Versalzeile mit Lime-Quadrat über Überschriften gibt es nicht mehr. Die
+// eyebrow-/kicker-Felder bleiben aus Daten-Kompatibilität (Webby/Sanity) in
+// den Typen, werden aber von keinem Item mehr gerendert. NEUE Sections und
+// Items bekommen KEINE eyebrow-Felder.
 // ─────────────────────────────────────────────────────────────────────────
 
 export type Loc = { de?: string; en?: string };
@@ -38,6 +44,7 @@ export interface TickerSection {
 export interface HeroSplitSection {
   _key: string;
   _type: "heroSplit";
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   eyebrow?: Loc;
   title?: Loc; // Zeilenumbruch mit \n
   body?: Loc;
@@ -58,7 +65,8 @@ export interface FactsRowSection {
   _key: string;
   _type: "factsRow";
   anchor?: string; // Sprungmarke (z. B. "oeffnungszeiten")
-  kicker?: Loc; // kurze Einordnungszeile über den Badges (z. B. „Auf einen Blick.")
+  /** @deprecated Eyebrows/Kicker abgeschafft (13.8.2026) — wird ignoriert. */
+  kicker?: Loc;
   facts?: Fact[];
 }
 
@@ -67,6 +75,7 @@ export interface CtaBandSection {
   _key: string;
   _type: "ctaBand";
   anchor?: string;
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   eyebrow?: Loc;
   heading?: Loc;
   body?: Loc;
@@ -78,12 +87,13 @@ export interface CtaBandSection {
   image?: ImageRef;
 }
 
-// 05 — Text + CTA (TextCtaItem) — Eyebrow und CTA sind optional; ohne beides
+// 05 — Text + CTA (TextCtaItem) — der CTA ist optional; ohne ihn
 // wird der Riegel zur ruhigen Textsektion (z. B. „Unabhängig buchbar").
 export interface TextCtaSection {
   _key: string;
   _type: "textCta";
   anchor?: string;
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   eyebrow?: Loc;
   heading?: Loc;
   body?: Loc;
@@ -96,6 +106,7 @@ export interface FairPlanSection {
   _key: string;
   _type: "fairPlan";
   anchor?: string;
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   eyebrow?: Loc;
   heading?: Loc;
   body?: Loc;
@@ -113,6 +124,7 @@ export interface NumberedBlocksSection {
   _key: string;
   _type: "numberedBlocks";
   anchor?: string;
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   eyebrow?: Loc;
   heading?: Loc;
   image?: ImageRef;
@@ -135,6 +147,7 @@ export interface TrioCardData {
 export interface CardTrioSection {
   _key: string;
   _type: "cardTrio";
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   eyebrow?: Loc;
   heading?: Loc;
   cards?: TrioCardData[];
@@ -150,6 +163,7 @@ export interface LogoGridSection {
   _key: string;
   _type: "logoGrid";
   anchor?: string;
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   eyebrow?: Loc;
   heading?: Loc;
   logos?: LogoData[];
@@ -252,6 +266,7 @@ export interface PartnerFeatureSection {
   _key: string;
   _type: "partnerFeature";
   anchor?: string;
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   eyebrow?: Loc;
   heading?: Loc;
   image?: ImageRef; // großes Foto (Pflicht fürs Rendern)
@@ -287,6 +302,7 @@ export interface TalksScheduleSection {
   _key: string;
   _type: "talksSchedule";
   anchor?: string;
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   eyebrow?: Loc;
   heading?: Loc;
   intro?: Loc;
@@ -303,6 +319,7 @@ export interface HeroStageSection {
   _key: string;
   _type: "heroStage";
   anchor?: string;
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   eyebrow?: Loc;
   title?: Loc;
   body?: Loc;
@@ -316,6 +333,7 @@ export interface PartnerHeroSection {
   _key: string;
   _type: "partnerHero";
   anchor?: string;
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   eyebrow?: Loc;
   title?: Loc;
   body?: Loc;
@@ -334,6 +352,7 @@ export interface SalesHeroSection {
   _key: string;
   _type: "salesHero";
   anchor?: string;
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   eyebrow?: Loc;
   title?: Loc;
   body?: Loc;
@@ -349,6 +368,7 @@ export interface InfoHeaderSection {
   _key: string;
   _type: "infoHeader";
   anchor?: string;
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   eyebrow?: Loc;
   title?: Loc;
   body?: Loc;
@@ -358,11 +378,12 @@ export interface InfoHeaderSection {
 
 // 23 — Listen-Header (ListHeaderItem, Typ 5) — trägt die H1, pro Seite max.
 // einmal. Filter-Pills/Suche/Zählerstand liefert die Seite (Live-Daten);
-// das CMS pflegt nur Kicker, Titel und Zähler-Beschriftung.
+// das CMS pflegt nur Titel und Zähler-Beschriftung.
 export interface ListHeaderSection {
   _key: string;
   _type: "listHeader";
   anchor?: string;
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   eyebrow?: Loc;
   title?: Loc;
   counterValue?: string; // z. B. "142" oder "380+" (leer = kein Zähler)
@@ -376,6 +397,7 @@ export interface NewsletterHeroSection {
   _key: string;
   _type: "newsletterHero";
   anchor?: string;
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   eyebrow?: Loc;
   title?: Loc;
   body?: Loc;
@@ -389,6 +411,7 @@ export interface NewsletterHeroSection {
 // Die Felder sind geteilt: einzeln als inquiryForm-Riegel ODER eingebettet
 // in die businessPage (inquiry-Objekt).
 export interface InquiryFormFields {
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   eyebrow?: Loc;
   heading?: Loc;
   intro?: Loc;
@@ -419,6 +442,7 @@ export interface InquiryFormSection extends InquiryFormFields {
 // hat Renderer-Fallbacks und muss im CMS nicht gepflegt werden.
 export interface NewsletterBenefit {
   _key: string;
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   eyebrow?: Loc;
   title?: Loc;
   body?: Loc;
@@ -433,6 +457,7 @@ export interface NewsletterPageSection {
   _key: string;
   _type: "newsletterPage";
   anchor?: string;
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   heroEyebrow?: Loc;
   heroTitle?: Loc;
   heroBody?: Loc;
@@ -445,10 +470,12 @@ export interface NewsletterPageSection {
   confirmation?: Loc; // Bestätigung nach dem Absenden (Double-Opt-in-Hinweis)
   errorText?: Loc;
   action?: string; // POST-Ziel (email + language); ohne: clientseitige Bestätigung
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   benefitsEyebrow?: Loc;
   benefitsHeading?: Loc;
   benefits?: NewsletterBenefit[];
   mosaic?: SlideData[]; // bis zu 4 Fotos: 1. groß (2×2), 2./3. quadratisch, 4. breit
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   previewEyebrow?: Loc;
   previewHeading?: Loc;
   previewUrl?: string; // Adresszeile im stilisierten Browser-Rahmen
@@ -514,7 +541,8 @@ export interface FaqPageSection {
 export interface PartnerPortraitData {
   _key: string;
   anchor?: string; // z. B. "headline-partner"
-  eyebrow?: Loc; // z. B. „Im Porträt"
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
+  eyebrow?: Loc;
   heading?: Loc; // z. B. „Headline Partner."
   image?: ImageRef; // großes Foto (Pflicht fürs Rendern)
   title?: Loc; // Partnername
@@ -524,13 +552,15 @@ export interface PartnerPortraitData {
 export interface PartnerLogoGroupData {
   _key: string;
   anchor?: string; // z. B. "exhibition-partner"
-  eyebrow?: Loc; // z. B. „Auf der Messe"
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
+  eyebrow?: Loc;
   heading?: Loc; // z. B. „Exhibition Partner."
   logos?: LogoData[]; // alt = Partnername
 }
 export interface PartnerPageSection {
   _key: string;
   _type: "partnerPage";
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   heroEyebrow?: Loc;
   heroTitle?: Loc; // H1, z. B. „Unsere Partner."
   heroBody?: Loc;
@@ -540,6 +570,7 @@ export interface PartnerPageSection {
   heroLogos?: LogoData[]; // weißes Karussell; alt = Partnername
   features?: PartnerPortraitData[]; // Headline/Main Partner usw.
   logoGroups?: PartnerLogoGroupData[]; // Exhibition/VIP/Media usw.
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   contactEyebrow?: Loc;
   contactHeading?: Loc; // Zeilenumbruch als \n
   contactBody?: Loc;
@@ -631,10 +662,12 @@ export interface AboutPageSection {
   heroSecondaryCta?: Cta;
   heroVideoUrl?: string;
   heroPoster?: ImageRef;
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   visionEyebrow?: Loc;
   visionHeading?: Loc;
   visionBody?: Loc;
   visionQuote?: AboutQuote;
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   collectorsEyebrow?: Loc;
   collectorsHeading?: Loc;
   collectorsBody?: Loc;
@@ -643,6 +676,7 @@ export interface AboutPageSection {
   arealImage?: ImageRef;
   arealLabel?: Loc;
   arealBody?: Loc;
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   profileEyebrow?: Loc;
   profileHeading?: Loc;
   profileSections?: AboutSectionRow[];
@@ -651,18 +685,22 @@ export interface AboutPageSection {
   profileQuote?: AboutQuote;
   profileImage?: ImageRef;
   contactAnchor?: string;
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   contactEyebrow?: Loc;
   contactHeading?: Loc;
   contactBody?: Loc;
   contactCta?: Cta;
   contactAddressLine?: Loc;
   contactPhone?: string;
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   teamEyebrow?: Loc;
   teamHeading?: Loc;
   team?: AboutTeamMember[];
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   enquiriesEyebrow?: Loc;
   enquiriesHeading?: Loc;
   enquiries?: AboutEnquiryBlock[];
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   addressesEyebrow?: Loc;
   addressesHeading?: Loc;
   addresses?: AboutAddress[];
@@ -674,6 +712,7 @@ export interface AboutPageSection {
 export interface BusinessPageSection {
   _key: string;
   _type: "businessPage";
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   heroEyebrow?: Loc;
   heroTitle?: Loc;
   heroBody?: Loc;
@@ -681,16 +720,20 @@ export interface BusinessPageSection {
   heroSecondaryCta?: Cta;
   heroImages?: SlideData[]; // erstes Bild = Basis (Pflicht fürs Rendern)
   heroImageCaption?: Loc;
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   trustEyebrow?: Loc;
   trustHeading?: Loc;
   trustBody?: Loc;
-  factsKicker?: Loc; // z. B. „Auf einen Blick."
+  /** @deprecated Eyebrows/Kicker abgeschafft (13.8.2026) — wird ignoriert. */
+  factsKicker?: Loc;
   facts?: Fact[];
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   includedEyebrow?: Loc;
   includedHeading?: Loc;
   includedCards?: TrioCardData[];
   independentHeading?: Loc;
   independentBody?: Loc;
+  /** @deprecated Eyebrows abgeschafft (13.8.2026) — wird ignoriert. */
   contactEyebrow?: Loc;
   contactHeading?: Loc;
   contactBody?: Loc;

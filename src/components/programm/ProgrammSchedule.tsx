@@ -11,7 +11,6 @@ export function ProgrammSchedule({lang, assetBase = ''}: {lang: 'de' | 'en'; ass
   return (
     <TalksScheduleItem
       id="talks"
-      eyebrow="Talks — AD27"
       heading={de ? 'Das Talkprogramm.' : 'The talk programme.'}
       intro={
         de

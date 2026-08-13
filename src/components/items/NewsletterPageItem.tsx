@@ -18,7 +18,8 @@ import {useId, useState} from 'react'
 type Img = {src: string; alt: string}
 
 export interface NewsletterBenefitData {
-  eyebrow: string
+  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
+  eyebrow?: string
   title: string
   body: string
 }
@@ -48,10 +49,6 @@ interface MockConfig {
   linkLabel: string
   image?: Img
 }
-
-const eyebrowClass =
-  'flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase'
-const acidSquare = <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime shrink-0" />
 
 // Beispiel-Newsletter im Haus-Look — im Code gebaut statt Screenshot
 // (Annalena 11.8.2026: Posteingang soll erkennbar sein, Newsletter in unserem
@@ -197,7 +194,6 @@ function PhoneFrame({mock, label}: {mock: MockConfig; label: string}) {
 
 export function NewsletterPageItem({
   id,
-  heroEyebrow,
   heroTitle,
   heroBody,
   emailPlaceholder,
@@ -210,11 +206,9 @@ export function NewsletterPageItem({
   confirmation,
   errorText,
   action,
-  benefitsEyebrow,
   benefitsHeading,
   benefits,
   mosaic,
-  previewEyebrow,
   previewHeading,
   previewUrl,
   phoneLabel,
@@ -235,7 +229,8 @@ export function NewsletterPageItem({
   quoteAttribution,
 }: {
   id?: string
-  heroEyebrow: string
+  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
+  heroEyebrow?: string
   heroTitle: string
   heroBody: string
   emailPlaceholder: string
@@ -248,11 +243,13 @@ export function NewsletterPageItem({
   confirmation: string
   errorText: string
   action?: string // POST-Ziel (email + language); ohne: clientseitige Bestätigung
-  benefitsEyebrow: string
+  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
+  benefitsEyebrow?: string
   benefitsHeading: string
   benefits: NewsletterBenefitData[]
   mosaic: Img[] // bis zu 4 Fotos: 1. groß (2×2), 2./3. quadratisch, 4. breit
-  previewEyebrow: string
+  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
+  previewEyebrow?: string
   previewHeading: string
   previewUrl: string
   phoneLabel: string
@@ -353,11 +350,7 @@ export function NewsletterPageItem({
     <div id={id} className="pt-14 animate-fade-in scroll-mt-14">
       {/* Hero mit Anmeldung */}
       <section className="px-[var(--page-x)] pt-[clamp(64px,9vw,128px)] pb-[clamp(56px,7vw,96px)] flex flex-col items-center text-center border-b border-artdus-line">
-        <span className={eyebrowClass}>
-          {acidSquare}
-          {heroEyebrow}
-        </span>
-        <h1 className="font-normal text-[clamp(38px,5vw,72px)] leading-[1.02] tracking-[-0.01em] max-w-[900px] mt-6">
+        <h1 className="font-normal text-[clamp(38px,5vw,72px)] leading-[1.02] tracking-[-0.01em] max-w-[900px]">
           {heroTitle}
         </h1>
         <p className="text-[clamp(17px,1.4vw,20px)] leading-[1.5] text-neutral-700 max-w-[600px] mt-6">
@@ -457,20 +450,12 @@ export function NewsletterPageItem({
       {/* Mehrwert */}
       {benefits.length > 0 && (
         <section className="px-[var(--page-x)] py-[clamp(64px,8vw,112px)]">
-          <span className={eyebrowClass}>
-            {acidSquare}
-            {benefitsEyebrow}
-          </span>
-          <h2 className="font-light text-[clamp(30px,3.4vw,52px)] leading-[1.06] tracking-[-0.02em] max-w-[760px] mt-5 mb-[clamp(32px,4vw,56px)]">
+          <h2 className="font-light text-[clamp(30px,3.4vw,52px)] leading-[1.06] tracking-[-0.02em] max-w-[760px] mb-[clamp(32px,4vw,56px)]">
             {benefitsHeading}
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-12">
             {benefits.map((b) => (
-              <div key={b.title || b.eyebrow} className="flex flex-col gap-4 pt-6 border-t-2 border-artdus-black">
-                <span className={eyebrowClass}>
-                  {acidSquare}
-                  {b.eyebrow}
-                </span>
+              <div key={b.title} className="flex flex-col gap-4 pt-6 border-t-2 border-artdus-black">
                 <h3 className="text-[clamp(20px,1.8vw,26px)] font-normal leading-[1.15]">{b.title}</h3>
                 <p className="text-[15px] leading-[1.6] text-neutral-600">{b.body}</p>
               </div>
@@ -502,11 +487,7 @@ export function NewsletterPageItem({
       {previewHeading ? (
         <section className="bg-artdus-light border-t border-artdus-line px-[var(--page-x)] py-[clamp(64px,8vw,112px)]">
           <div className="text-center">
-            <span className={`${eyebrowClass} justify-center`}>
-              {acidSquare}
-              {previewEyebrow}
-            </span>
-            <h2 className="font-light text-[clamp(30px,3.4vw,52px)] leading-[1.06] tracking-[-0.02em] mt-4">
+            <h2 className="font-light text-[clamp(30px,3.4vw,52px)] leading-[1.06] tracking-[-0.02em]">
               {previewHeading}
             </h2>
           </div>

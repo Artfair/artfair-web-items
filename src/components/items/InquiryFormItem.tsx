@@ -19,6 +19,7 @@ const fieldClass =
 // als Teilobjekt ein (inquiry-Prop) und reicht sie 1:1 durch.
 export interface InquiryFormProps {
   id?: string // Sprungmarke (z. B. "anfrage") — Ziel der „Anfrage senden"-Knöpfe
+  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
   eyebrow?: string
   heading: string
   intro?: string
@@ -40,7 +41,6 @@ export interface InquiryFormProps {
 
 export function InquiryFormItem({
   id,
-  eyebrow,
   heading,
   intro,
   companyLabel,
@@ -84,12 +84,6 @@ export function InquiryFormItem({
   return (
     <section id={id} className="px-[var(--page-x)] py-[clamp(64px,8vw,128px)] scroll-mt-14">
       <div className="max-w-[720px]">
-        {eyebrow && (
-          <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase mb-5">
-            <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
-            {eyebrow}
-          </span>
-        )}
         <h2 className="font-light text-[clamp(30px,3.8vw,54px)] leading-[1.04] tracking-[-0.02em]">
           {heading}
         </h2>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-// Baukasten-Item „CTA-Band" — dunkles, vollbreites Band: Eyebrow, große
+// Baukasten-Item „CTA-Band" — dunkles, vollbreites Band: große
 // Headline, Text und Acid-Button links, Foto rechts.
 
 // mailto/extern als normaler <a>, interne Ziele als SPA-Link.
@@ -34,7 +34,6 @@ function CtaLink({
 
 export function CtaBandItem({
   id,
-  eyebrow,
   heading,
   body,
   contact,
@@ -43,7 +42,8 @@ export function CtaBandItem({
   imageAlt,
 }: {
   id?: string;
-  eyebrow: string;
+  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
+  eyebrow?: string;
   heading: string; // Zeilenumbruch als \n
   body: string;
   // Ansprechperson, abgesetzt vom Fließtext (statt Kontaktdaten im body).
@@ -55,10 +55,6 @@ export function CtaBandItem({
   return (
     <section id={id} className="grid md:grid-cols-[1.1fr_0.9fr] bg-artdus-black scroll-mt-14">
       <div className="flex flex-col justify-center gap-7 px-[clamp(40px,5vw,80px)] py-[clamp(64px,8vw,128px)]">
-        <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase text-neutral-400">
-          <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
-          {eyebrow}
-        </span>
         <h2 className="font-light text-[clamp(40px,5vw,72px)] leading-[1.02] tracking-[-0.02em] text-white whitespace-pre-line">
           {heading}
         </h2>

@@ -1,13 +1,12 @@
-// Baukasten-Item „Text-CTA" — heller Abschnitt: Eyebrow, Headline, kurzer
+// Baukasten-Item „Text-CTA" — heller Abschnitt: Headline, kurzer
 // Text und ein Button; optional mit Foto als zweiter Hälfte (Bild links,
 // Gegenstück zum dunklen CTA-Band mit Bild rechts). Für Partner-Verweise
 // wie den Hotelpartner. Externe Ziele (http/https) öffnen in neuem Tab.
-// Eyebrow und CTA sind optional — ohne beides wird der Abschnitt zur ruhigen
+// Der CTA ist optional — ohne ihn wird der Abschnitt zur ruhigen
 // Textsektion (z. B. „Vertrauen" / „Unabhängig buchbar" auf Business meets Art).
 
 export function TextCtaItem({
   id,
-  eyebrow,
   heading,
   body,
   cta,
@@ -15,6 +14,7 @@ export function TextCtaItem({
   imageAlt,
 }: {
   id?: string; // Sprungmarke für Menü-Links (z. B. "hotels")
+  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
   eyebrow?: string;
   heading: string; // Zeilenumbruch als \n
   body: string;
@@ -26,12 +26,6 @@ export function TextCtaItem({
 
   const content = (
     <>
-      {eyebrow && (
-        <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase">
-          <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
-          {eyebrow}
-        </span>
-      )}
       <h2 className="font-light text-[clamp(30px,3.8vw,54px)] leading-[1.04] tracking-[-0.02em] whitespace-pre-line">
         {heading}
       </h2>

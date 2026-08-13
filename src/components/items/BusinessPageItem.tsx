@@ -28,7 +28,8 @@ export interface BusinessCard {
 }
 
 export function BusinessPageItem(props: {
-  heroEyebrow: string
+  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
+  heroEyebrow?: string
   heroTitle: string
   heroBody: string
   heroPrimaryCta?: Cta
@@ -36,17 +37,21 @@ export function BusinessPageItem(props: {
   heroImages: string[] // erstes Bild = Basis der Slideshow
   heroImageAlt?: string
   heroImageCaption?: string // z. B. „Business meets Art, AD26"
-  trustEyebrow: string
+  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
+  trustEyebrow?: string
   trustHeading: string
   trustBody: string
-  factsKicker: string // Einordnungszeile, z. B. „Auf einen Blick."
+  /** @deprecated Eyebrows/Kicker abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
+  factsKicker?: string
   facts: {label: string; value: string}[]
-  includedEyebrow: string
+  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
+  includedEyebrow?: string
   includedHeading: string
   includedCards: BusinessCard[]
   independentHeading: string
   independentBody: string
-  contactEyebrow: string
+  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
+  contactEyebrow?: string
   contactHeading: string // Zeilenumbruch als \n
   contactBody: string
   contactPerson?: {name: string; role?: string; phone?: string}
@@ -58,7 +63,6 @@ export function BusinessPageItem(props: {
   return (
     <div className="bg-white text-artdus-black pt-14 animate-fade-in">
       <SalesHeroItem
-        eyebrow={p.heroEyebrow}
         title={p.heroTitle}
         body={p.heroBody}
         primaryCta={p.heroPrimaryCta}
@@ -71,19 +75,17 @@ export function BusinessPageItem(props: {
       {(p.trustHeading || p.trustBody) && (
         <TextCtaItem
           id="vertrauen"
-          eyebrow={p.trustEyebrow || undefined}
           heading={p.trustHeading}
           body={p.trustBody}
         />
       )}
 
       {p.facts.length > 0 && (
-        <FactsRowItem id="fakten" kicker={p.factsKicker || undefined} facts={p.facts} />
+        <FactsRowItem id="fakten" facts={p.facts} />
       )}
 
       {p.includedCards.length > 0 && (
         <CardTrioItem
-          eyebrow={p.includedEyebrow}
           heading={p.includedHeading}
           cards={p.includedCards.map((c, i) => ({...c, id: i === 0 ? 'format' : undefined}))}
         />
@@ -96,7 +98,6 @@ export function BusinessPageItem(props: {
       {p.contactHeading && p.contactCta && p.contactImage?.src && (
         <CtaBandItem
           id="kontakt"
-          eyebrow={p.contactEyebrow}
           heading={p.contactHeading}
           body={p.contactBody}
           contact={p.contactPerson?.name ? p.contactPerson : undefined}
