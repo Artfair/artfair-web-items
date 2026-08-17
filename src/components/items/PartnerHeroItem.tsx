@@ -12,6 +12,23 @@ import {useEffect, useState} from 'react'
 export interface PartnerHeroLogo {
   src: string
   alt: string
+  // Form-Klasse zur OPTISCHEN Vereinheitlichung (statt rein geometrisch):
+  //   'wortmarke' = breit/niedrig → an der Breite ausrichten
+  //   'wappen'    = quadratisch/hoch → an der Höhe ausrichten (sonst zu klein)
+  //   'mix'       = Mischform (Default)
+  variant?: 'wortmarke' | 'mix' | 'wappen'
+  // Feinabgleich der OPTISCHEN Größe pro Logo (0.85–1.15 üblich); 1 = neutral.
+  scale?: number
+}
+
+// Gemeinsame Box je Form-Klasse: max. Höhe + Breite in % der Foto-Fläche.
+// Alle Logos teilen sich dadurch dasselbe Höhenband → kein Größensprung im
+// Karussell; die Klasse verhindert, dass Wortmarken zu breit / Wappen zu klein
+// werden. Der scale-Faktor gleicht die optische Schwere fein nach.
+const LOGO_BOX: Record<NonNullable<PartnerHeroLogo['variant']>, {h: number; w: number}> = {
+  wortmarke: {h: 24, w: 84},
+  mix: {h: 32, w: 68},
+  wappen: {h: 44, w: 54},
 }
 
 const ROTATE_MS = 1500
@@ -89,12 +106,19 @@ export function PartnerHeroItem({
                   i === active ? 'opacity-100' : 'opacity-0'
                 }`}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={logo.src}
-                  alt=""
-                  className="max-w-[70%] max-h-[46%] object-contain brightness-0 invert"
-                />
+                {(() => {
+                  const box = LOGO_BOX[logo.variant ?? 'mix']
+                  const s = logo.scale ?? 1
+                  return (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      src={logo.src}
+                      alt=""
+                      className="object-contain brightness-0 invert"
+                      style={{maxHeight: `${box.h * s}%`, maxWidth: `${box.w * s}%`}}
+                    />
+                  )
+                })()}
               </div>
             ))}
           </div>
