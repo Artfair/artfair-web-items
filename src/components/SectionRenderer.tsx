@@ -442,7 +442,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
       if (!image) return null;
       const logos = (s.logos ?? [])
         .filter((l) => l.image?.url)
-        .map((l) => ({ src: img(l.image, 480), alt: l.image?.alt ?? "" }));
+        .map((l) => ({ src: img(l.image, 480), alt: l.image?.alt ?? "", variant: l.variant, scale: l.scale }));
       return (
         <PartnerHeroItem
           key={s._key}
@@ -582,7 +582,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
       if (!heroImage) return null;
       const heroLogos = (s.heroLogos ?? [])
         .filter((l) => l.image?.url)
-        .map((l) => ({ src: img(l.image, 480), alt: l.image?.alt ?? "" }));
+        .map((l) => ({ src: img(l.image, 480), alt: l.image?.alt ?? "", variant: l.variant, scale: l.scale }));
       const features = (s.features ?? [])
         .map((f) => ({
           id: f.anchor || undefined,
