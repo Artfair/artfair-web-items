@@ -158,6 +158,9 @@ export interface LogoData {
   _key: string;
   image?: ImageRef; // url = src, alt = Partnername
   href?: string;
+  // Nur fürs Partner-Hero-Karussell: optische Vereinheitlichung der Logos.
+  variant?: "wortmarke" | "mix" | "wappen"; // Form-Klasse (Default mix)
+  scale?: number; // Feinabgleich der Größe „auf Sicht" (0.85–1.15; 1 = neutral)
 }
 export interface LogoGridSection {
   _key: string;
