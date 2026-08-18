@@ -157,7 +157,19 @@ export default function Header({
   const [menuOpen, setMenuOpen] = useState(false);
   const lang: "de" | "en" = pathname.startsWith("/en") ? "en" : "de";
   const t = MENU[lang];
-  const teaser = magazineTeaser?.[lang] ?? null;
+
+  // Magazin-Teaser folgt dem Magazin-Menüpunkt: Steht der Link im CMS-Menü
+  // (Webby-Schrank) auf hidden — oder fehlt er ganz —, verschwindet auch die
+  // Vorschau. Ohne CMS-Menü (Code-Fallback) bleibt sie sichtbar.
+  const isMagazineHref = (href?: string) => !!href && /\/magazine(?:$|[/#?])/.test(href);
+  const magazineLinkVisible = nav
+    ? [...(nav.cols ?? []), nav.more, nav.company].some(
+        (g) =>
+          isMagazineHref(g?.href) ||
+          (g?.items ?? []).some((i) => !i.hidden && isMagazineHref(i.href)),
+      )
+    : true;
+  const teaser = magazineLinkVisible ? magazineTeaser?.[lang] ?? null : null;
 
   // Menü aus dem CMS (siteNavigation, Webby-Schrank); fehlt es, greifen die
   // fest hinterlegten Menüs. hidden-Punkte (live/hidden-Schalter in Webby)
