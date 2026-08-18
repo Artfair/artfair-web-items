@@ -332,7 +332,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
     case "logoMarquee": {
       const logos = (s.logos ?? [])
         .filter((l) => l.image?.url)
-        .map((l) => ({ src: img(l.image, 320), alt: l.image?.alt ?? "" }));
+        .map((l) => ({ src: img(l.image, 320), alt: l.image?.alt ?? "", variant: l.variant, scale: l.scale }));
       if (logos.length === 0) return null;
       return <LogoMarqueeItem key={s._key} headline={loc(s.headline, lang)} logos={logos} />;
     }

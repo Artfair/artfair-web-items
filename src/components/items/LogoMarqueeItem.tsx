@@ -4,7 +4,23 @@
 export interface MarqueeLogo {
   src: string;
   alt: string;
+  // Form-Klasse zur OPTISCHEN Vereinheitlichung (wie im Partner-Hero):
+  //   'wortmarke' = breit/niedrig → etwas flacher, sonst wirkt sie riesig
+  //   'wappen'    = quadratisch/hoch → etwas höher, sonst wirkt es winzig
+  //   'mix'       = Mischform (Default)
+  variant?: "wortmarke" | "mix" | "wappen";
+  // Feinabgleich der OPTISCHEN Größe pro Logo; 1 = neutral.
+  // Webby-Schieberegler erlaubt 30–180 % (0.3–1.8).
+  scale?: number;
 }
+
+// Höhenfaktor je Form-Klasse, relativ zur Basishöhe der Reihe. Gleiche
+// Verhältnisse wie die LOGO_BOX im Partner-Hero (24/32/44 zu Basis 32).
+const VARIANT_FACTOR: Record<NonNullable<MarqueeLogo["variant"]>, number> = {
+  wortmarke: 0.75,
+  mix: 1,
+  wappen: 1.375,
+};
 
 export function LogoMarqueeItem({
   headline,
@@ -26,16 +42,20 @@ export function LogoMarqueeItem({
       </div>
       <div className="overflow-hidden whitespace-nowrap">
         <div className="inline-flex items-center gap-[clamp(72px,9vw,150px)] animate-marquee [animation-duration:48s] pl-[clamp(72px,9vw,150px)]">
-          {loop.map((p, i) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              key={`${p.alt}-${i}`}
-              src={p.src}
-              alt={p.alt}
-              loading="lazy"
-              className="h-[clamp(26px,2.6vw,40px)] w-auto object-contain flex-none"
-            />
-          ))}
+          {loop.map((p, i) => {
+            const f = VARIANT_FACTOR[p.variant ?? "mix"] * (p.scale ?? 1);
+            return (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                key={`${p.alt}-${i}`}
+                src={p.src}
+                alt={p.alt}
+                loading="lazy"
+                className="w-auto object-contain flex-none"
+                style={{ height: `calc(clamp(26px, 2.6vw, 40px) * ${f.toFixed(3)})` }}
+              />
+            );
+          })}
         </div>
       </div>
     </section>

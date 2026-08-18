@@ -17,7 +17,8 @@ export interface PartnerHeroLogo {
   //   'wappen'    = quadratisch/hoch → an der Höhe ausrichten (sonst zu klein)
   //   'mix'       = Mischform (Default)
   variant?: 'wortmarke' | 'mix' | 'wappen'
-  // Feinabgleich der OPTISCHEN Größe pro Logo (0.85–1.15 üblich); 1 = neutral.
+  // Feinabgleich der OPTISCHEN Größe pro Logo; 1 = neutral.
+  // Webby-Schieberegler erlaubt 30–180 % (0.3–1.8).
   scale?: number
 }
 
