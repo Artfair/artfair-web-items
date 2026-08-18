@@ -3,15 +3,21 @@
 
 export function FactsRowItem({
   id,
+  kicker,
   facts,
 }: {
   id?: string; // Sprungmarke für Menü-Links (z. B. "oeffnungszeiten")
-  /** @deprecated Eyebrows/Kicker abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
-  kicker?: string;
+  kicker?: string; // kurze Einordnungszeile über den Badges (z. B. „Auf einen Blick.")
   facts: { label: string; value: string; muted?: boolean }[];
 }) {
   return (
     <section id={id} className="px-[var(--page-x)] py-[clamp(72px,8vw,128px)] scroll-mt-14">
+      {kicker && (
+        <p className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase mb-[clamp(28px,3vw,44px)]">
+          <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
+          {kicker}
+        </p>
+      )}
       {/* Ohne Kopflinien — die Pillen-Labels gliedern die Spalten;
           gleiches Raster auf allen Breiten, Werte oben bündig. */}
       <div className="grid gap-x-[clamp(24px,3vw,48px)] gap-y-10 sm:grid-cols-2 lg:grid-cols-4 items-start">

@@ -7,6 +7,7 @@ import Link from "next/link";
 
 export function HeroStageItem({
   id,
+  eyebrow,
   title,
   body,
   primaryCta,
@@ -15,8 +16,7 @@ export function HeroStageItem({
   imageAlt,
 }: {
   id?: string;
-  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
-  eyebrow?: string;
+  eyebrow: string;
   title: string;
   body?: string;
   primaryCta?: { label: string; href: string };
@@ -38,6 +38,9 @@ export function HeroStageItem({
         className="absolute inset-x-0 bottom-0 h-[70%] bg-gradient-to-t from-[rgba(0,0,0,0.82)] to-transparent"
       />
       <div className="absolute left-0 bottom-0 px-[var(--page-x)] pb-[clamp(36px,3.9vw,56px)] max-w-[900px]">
+        <span className="inline-flex items-center text-[13px] font-medium tracking-[0.18em] uppercase text-white mb-[clamp(14px,1.5vw,22px)]">
+          {eyebrow}
+        </span>
         <h1 className="font-normal text-[clamp(44px,6.1vw,88px)] leading-[0.98] tracking-[-0.01em] text-white">
           {title}
         </h1>

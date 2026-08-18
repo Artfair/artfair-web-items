@@ -4,7 +4,7 @@ import Link from 'next/link'
 import {useEffect, useState} from 'react'
 
 // Baukasten-Item „Partner-Hero" (Header-Typ 2b) — Split: links Textbox mit
-// 3px-Acid-Rahmen (H1, Text, Knöpfe), rechts Foto mit dunklem
+// 3px-Acid-Rahmen (Kicker, H1, Text, Knöpfe), rechts Foto mit dunklem
 // Overlay und rotierendem weißen Partner-Logo-Karussell (Cross-Fade).
 // „Bewegung reduzieren" friert das Karussell auf dem ersten Logo ein.
 // Design-Handoff „Seiten-Header-System", Typ 2b (Partner).
@@ -35,6 +35,7 @@ const ROTATE_MS = 1500
 
 export function PartnerHeroItem({
   id,
+  eyebrow,
   title,
   body,
   primaryCta,
@@ -44,8 +45,7 @@ export function PartnerHeroItem({
   logos,
 }: {
   id?: string
-  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
-  eyebrow?: string
+  eyebrow: string
   title: string
   body: string
   primaryCta?: {label: string; href: string}
@@ -67,6 +67,10 @@ export function PartnerHeroItem({
     <section id={id} className="px-[var(--page-x)] pt-[clamp(24px,2.8vw,40px)] pb-[clamp(36px,3.9vw,56px)]">
       <div className="grid md:grid-cols-2 gap-[clamp(20px,2.8vw,40px)] items-stretch">
         <div className="flex flex-col justify-center border-[3px] border-artdus-lime p-[clamp(28px,3.3vw,48px)]">
+          <span className="flex items-center gap-2.5 text-[13px] font-medium tracking-[0.18em] uppercase mb-[clamp(18px,1.8vw,26px)]">
+            <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
+            {eyebrow}
+          </span>
           <h1 className="font-normal text-[clamp(42px,5.8vw,84px)] leading-[0.98] tracking-[-0.01em]">
             {title}
           </h1>

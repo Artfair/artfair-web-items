@@ -8,6 +8,7 @@ import Link from "next/link";
 
 export function InfoHeaderItem({
   id,
+  eyebrow,
   title,
   body,
   action,
@@ -16,8 +17,7 @@ export function InfoHeaderItem({
   footer,
 }: {
   id?: string;
-  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
-  eyebrow?: string;
+  eyebrow: string;
   title: string;
   body?: string;
   action?: { label: string; href: string }; // schwarzer Knopf, rechts unten
@@ -31,6 +31,10 @@ export function InfoHeaderItem({
         <div aria-hidden="true" className="w-[clamp(16px,1.9vw,28px)] bg-artdus-lime shrink-0" />
         <div className="flex-1 flex justify-between items-end gap-10 flex-wrap">
           <div className="min-w-0">
+            <span className="flex items-center gap-2.5 text-[13px] font-medium tracking-[0.18em] uppercase mb-[clamp(16px,1.7vw,24px)]">
+              <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
+              {eyebrow}
+            </span>
             <h1 className="font-normal text-[clamp(42px,5.8vw,84px)] leading-[0.98] tracking-[-0.01em]">
               {title}
             </h1>

@@ -13,6 +13,7 @@ const SLIDE_MS = 1800
 
 export function SalesHeroItem({
   id,
+  eyebrow,
   title,
   body,
   primaryCta,
@@ -22,8 +23,7 @@ export function SalesHeroItem({
   imageCaption,
 }: {
   id?: string
-  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
-  eyebrow?: string
+  eyebrow: string
   title: string
   body: string
   primaryCta?: {label: string; href: string}
@@ -45,6 +45,10 @@ export function SalesHeroItem({
     <section id={id} className="px-[var(--page-x)] pt-[clamp(24px,2.8vw,40px)] pb-[clamp(36px,3.9vw,56px)]">
       <div className="grid md:grid-cols-2 gap-[clamp(20px,2.8vw,40px)] items-stretch">
         <div className="flex flex-col justify-center border-[3px] border-artdus-lime p-[clamp(28px,3.3vw,48px)]">
+          <span className="flex items-center gap-2.5 text-[13px] font-medium tracking-[0.18em] uppercase mb-[clamp(18px,1.8vw,26px)]">
+            <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
+            {eyebrow}
+          </span>
           <h1 className="font-normal text-[clamp(36px,4.5vw,64px)] leading-[1.0] tracking-[-0.01em]">
             {title}
           </h1>

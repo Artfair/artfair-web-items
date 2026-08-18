@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-// Baukasten-Item „Hero Split" — Acid-Block (H1, Text, CTAs) neben
+// Baukasten-Item „Hero Split" — Acid-Block (Eyebrow, H1, Text, CTAs) neben
 // Video oder Bild. Trägt die H1 der Seite — pro Seite nur einmal einsetzen.
 
 // mailto/extern als normaler <a>, interne Ziele als SPA-Link.
@@ -33,6 +33,7 @@ function CtaLink({
 }
 
 export function HeroSplitItem({
+  eyebrow,
   title,
   body,
   primaryCta,
@@ -40,8 +41,7 @@ export function HeroSplitItem({
   videoSrc,
   poster,
 }: {
-  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
-  eyebrow?: string;
+  eyebrow: string;
   title: string; // Zeilenumbruch als \n
   body: string;
   primaryCta: { label: string; href: string };
@@ -52,6 +52,10 @@ export function HeroSplitItem({
   return (
     <section className="grid md:grid-cols-[1fr_1.05fr] gap-[clamp(28px,4vw,72px)] bg-white px-[var(--page-x)] py-[clamp(32px,4.5vw,72px)] md:min-h-[min(76vh,780px)]">
       <div className="bg-artdus-lime text-artdus-black flex flex-col justify-center gap-7 px-[clamp(40px,5vw,80px)] py-[clamp(48px,6vw,96px)]">
+        <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase">
+          <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-black" />
+          {eyebrow}
+        </span>
         <h1 className="font-light text-[clamp(44px,6.5vw,92px)] leading-[0.98] tracking-[-0.02em] whitespace-pre-line">
           {title}
         </h1>

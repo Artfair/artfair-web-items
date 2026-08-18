@@ -82,6 +82,7 @@ function resolveInquiry(
   if (!f || !loc(f.heading, lang)) return undefined;
   const opts = (list?: Loc[]) => (list ?? []).map((o) => loc(o, lang)).filter(Boolean);
   return {
+    eyebrow: loc(f.eyebrow, lang) || undefined,
     heading: loc(f.heading, lang),
     intro: loc(f.intro, lang) || undefined,
     companyLabel: loc(f.companyLabel, lang),
@@ -141,6 +142,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
       return (
         <HeroSplitItem
           key={s._key}
+          eyebrow={loc(s.eyebrow, lang)}
           title={loc(s.title, lang)}
           body={loc(s.body, lang)}
           primaryCta={primary}
@@ -157,7 +159,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
         .filter((f) => f.label || f.value);
       if (facts.length === 0) return null;
       return (
-        <FactsRowItem key={s._key} id={s.anchor} facts={facts} />
+        <FactsRowItem key={s._key} id={s.anchor} kicker={loc(s.kicker, lang) || undefined} facts={facts} />
       );
     }
 
@@ -168,6 +170,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
         <CtaBandItem
           key={s._key}
           id={s.anchor}
+          eyebrow={loc(s.eyebrow, lang)}
           heading={loc(s.heading, lang)}
           body={loc(s.body, lang)}
           contact={
@@ -193,6 +196,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
         <TextCtaItem
           key={s._key}
           id={s.anchor}
+          eyebrow={loc(s.eyebrow, lang) || undefined}
           heading={loc(s.heading, lang)}
           body={loc(s.body, lang)}
           cta={resolveCta(s.cta, lang)}
@@ -209,6 +213,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
         <FairPlanItem
           key={s._key}
           id={s.anchor}
+          eyebrow={loc(s.eyebrow, lang)}
           heading={loc(s.heading, lang)}
           body={loc(s.body, lang)}
           planSrc={plan}
@@ -230,6 +235,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
         <NumberedBlocksItem
           key={s._key}
           id={s.anchor}
+          eyebrow={loc(s.eyebrow, lang)}
           heading={loc(s.heading, lang)}
           image={image}
           headLink={resolveCta(s.headLink, lang)}
@@ -255,6 +261,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
       return (
         <CardTrioItem
           key={s._key}
+          eyebrow={loc(s.eyebrow, lang)}
           heading={loc(s.heading, lang)}
           cards={cards}
         />
@@ -270,6 +277,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
         <LogoGridItem
           key={s._key}
           id={s.anchor}
+          eyebrow={loc(s.eyebrow, lang)}
           heading={loc(s.heading, lang)}
           logos={logos}
         />
@@ -361,6 +369,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
         <PartnerFeatureItem
           key={s._key}
           id={s.anchor}
+          eyebrow={loc(s.eyebrow, lang)}
           heading={loc(s.heading, lang)}
           imageSrc={image}
           imageAlt={s.image?.alt ?? ""}
@@ -398,6 +407,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
         <TalksScheduleItem
           key={s._key}
           id={s.anchor}
+          eyebrow={loc(s.eyebrow, lang)}
           heading={loc(s.heading, lang)}
           intro={loc(s.intro, lang) || undefined}
           imageSrc={img(s.image) || undefined}
@@ -416,6 +426,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
         <HeroStageItem
           key={s._key}
           id={s.anchor}
+          eyebrow={loc(s.eyebrow, lang)}
           title={loc(s.title, lang)}
           body={loc(s.body, lang) || undefined}
           primaryCta={resolveCta(s.primaryCta, lang)}
@@ -436,6 +447,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
         <PartnerHeroItem
           key={s._key}
           id={s.anchor}
+          eyebrow={loc(s.eyebrow, lang)}
           title={loc(s.title, lang)}
           body={loc(s.body, lang)}
           primaryCta={resolveCta(s.primaryCta, lang)}
@@ -456,6 +468,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
         <SalesHeroItem
           key={s._key}
           id={s.anchor}
+          eyebrow={loc(s.eyebrow, lang)}
           title={loc(s.title, lang)}
           body={loc(s.body, lang)}
           primaryCta={resolveCta(s.primaryCta, lang)}
@@ -484,6 +497,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
       return (
         <BusinessPageItem
           key={s._key}
+          heroEyebrow={loc(s.heroEyebrow, lang)}
           heroTitle={loc(s.heroTitle, lang)}
           heroBody={loc(s.heroBody, lang)}
           heroPrimaryCta={resolveCta(s.heroPrimaryCta, lang)}
@@ -491,11 +505,14 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           heroImages={heroImages}
           heroImageAlt={s.heroImages?.[0]?.image?.alt ?? ""}
           heroImageCaption={loc(s.heroImageCaption, lang) || undefined}
+          trustEyebrow={loc(s.trustEyebrow, lang)}
           trustHeading={loc(s.trustHeading, lang)}
           trustBody={loc(s.trustBody, lang)}
+          factsKicker={loc(s.factsKicker, lang)}
           facts={(s.facts ?? [])
             .map((f) => ({ label: loc(f.label, lang), value: loc(f.value, lang) }))
             .filter((f) => f.label || f.value)}
+          includedEyebrow={loc(s.includedEyebrow, lang)}
           includedHeading={loc(s.includedHeading, lang)}
           includedCards={(s.includedCards ?? [])
             .map((c) => ({
@@ -508,6 +525,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
             .filter((c) => c.title || c.body || c.imageSrc)}
           independentHeading={loc(s.independentHeading, lang)}
           independentBody={loc(s.independentBody, lang)}
+          contactEyebrow={loc(s.contactEyebrow, lang)}
           contactHeading={loc(s.contactHeading, lang)}
           contactBody={loc(s.contactBody, lang)}
           contactPerson={
@@ -568,6 +586,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
       const features = (s.features ?? [])
         .map((f) => ({
           id: f.anchor || undefined,
+          eyebrow: loc(f.eyebrow, lang),
           heading: loc(f.heading, lang),
           imageSrc: img(f.image),
           imageAlt: f.image?.alt ?? "",
@@ -579,6 +598,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
       const logoGroups = (s.logoGroups ?? [])
         .map((g) => ({
           id: g.anchor || undefined,
+          eyebrow: loc(g.eyebrow, lang),
           heading: loc(g.heading, lang),
           logos: (g.logos ?? [])
             .filter((l) => l.image?.url)
@@ -591,6 +611,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
       return (
         <PartnerPageItem
           key={s._key}
+          heroEyebrow={loc(s.heroEyebrow, lang)}
           heroTitle={loc(s.heroTitle, lang)}
           heroBody={loc(s.heroBody, lang)}
           heroPrimaryCta={resolveCta(s.heroPrimaryCta, lang)}
@@ -599,6 +620,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           heroLogos={heroLogos}
           features={features}
           logoGroups={logoGroups}
+          contactEyebrow={loc(s.contactEyebrow, lang)}
           contactHeading={loc(s.contactHeading, lang)}
           contactBody={loc(s.contactBody, lang)}
           contactPerson={
@@ -622,6 +644,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
         <InfoHeaderItem
           key={s._key}
           id={s.anchor}
+          eyebrow={loc(s.eyebrow, lang)}
           title={loc(s.title, lang)}
           body={loc(s.body, lang) || undefined}
           action={resolveCta(s.action, lang)}
@@ -635,6 +658,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
         <ListHeaderItem
           key={s._key}
           id={s.anchor}
+          eyebrow={loc(s.eyebrow, lang)}
           title={loc(s.title, lang)}
           counterValue={s.counterValue || undefined}
           counterLabel={loc(s.counterLabel, lang) || undefined}
@@ -650,6 +674,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
         <NewsletterHeroItem
           key={s._key}
           id={s.anchor}
+          eyebrow={loc(s.eyebrow, lang)}
           title={loc(s.title, lang)}
           body={loc(s.body, lang)}
           emailPlaceholder={lang === "de" ? "E-Mail-Adresse" : "Email address"}
@@ -682,9 +707,11 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           heroSecondaryCta={resolveCta(s.heroSecondaryCta, lang)}
           heroVideoSrc={s.heroVideoUrl || undefined}
           heroPoster={img(s.heroPoster) || undefined}
+          visionEyebrow={loc(s.visionEyebrow, lang)}
           visionHeading={loc(s.visionHeading, lang)}
           visionBody={loc(s.visionBody, lang)}
           visionQuote={q(s.visionQuote)}
+          collectorsEyebrow={loc(s.collectorsEyebrow, lang)}
           collectorsHeading={loc(s.collectorsHeading, lang)}
           collectorsBody={loc(s.collectorsBody, lang)}
           collectorsImage={im(s.collectorsImage)}
@@ -692,6 +719,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           arealImage={im(s.arealImage)}
           arealLabel={loc(s.arealLabel, lang)}
           arealBody={loc(s.arealBody, lang)}
+          profileEyebrow={loc(s.profileEyebrow, lang)}
           profileHeading={loc(s.profileHeading, lang)}
           profileSections={(s.profileSections ?? [])
             .map((r) => ({ name: r.name ?? "", body: loc(r.body, lang) }))
@@ -701,11 +729,13 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           profileQuote={q(s.profileQuote)}
           profileImage={im(s.profileImage)}
           contactAnchor={s.contactAnchor || "kontakt"}
+          contactEyebrow={loc(s.contactEyebrow, lang)}
           contactHeading={loc(s.contactHeading, lang)}
           contactBody={loc(s.contactBody, lang)}
           contactCta={resolveCta(s.contactCta, lang)}
           contactAddressLine={loc(s.contactAddressLine, lang)}
           contactPhone={s.contactPhone ?? ""}
+          teamEyebrow={loc(s.teamEyebrow, lang)}
           teamHeading={loc(s.teamHeading, lang)}
           team={(s.team ?? [])
             .map((m) => ({
@@ -715,6 +745,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
               phone: m.phone ?? "",
             }))
             .filter((m) => m.name || m.email)}
+          enquiriesEyebrow={loc(s.enquiriesEyebrow, lang)}
           enquiriesHeading={loc(s.enquiriesHeading, lang)}
           enquiries={(s.enquiries ?? [])
             .map((b) => ({
@@ -727,6 +758,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
               })),
             }))
             .filter((b) => b.heading || b.body)}
+          addressesEyebrow={loc(s.addressesEyebrow, lang)}
           addressesHeading={loc(s.addressesHeading, lang)}
           addresses={(s.addresses ?? [])
             .map((a) => ({
@@ -750,6 +782,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
         <NewsletterPageItem
           key={s._key}
           id={s.anchor}
+          heroEyebrow={loc(s.heroEyebrow, lang)}
           heroTitle={loc(s.heroTitle, lang)}
           heroBody={loc(s.heroBody, lang)}
           emailPlaceholder={loc(s.emailPlaceholder, lang) || (de ? "E-Mail-Adresse" : "Email address")}
@@ -777,13 +810,15 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
               : "Sending failed — please try again.")
           }
           action={s.action || undefined}
+          benefitsEyebrow={loc(s.benefitsEyebrow, lang)}
           benefitsHeading={loc(s.benefitsHeading, lang)}
           benefits={(s.benefits ?? [])
-            .map((b) => ({ title: loc(b.title, lang), body: loc(b.body, lang) }))
+            .map((b) => ({ eyebrow: loc(b.eyebrow, lang), title: loc(b.title, lang), body: loc(b.body, lang) }))
             .filter((b) => b.title || b.body)}
           mosaic={(s.mosaic ?? [])
             .map((sl) => im(sl.image, 1200))
             .filter((x): x is { src: string; alt: string } => !!x)}
+          previewEyebrow={loc(s.previewEyebrow, lang)}
           previewHeading={loc(s.previewHeading, lang)}
           previewUrl={s.previewUrl || "mail.artduesseldorf.com"}
           phoneLabel={loc(s.phoneLabel, lang) || "Mail"}

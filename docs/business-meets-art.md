@@ -3,13 +3,6 @@
 Handoff für das AD27-Team. Alle Bauteile liegen ab **v0.9.0** im Paket
 `@artfair/web-items`.
 
-> **Update v0.12.0 (13.8.2026): Eyebrows abgeschafft.** Die Eyebrow-/Kicker-
-> Zeilen (Lime-Quadrat + Versaltext), die dieses Dokument noch erwähnt
-> (`heroEyebrow`, `trustEyebrow`, `factsKicker`, `includedEyebrow`,
-> `contactEyebrow`, `inquiry.eyebrow`), werden nicht mehr gerendert. Die
-> Felder existieren weiter (deprecated, ignoriert) — in Webby gepflegte
-> Werte sind unschädlich, müssen aber nicht mehr gepflegt werden.
-
 ## Empfohlener Weg: die ganze Seite als EIN Item (v0.9.0)
 
 `BusinessPageItem` ist die komplette Landingpage als ein Custom-Item

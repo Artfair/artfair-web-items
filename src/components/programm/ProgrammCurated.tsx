@@ -8,6 +8,7 @@ export function ProgrammCurated({lang}: {lang: 'de' | 'en'}) {
   return (
     <NumberedBlocksItem
       id="kuratiert"
+      eyebrow={de ? 'Kuratiert' : 'Curated'}
       heading={de ? 'Kuratierte Bereiche.' : 'Curated sections.'}
       blocks={[
         {

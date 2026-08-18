@@ -3,7 +3,7 @@
 import {useState} from 'react'
 
 // Baukasten-Item „Newsletter-Hero" (Header-Typ 6 · Editorial) — Split:
-// links Headline, Text und E-Mail-Eingabe mit 2px-Rahmen und
+// links Kicker, Headline, Text und E-Mail-Eingabe mit 2px-Rahmen und
 // schwarzem Abonnieren-Knopf; rechts zwei gestapelte Fotos. Anmeldung
 // wie NewsletterForm vorerst clientseitig bestätigt.
 // Design-Handoff „Seiten-Header-System", Typ 6 (Newsletter) — Headline
@@ -12,6 +12,7 @@ import {useState} from 'react'
 
 export function NewsletterHeroItem({
   id,
+  eyebrow,
   title,
   body,
   emailPlaceholder,
@@ -20,8 +21,7 @@ export function NewsletterHeroItem({
   images,
 }: {
   id?: string
-  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
-  eyebrow?: string
+  eyebrow: string
   title: string
   body: string
   emailPlaceholder: string
@@ -34,6 +34,10 @@ export function NewsletterHeroItem({
   return (
     <section id={id} className="grid md:grid-cols-[1.1fr_1fr] items-stretch">
       <div className="flex flex-col justify-center px-[var(--page-x)] py-[clamp(48px,6.1vw,88px)] md:pr-[clamp(28px,3.3vw,48px)]">
+        <span className="flex items-center gap-2.5 text-[13px] font-medium tracking-[0.2em] uppercase mb-[clamp(14px,1.5vw,22px)]">
+          <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
+          {eyebrow}
+        </span>
         <h1 className="font-normal text-[clamp(40px,5vw,72px)] leading-[1.02] tracking-[-0.01em] mb-[clamp(16px,1.7vw,24px)]">
           {title}
         </h1>

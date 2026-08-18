@@ -51,14 +51,14 @@ function BlockCard({ no, block }: { no: string; block: NumberedBlock }) {
 
 export function NumberedBlocksItem({
   id,
+  eyebrow,
   heading,
   image,
   headLink,
   blocks,
 }: {
   id?: string;
-  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
-  eyebrow?: string;
+  eyebrow: string;
   heading: string;
   image?: { src: string; alt: string; caption?: string };
   headLink?: { label: string; href: string };
@@ -71,6 +71,10 @@ export function NumberedBlocksItem({
 
   return (
     <section id={id} className="px-[var(--page-x)] py-[clamp(64px,8vw,128px)] scroll-mt-14">
+      <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase mb-5">
+        <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
+        {eyebrow}
+      </span>
       <h2 className="font-light text-[clamp(40px,5.5vw,76px)] leading-[1.02] tracking-[-0.02em] mb-[clamp(28px,3.5vw,56px)]">
         {heading}
       </h2>

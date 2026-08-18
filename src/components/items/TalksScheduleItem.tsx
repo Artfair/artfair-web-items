@@ -26,6 +26,7 @@ export interface TalkDay {
 
 export function TalksScheduleItem({
   id,
+  eyebrow,
   heading,
   intro,
   imageSrc,
@@ -35,8 +36,7 @@ export function TalksScheduleItem({
   credit,
 }: {
   id?: string;
-  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
-  eyebrow?: string;
+  eyebrow: string;
   heading: string;
   intro?: string;
   imageSrc?: string;
@@ -47,6 +47,10 @@ export function TalksScheduleItem({
 }) {
   return (
     <section id={id} className="px-[var(--page-x)] pb-[clamp(64px,8vw,128px)] scroll-mt-14">
+      <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase mb-5">
+        <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
+        {eyebrow}
+      </span>
       <h2 className="font-light text-[clamp(36px,5vw,68px)] leading-[1.02] tracking-[-0.02em] mb-[clamp(20px,2.5vw,36px)]">
         {heading}
       </h2>

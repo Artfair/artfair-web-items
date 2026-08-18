@@ -11,6 +11,7 @@ export function ProgrammArtWalks({lang, assetBase = ''}: {lang: 'de' | 'en'; ass
   return (
     <NumberedBlocksItem
       id="art-walks"
+      eyebrow="Art Walks"
       heading={de ? 'Buchen Sie Ihren Art Walk.' : 'Book your art walk.'}
       image={{
         src: a('/images/home/painting-crowd.jpg'),

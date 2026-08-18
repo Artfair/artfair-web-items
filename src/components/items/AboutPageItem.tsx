@@ -22,6 +22,10 @@ type Address = {
   tone: 'lime' | 'black'
 }
 
+const eyebrowClass =
+  'flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase mb-5'
+const acidSquare = <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime shrink-0" />
+
 function QuoteFigure({quote, size}: {quote: Quote; size: 'lg' | 'md' | 'xl'}) {
   if (!quote.text) return null
   const q =
@@ -124,13 +128,11 @@ export function AboutPageItem(props: {
   heroSecondaryCta?: Cta
   heroVideoSrc?: string
   heroPoster?: string
-  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
-  visionEyebrow?: string
+  visionEyebrow: string
   visionHeading: string
   visionBody: string
   visionQuote: Quote
-  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
-  collectorsEyebrow?: string
+  collectorsEyebrow: string
   collectorsHeading: string
   collectorsBody: string
   collectorsImage?: {src: string; alt: string}
@@ -138,8 +140,7 @@ export function AboutPageItem(props: {
   arealImage?: {src: string; alt: string}
   arealLabel: string
   arealBody: string
-  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
-  profileEyebrow?: string
+  profileEyebrow: string
   profileHeading: string
   profileSections: SectionRow[]
   profileThemesLabel: string
@@ -147,23 +148,19 @@ export function AboutPageItem(props: {
   profileQuote: Quote
   profileImage?: {src: string; alt: string}
   contactAnchor: string
-  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
-  contactEyebrow?: string
+  contactEyebrow: string
   contactHeading: string
   contactBody: string
   contactCta?: Cta
   contactAddressLine: string
   contactPhone: string
-  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
-  teamEyebrow?: string
+  teamEyebrow: string
   teamHeading: string
   team: Member[]
-  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
-  enquiriesEyebrow?: string
+  enquiriesEyebrow: string
   enquiriesHeading: string
   enquiries: EnquiryBlock[]
-  /** @deprecated Eyebrows abgeschafft (Annalena 13.8.2026) — wird nicht mehr gerendert. */
-  addressesEyebrow?: string
+  addressesEyebrow: string
   addressesHeading: string
   addresses: Address[]
 }) {
@@ -171,6 +168,7 @@ export function AboutPageItem(props: {
   return (
     <div className="pt-14 animate-fade-in">
       <HeroSplitItem
+        eyebrow=""
         title={p.heroTitle}
         body={p.heroBody}
         primaryCta={p.heroPrimaryCta ?? {label: '', href: '#'}}
@@ -183,6 +181,10 @@ export function AboutPageItem(props: {
       <section id="vision" className="px-[var(--page-x)] py-[clamp(72px,10vw,144px)] scroll-mt-14">
         <div className="grid md:grid-cols-2 gap-x-[clamp(40px,6vw,96px)] gap-y-12 items-start">
           <div>
+            <span className={eyebrowClass}>
+              {acidSquare}
+              {p.visionEyebrow}
+            </span>
             <h2 className="font-light text-[clamp(30px,3.4vw,52px)] leading-[1.06] tracking-[-0.02em] max-w-[24ch]">
               {p.visionHeading}
             </h2>
@@ -212,6 +214,10 @@ export function AboutPageItem(props: {
           </div>
           <div className="flex flex-col justify-center gap-8">
             <div>
+              <span className={eyebrowClass}>
+                {acidSquare}
+                {p.collectorsEyebrow}
+              </span>
               <h2 className="font-light text-[clamp(28px,3vw,44px)] leading-[1.06] tracking-[-0.02em] max-w-[22ch]">
                 {p.collectorsHeading}
               </h2>
@@ -253,6 +259,10 @@ export function AboutPageItem(props: {
 
       {/* Kuratorisches Profil */}
       <section id="profil" className="px-[var(--page-x)] pb-[clamp(72px,10vw,144px)] scroll-mt-14">
+        <span className={eyebrowClass}>
+          {acidSquare}
+          {p.profileEyebrow}
+        </span>
         <h2 className="font-light text-[clamp(28px,3vw,44px)] leading-[1.06] tracking-[-0.02em] mb-[clamp(32px,4vw,56px)]">
           {p.profileHeading}
         </h2>
@@ -316,6 +326,10 @@ export function AboutPageItem(props: {
           <div aria-hidden="true" className="w-[28px] bg-artdus-lime shrink-0" />
           <div className="flex-1 flex flex-wrap justify-between items-end gap-10">
             <div>
+              <span className={eyebrowClass}>
+                {acidSquare}
+                {p.contactEyebrow}
+              </span>
               <h2 className="font-light text-[clamp(44px,5.5vw,84px)] leading-none tracking-[-0.02em]">
                 {p.contactHeading}
               </h2>
@@ -349,6 +363,10 @@ export function AboutPageItem(props: {
 
       {/* Team-Verzeichnis — mobil eine Spalte, Desktop zwei versetzte Spalten */}
       <section className="px-[var(--page-x)] pt-[clamp(64px,8vw,128px)]">
+        <span className={eyebrowClass}>
+          {acidSquare}
+          {p.teamEyebrow}
+        </span>
         <h2 className="font-light text-[clamp(32px,3.6vw,52px)] leading-[1.02] tracking-[-0.02em] mb-[clamp(28px,3.5vw,56px)]">
           {p.teamHeading}
         </h2>
@@ -400,6 +418,7 @@ export function AboutPageItem(props: {
 
       {/* Anliegen */}
       <NumberedBlocksItem
+        eyebrow={p.enquiriesEyebrow}
         heading={p.enquiriesHeading}
         blocks={p.enquiries.map((b) => ({
           heading: b.heading,
@@ -410,6 +429,10 @@ export function AboutPageItem(props: {
 
       {/* Adressen */}
       <section className="px-[var(--page-x)] pb-[clamp(72px,10vw,140px)]">
+        <span className={eyebrowClass}>
+          {acidSquare}
+          {p.addressesEyebrow}
+        </span>
         <h2 className="font-light text-[clamp(32px,3.6vw,52px)] leading-[1.02] tracking-[-0.02em] mb-[clamp(28px,3.5vw,48px)]">
           {p.addressesHeading}
         </h2>

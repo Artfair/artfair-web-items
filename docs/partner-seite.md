@@ -9,12 +9,6 @@ die Inhaltspflege nach Webby — Partner wechseln von Ausgabe zu Ausgabe,
 deshalb sind Porträts und Logo-Gruppen **Listen** (beliebig viele, sortierbar),
 keine festen Slots.
 
-> **Update v0.12.0 (13.8.2026): Eyebrows abgeschafft.** Die Eyebrow-Zeilen
-> (Lime-Quadrat + Versaltext), die dieses Dokument noch erwähnt (`heroEyebrow`,
-> `eyebrow` je Porträt/Logo-Gruppe, `contactEyebrow`), werden nicht mehr
-> gerendert. Die Felder existieren weiter (deprecated, ignoriert) — in Webby
-> gepflegte Werte sind unschädlich, müssen aber nicht mehr gepflegt werden.
-
 ## Aufbau des Items (Reihenfolge fest im Code)
 
 1. **Partner-Hero** (`PartnerHeroItem`, Typ 2b) — Lime-Rahmen links (Kicker,
