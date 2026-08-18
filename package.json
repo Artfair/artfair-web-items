@@ -1,6 +1,6 @@
 {
   "name": "@artfair/web-items",
-  "version": "0.12.2",
+  "version": "0.13.0",
   "description": "Geteiltes Design-Regal der Art Düsseldorf — Item-Bauteile, SectionRenderer, Theme (Tailwind-Preset + Tokens + Fonts). Wird von AD27 (Website) und Webby (Editor) importiert, damit beide dieselben Bauteile im gleichen Look rendern.",
   "license": "UNLICENSED",
   "type": "module",

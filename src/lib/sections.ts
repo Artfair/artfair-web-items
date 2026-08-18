@@ -7,6 +7,12 @@
 // An den Item-Komponenten wird NICHTS geändert — nur ihre Props als CMS-Felder
 // abgebildet (Texte als {de,en}, Bilder als {url,alt}).
 // Siehe HANDOFF-Baukasten-fuer-Annalena.md.
+//
+// EYEBROW-REGEL (Annalena 14.8.2026): Die Eyebrow-Zeile (Lime-Quadrat +
+// Versaltext) erscheint nur noch, wenn Text gepflegt ist — leeres Feld =
+// keine Zeile, kein Punkt (so bleiben Impressum/Datenschutz ohne). Auf der
+// Über-uns-Seite (aboutPage) sind Eyebrows grundsätzlich abgeschafft, auch
+// die Zwischenheadline „Kontakt & Team"; diese Felder sind @deprecated.
 // ─────────────────────────────────────────────────────────────────────────
 
 export type Loc = { de?: string; en?: string };
@@ -501,9 +507,11 @@ export interface FaqPageSection {
   title?: Loc; // H1, z. B. „Galerie-FAQ."
   intro?: Loc; // kurze Einordnung unter der Headline
   switchCta?: Cta; // schwarzer Knopf rechts („Zum Besucher-FAQ"); hidden = weg
-  searchPlaceholder?: Loc; // Default „Frage suchen …"
+  /** @deprecated Suchfeld entfernt (Annalena 14.8.2026) — wird ignoriert. */
+  searchPlaceholder?: Loc;
   allLabel?: Loc; // Default „Alle Themen"
-  emptyText?: Loc; // Meldung ohne Treffer
+  /** @deprecated Suchfeld entfernt (Annalena 14.8.2026) — wird ignoriert. */
+  emptyText?: Loc;
   categories?: FaqCategoryData[];
 }
 
@@ -634,10 +642,12 @@ export interface AboutPageSection {
   heroSecondaryCta?: Cta;
   heroVideoUrl?: string;
   heroPoster?: ImageRef;
+  /** @deprecated Über uns ohne Eyebrows (Annalena 14.8.2026) — wird ignoriert. */
   visionEyebrow?: Loc;
   visionHeading?: Loc;
   visionBody?: Loc;
   visionQuote?: AboutQuote;
+  /** @deprecated Über uns ohne Eyebrows (Annalena 14.8.2026) — wird ignoriert. */
   collectorsEyebrow?: Loc;
   collectorsHeading?: Loc;
   collectorsBody?: Loc;
@@ -646,6 +656,7 @@ export interface AboutPageSection {
   arealImage?: ImageRef;
   arealLabel?: Loc;
   arealBody?: Loc;
+  /** @deprecated Über uns ohne Eyebrows (Annalena 14.8.2026) — wird ignoriert. */
   profileEyebrow?: Loc;
   profileHeading?: Loc;
   profileSections?: AboutSectionRow[];
@@ -654,18 +665,22 @@ export interface AboutPageSection {
   profileQuote?: AboutQuote;
   profileImage?: ImageRef;
   contactAnchor?: string;
+  /** @deprecated Über uns ohne Eyebrows — auch die Zwischenheadline „Kontakt & Team" (Annalena 14.8.2026). */
   contactEyebrow?: Loc;
   contactHeading?: Loc;
   contactBody?: Loc;
   contactCta?: Cta;
   contactAddressLine?: Loc;
   contactPhone?: string;
+  /** @deprecated Über uns ohne Eyebrows (Annalena 14.8.2026) — wird ignoriert. */
   teamEyebrow?: Loc;
   teamHeading?: Loc;
   team?: AboutTeamMember[];
+  /** @deprecated Über uns ohne Eyebrows (Annalena 14.8.2026) — wird ignoriert. */
   enquiriesEyebrow?: Loc;
   enquiriesHeading?: Loc;
   enquiries?: AboutEnquiryBlock[];
+  /** @deprecated Über uns ohne Eyebrows (Annalena 14.8.2026) — wird ignoriert. */
   addressesEyebrow?: Loc;
   addressesHeading?: Loc;
   addresses?: AboutAddress[];

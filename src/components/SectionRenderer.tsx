@@ -563,15 +563,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           title={loc(s.title, lang)}
           intro={loc(s.intro, lang) || undefined}
           switchCta={switchCta ? { label: switchCta.label, href: withLang(switchCta.href, lang) } : undefined}
-          searchPlaceholder={loc(s.searchPlaceholder, lang) || (de ? "Frage suchen …" : "Search questions …")}
-          searchLabel={de ? "FAQ durchsuchen" : "Search the FAQ"}
           allLabel={loc(s.allLabel, lang) || (de ? "Alle Themen" : "All topics")}
-          emptyText={
-            loc(s.emptyText, lang) ||
-            (de
-              ? "Keine Treffer — versuchen Sie einen anderen Begriff oder wählen Sie ein anderes Thema."
-              : "No results — try a different term or choose another topic.")
-          }
           categories={categories}
         />
       );
@@ -707,11 +699,9 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           heroSecondaryCta={resolveCta(s.heroSecondaryCta, lang)}
           heroVideoSrc={s.heroVideoUrl || undefined}
           heroPoster={img(s.heroPoster) || undefined}
-          visionEyebrow={loc(s.visionEyebrow, lang)}
           visionHeading={loc(s.visionHeading, lang)}
           visionBody={loc(s.visionBody, lang)}
           visionQuote={q(s.visionQuote)}
-          collectorsEyebrow={loc(s.collectorsEyebrow, lang)}
           collectorsHeading={loc(s.collectorsHeading, lang)}
           collectorsBody={loc(s.collectorsBody, lang)}
           collectorsImage={im(s.collectorsImage)}
@@ -719,7 +709,6 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           arealImage={im(s.arealImage)}
           arealLabel={loc(s.arealLabel, lang)}
           arealBody={loc(s.arealBody, lang)}
-          profileEyebrow={loc(s.profileEyebrow, lang)}
           profileHeading={loc(s.profileHeading, lang)}
           profileSections={(s.profileSections ?? [])
             .map((r) => ({ name: r.name ?? "", body: loc(r.body, lang) }))
@@ -729,13 +718,11 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           profileQuote={q(s.profileQuote)}
           profileImage={im(s.profileImage)}
           contactAnchor={s.contactAnchor || "kontakt"}
-          contactEyebrow={loc(s.contactEyebrow, lang)}
           contactHeading={loc(s.contactHeading, lang)}
           contactBody={loc(s.contactBody, lang)}
           contactCta={resolveCta(s.contactCta, lang)}
           contactAddressLine={loc(s.contactAddressLine, lang)}
           contactPhone={s.contactPhone ?? ""}
-          teamEyebrow={loc(s.teamEyebrow, lang)}
           teamHeading={loc(s.teamHeading, lang)}
           team={(s.team ?? [])
             .map((m) => ({
@@ -745,7 +732,6 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
               phone: m.phone ?? "",
             }))
             .filter((m) => m.name || m.email)}
-          enquiriesEyebrow={loc(s.enquiriesEyebrow, lang)}
           enquiriesHeading={loc(s.enquiriesHeading, lang)}
           enquiries={(s.enquiries ?? [])
             .map((b) => ({
@@ -758,7 +744,6 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
               })),
             }))
             .filter((b) => b.heading || b.body)}
-          addressesEyebrow={loc(s.addressesEyebrow, lang)}
           addressesHeading={loc(s.addressesHeading, lang)}
           addresses={(s.addresses ?? [])
             .map((a) => ({

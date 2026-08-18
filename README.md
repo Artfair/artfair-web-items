@@ -16,6 +16,19 @@ Editor (Webby) — damit sie garantiert dieselben Items im gleichen Look rendern
   Animationen). Beide Apps binden es als Tailwind-Preset ein.
 - `src/styles/tokens.css` — die Farb-Variablen (einzige Quelle).
 
+## Design-Regeln
+
+- **Eyebrows nur mit Text** (seit v0.13.0, Annalena 14.8.2026): Die
+  Eyebrow-Zeile (Lime-Quadrat + Versaltext) erscheint nur, wenn im CMS Text
+  gepflegt ist — ein leeres Feld erzeugt keine Zeile und keinen einzelnen
+  Punkt mehr. Impressum und Datenschutz bleiben so ohne Eyebrow (Feld leer
+  lassen). Die Über-uns-Seite (`aboutPage`) ist grundsätzlich ohne Eyebrows,
+  einschließlich der Zwischenheadline „Kontakt & Team" — dort sind die
+  Felder `@deprecated` und werden ignoriert.
+- **FAQ ohne Suchfeld** (seit v0.13.0, Annalena 14.8.2026): Die FAQ-Seite
+  filtert nur über die Themen-Pills; `searchPlaceholder`/`emptyText` sind
+  `@deprecated`.
+
 ## Einbinden (Konsument)
 
 ```jsonc

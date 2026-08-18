@@ -22,7 +22,7 @@ export function ListHeaderItem({
   searchLabel,
 }: {
   id?: string
-  eyebrow: string
+  eyebrow?: string // leer = keine Eyebrow-Zeile, auch kein Punkt (Annalena 14.8.2026)
   title: string
   counterValue?: string // z. B. "142" oder "380+"
   counterLabel?: string // z. B. "Galerien"
@@ -38,10 +38,12 @@ export function ListHeaderItem({
     <section id={id}>
       <div className="px-[var(--page-x)] pt-[clamp(40px,5vw,72px)] pb-[clamp(20px,2.2vw,32px)] flex items-end justify-between gap-x-10 gap-y-4 flex-wrap">
         <div className="min-w-0">
-          <span className="flex items-center gap-2.5 text-[13px] font-medium tracking-[0.18em] uppercase mb-[clamp(14px,1.5vw,22px)]">
-            <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
-            {eyebrow}
-          </span>
+          {eyebrow && (
+            <span className="flex items-center gap-2.5 text-[13px] font-medium tracking-[0.18em] uppercase mb-[clamp(14px,1.5vw,22px)]">
+              <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
+              {eyebrow}
+            </span>
+          )}
           <h1 className="font-normal text-[clamp(40px,5vw,72px)] leading-[0.98] tracking-[-0.01em]">
             {title}
           </h1>

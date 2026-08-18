@@ -11,9 +11,9 @@ import {useMemo, useState} from 'react'
 //   – Umschalt-Knopf zur jeweils anderen FAQ-Seite als dezente Pill oben
 //     rechts (nicht als schwerer schwarzer Knopf); per CMS ausblendbar
 //   – Plus-Zeichen schwarz auf Lime-Quadrat (Haus-Motiv), dreht sich zum ×
-// Suche und Themen-Pills wirken zusammen (UND-Verknüpfung); die Pills sind
-// Einfachauswahl, „Alle Themen" hebt den Filter auf. Fragen gehören
-// strukturell zu ihrer Kategorie (Gruppen) — kein Text-Abgleich.
+//   – Suchfeld komplett entfernt (Annalena 14.8.2026) — es filtern nur noch
+//     die Themen-Pills (Einfachauswahl, „Alle Themen" hebt den Filter auf).
+// Fragen gehören strukturell zu ihrer Kategorie (Gruppen) — kein Text-Abgleich.
 
 export interface FaqQa {
   q: string
@@ -30,23 +30,22 @@ export function FaqPageItem({
   title,
   intro,
   switchCta,
-  searchPlaceholder,
-  searchLabel,
   allLabel,
-  emptyText,
   categories,
 }: {
   id?: string
   title: string
   intro?: string
   switchCta?: {label: string; href: string} // Pill oben rechts; fehlt = weg
-  searchPlaceholder: string
-  searchLabel: string
+  /** @deprecated Suchfeld entfernt (Annalena 14.8.2026) — wird ignoriert. */
+  searchPlaceholder?: string
+  /** @deprecated Suchfeld entfernt (Annalena 14.8.2026) — wird ignoriert. */
+  searchLabel?: string
   allLabel: string
-  emptyText: string
+  /** @deprecated Ohne Suche gibt es keinen leeren Zustand mehr — wird ignoriert. */
+  emptyText?: string
   categories: FaqCategory[]
 }) {
-  const [query, setQuery] = useState('')
   const [active, setActive] = useState<string | null>(null)
 
   const all = useMemo(
@@ -54,14 +53,7 @@ export function FaqPageItem({
     [categories],
   )
 
-  const shown = useMemo(() => {
-    const q = query.trim().toLowerCase()
-    return all.filter(
-      (f) =>
-        (!active || f.cat === active) &&
-        (!q || f.q.toLowerCase().includes(q) || f.a.toLowerCase().includes(q)),
-    )
-  }, [all, active, query])
+  const shown = useMemo(() => all.filter((f) => !active || f.cat === active), [all, active])
 
   const pill = (label: string, isActive: boolean, onClick: () => void) => (
     <button
@@ -91,17 +83,6 @@ export function FaqPageItem({
                 {intro}
               </p>
             )}
-            <div className="flex items-center border-[1.5px] border-artdus-black max-w-[560px] mt-[clamp(24px,2.8vw,40px)]">
-              <span aria-hidden="true" className="px-[18px] text-[20px] text-neutral-600">⌕</span>
-              <input
-                type="search"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder={searchPlaceholder}
-                aria-label={searchLabel}
-                className="flex-1 min-w-0 border-0 outline-none text-[16px] py-[15px] pr-2 bg-white"
-              />
-            </div>
           </div>
           {switchCta && (
             <Link
@@ -124,7 +105,6 @@ export function FaqPageItem({
       </div>
 
       <div className="px-[var(--page-x)] pb-[clamp(64px,8vw,128px)]">
-        {shown.length === 0 && <p className="text-[17px] text-neutral-600 py-6">{emptyText}</p>}
         <ul className="max-w-[880px]">
           {shown.map((f) => (
             <li key={f.q} className="border-b border-neutral-200">
