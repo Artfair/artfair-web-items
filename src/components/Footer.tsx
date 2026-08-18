@@ -90,7 +90,7 @@ export default function Footer({ nav }: { nav?: { items?: NavItem[] } | null }) 
           <div className="col-span-3 md:col-span-1 flex flex-col gap-6">
             <Logo className="text-white h-4 w-auto self-start" />
             <div className="text-[13px] leading-[1.7] text-neutral-400 whitespace-pre-line">
-              {"Art Düsseldorf\nAreal Böhler\nHansaallee 321\n40549 Düsseldorf"}
+              {"art.fair International GmbH\nMaria-Hilf-Str. 9\n50677 Köln"}
             </div>
           </div>
           {/* Link-Spalten à zwei Einträge */}
@@ -109,7 +109,7 @@ export default function Footer({ nav }: { nav?: { items?: NavItem[] } | null }) 
           ))}
         </div>
         <div className="border-t border-white/15 mt-[clamp(32px,4vw,56px)] pt-5 flex items-center justify-between gap-4">
-          <span className="text-xs text-neutral-400">© 2027 Art Düsseldorf</span>
+          <span className="text-xs text-neutral-400">© 2026 Art Düsseldorf</span>
           <div className="flex items-center gap-5">
             {SOCIALS.map((s) => (
               <a
