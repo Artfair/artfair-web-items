@@ -5,6 +5,7 @@ import { HeroSplitItem } from "./items/HeroSplitItem";
 import { FactsRowItem } from "./items/FactsRowItem";
 import { CtaBandItem } from "./items/CtaBandItem";
 import { TextCtaItem } from "./items/TextCtaItem";
+import { NewsDateItem } from "./items/NewsDateItem";
 import { FairPlanItem } from "./items/FairPlanItem";
 import { NumberedBlocksItem } from "./items/NumberedBlocksItem";
 import { CardTrioItem } from "./items/CardTrioItem";
@@ -202,6 +203,33 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           cta={resolveCta(s.cta, lang)}
           imageSrc={img(s.image) || undefined}
           imageAlt={s.image?.alt ?? ""}
+        />
+      );
+    }
+
+    case "newsDate": {
+      // Ohne Datum als ruhige Textsektion, ohne Text gar nicht — nie leer.
+      if (!loc(s.heading, lang) && !loc(s.body, lang)) return null;
+      const date = loc(s.boxDate, lang);
+      return (
+        <NewsDateItem
+          key={s._key}
+          id={s.anchor}
+          eyebrow={loc(s.eyebrow, lang) || undefined}
+          heading={loc(s.heading, lang)}
+          body={loc(s.body, lang)}
+          cta={resolveCta(s.cta, lang)}
+          box={
+            date
+              ? {
+                  kicker: loc(s.boxKicker, lang) || undefined,
+                  intro: loc(s.boxIntro, lang) || undefined,
+                  date,
+                  label: loc(s.boxLabel, lang) || undefined,
+                  tone: s.boxTone,
+                }
+              : undefined
+          }
         />
       );
     }

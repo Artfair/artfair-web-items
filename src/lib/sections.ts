@@ -97,6 +97,26 @@ export interface TextCtaSection {
   image?: ImageRef; // optional — mit Bild links, ohne nur Text
 }
 
+// 05b — News + Datum (NewsDateItem) — Textsektion wie 05, aber mit
+// Datums-Kasten als zweiter Hälfte (Handoff „Bewerbungsbereich", 19.8.2026).
+// Für den Bewerbungs-Riegel der Startseite: Zustand A (Ankündigung) mit
+// boxTone "outline" und verstecktem CTA, Zustand B (Frist läuft) mit
+// boxTone "lime" und sichtbarem CTA. Ohne boxDate reine Textsektion.
+export interface NewsDateSection {
+  _key: string;
+  _type: "newsDate";
+  anchor?: string;
+  eyebrow?: Loc;
+  heading?: Loc;
+  body?: Loc;
+  cta?: Cta;
+  boxKicker?: Loc; // Versalzeile 1, z. B. „Bewerbungsportal"
+  boxIntro?: Loc; // Versalzeile 2, z. B. „Öffnet am"
+  boxDate?: Loc; // großes Datum, z. B. „1."
+  boxLabel?: Loc; // Unterzeile, z. B. „September" — Zeilenumbruch als \n
+  boxTone?: "outline" | "lime";
+}
+
 // 06 — Messeplan (FairPlanItem)
 export interface FairPlanSection {
   _key: string;
@@ -732,6 +752,7 @@ export type Section =
   | FactsRowSection
   | CtaBandSection
   | TextCtaSection
+  | NewsDateSection
   | FairPlanSection
   | NumberedBlocksSection
   | CardTrioSection
