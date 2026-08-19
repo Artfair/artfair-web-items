@@ -54,15 +54,14 @@ Feste Felder (in beiden Zuständen gleich):
 
 | Feld | Wert |
 |---|---|
-| `body` | DE `Die Bewerbung läuft vom 1. September bis [FRIST] 2026. Alle Informationen zu Konditionen und Ablauf finden Sie im Bewerbungsportal.` · EN `Applications are open from September 1 to [DEADLINE], 2026. You will find all details on conditions and the application process in the application portal.` |
+| `body` | DE `Die Bewerbung läuft vom 1. September bis 28. Oktober 2026. Alle Informationen zu Konditionen und Ablauf finden Sie im Bewerbungsportal.` · EN `Applications are open from September 1 to October 28, 2026. You will find all details on conditions and the application process in the application portal.` |
 | `boxIntro` | DE `Bewerbung bis` · EN `Apply by` |
-| `boxDate` | Tag der Frist, z. B. `28.` |
-| `boxLabel` | Monat, z. B. DE `Oktober` · EN `October` |
+| `boxDate` | `28.` |
+| `boxLabel` | DE `Oktober` · EN `October` |
 | `boxTone` | `lime` (gefüllte Fläche) |
 
-⚠️ **Frist-Datum offen:** Das Handoff nennt an einer Stelle 28. Oktober, an
-anderer 15. Dezember 2026 — Platzhalter des Designs, vor dem 1.9. verbindlich
-klären.
+Bewerbungsfrist **28. Oktober 2026** — von Annalena am 19.8.2026 bestätigt.
+(Das „15. Dezember" in Handoff-Variante 1b war ein Design-Platzhalter.)
 
 Der Knopf-Mechanismus ist derselbe wie beim Ticket-Button: `hidden` blendet
 nur aus, Label und Link bleiben gespeichert (`resolveCta` unterdrückt den
@@ -83,7 +82,5 @@ Riegel auf die ruhige Textsektion zurück (wie das alte textCta ohne Knopf).
 1. **Portal-URL** — solange `href` leer ist, erscheint auch bei
    `hidden: false` kein Knopf.
 2. **Ausgaben-Jahr** in der Headline bestätigen (2027?).
-3. **Bewerbungsfrist** klären (28.10. oder 15.12.?) — steht in Zustand B im
-   Kasten und im Fließtext.
-4. **Erinnerung 1.9.:** kein Datums-Automatismus — Umschalten auf Zustand B
+3. **Erinnerung 1.9.:** kein Datums-Automatismus — Umschalten auf Zustand B
    ist ein manueller Webby-Schritt (Kalendereintrag empfohlen).
