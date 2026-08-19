@@ -94,16 +94,26 @@ export function BusinessPageItem(props: {
       )}
 
       {p.contactHeading && p.contactCta && p.contactImage?.src && (
-        <CtaBandItem
-          id="kontakt"
-          eyebrow={p.contactEyebrow}
-          heading={p.contactHeading}
-          body={p.contactBody}
-          contact={p.contactPerson?.name ? p.contactPerson : undefined}
-          cta={p.contactCta}
-          imageSrc={p.contactImage.src}
-          imageAlt={p.contactImage.alt}
-        />
+        <>
+          <CtaBandItem
+            id="kontakt"
+            eyebrow={p.contactEyebrow}
+            heading={p.contactHeading}
+            body={p.contactBody}
+            contact={p.contactPerson?.name ? p.contactPerson : undefined}
+            cta={p.contactCta}
+            imageSrc={p.contactImage.src}
+            imageAlt={p.contactImage.alt}
+          />
+          {/* Haarlinie zum Footer (nur wenn das Band die Seite abschließt):
+              Band und Footer sind beide schwarz — ohne Linie verschwimmt die
+              Grenze und das Foto hängt frei im Schwarz. Gleicher Ton wie die
+              ©-Linie im Footer (white/15). Folgt das Anfrage-Formular, ist
+              die Linie unnötig (heller Block dazwischen). Annalena 19.8.2026 */}
+          {!(p.inquiry && p.inquiry.heading) && (
+            <div aria-hidden="true" className="h-0 border-t border-white/15 bg-artdus-black" />
+          )}
+        </>
       )}
 
       {p.inquiry && p.inquiry.heading && <InquiryFormItem id="anfrage" {...p.inquiry} />}
