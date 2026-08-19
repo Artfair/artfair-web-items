@@ -11,8 +11,9 @@ die dortige Sanity-Schema-Idee (`applicationWindow` in siteSettings) entfällt.
 
 ## Anlegen in Webby
 
-Startseite → Section **„Text-CTA" (`textCta`)** einfügen, Position: direkt nach
-dem Willkommen-Panel (`welcomePanel`).
+Startseite (WYSIWYG-Editor) → Abschnitt **„Text + Knopf"** einfügen (so heißt
+`textCta` in Webby; Hinweistext: „Heller Abschnitt, optional Foto links").
+Position: direkt nach dem **„Willkommen-Panel"** (`welcomePanel`).
 
 | Feld | Wert |
 |---|---|
