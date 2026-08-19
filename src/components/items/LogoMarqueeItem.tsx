@@ -57,7 +57,12 @@ export function LogoMarqueeItem({
             Track — die machten die Hälften ungleich, das Band sprang am Ende).
             Eager statt lazy: nachladende Bilder ändern die Trackbreite mitten
             in der Animation und lassen das Band ebenfalls springen. */}
-        <div className="inline-flex items-center animate-marquee [animation-duration:48s]">
+        {/* w-max ist Pflicht: ohne explizite Breite gibt der Browser dem
+            inline-flex-Track eine Shrink-to-fit-Breite KLEINER als der Inhalt
+            (Kinder laufen über), und translateX(-50%) verfehlt die Periode —
+            das Band springt am Loop-Ende. max-content = exakte Inhaltsbreite,
+            halbe Breite = genau eine Logo-Periode. */}
+        <div className="inline-flex w-max items-center animate-marquee [animation-duration:48s]">
           {loop.map((p, i) => {
             const f = VARIANT_FACTOR[p.variant ?? "mix"] * (p.scale ?? 1);
             return (
@@ -67,7 +72,7 @@ export function LogoMarqueeItem({
                 src={vectorSafe(p.src)}
                 alt={p.alt}
                 loading="eager"
-                className="w-auto object-contain flex-none mr-[clamp(72px,9vw,150px)]"
+                className="w-auto max-w-none object-contain flex-none mr-[clamp(72px,9vw,150px)]"
                 style={{ height: `calc(clamp(26px, 2.6vw, 40px) * ${f.toFixed(3)})` }}
               />
             );
