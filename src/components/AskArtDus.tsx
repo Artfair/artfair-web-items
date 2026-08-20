@@ -64,7 +64,9 @@ export default function AskArtDus({ lang, assetBase = "" }: { lang: Lang; assetB
   const [draft, setDraft] = useState("");
   const [heroDraft, setHeroDraft] = useState("");
   const [loading, setLoading] = useState(false);
+  const [chips, setChips] = useState<string[] | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const quickQs = chips && chips.length > 0 ? chips : t.quickQs;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 360);
@@ -72,6 +74,23 @@ export default function AskArtDus({ lang, assetBase = "" }: { lang: Lang; assetB
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Beispielfragen aus Arthur (arthur_chips, gepflegt unter arthur.art-dus.de/chips).
+  // Fällt bei leerer/fehlgeschlagener Antwort auf DICT.quickQs zurück.
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`${assetBase}/api/chips?lang=${lang}`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!cancelled && Array.isArray(data?.chips) && data.chips.length > 0) {
+          setChips(data.chips);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [assetBase, lang]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
@@ -184,7 +203,7 @@ export default function AskArtDus({ lang, assetBase = "" }: { lang: Lang; assetB
             </div>
           </form>
           <div className="flex flex-wrap gap-2 px-3.5 pb-4">
-            {t.quickQs.map((q) => chip(q, () => send(q)))}
+            {quickQs.map((q) => chip(q, () => send(q)))}
           </div>
         </div>
       )}
@@ -239,7 +258,7 @@ export default function AskArtDus({ lang, assetBase = "" }: { lang: Lang; assetB
               </div>
             )}
             {msgs.length === 0 && (
-              <div className="flex flex-wrap gap-2 mt-1.5">{t.quickQs.map((q) => chip(q, () => send(q)))}</div>
+              <div className="flex flex-wrap gap-2 mt-1.5">{quickQs.map((q) => chip(q, () => send(q)))}</div>
             )}
             <div ref={bottomRef} />
           </div>
