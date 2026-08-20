@@ -32,6 +32,19 @@ function vectorSafe(src: string): string {
   return path.endsWith(".svg") ? path : src;
 }
 
+// Seitenverhältnis aus dem Sanity-Dateinamen („…-791x220.svg"). Damit bekommt
+// jedes Logo seine Breite schon im HTML: Safari friert die -50%-Auflösung der
+// Marquee-Animation auf die Trackbreite BEIM ANIMATIONSSTART ein — wächst der
+// Track, wenn Logos nachladen, verfehlt das Band die Periode und springt.
+// (Chrome rechnet die Prozente pro Frame neu, dort fiel das nie auf.)
+function aspectFromSrc(src: string): number | null {
+  const m = src.match(/-(\d+)x(\d+)\.\w+(?:\?|$)/);
+  if (!m) return null;
+  const w = Number(m[1]);
+  const h = Number(m[2]);
+  return w > 0 && h > 0 ? w / h : null;
+}
+
 export function LogoMarqueeItem({
   headline,
   logos,
@@ -65,6 +78,7 @@ export function LogoMarqueeItem({
         <div className="inline-flex w-max items-center animate-marquee [animation-duration:48s]">
           {loop.map((p, i) => {
             const f = VARIANT_FACTOR[p.variant ?? "mix"] * (p.scale ?? 1);
+            const ratio = aspectFromSrc(p.src);
             return (
               // eslint-disable-next-line @next/next/no-img-element
               <img
@@ -73,7 +87,14 @@ export function LogoMarqueeItem({
                 alt={p.alt}
                 loading="eager"
                 className="w-auto max-w-none object-contain flex-none mr-[clamp(72px,9vw,150px)]"
-                style={{ height: `calc(clamp(26px, 2.6vw, 40px) * ${f.toFixed(3)})` }}
+                style={{
+                  height: `calc(clamp(26px, 2.6vw, 40px) * ${f.toFixed(3)})`,
+                  // Breite explizit (Höhe × Seitenverhältnis): Trackbreite ist
+                  // damit vom ersten Layout an final, siehe aspectFromSrc.
+                  ...(ratio
+                    ? { width: `calc(clamp(26px, 2.6vw, 40px) * ${(f * ratio).toFixed(4)})` }
+                    : {}),
+                }}
               />
             );
           })}
