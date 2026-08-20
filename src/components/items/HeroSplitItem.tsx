@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AutoVideo } from "./AutoVideo";
 
 // Baukasten-Item „Hero Split" — Acid-Block (Eyebrow, H1, Text, CTAs) neben
 // Video oder Bild. Trägt die H1 der Seite — pro Seite nur einmal einsetzen.
@@ -81,16 +82,10 @@ export function HeroSplitItem({
       </div>
       <div className="relative min-h-[340px]">
         {videoSrc ? (
-          <video
+          <AutoVideo
             className="absolute inset-0 w-full h-full object-cover"
             src={videoSrc}
             poster={poster}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            aria-hidden="true"
           />
         ) : (
           poster && (

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AutoVideo } from "./AutoVideo";
 
 // Baukasten-Item „CTA-Band" — dunkles, vollbreites Band: Eyebrow, große
 // Headline, Text und Acid-Button links, Foto rechts.
@@ -96,16 +97,12 @@ export function CtaBandItem({
       </div>
       <div className="relative min-h-[360px]">
         {videoSrc ? (
-          <video
-            className="absolute inset-0 w-full h-full object-cover"
+          // object-top: oben verankern — mittiger Beschnitt schnitt das
+          // Partner-Logo am oberen Videorand ab (Annalena 20.8.2026).
+          <AutoVideo
+            className="absolute inset-0 w-full h-full object-cover object-top"
             src={videoSrc}
             poster={imageSrc}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            aria-hidden="true"
           />
         ) : (
           // eslint-disable-next-line @next/next/no-img-element
