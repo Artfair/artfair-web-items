@@ -186,6 +186,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           cta={cta}
           imageSrc={img(s.image)}
           imageAlt={s.image?.alt ?? ""}
+          videoSrc={withBase(s.videoUrl, base) || undefined}
         />
       );
     }
@@ -654,6 +655,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           }
           contactCta={resolveCta(s.contactCta, lang)}
           contactImage={contactImage}
+          contactVideoSrc={withBase(s.contactVideoUrl, base) || undefined}
         />
       );
     }

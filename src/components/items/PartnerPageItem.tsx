@@ -51,6 +51,7 @@ export function PartnerPageItem(props: {
   contactPerson?: {name: string; role?: string; phone?: string}
   contactCta?: Cta
   contactImage?: {src: string; alt: string}
+  contactVideoSrc?: string // optionales Video im CTA-Band; contactImage bleibt Poster/Fallback
 }) {
   const p = props
   return (
@@ -103,6 +104,7 @@ export function PartnerPageItem(props: {
             cta={p.contactCta}
             imageSrc={p.contactImage.src}
             imageAlt={p.contactImage.alt}
+            videoSrc={p.contactVideoSrc}
           />
           {/* Haarlinie zum Footer: Band und Footer sind beide schwarz — ohne
               Linie verschwimmt die Grenze und das Foto hängt frei im Schwarz.

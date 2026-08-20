@@ -41,6 +41,7 @@ export function CtaBandItem({
   cta,
   imageSrc,
   imageAlt,
+  videoSrc,
 }: {
   id?: string;
   eyebrow?: string; // leer = keine Eyebrow-Zeile, auch kein Punkt (Annalena 14.8.2026)
@@ -51,6 +52,9 @@ export function CtaBandItem({
   cta: { label: string; href: string };
   imageSrc: string;
   imageAlt: string;
+  // Optionales Video statt Foto (Muster HeroSplitItem): läuft stumm in
+  // Schleife, das Foto bleibt Poster/Fallback bis es lädt.
+  videoSrc?: string;
 }) {
   return (
     <section id={id} className="grid md:grid-cols-[1.1fr_0.9fr] bg-artdus-black scroll-mt-14">
@@ -91,8 +95,22 @@ export function CtaBandItem({
         </CtaLink>
       </div>
       <div className="relative min-h-[360px]">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={imageSrc} alt={imageAlt} className="absolute inset-0 w-full h-full object-cover" />
+        {videoSrc ? (
+          <video
+            className="absolute inset-0 w-full h-full object-cover"
+            src={videoSrc}
+            poster={imageSrc}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+          />
+        ) : (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={imageSrc} alt={imageAlt} className="absolute inset-0 w-full h-full object-cover" />
+        )}
       </div>
     </section>
   );

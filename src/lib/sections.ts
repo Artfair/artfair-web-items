@@ -82,6 +82,7 @@ export interface CtaBandSection {
   contactPhone?: string;
   cta?: Cta;
   image?: ImageRef;
+  videoUrl?: string; // optionales Video rechts; image bleibt Poster/Fallback
 }
 
 // 05 — Text + CTA (TextCtaItem) — Eyebrow und CTA sind optional; ohne beides
@@ -580,6 +581,7 @@ export interface PartnerPageSection {
   contactPhone?: string;
   contactCta?: Cta;
   contactImage?: ImageRef;
+  contactVideoUrl?: string; // optionales Video im CTA-Band; contactImage bleibt Poster/Fallback
 }
 
 // Marker für feste, im Code gepflegte Riegel (Talks-Fahrplan usw.): im CMS nur
