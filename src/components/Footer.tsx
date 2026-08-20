@@ -21,12 +21,12 @@ const SOCIALS = [
   },
   {
     label: "Facebook",
-    href: "https://www.facebook.com/artduesseldorf/",
+    href: "https://www.facebook.com/artdusseldorf/",
     icon: <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />,
   },
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/company/art-duesseldorf/",
+    href: "https://www.linkedin.com/company/76572846/",
     icon: (
       <>
         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4V9h4v1.57A6 6 0 0 1 16 8z" />

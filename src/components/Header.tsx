@@ -135,8 +135,8 @@ const MENU = {
 
 const FOLLOW = [
   { label: "Instagram", href: "https://www.instagram.com/artduesseldorf/" },
-  { label: "Facebook", href: "https://www.facebook.com/artduesseldorf/" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/art-duesseldorf/" },
+  { label: "Facebook", href: "https://www.facebook.com/artdusseldorf/" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/76572846/" },
 ];
 
 export interface MagazineTeaser {
