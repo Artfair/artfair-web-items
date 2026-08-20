@@ -26,9 +26,14 @@ export function TickerItem({
           <div className="absolute inset-0 bg-[rgba(0,0,0,0.48)]" />
         </>
       )}
-      <div className="relative inline-flex items-center gap-[38px] animate-marquee py-[18px] pl-[38px] text-[13px] font-medium tracking-[0.14em] uppercase text-white">
+      {/* Nahtloser Loop wie im Logo-Laufband (v0.13.8): w-max gibt dem Track
+          seine echte Inhaltsbreite (Shrink-to-fit war schmaler, translateX(-50%)
+          verfehlte die Periode — Band sprang); Abstand als margin-right AN JEDER
+          Einheit statt gap + padding-left am Track, damit die halbe Breite
+          exakt eine Periode ist. */}
+      <div className="relative inline-flex w-max items-center animate-marquee py-[18px] text-[13px] font-medium tracking-[0.14em] uppercase text-white">
         {[...units, ...units].map((text, i) => (
-          <span key={i} className="inline-flex items-center gap-[38px]">
+          <span key={i} className="inline-flex items-center gap-[38px] mr-[38px]">
             <span>{text}</span>
             <span className="opacity-40">{"//"}</span>
           </span>
