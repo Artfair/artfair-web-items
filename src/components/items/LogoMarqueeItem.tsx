@@ -22,14 +22,21 @@ const VARIANT_FACTOR: Record<NonNullable<MarqueeLogo["variant"]>, number> = {
   wappen: 1.375,
 };
 
-// SVGs von Sanity müssen OHNE Transformations-Parameter (w=, q=, auto=)
-// ausgeliefert werden: mit Parametern rastert das CDN den Vektor zu einem
-// kleinen Pixelbild — auf Retina sichtbar unscharf.
-function vectorSafe(src: string): string {
+// Sanity-SVGs bewusst als GROSSES PNG rastern lassen (fm=png&w=800):
+// Safari/WebKit rastert SVG-<img> nur mit CSS-Pixeln (1x) — auf Retina wird
+// jedes Logo im Laufband sichtbar unscharf (Chrome rastert mit Geräte-
+// auflösung, dort fiel es nie auf). Ein großes Raster-PNG wird dagegen in
+// jedem Browser direkt vom Bitmap heruntergerechnet und bleibt scharf.
+// w=800 deckt die breiteste Darstellung (~250 CSS-px Wortmarke) auch bei
+// 3x-Displays ab; die Logo-„SVGs" sind ohnehin Wrapper um ~1270px-PNGs.
+// (Vorgeschichte: kleine w=-Parameter waren die Unschärfe-Ursache vom 19.8.,
+// deshalb wurden Parameter zwischenzeitlich ganz gestrippt — das ließ aber
+// WebKits 1x-Rasterung übrig. Groß rastern löst beides.)
+function logoSrc(src: string): string {
   if (!src.includes("cdn.sanity.io")) return src;
   const q = src.indexOf("?");
   const path = q === -1 ? src : src.slice(0, q);
-  return path.endsWith(".svg") ? path : src;
+  return path.endsWith(".svg") ? `${path}?fm=png&w=800` : src;
 }
 
 // Seitenverhältnis aus dem Sanity-Dateinamen („…-791x220.svg"). Damit bekommt
@@ -83,7 +90,7 @@ export function LogoMarqueeItem({
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 key={`${p.alt}-${i}`}
-                src={vectorSafe(p.src)}
+                src={logoSrc(p.src)}
                 alt={p.alt}
                 loading="eager"
                 className="w-auto max-w-none object-contain flex-none mr-[clamp(72px,9vw,150px)]"
