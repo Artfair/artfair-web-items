@@ -225,7 +225,7 @@ export function AboutPageItem(props: {
               </p>
             </div>
             {p.collectorsQuote?.text ? (
-              <figure className="m-0 p-[clamp(24px,2.6vw,36px)] bg-white border border-artdus-black flex flex-col gap-5 transition-[transform,box-shadow] duration-200 hover:-translate-y-[3px] hover:shadow-[0_12px_30px_rgba(0,0,0,0.10)]">
+              <figure className="m-0 flex flex-col gap-5">
                 <QuoteFigure quote={p.collectorsQuote} size="md" />
               </figure>
             ) : null}
