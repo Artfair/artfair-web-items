@@ -193,9 +193,11 @@ export function AboutPageItem(props: {
               {p.visionBody}
             </p>
           </div>
-          <figure className="m-0 border-l border-artdus-black pl-[clamp(24px,3vw,48px)] flex flex-col gap-6">
-            <QuoteFigure quote={p.visionQuote} size="lg" />
-          </figure>
+          {p.visionQuote?.text ? (
+            <figure className="m-0 border-l border-artdus-black pl-[clamp(24px,3vw,48px)] flex flex-col gap-6">
+              <QuoteFigure quote={p.visionQuote} size="lg" />
+            </figure>
+          ) : null}
         </div>
       </section>
 
@@ -222,9 +224,11 @@ export function AboutPageItem(props: {
                 {p.collectorsBody}
               </p>
             </div>
-            <figure className="m-0 p-[clamp(24px,2.6vw,36px)] bg-white border border-artdus-black flex flex-col gap-5 transition-[transform,box-shadow] duration-200 hover:-translate-y-[3px] hover:shadow-[0_12px_30px_rgba(0,0,0,0.10)]">
-              <QuoteFigure quote={p.collectorsQuote} size="md" />
-            </figure>
+            {p.collectorsQuote?.text ? (
+              <figure className="m-0 p-[clamp(24px,2.6vw,36px)] bg-white border border-artdus-black flex flex-col gap-5 transition-[transform,box-shadow] duration-200 hover:-translate-y-[3px] hover:shadow-[0_12px_30px_rgba(0,0,0,0.10)]">
+                <QuoteFigure quote={p.collectorsQuote} size="md" />
+              </figure>
+            ) : null}
           </div>
         </div>
       </section>
@@ -293,9 +297,11 @@ export function AboutPageItem(props: {
           </div>
         )}
         <div className="grid md:grid-cols-2 gap-x-[clamp(32px,5vw,80px)] gap-y-10 items-center pt-[clamp(40px,5vw,72px)]">
-          <figure className="m-0 flex flex-col gap-6">
-            <QuoteFigure quote={p.profileQuote} size="xl" />
-          </figure>
+          {p.profileQuote?.text ? (
+            <figure className="m-0 flex flex-col gap-6">
+              <QuoteFigure quote={p.profileQuote} size="xl" />
+            </figure>
+          ) : null}
           <div className="relative min-h-[clamp(280px,34vw,440px)]">
             {p.profileImage?.src ? (
               // eslint-disable-next-line @next/next/no-img-element
