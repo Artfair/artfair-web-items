@@ -183,7 +183,12 @@ export default function Header({
 
   const cols: MenuList[] = nav?.cols?.length
     ? nav.cols
-        .map((c) => ({ head: pickL(c.head), href: c.href, items: visible(c.items) }))
+        .map((c, i) => ({
+          // Überschrift aus dem CMS (Webby, DE/EN); leer → Code-Titel der Spalte
+          head: pickL(c.head) || (t.cols[i]?.head as string) || "",
+          href: c.href,
+          items: visible(c.items),
+        }))
         .filter((c) => c.items.length > 0)
     : t.cols.map((c) => ({
         head: c.head as string,
@@ -204,6 +209,21 @@ export default function Header({
         head: t.companyHead,
         items: t.company.map((i) => ({ label: i.label as string, href: i.href as string })),
       };
+
+  // Tickets-Button im Menü-Overlay folgt dem Tickets-Menüpunkt (gleiche Regel
+  // wie der Magazin-Teaser, v0.13.1): Steht /tickets im CMS-Menü überall auf
+  // hidden — oder fehlt der Punkt ganz —, verschwindet auch der schwarze
+  // Button. Text und Ziel übernimmt er vom Menüpunkt (in Webby umbenennbar).
+  // Ohne CMS-Menü (Code-Fallback) bleibt der Button sichtbar.
+  const isTicketsHref = (href?: string) => !!href && /^\/tickets(?:$|[/#?])/.test(href);
+  const ticketsItem = [...(nav?.cols ?? []), nav?.more, nav?.company]
+    .flatMap((g) => g?.items ?? [])
+    .find((i) => !i.hidden && isTicketsHref(i.href));
+  const ticketsBtn = nav
+    ? ticketsItem
+      ? { label: pickL(ticketsItem.label) || t.tickets, href: ticketsItem.href as string }
+      : null
+    : { label: t.tickets as string, href: "/tickets" };
 
   // VIP-Portal (art-dus.de/vip) und die Aussteller-Portale (Anmeldung,
   // Bewerbung, Ausstellerportal) sind normale Menüpunkte im CMS (siteNavigation,
@@ -283,13 +303,21 @@ export default function Header({
       {menuOpen && (
         <div className="fixed inset-0 z-[60] bg-white overflow-y-auto flex flex-col animate-fade-in">
           <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 md:gap-5 px-[var(--page-x)] py-[22px]">
-            <Link
-              href={withLang("/tickets")}
-              onClick={close}
-              className="justify-self-start text-xs font-semibold tracking-[0.1em] uppercase text-white bg-artdus-black rounded-full px-4 md:px-5 py-[9px]"
-            >
-              {t.tickets}
-            </Link>
+            {ticketsBtn ? (
+              <Link
+                href={withLang(ticketsBtn.href)}
+                onClick={close}
+                {...(isExternal(ticketsBtn.href)
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+                className="justify-self-start text-xs font-semibold tracking-[0.1em] uppercase text-white bg-artdus-black rounded-full px-4 md:px-5 py-[9px]"
+              >
+                {ticketsBtn.label}
+              </Link>
+            ) : (
+              // leere erste Zelle, damit das Logo im 1fr_auto_1fr-Raster mittig bleibt
+              <span aria-hidden className="justify-self-start" />
+            )}
             <Link href={lang === "en" ? "/en" : "/"} onClick={close}>
               <Logo className="text-artdus-black h-4 md:h-6 w-auto" />
             </Link>
