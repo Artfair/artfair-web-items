@@ -99,10 +99,13 @@ export function CtaBandItem({
       </div>
       <div className="relative min-h-[360px]">
         {videoSrc ? (
-          // object-top: oben verankern — mittiger Beschnitt schnitt das
-          // Partner-Logo am oberen Videorand ab (Annalena 20.8.2026).
+          // Mobil (1:1-Schnitt) füllt die Fläche, oben verankert (Logo!).
+          // Ab md unbeschnitten (contain): Leonies Desktop-Schnitt ist stark
+          // quer, cover schnitt in der hochkanten Spalte fast die Hälfte weg
+          // (National-Bank-Logo weg, Annalena 21.8.2026) — contain legt das
+          // Video in voller Breite mittig ins Schwarz des Bands.
           <AutoVideo
-            className="absolute inset-0 w-full h-full object-cover object-top"
+            className="absolute inset-0 w-full h-full object-cover object-top md:object-contain md:object-center"
             src={videoSrc}
             mobileSrc={videoSrcMobile}
             poster={imageSrc}
