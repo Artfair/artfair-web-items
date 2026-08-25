@@ -43,6 +43,7 @@ export function CtaBandItem({
   imageSrc,
   imageAlt,
   videoSrc,
+  videoSrcMobile,
 }: {
   id?: string;
   eyebrow?: string; // leer = keine Eyebrow-Zeile, auch kein Punkt (Annalena 14.8.2026)
@@ -56,6 +57,7 @@ export function CtaBandItem({
   // Optionales Video statt Foto (Muster HeroSplitItem): läuft stumm in
   // Schleife, das Foto bleibt Poster/Fallback bis es lädt.
   videoSrc?: string;
+  videoSrcMobile?: string; // eigener Schnitt unter md (768px)
 }) {
   return (
     <section id={id} className="grid md:grid-cols-[1.1fr_0.9fr] bg-artdus-black scroll-mt-14">
@@ -102,6 +104,7 @@ export function CtaBandItem({
           <AutoVideo
             className="absolute inset-0 w-full h-full object-cover object-top"
             src={videoSrc}
+            mobileSrc={videoSrcMobile}
             poster={imageSrc}
           />
         ) : (

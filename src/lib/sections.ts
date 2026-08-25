@@ -50,6 +50,7 @@ export interface HeroSplitSection {
   primaryCta?: Cta;
   secondaryCta?: Cta;
   videoUrl?: string; // eingebettete Video-Datei
+  videoUrlMobile?: string; // eigener Schnitt unter md (768px)
   poster?: ImageRef;
 }
 
@@ -83,6 +84,7 @@ export interface CtaBandSection {
   cta?: Cta;
   image?: ImageRef;
   videoUrl?: string; // optionales Video rechts; image bleibt Poster/Fallback
+  videoUrlMobile?: string; // eigener Schnitt unter md (768px)
 }
 
 // 05 — Text + CTA (TextCtaItem) — Eyebrow und CTA sind optional; ohne beides
@@ -582,6 +584,7 @@ export interface PartnerPageSection {
   contactCta?: Cta;
   contactImage?: ImageRef;
   contactVideoUrl?: string; // optionales Video im CTA-Band; contactImage bleibt Poster/Fallback
+  contactVideoUrlMobile?: string; // eigener Schnitt unter md (768px)
 }
 
 // Marker für feste, im Code gepflegte Riegel (Talks-Fahrplan usw.): im CMS nur
@@ -664,6 +667,7 @@ export interface AboutPageSection {
   heroPrimaryCta?: Cta;
   heroSecondaryCta?: Cta;
   heroVideoUrl?: string;
+  heroVideoUrlMobile?: string; // eigener Schnitt unter md (768px)
   heroPoster?: ImageRef;
   /** @deprecated Über uns ohne Eyebrows (Annalena 14.8.2026) — wird ignoriert. */
   visionEyebrow?: Loc;

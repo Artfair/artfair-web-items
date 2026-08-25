@@ -40,6 +40,7 @@ export function HeroSplitItem({
   primaryCta,
   secondaryCta,
   videoSrc,
+  videoSrcMobile,
   poster,
 }: {
   eyebrow?: string; // leer = keine Eyebrow-Zeile, auch kein Punkt (Annalena 14.8.2026)
@@ -48,6 +49,7 @@ export function HeroSplitItem({
   primaryCta: { label: string; href: string };
   secondaryCta?: { label: string; href: string };
   videoSrc?: string;
+  videoSrcMobile?: string; // eigener Schnitt unter md (768px)
   poster?: string;
 }) {
   return (
@@ -85,6 +87,7 @@ export function HeroSplitItem({
           <AutoVideo
             className="absolute inset-0 w-full h-full object-cover"
             src={videoSrc}
+            mobileSrc={videoSrcMobile}
             poster={poster}
           />
         ) : (

@@ -1,6 +1,6 @@
 'use client'
 
-import {useEffect, useRef} from 'react'
+import {useEffect, useRef, useState} from 'react'
 
 // Stummes Schleifen-Video für Bausteine (CTA-Band, Hero Split): Browser
 // pausieren Autoplay-Videos beim Tab-/Seitenwechsel und starten sie beim
@@ -12,14 +12,29 @@ import {useEffect, useRef} from 'react'
 // loop ein ended durchkommt.
 export function AutoVideo({
   src,
+  mobileSrc,
   poster,
   className,
 }: {
   src: string
+  // Eigener Schnitt für schmale Viewports (Leonie liefert Desktop + Mobil
+  // getrennt, 20.8.2026). Breakpoint wie die Layouts: unter md (768px).
+  mobileSrc?: string
   poster?: string
   className?: string
 }) {
   const ref = useRef<HTMLVideoElement | null>(null)
+  // SSR rendert die Desktop-Quelle; auf schmalen Geräten wird nach dem
+  // Mount getauscht (Poster überbrückt, kein sichtbares Flackern).
+  const [activeSrc, setActiveSrc] = useState(src)
+
+  useEffect(() => {
+    if (mobileSrc && window.matchMedia('(max-width: 767px)').matches) {
+      setActiveSrc(mobileSrc)
+    } else {
+      setActiveSrc(src)
+    }
+  }, [src, mobileSrc])
 
   useEffect(() => {
     const resume = () => {
@@ -61,7 +76,7 @@ export function AutoVideo({
     <video
       ref={ref}
       className={className}
-      src={src}
+      src={activeSrc}
       poster={poster}
       autoPlay
       muted

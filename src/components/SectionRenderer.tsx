@@ -149,6 +149,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           primaryCta={primary}
           secondaryCta={resolveCta(s.secondaryCta, lang)}
           videoSrc={withBase(s.videoUrl, base) || undefined}
+          videoSrcMobile={withBase(s.videoUrlMobile, base) || undefined}
           poster={img(s.poster) || undefined}
         />
       );
@@ -187,6 +188,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           imageSrc={img(s.image)}
           imageAlt={s.image?.alt ?? ""}
           videoSrc={withBase(s.videoUrl, base) || undefined}
+          videoSrcMobile={withBase(s.videoUrlMobile, base) || undefined}
         />
       );
     }
@@ -656,6 +658,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           contactCta={resolveCta(s.contactCta, lang)}
           contactImage={contactImage}
           contactVideoSrc={withBase(s.contactVideoUrl, base) || undefined}
+          contactVideoSrcMobile={withBase(s.contactVideoUrlMobile, base) || undefined}
         />
       );
     }
@@ -728,6 +731,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           heroPrimaryCta={resolveCta(s.heroPrimaryCta, lang)}
           heroSecondaryCta={resolveCta(s.heroSecondaryCta, lang)}
           heroVideoSrc={s.heroVideoUrl || undefined}
+          heroVideoSrcMobile={s.heroVideoUrlMobile || undefined}
           heroPoster={img(s.heroPoster) || undefined}
           visionHeading={loc(s.visionHeading, lang)}
           visionBody={loc(s.visionBody, lang)}

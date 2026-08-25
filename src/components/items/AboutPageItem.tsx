@@ -126,6 +126,7 @@ export function AboutPageItem(props: {
   heroPrimaryCta?: Cta
   heroSecondaryCta?: Cta
   heroVideoSrc?: string
+  heroVideoSrcMobile?: string // eigener Schnitt unter md (768px)
   heroPoster?: string
   /** @deprecated Über uns ohne Eyebrows (Annalena 14.8.2026) — wird ignoriert. */
   visionEyebrow?: string
@@ -179,6 +180,7 @@ export function AboutPageItem(props: {
         primaryCta={p.heroPrimaryCta ?? {label: '', href: '#'}}
         secondaryCta={p.heroSecondaryCta}
         videoSrc={p.heroVideoSrc || undefined}
+        videoSrcMobile={p.heroVideoSrcMobile || undefined}
         poster={p.heroPoster || undefined}
       />
 
