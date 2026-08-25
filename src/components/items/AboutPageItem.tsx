@@ -9,6 +9,12 @@ import {NumberedBlocksItem} from './NumberedBlocksItem'
 // Entscheidung Annalena 14.8.2026: Über uns komplett OHNE Eyebrows — auch die
 // Zwischenheadline „Kontakt & Team" ohne die Versalzeile mit Lime-Punkt. Die
 // *Eyebrow-Props bleiben als @deprecated erhalten und werden ignoriert.
+// Typo-Skala (Aufräumen 25.8.2026, Feedback „zu viele Schriftgrößen"):
+// H1-Größe clamp(44,6.5vw,92) nur Hero + „Kontakt & Team" (zweiter Seiten-
+// einstieg) · Sektions-H2 einheitlich clamp(30,3.4vw,52)/1.06 · Zitate eine
+// Größe · Lesetext groß clamp(17,1.4vw,20)/1.62, klein 15px · Versal-Labels
+// 13px/0.14em in neutral-500 · Grau nur noch neutral-600 (Text/Nummern) und
+// neutral-500 (Versal-Labels).
 
 type Cta = {label: string; href: string}
 type Quote = {text: string; author: string; role: string; draft: boolean}
@@ -25,26 +31,24 @@ type Address = {
   tone: 'lime' | 'black'
 }
 
-function QuoteFigure({quote, size}: {quote: Quote; size: 'lg' | 'md' | 'xl'}) {
+// Eine Zitat-Größe für die ganze Seite (Typo-Aufräumen 25.8.2026) — die
+// früheren xl/lg/md-Stufen lagen nur 4–12px auseinander und wirkten wie Zufall.
+function QuoteFigure({quote}: {quote: Quote}) {
   if (!quote.text) return null
-  const q =
-    size === 'xl'
-      ? 'font-light text-[clamp(24px,2.6vw,40px)] leading-[1.2] tracking-[-0.01em]'
-      : size === 'lg'
-        ? 'font-light text-[clamp(24px,2.4vw,36px)] leading-[1.22] tracking-[-0.01em]'
-        : 'font-light text-[clamp(21px,1.9vw,28px)] leading-[1.25]'
   return (
     <>
-      <blockquote className={q}>{quote.text}</blockquote>
+      <blockquote className="font-light text-[clamp(22px,2.2vw,34px)] leading-[1.22] tracking-[-0.01em]">
+        {quote.text}
+      </blockquote>
       <figcaption>
         {quote.author ? <span className="block text-[15px] font-medium">{quote.author}</span> : null}
         {quote.role ? (
-          <span className="block text-[12px] font-semibold tracking-[0.14em] uppercase text-neutral-500 mt-1">
+          <span className="block text-[13px] font-semibold tracking-[0.14em] uppercase text-neutral-500 mt-1">
             {quote.role}
           </span>
         ) : null}
         {quote.draft ? (
-          <span className="block text-[12px] text-neutral-400 mt-1">Zitat-Entwurf zur Freigabe</span>
+          <span className="block text-[13px] text-neutral-500 mt-1">Zitat-Entwurf zur Freigabe</span>
         ) : null}
       </figcaption>
     </>
@@ -70,7 +74,7 @@ function TeamCardBody({person, nameHidden}: {person: Member; nameHidden?: boolea
   return (
     <>
       {!nameHidden && <TeamName>{person.name}</TeamName>}
-      <span className="block text-[13px] font-semibold tracking-[0.14em] uppercase text-neutral-600">
+      <span className="block text-[13px] font-semibold tracking-[0.14em] uppercase text-neutral-500">
         {person.role}
       </span>
       <span className="flex flex-col items-start gap-1 mt-[18px] font-mono text-[14px]">
@@ -197,7 +201,7 @@ export function AboutPageItem(props: {
           </div>
           {p.visionQuote?.text ? (
             <figure className="m-0 border-l border-artdus-black pl-[clamp(24px,3vw,48px)] flex flex-col gap-6">
-              <QuoteFigure quote={p.visionQuote} size="lg" />
+              <QuoteFigure quote={p.visionQuote} />
             </figure>
           ) : null}
         </div>
@@ -219,7 +223,7 @@ export function AboutPageItem(props: {
           </div>
           <div className="flex flex-col justify-center gap-8">
             <div>
-              <h2 className="font-light text-[clamp(28px,3vw,44px)] leading-[1.06] tracking-[-0.02em] max-w-[22ch]">
+              <h2 className="font-light text-[clamp(30px,3.4vw,52px)] leading-[1.06] tracking-[-0.02em] max-w-[22ch]">
                 {p.collectorsHeading}
               </h2>
               <p className="text-[clamp(17px,1.4vw,20px)] leading-[1.62] text-neutral-600 max-w-[52ch] mt-6 whitespace-pre-line">
@@ -228,7 +232,7 @@ export function AboutPageItem(props: {
             </div>
             {p.collectorsQuote?.text ? (
               <figure className="m-0 flex flex-col gap-5">
-                <QuoteFigure quote={p.collectorsQuote} size="md" />
+                <QuoteFigure quote={p.collectorsQuote} />
               </figure>
             ) : null}
           </div>
@@ -262,7 +266,7 @@ export function AboutPageItem(props: {
 
       {/* Kuratorisches Profil */}
       <section id="profil" className="px-[var(--page-x)] pb-[clamp(72px,10vw,144px)] scroll-mt-14">
-        <h2 className="font-light text-[clamp(28px,3vw,44px)] leading-[1.06] tracking-[-0.02em] mb-[clamp(32px,4vw,56px)]">
+        <h2 className="font-light text-[clamp(30px,3.4vw,52px)] leading-[1.06] tracking-[-0.02em] mb-[clamp(32px,4vw,56px)]">
           {p.profileHeading}
         </h2>
         <div className="border-t border-artdus-black">
@@ -271,7 +275,7 @@ export function AboutPageItem(props: {
               key={s.name || i}
               className="grid grid-cols-[48px_1fr] md:grid-cols-[64px_minmax(180px,1fr)_minmax(280px,2fr)] gap-x-[clamp(16px,3vw,48px)] gap-y-2 items-baseline py-[clamp(24px,3vw,40px)] border-b border-artdus-black"
             >
-              <span className="text-[15px] text-neutral-400 tracking-[0.08em]">
+              <span className="text-[15px] text-neutral-600 tracking-[0.08em]">
                 {String(i + 1).padStart(2, '0')}
               </span>
               <h3 className="font-light text-[clamp(22px,2.2vw,32px)] leading-[1.1]">{s.name}</h3>
@@ -301,7 +305,7 @@ export function AboutPageItem(props: {
         <div className="grid md:grid-cols-2 gap-x-[clamp(32px,5vw,80px)] gap-y-10 items-center pt-[clamp(40px,5vw,72px)]">
           {p.profileQuote?.text ? (
             <figure className="m-0 flex flex-col gap-6">
-              <QuoteFigure quote={p.profileQuote} size="xl" />
+              <QuoteFigure quote={p.profileQuote} />
             </figure>
           ) : null}
           <div className="relative min-h-[clamp(280px,34vw,440px)]">
@@ -327,10 +331,12 @@ export function AboutPageItem(props: {
           <div aria-hidden="true" className="w-[28px] bg-artdus-lime shrink-0" />
           <div className="flex-1 flex flex-wrap justify-between items-end gap-10">
             <div>
-              <h2 className="font-light text-[clamp(44px,5.5vw,84px)] leading-none tracking-[-0.02em]">
+              {/* Bewusst H1-Größe (wie der Hero): „Kontakt & Team" funktioniert
+                  als zweiter Seiteneinstieg (Annalena 25.8.2026). */}
+              <h2 className="font-light text-[clamp(44px,6.5vw,92px)] leading-[0.98] tracking-[-0.02em]">
                 {p.contactHeading}
               </h2>
-              <p className="text-[clamp(18px,1.6vw,23px)] leading-[1.4] text-neutral-600 max-w-[640px] mt-7 whitespace-pre-line">
+              <p className="text-[clamp(17px,1.4vw,20px)] leading-[1.62] text-neutral-600 max-w-[640px] mt-7 whitespace-pre-line">
                 {p.contactBody}
               </p>
             </div>
@@ -345,7 +351,7 @@ export function AboutPageItem(props: {
           </div>
         </div>
         <div aria-hidden="true" className="h-px bg-artdus-black mt-6" />
-        <div className="mt-5 flex flex-wrap gap-x-8 gap-y-2 text-[13px] font-semibold tracking-[0.14em] uppercase text-neutral-600">
+        <div className="mt-5 flex flex-wrap gap-x-8 gap-y-2 text-[13px] font-semibold tracking-[0.14em] uppercase text-neutral-500">
           {p.contactAddressLine ? <span>{p.contactAddressLine}</span> : null}
           {p.contactPhone ? (
             <a
@@ -360,7 +366,7 @@ export function AboutPageItem(props: {
 
       {/* Team-Verzeichnis — mobil eine Spalte, Desktop zwei versetzte Spalten */}
       <section className="px-[var(--page-x)] pt-[clamp(64px,8vw,128px)]">
-        <h2 className="font-light text-[clamp(32px,3.6vw,52px)] leading-[1.02] tracking-[-0.02em] mb-[clamp(28px,3.5vw,56px)]">
+        <h2 className="font-light text-[clamp(30px,3.4vw,52px)] leading-[1.06] tracking-[-0.02em] mb-[clamp(28px,3.5vw,56px)]">
           {p.teamHeading}
         </h2>
         <div className="flex flex-col gap-[clamp(40px,5vw,72px)] md:hidden">
@@ -421,7 +427,7 @@ export function AboutPageItem(props: {
 
       {/* Adressen */}
       <section className="px-[var(--page-x)] pb-[clamp(72px,10vw,140px)]">
-        <h2 className="font-light text-[clamp(32px,3.6vw,52px)] leading-[1.02] tracking-[-0.02em] mb-[clamp(28px,3.5vw,48px)]">
+        <h2 className="font-light text-[clamp(30px,3.4vw,52px)] leading-[1.06] tracking-[-0.02em] mb-[clamp(28px,3.5vw,48px)]">
           {p.addressesHeading}
         </h2>
         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(360px,100%),1fr))] gap-6">
@@ -448,7 +454,7 @@ export function AboutPageItem(props: {
                   <span className="mt-auto pt-8 flex flex-wrap justify-between items-end gap-x-10 gap-y-6">
                     <span
                       className={`block text-[17px] leading-[1.62] whitespace-pre-line ${
-                        dark ? 'text-[#C4C4C4]' : ''
+                        dark ? 'text-neutral-300' : ''
                       }`}
                     >
                       {a.lines}
