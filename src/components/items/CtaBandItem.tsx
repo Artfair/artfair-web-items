@@ -59,8 +59,12 @@ export function CtaBandItem({
   videoSrc?: string;
   videoSrcMobile?: string; // eigener Schnitt unter md (768px)
 }) {
+  // Mit Video bekommt die Medienspalte mehr Breite (Leonies Desktop-Schnitt
+  // ist quer) und der Text rückt schmaler zusammen; mit Foto bleibt die
+  // ursprüngliche Gewichtung.
+  const cols = videoSrc ? "md:grid-cols-[0.85fr_1.15fr]" : "md:grid-cols-[1.1fr_0.9fr]";
   return (
-    <section id={id} className="grid md:grid-cols-[1.1fr_0.9fr] bg-artdus-black scroll-mt-14">
+    <section id={id} className={`grid ${cols} bg-artdus-black scroll-mt-14`}>
       <div className="flex flex-col justify-center gap-7 px-[clamp(40px,5vw,80px)] py-[clamp(64px,8vw,128px)]">
         {eyebrow && (
           <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase text-neutral-400">
@@ -100,12 +104,11 @@ export function CtaBandItem({
       <div className="relative min-h-[360px]">
         {videoSrc ? (
           // Mobil (1:1-Schnitt) füllt die Fläche, oben verankert (Logo!).
-          // Ab md unbeschnitten (contain): Leonies Desktop-Schnitt ist stark
-          // quer, cover schnitt in der hochkanten Spalte fast die Hälfte weg
-          // (National-Bank-Logo weg, Annalena 21.8.2026) — contain legt das
-          // Video in voller Breite mittig ins Schwarz des Bands.
+          // Ab md unbeschnitten (contain), aber oben BÜNDIG angedockt statt
+          // mittig — der zentrierte Kasten mit Schwarz darüber wirkte gerahmt
+          // (Annalena 25.8.); Rest-Schwarz liegt nur noch unterm Video.
           <AutoVideo
-            className="absolute inset-0 w-full h-full object-cover object-top md:object-contain md:object-center"
+            className="absolute inset-0 w-full h-full object-cover object-top md:object-contain"
             src={videoSrc}
             mobileSrc={videoSrcMobile}
             poster={imageSrc}
