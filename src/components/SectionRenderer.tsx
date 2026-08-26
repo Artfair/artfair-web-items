@@ -31,6 +31,7 @@ import { BusinessPageItem } from "./items/BusinessPageItem";
 import { NewsletterPageItem } from "./items/NewsletterPageItem";
 import { FaqPageItem } from "./items/FaqPageItem";
 import { PartnerPageItem } from "./items/PartnerPageItem";
+import { ExhibitorArchiveItem } from "./items/ExhibitorArchiveItem";
 import { Fragment } from "react";
 import {
   loc,
@@ -250,6 +251,21 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           planSrc={plan}
           planAlt={s.plan?.alt ?? ""}
           link={resolveCta(s.link, lang)}
+          lang={lang}
+        />
+      );
+    }
+
+    case "exhibitorArchive": {
+      return (
+        <ExhibitorArchiveItem
+          key={s._key}
+          id={s.anchor}
+          lang={lang}
+          edition={s.edition || "2026"}
+          eyebrow={loc(s.eyebrow, lang) || undefined}
+          title={loc(s.title, lang) || undefined}
+          intro={loc(s.intro, lang) || undefined}
         />
       );
     }

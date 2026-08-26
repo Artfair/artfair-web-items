@@ -587,6 +587,21 @@ export interface PartnerPageSection {
   contactVideoUrlMobile?: string; // eigener Schnitt unter md (768px)
 }
 
+// 29 — Galerien-Archiv (ExhibitorArchiveItem) — die Galerienliste einer
+// ABGESCHLOSSENEN Ausgabe im Look des Galerien-Index. Die Daten (Galerien,
+// Sektionen, Farben, Standnummern) liegen fest im Paket (lib/exhibitors2026.ts,
+// Quelle Messeplan — Annalena 26.8.2026: Archiv ändert sich nicht mehr);
+// das CMS platziert nur das Item und kann Kopfzeilen übersteuern.
+export interface ExhibitorArchiveSection {
+  _key: string;
+  _type: "exhibitorArchive";
+  anchor?: string;
+  edition?: string; // Schlüssel der Archiv-Edition, Default "2026"
+  eyebrow?: Loc; // Default „Ausstellerliste"/„Exhibitor list"
+  title?: Loc; // H1, Default „Galerien 2026."/„Galleries 2026."
+  intro?: Loc; // optionale Einordnung unter dem Kopf
+}
+
 // Marker für feste, im Code gepflegte Riegel (Talks-Fahrplan usw.): im CMS nur
 // Typ + _key, der Inhalt kommt als React-Knoten über SectionRenderer `slots`.
 export interface SlotMarkerSection {
@@ -781,7 +796,8 @@ export type Section =
   | InquiryFormSection
   | NewsletterPageSection
   | FaqPageSection
-  | PartnerPageSection;
+  | PartnerPageSection
+  | ExhibitorArchiveSection;
 
 export type SectionType = Section["_type"];
 
