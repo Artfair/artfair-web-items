@@ -20,6 +20,7 @@ import {
   ARCHIVE_EDITIONS,
   type ArchiveExhibitor,
   type ArchiveSectionKey,
+  type ArchiveThemeKey,
 } from '../../lib/exhibitors2026'
 
 // Führende Artikel/Gattungswörter fallen für die Einsortierung weg (wie im
@@ -53,6 +54,7 @@ const T = {
     searchPlaceholder: 'Galerie suchen …',
     searchLabel: 'Galerien durchsuchen',
     all: 'Alle',
+    themeLabel: 'Thema',
     countryAll: 'Alle Länder',
     countryLabel: 'Land',
     filter: 'Filter',
@@ -65,6 +67,7 @@ const T = {
     searchPlaceholder: 'Search galleries …',
     searchLabel: 'Search the gallery list',
     all: 'All',
+    themeLabel: 'Theme',
     countryAll: 'All countries',
     countryLabel: 'Country',
     filter: 'Filter',
@@ -91,6 +94,7 @@ export function ExhibitorArchiveItem({
   const t = T[lang]
   const data = ARCHIVE_EDITIONS[edition]
   const [sec, setSec] = useState<ArchiveSectionKey | null>(null)
+  const [theme, setTheme] = useState<ArchiveThemeKey | null>(null)
   const [country, setCountry] = useState<string | null>(null)
   const [letter, setLetter] = useState<string | null>(null)
   const [q, setQ] = useState('')
@@ -124,13 +128,14 @@ export function ExhibitorArchiveItem({
     const query = q.trim().toLowerCase()
     return base.filter(
       (e) =>
+        (!theme || (e.themes ?? []).includes(theme)) &&
         (!letter || groupLetter(e) === letter) &&
         (!query ||
           e.name.toLowerCase().includes(query) ||
           e.cities.some((c) => c.toLowerCase().includes(query)) ||
           e.stand.toLowerCase().startsWith(query)),
     )
-  }, [base, letter, q])
+  }, [base, theme, letter, q])
 
   const groups = useMemo(() => {
     const map = new Map<string, ArchiveExhibitor[]>()
@@ -143,7 +148,7 @@ export function ExhibitorArchiveItem({
   }, [shown])
 
   if (!data) return null
-  const activeCount = [sec, country, letter].filter((v) => v !== null).length
+  const activeCount = [sec, theme, country, letter].filter((v) => v !== null).length
 
   const pill = (label: string, isActive: boolean, onClick: () => void, key?: string) => (
     <button
@@ -166,6 +171,15 @@ export function ExhibitorArchiveItem({
       {pill(t.all, sec === null, () => setSec(null), 'sec-all')}
       {data.sections.map((s) =>
         pill(s.label[lang], sec === s.key, () => setSec(sec === s.key ? null : s.key), s.key),
+      )}
+    </>
+  )
+
+  const themePills = data.themes.length === 0 ? null : (
+    <>
+      {pill(t.all, theme === null, () => setTheme(null), 'theme-all')}
+      {data.themes.map((th) =>
+        pill(th.label, theme === th.key, () => setTheme(theme === th.key ? null : th.key), th.key),
       )}
     </>
   )
@@ -262,9 +276,20 @@ export function ExhibitorArchiveItem({
           <div className="flex gap-2 flex-wrap">{sectionPills}</div>
           {searchField}
         </div>
+        {themePills && (
+          <div className="hidden md:flex items-center justify-between gap-[18px] flex-wrap border-t border-neutral-200 py-[18px]">
+            <div className="flex items-center gap-3 flex-wrap">
+              <span className="text-[12px] font-medium tracking-[0.18em] uppercase text-neutral-700">
+                {t.themeLabel}
+              </span>
+              {themePills}
+            </div>
+            {countrySelect}
+          </div>
+        )}
         <div className="hidden md:flex items-center justify-between gap-[18px] flex-wrap border-t border-neutral-200 py-[18px]">
           {azBar}
-          {countrySelect}
+          {!themePills && countrySelect}
         </div>
 
         {/* Mobil */}
@@ -284,6 +309,14 @@ export function ExhibitorArchiveItem({
           </div>
           {mobileOpen && (
             <div className="flex flex-col gap-4 border-t border-neutral-200 pt-4">
+              {themePills && (
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-[12px] font-medium tracking-[0.18em] uppercase text-neutral-700 w-full">
+                    {t.themeLabel}
+                  </span>
+                  {themePills}
+                </div>
+              )}
               {countrySelect}
               {azBar}
             </div>
@@ -334,6 +367,14 @@ export function ExhibitorArchiveItem({
                             </span>
                           )
                         })}
+                        {(e.themes ?? []).length > 0 && (
+                          <span className="block text-[13px] italic opacity-55 mt-[5px]">
+                            {(e.themes ?? [])
+                              .map((k) => data.themes.find((th) => th.key === k)?.label)
+                              .filter(Boolean)
+                              .join(' · ')}
+                          </span>
+                        )}
                         <span className="block text-[11px] tracking-[0.08em] uppercase text-neutral-500 mt-[5px]">
                           {t.stand} {e.stand}
                         </span>
