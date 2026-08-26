@@ -172,7 +172,7 @@
 1. **Friends** — bestätigt: eigene Filter-Pille + gelber Punkt (im Plan eigene Sektion; Presseinfo/Kati führten sie nicht).
 2. **Sexauer** — bestätigt: steht in Main UND Paper (zwei A14-Stände im Plan).
 3. **Themen** (Cosmic Feel · Panic Attack · Ōjigi) — Filter weggelassen; Zuordnung pro Galerie existiert nirgends vollständig. Nachrüstbar, falls das Team eine Liste liefert.
-4. **Websites** — nicht im Plan; `url`-Feld ist in den Daten vorgesehen und kann später (z. B. aus dem 2026er-Portal) gefüllt werden.
+4. **Websites** — seit v0.15.1 komplett verlinkt: alle 119 URLs aus dem ExhibitorPortal (galleryProfile, Edition 2026) gezogen; 3 Namens-Abweichungen von Hand zugeordnet (Galerie Gebr. Lehmann, Galerie Knust Kunz, LA BIBI GALLERY). Portal-Datenfehler dabei gefunden: bei carlier | gebauer kleben Website- und Instagram-URL zusammen — im Archiv korrigiert, im Portal noch offen.
 5. **Standnummern** — werden in der Liste angezeigt (rechte Spalte unter der Sektion).
 6. **Messeplan auf der Seite** — Variante (a): FairPlanItem unter der Liste, mit dem 2026er-Plan; FairPlanItem hat jetzt eine Vollbild-Ansicht mit Pinch-Zoom (Mobil-Feedback „zu klein, nicht antippbar").
 
