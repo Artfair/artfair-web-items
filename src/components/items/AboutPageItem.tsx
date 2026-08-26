@@ -15,6 +15,9 @@ import {NumberedBlocksItem} from './NumberedBlocksItem'
 // Größe · Lesetext groß clamp(17,1.4vw,20)/1.62, klein 15px · Versal-Labels
 // 13px/0.14em in neutral-500 · Grau nur noch neutral-600 (Text/Nummern) und
 // neutral-500 (Versal-Labels).
+// Entscheidung Annalena 26.8.2026: KEINE Geist Mono mehr — Telefon/E-Mail in
+// Weissenhof Light 15px („alles aus einem Guss", dünner Schnitt), sitewide
+// auch in ContactBlockItem und CtaBandItem umgestellt.
 
 type Cta = {label: string; href: string}
 type Quote = {text: string; author: string; role: string; draft: boolean}
@@ -77,7 +80,7 @@ function TeamCardBody({person, nameHidden}: {person: Member; nameHidden?: boolea
       <span className="block text-[13px] font-semibold tracking-[0.14em] uppercase text-neutral-500">
         {person.role}
       </span>
-      <span className="flex flex-col items-start gap-1 mt-[18px] font-mono text-[14px]">
+      <span className="flex flex-col items-start gap-1 mt-[18px] font-light text-[15px]">
         {person.phone && (
           <a
             href={`tel:${person.phone.replace(/[\s-]+/g, '')}`}
@@ -103,7 +106,7 @@ function enquiryExtra(links: EnquiryLink[]): React.ReactNode {
   return (
     <>
       {mono.length > 0 && (
-        <span className="flex flex-col items-start gap-1 mt-[18px] font-mono text-[14px] text-artdus-black">
+        <span className="flex flex-col items-start gap-1 mt-[18px] font-light text-[15px] text-artdus-black">
           {mono.map((i) => (
             <a key={i.href} href={i.href} className="hover:underline underline-offset-[3px]">
               {i.label || i.href}
@@ -459,7 +462,7 @@ export function AboutPageItem(props: {
                     >
                       {a.lines}
                     </span>
-                    <span className="flex flex-col items-start gap-[5px] font-mono text-[14px]">
+                    <span className="flex flex-col items-start gap-[5px] font-light text-[15px]">
                       {a.phone && (
                         <a
                           href={`tel:${a.phone.replace(/[\s-]+/g, '')}`}

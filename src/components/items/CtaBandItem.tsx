@@ -87,7 +87,7 @@ export function CtaBandItem({
             {contact.phone && (
               <a
                 href={`tel:${contact.phone.replace(/[\s-]+/g, "")}`}
-                className="inline-block font-mono text-[14px] text-neutral-300 mt-2.5 hover:underline underline-offset-[3px]"
+                className="inline-block font-light text-[15px] text-neutral-300 mt-2.5 hover:underline underline-offset-[3px]"
               >
                 {contact.phone}
               </a>

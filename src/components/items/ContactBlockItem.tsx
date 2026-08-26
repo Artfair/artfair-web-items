@@ -35,7 +35,7 @@ export function ContactBlockItem({
               <p className="text-[15px] leading-[1.62] text-neutral-600 whitespace-pre-line">{c.lines}</p>
             )}
             {c.contact && (
-              <p className="mt-4 text-sm font-mono text-neutral-600 whitespace-pre-line">{c.contact}</p>
+              <p className="mt-4 text-[15px] font-light text-neutral-600 whitespace-pre-line">{c.contact}</p>
             )}
           </address>
         ))}
