@@ -124,5 +124,7 @@ aktiv sein (Custom Events sind ab dem Pro-Plan enthalten).
 6. **Kein Menüpunkt** nötig — die Seite ist nur für die Instagram-Bio;
    ohne Menüeintrag setzt AD27s Indexierbarkeits-Logik sie auf noindex
    (gewollt: die Seite soll nicht in Google auftauchen).
-7. **Instagram**: `https://www.art-dus.de/de/links` (oder `/en/links`)
-   als Bio-Link eintragen.
+7. **Instagram**: `https://www.art-dus.de/en/links` als Bio-Link eintragen —
+   der Kanal ist englisch, die Seite startet dann auf Englisch (Annalena
+   27.8.); deutsche Follower wechseln über den DE-Knopf auf der Seite.
+   (`/de/links` existiert genauso und startet auf Deutsch.)
