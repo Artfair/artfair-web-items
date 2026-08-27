@@ -615,6 +615,15 @@ export interface ExhibitorArchiveSection {
 export interface LinkHubLinkData extends Cta {
   _key: string;
 }
+// Bildnachweis-Eintrag: Textblock statt Pille (Annalena 27.8.2026) — ein
+// Nachweis braucht oft MEHRERE Links (Fotoquelle + Lizenz). Links stehen
+// als [Text](https://…) mitten im Fließtext und werden klickbar gerendert.
+export interface LinkHubCreditData {
+  _key: string;
+  heading?: Loc; // z. B. „Aug 27, 2026 — Yayoi Kusama"
+  body?: Loc; // Fließtext; Links als [Text](https://…), Absätze mit \n
+  hidden?: boolean; // Eintrag ausgeblendet, bleibt gespeichert
+}
 export interface LinkHubSection {
   _key: string;
   _type: "linkHub";
@@ -625,7 +634,8 @@ export interface LinkHubSection {
   showLanguageToggle?: boolean; // DE/EN-Pills oben rechts; Default an
   links?: LinkHubLinkData[]; // Haupt-Buttons
   creditsTitle?: Loc; // Default „Bildnachweise"/„Image credits"
-  credits?: LinkHubLinkData[]; // Bildnachweis-Buttons; leer = Sektion entfällt
+  creditsIntro?: Loc; // kleiner Erklärtext unter der Überschrift (warum diese Seite)
+  credits?: LinkHubCreditData[]; // Bildnachweis-Textblöcke; leer = Sektion entfällt
   footerNote?: Loc; // Default „© Art Düsseldorf"
 }
 

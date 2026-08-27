@@ -24,6 +24,42 @@ export interface LinkHubLink {
   href: string
 }
 
+// Bildnachweis als Textblock (statt Pille): Datum/Titel-Zeile + Fließtext.
+// Ein Nachweis braucht oft mehrere Links (Fotoquelle + Lizenz) — sie stehen
+// als [Text](https://…) im Fließtext und werden hier klickbar gerendert.
+export interface LinkHubCredit {
+  heading?: Loc
+  body?: Loc
+}
+
+// [Text](https://…) im Fließtext zu klickbaren Links auflösen; alles andere
+// bleibt Text (Absätze über whitespace-pre-line).
+function renderInlineLinks(text: string, sprache: string): React.ReactNode[] {
+  const out: React.ReactNode[] = []
+  const re = /\[([^\]]+)\]\(([^)\s]+)\)/g
+  let last = 0
+  let m: RegExpExecArray | null
+  while ((m = re.exec(text))) {
+    if (m.index > last) out.push(text.slice(last, m.index))
+    const [, label, href] = m
+    out.push(
+      <a
+        key={`${m.index}-${href}`}
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={() => trackClick(label, href, sprache)}
+        className="text-white underline decoration-artdus-lime underline-offset-[3px] transition-colors hover:text-artdus-lime"
+      >
+        {label}
+      </a>,
+    )
+    last = m.index + m[0].length
+  }
+  if (last < text.length) out.push(text.slice(last))
+  return out
+}
+
 function trackClick(label: string, href: string, sprache: string) {
   try {
     ;(window as unknown as {va?: (event: string, props?: unknown) => void}).va?.('event', {
@@ -45,6 +81,7 @@ export function LinkHubItem({
   showLanguageToggle = true,
   links,
   creditsTitle,
+  creditsIntro,
   credits = [],
   footerNote,
 }: {
@@ -57,12 +94,13 @@ export function LinkHubItem({
   showLanguageToggle?: boolean
   links: LinkHubLink[]
   creditsTitle?: Loc // Default „Bildnachweise"/„Image credits"
-  credits?: LinkHubLink[] // leer = Sektion entfällt
+  creditsIntro?: Loc // kleiner Erklärtext unter der Überschrift
+  credits?: LinkHubCredit[] // Textblöcke; leer = Sektion entfällt
   footerNote?: Loc // Default „© Art Düsseldorf"
 }) {
   const [l, setL] = useState<'de' | 'en'>(lang)
 
-  const pill = (link: LinkHubLink, i: number, small = false) => {
+  const pill = (link: LinkHubLink, i: number) => {
     const label = loc(link.label, l)
     return (
       <a
@@ -70,9 +108,7 @@ export function LinkHubItem({
         href={link.href}
         onClick={() => trackClick(label, link.href, l)}
         style={{animationDelay: `${100 + i * 80}ms`, animationFillMode: 'both'}}
-        className={`animate-fade-in flex items-center justify-center text-center rounded-[50px] border-artdus-lime text-white uppercase tracking-[0.14em] font-medium no-underline cursor-pointer transition-colors duration-200 hover:bg-artdus-lime hover:text-artdus-black active:translate-y-px ${
-          small ? 'border min-h-[40px] px-5 py-2.5 text-[13px]' : 'border-2 min-h-[44px] px-6 py-3 text-[15px]'
-        }`}
+        className="animate-fade-in flex items-center justify-center text-center rounded-[50px] border-2 border-artdus-lime text-white min-h-[44px] px-6 py-3 text-[15px] uppercase tracking-[0.14em] font-medium no-underline cursor-pointer transition-colors duration-200 hover:bg-artdus-lime hover:text-artdus-black active:translate-y-px"
       >
         {label}
       </a>
@@ -139,15 +175,31 @@ export function LinkHubItem({
           <div className="w-full flex flex-col gap-3">{links.map((link, i) => pill(link, i))}</div>
         )}
 
-        {/* Bildnachweise */}
+        {/* Bildnachweise — Textblöcke mit Inline-Links (Fotoquelle + Lizenz) */}
         {credits.length > 0 && (
           <div className="w-full mt-1 pt-5 border-t border-white/15">
-            <div className="text-[13px] font-medium tracking-[0.14em] uppercase text-artdus-lime text-center mb-3.5">
+            <div className="text-[13px] font-medium tracking-[0.14em] uppercase text-artdus-lime text-center mb-3">
               {loc(creditsTitle, l) || (l === 'de' ? 'Bildnachweise' : 'Image credits')}
             </div>
-            <div className="w-full flex flex-col gap-3">
-              {credits.map((link, i) => pill(link, links.length + i, true))}
-            </div>
+            {loc(creditsIntro, l) && (
+              <p className="text-[13px] leading-[1.55] text-white/50 text-center mb-5 whitespace-pre-line">
+                {loc(creditsIntro, l)}
+              </p>
+            )}
+            <ul className="w-full flex flex-col gap-4 text-left">
+              {credits.map((c, i) => (
+                <li key={i} className={i > 0 ? 'pt-4 border-t border-white/10' : undefined}>
+                  {loc(c.heading, l) && (
+                    <div className="text-[14px] font-medium text-white/90 mb-1">{loc(c.heading, l)}</div>
+                  )}
+                  {loc(c.body, l) && (
+                    <p className="text-[13px] leading-[1.6] text-white/65 whitespace-pre-line">
+                      {renderInlineLinks(loc(c.body, l), l)}
+                    </p>
+                  )}
+                </li>
+              ))}
+            </ul>
           </div>
         )}
 

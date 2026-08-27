@@ -33,6 +33,14 @@
    export interface LinkHubLinkData extends Cta {
      _key: string;
    }
+   // Bildnachweis als Textblock — Links als [Text](https://…) im Fließtext
+   // (ein Nachweis braucht oft mehrere Links: Fotoquelle + Lizenz).
+   export interface LinkHubCreditData {
+     _key: string;
+     heading?: Loc;
+     body?: Loc;
+     hidden?: boolean;
+   }
    export interface LinkHubSection {
      _key: string;
      _type: "linkHub";
@@ -43,7 +51,8 @@
      showLanguageToggle?: boolean;
      links?: LinkHubLinkData[];
      creditsTitle?: Loc;
-     credits?: LinkHubLinkData[];
+     creditsIntro?: Loc;
+     credits?: LinkHubCreditData[];
      footerNote?: Loc;
    }
    ```
@@ -61,12 +70,13 @@
 
    ```tsx
    case "linkHub": {
-     const mapLinks = (list?: typeof s.links) =>
-       (list ?? [])
-         .filter((x) => !x.hidden && x.href && (x.label?.de || x.label?.en))
-         .map((x) => ({ label: x.label, href: x.href! }));
-     const links = mapLinks(s.links);
-     const credits = mapLinks(s.credits);
+     const links = (s.links ?? [])
+       .filter((x) => !x.hidden && x.href && (x.label?.de || x.label?.en))
+       .map((x) => ({ label: x.label, href: x.href! }));
+     // Nachweise sind Textblöcke; Links stehen als [Text](URL) im Fließtext.
+     const credits = (s.credits ?? [])
+       .filter((c) => !c.hidden && (c.heading?.de || c.heading?.en || c.body?.de || c.body?.en))
+       .map((c) => ({ heading: c.heading, body: c.body }));
      if (links.length === 0 && credits.length === 0) return null;
      return (
        <LinkHubItem
@@ -80,6 +90,7 @@
          showLanguageToggle={s.showLanguageToggle ?? true}
          links={links}
          creditsTitle={s.creditsTitle}
+         creditsIntro={s.creditsIntro}
          credits={credits}
          footerNote={s.footerNote}
        />
