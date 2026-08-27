@@ -517,7 +517,7 @@ export interface NewsletterPageSection {
 export interface FaqQaData {
   _key: string;
   question?: Loc;
-  answer?: Loc; // mehrzeilig, Absätze mit Leerzeile (\n\n)
+  answer?: Loc; // mehrzeilig, Absätze mit Leerzeile (\n\n); Links als [Text](https://…)
 }
 export interface FaqCategoryData {
   _key: string;

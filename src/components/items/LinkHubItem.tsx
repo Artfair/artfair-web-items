@@ -2,6 +2,7 @@
 
 import {useState} from 'react'
 import Logo from '../Logo'
+import {renderInlineLinks} from '../inlineLinks'
 import {loc, type Loc} from '../../lib/sections'
 
 // „Linkseite" (LinkHubItem) — Linktree-artige Unterseite für die Instagram-Bio.
@@ -26,38 +27,11 @@ export interface LinkHubLink {
 
 // Bildnachweis als Textblock (statt Pille): Datum/Titel-Zeile + Fließtext.
 // Ein Nachweis braucht oft mehrere Links (Fotoquelle + Lizenz) — sie stehen
-// als [Text](https://…) im Fließtext und werden hier klickbar gerendert.
+// als [Text](https://…) im Fließtext und werden klickbar gerendert
+// (geteilter Helfer components/inlineLinks, auch in den FAQ-Antworten).
 export interface LinkHubCredit {
   heading?: Loc
   body?: Loc
-}
-
-// [Text](https://…) im Fließtext zu klickbaren Links auflösen; alles andere
-// bleibt Text (Absätze über whitespace-pre-line).
-function renderInlineLinks(text: string, sprache: string): React.ReactNode[] {
-  const out: React.ReactNode[] = []
-  const re = /\[([^\]]+)\]\(([^)\s]+)\)/g
-  let last = 0
-  let m: RegExpExecArray | null
-  while ((m = re.exec(text))) {
-    if (m.index > last) out.push(text.slice(last, m.index))
-    const [, label, href] = m
-    out.push(
-      <a
-        key={`${m.index}-${href}`}
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={() => trackClick(label, href, sprache)}
-        className="text-white underline decoration-artdus-lime underline-offset-[3px] transition-colors hover:text-artdus-lime"
-      >
-        {label}
-      </a>,
-    )
-    last = m.index + m[0].length
-  }
-  if (last < text.length) out.push(text.slice(last))
-  return out
 }
 
 function trackClick(label: string, href: string, sprache: string) {
@@ -194,7 +168,11 @@ export function LinkHubItem({
                   )}
                   {loc(c.body, l) && (
                     <p className="text-[13px] leading-[1.6] text-white/65 whitespace-pre-line">
-                      {renderInlineLinks(loc(c.body, l), l)}
+                      {renderInlineLinks(loc(c.body, l), {
+                        className:
+                          'text-white underline decoration-artdus-lime underline-offset-[3px] transition-colors hover:text-artdus-lime',
+                        onClick: (label, href) => trackClick(label, href, l),
+                      })}
                     </p>
                   )}
                 </li>
