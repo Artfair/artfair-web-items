@@ -14,8 +14,12 @@ export default function Chrome({
   const pathname = usePathname();
   const isStudio = pathname?.startsWith("/studio");
   const isEn = pathname?.startsWith("/en");
+  // Linkseite für die Instagram-Bio (LinkHubItem, sitePage /links): eigen-
+  // ständige schwarze Seite OHNE Header/Footer — die Bio-Besucher sollen
+  // die Buttons sehen, nicht das Website-Menü.
+  const isBare = /^\/(de\/|en\/)?links\/?$/.test(pathname ?? "");
 
-  if (isStudio) {
+  if (isStudio || isBare) {
     return <>{children}</>;
   }
 

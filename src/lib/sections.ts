@@ -602,6 +602,33 @@ export interface ExhibitorArchiveSection {
   intro?: Loc; // optionale Einordnung unter dem Kopf
 }
 
+// 30 — Linkseite (LinkHubItem) — Linktree-artige Unterseite für die
+// Instagram-Bio (Design-Handoff „Instagram Linktree", 27.8.2026; Annalenas
+// Wahl: Variante A „Foto-Bühne"). Schwarze Seite: Foto mit der Wortmarke im
+// dunklen Verlauf, Lime-Pill-Buttons, Bildnachweis-Sektion, DE/EN-Umschalter
+// auf der Seite (die Bio verlinkt EINE URL, beide Sprachen müssen ohne
+// Navigation erreichbar sein — deshalb wechselt das Item clientseitig).
+// Buttons sind Listen: hinzufügen/umsortieren in Webby, `hidden` blendet aus,
+// Beschriftung (DE/EN) und Link frei editierbar. Klicks gehen als Custom
+// Event an Vercel Web Analytics. Unter dem Slug /links rendert AD27 die
+// Seite ohne Header/Footer (Ausnahme in Chrome.tsx).
+export interface LinkHubLinkData extends Cta {
+  _key: string;
+}
+export interface LinkHubSection {
+  _key: string;
+  _type: "linkHub";
+  anchor?: string;
+  image?: ImageRef; // Foto-Bühne (4:3); ohne Foto steht die Wortmarke frei
+  dateLine?: Loc; // z. B. „9 – 11 April 2027"
+  placeLine?: Loc; // z. B. „Areal Böhler"
+  showLanguageToggle?: boolean; // DE/EN-Pills oben rechts; Default an
+  links?: LinkHubLinkData[]; // Haupt-Buttons
+  creditsTitle?: Loc; // Default „Bildnachweise"/„Image credits"
+  credits?: LinkHubLinkData[]; // Bildnachweis-Buttons; leer = Sektion entfällt
+  footerNote?: Loc; // Default „© Art Düsseldorf"
+}
+
 // Marker für feste, im Code gepflegte Riegel (Talks-Fahrplan usw.): im CMS nur
 // Typ + _key, der Inhalt kommt als React-Knoten über SectionRenderer `slots`.
 export interface SlotMarkerSection {
@@ -797,7 +824,8 @@ export type Section =
   | NewsletterPageSection
   | FaqPageSection
   | PartnerPageSection
-  | ExhibitorArchiveSection;
+  | ExhibitorArchiveSection
+  | LinkHubSection;
 
 export type SectionType = Section["_type"];
 

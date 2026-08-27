@@ -32,6 +32,7 @@ import { NewsletterPageItem } from "./items/NewsletterPageItem";
 import { FaqPageItem } from "./items/FaqPageItem";
 import { PartnerPageItem } from "./items/PartnerPageItem";
 import { ExhibitorArchiveItem } from "./items/ExhibitorArchiveItem";
+import { LinkHubItem } from "./items/LinkHubItem";
 import { Fragment } from "react";
 import {
   loc,
@@ -266,6 +267,34 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           eyebrow={loc(s.eyebrow, lang) || undefined}
           title={loc(s.title, lang) || undefined}
           intro={loc(s.intro, lang) || undefined}
+        />
+      );
+    }
+
+    case "linkHub": {
+      // Beschriftungen bleiben als Loc (beide Sprachen) — das Item wechselt
+      // DE/EN clientseitig; `lang` ist nur die Startsprache aus der Route.
+      const mapLinks = (list?: typeof s.links) =>
+        (list ?? [])
+          .filter((x) => !x.hidden && x.href && (x.label?.de || x.label?.en))
+          .map((x) => ({ label: x.label, href: x.href! }));
+      const links = mapLinks(s.links);
+      const credits = mapLinks(s.credits);
+      if (links.length === 0 && credits.length === 0) return null;
+      return (
+        <LinkHubItem
+          key={s._key}
+          id={s.anchor}
+          lang={lang}
+          imageSrc={img(s.image, 1200) || undefined}
+          imageAlt={s.image?.alt ?? ""}
+          dateLine={s.dateLine}
+          placeLine={s.placeLine}
+          showLanguageToggle={s.showLanguageToggle ?? true}
+          links={links}
+          creditsTitle={s.creditsTitle}
+          credits={credits}
+          footerNote={s.footerNote}
         />
       );
     }
