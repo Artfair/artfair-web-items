@@ -99,9 +99,10 @@ National-Bank-Lounge … lerne sie kennen"); unten auf Sie-Form korrigiert
 
 **CTA-Band**: eyebrow „Partnerschaft"/„Partnership", heading „Werden Sie
 Partner der\nArt Düsseldorf." / „Become a partner of\nArt Düsseldorf.",
-body wie in AD27 (Plattform-Satz + Kontakt Johanna Sucec sucec@art-dus.de /
-Sabine Jansen jansen@art-dus.de), cta „Anfrage senden"/„Get in touch" →
-`mailto:sucec@art-dus.de`, Bild `/images/partners/vip-lounge.jpg` (alt „Die
+body wie in AD27 (Plattform-Satz + Kontakt Sabine Jansen
+jansen@art-dus.de), cta „Anfrage senden"/„Get in touch" →
+`mailto:jansen@art-dus.de` (25.8. von sucec@ umgestellt, Webby ist die
+Quelle), Bild `/images/partners/vip-lounge.jpg` (alt „Die
 VIP-Lounge der Art Düsseldorf, eingerichtet mit Partnermobiliar.").
 
 ## Offene Punkte
