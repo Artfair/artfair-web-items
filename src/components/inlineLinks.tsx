@@ -1,5 +1,10 @@
 import type {ReactNode} from 'react'
 
+// Haus-Linkstil für Fließtext auf hellem Grund (FAQ-Antworten, Nummerierte
+// Blöcke, Info-Header): Text schwarz, Lime-Unterstreichung, Hover-Marker.
+export const INLINE_LINK_LIGHT =
+  'text-artdus-black underline decoration-artdus-lime decoration-2 underline-offset-[3px] transition-colors hover:bg-artdus-lime/40'
+
 // [Text](https://…) im Fließtext zu klickbaren Links auflösen — geteilter
 // Helfer für Items, deren Textfelder Links MITTEN im Satz brauchen (bisher:
 // Bildnachweise der Linkseite, FAQ-Antworten; bewusst nicht pauschal in

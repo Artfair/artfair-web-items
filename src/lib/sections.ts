@@ -136,7 +136,7 @@ export interface FairPlanSection {
 export interface NumBlock {
   _key: string;
   heading?: Loc;
-  body?: Loc;
+  body?: Loc; // Links als [Text](https://…) — z. B. Impressum/Datenschutz
 }
 export interface NumberedBlocksSection {
   _key: string;
@@ -384,7 +384,7 @@ export interface InfoHeaderSection {
   anchor?: string;
   eyebrow?: Loc;
   title?: Loc;
-  body?: Loc;
+  body?: Loc; // Links als [Text](https://…)
   action?: Cta; // schwarzer Knopf rechts unten (z. B. Presskit)
   meta?: Loc[]; // Meta-Zeile unter der Haarlinie (z. B. Stand, Kontakt)
 }

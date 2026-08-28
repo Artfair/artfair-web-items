@@ -2,9 +2,11 @@
 // versetzten Spalten, optional mit Establishing-Foto und Link im Kopf.
 // Muster der Themen-Sektion der Startseite, verallgemeinert.
 
+import { INLINE_LINK_LIGHT, renderInlineLinks } from "../inlineLinks";
+
 export interface NumberedBlock {
   heading: string;
-  body: string;
+  body: string; // Links als [Text](https://…) — Impressum/Datenschutz (Annalena 27.8.2026)
   extra?: React.ReactNode; // z. B. Parkgebühren-Liste
 }
 
@@ -32,7 +34,7 @@ function BlockBody({ block }: { block: NumberedBlock }) {
   return (
     <>
       <p className="text-[15px] leading-[1.62] text-neutral-600 whitespace-pre-line">
-        {block.body}
+        {renderInlineLinks(block.body, { className: INLINE_LINK_LIGHT })}
       </p>
       {block.extra}
     </>

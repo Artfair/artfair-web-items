@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { INLINE_LINK_LIGHT, renderInlineLinks } from "../inlineLinks";
 
 // Baukasten-Item „Info-Header" (Header-Typ 4 · Clean/Info) — nur Text auf
 // Weiß mit 28px-Acid-Balken links, optionalem schwarzen Knopf rechts unten,
@@ -42,7 +43,8 @@ export function InfoHeaderItem({
             </h1>
             {body && (
               <p className="text-[clamp(18px,1.6vw,23px)] leading-[1.4] text-neutral-700 max-w-[640px] mt-[clamp(20px,1.9vw,28px)]">
-                {body}
+                {/* Links als [Text](https://…) — Impressum/Datenschutz (Annalena 27.8.2026) */}
+                {renderInlineLinks(body, { className: INLINE_LINK_LIGHT })}
               </p>
             )}
             {children}

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import {useMemo, useState} from 'react'
-import {renderInlineLinks} from '../inlineLinks'
+import {INLINE_LINK_LIGHT, renderInlineLinks} from '../inlineLinks'
 
 // „FAQ-Seite" — die GANZE FAQ-Seite als EIN Baukasten-Item (Muster
 // AboutPageItem). Löst den in AD27 fest verdrahteten FaqExplorer ab, damit
@@ -121,10 +121,7 @@ export function FaqPageItem({
                 </summary>
                 {/* Links im Antwort-Text als [Text](https://…) — Annalena 27.8.2026 */}
                 <p className="text-[16px] leading-[1.6] text-neutral-600 pb-5 max-w-[64ch] whitespace-pre-line">
-                  {renderInlineLinks(f.a, {
-                    className:
-                      'text-artdus-black underline decoration-artdus-lime decoration-2 underline-offset-[3px] transition-colors hover:bg-artdus-lime/40',
-                  })}
+                  {renderInlineLinks(f.a, {className: INLINE_LINK_LIGHT})}
                 </p>
               </details>
             </li>
