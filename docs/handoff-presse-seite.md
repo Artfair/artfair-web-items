@@ -67,10 +67,11 @@
      LANGUAGE-Attribut; IDs von Annalena, 29.8.). Die Route wählt die
      Liste anhand des FormData-Felds `language`:
      `includeListIds: [language === "en" ? enListId : deListId]`
-   - `BREVO_PRESS_DOI_TEMPLATE_ID_DE` / `BREVO_PRESS_DOI_TEMPLATE_ID_EN` —
-     Annalena legt ZWEI eigene DOI-Vorlagen an (je Sprache eine, Betreff
-     und Text sagen „Presseverteiler" statt „Newsletter"; IDs folgen).
-     Die Route wählt Vorlage UND Liste anhand des `language`-Felds.
+   - `BREVO_PRESS_DOI_TEMPLATE_ID_DE=505` / `BREVO_PRESS_DOI_TEMPLATE_ID_EN=506`
+     — zwei eigene DOI-Vorlagen (je Sprache eine, Betreff und Text sagen
+     „Presseverteiler" statt „Newsletter"; angelegt + aktiviert von
+     Annalena, 29.8.). Die Route wählt Vorlage UND Liste anhand des
+     `language`-Felds.
    - `BREVO_PRESS_DOI_REDIRECT_URL` — Ziel nach dem Bestätigungsklick;
      Vorschlag: `https://www.art-dus.de/de/presse` (bzw. die Route hängt
      je Sprache `/de/presse` oder `/en/press` an — Walters Wahl, auch die
