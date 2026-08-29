@@ -1,13 +1,41 @@
+"use client";
+
 // Baukasten-Item „Nummerierte Blöcke" — editoriale 01…05-Blöcke in zwei
 // versetzten Spalten, optional mit Establishing-Foto und Link im Kopf.
 // Muster der Themen-Sektion der Startseite, verallgemeinert.
 
+import { useEffect } from "react";
 import { INLINE_LINK_LIGHT, renderInlineLinks } from "../inlineLinks";
 
 export interface NumberedBlock {
   heading: string;
   body: string; // Links als [Text](https://…) — Impressum/Datenschutz (Annalena 27.8.2026)
+  anchor?: string; // Sprungmarke der Ziffer, z. B. "presseverteiler" (Annalena 29.8.2026)
   extra?: React.ReactNode; // z. B. Parkgebühren-Liste
+}
+
+// Sprungmarken pro Block: Die Blöcke stehen ZWEIMAL im DOM (Mobil-Spalte +
+// Desktop-Raster, eine ist per CSS versteckt) — ein natives id würde nur die
+// erste, ggf. unsichtbare Kopie treffen und nicht scrollen. Deshalb tragen
+// beide Kopien data-anchor, und dieser Helfer scrollt zur SICHTBAREN Kopie
+// (beim Laden mit #hash und bei Hash-Wechseln auf der Seite).
+function useAnchorScroll() {
+  useEffect(() => {
+    function jump() {
+      const hash = decodeURIComponent(window.location.hash.slice(1));
+      if (!hash) return;
+      const copies = document.querySelectorAll(`[data-anchor="${CSS.escape(hash)}"]`);
+      for (const el of copies) {
+        if (el instanceof HTMLElement && el.offsetParent !== null) {
+          el.scrollIntoView();
+          break;
+        }
+      }
+    }
+    jump();
+    window.addEventListener("hashchange", jump);
+    return () => window.removeEventListener("hashchange", jump);
+  }, []);
 }
 
 // Bausteine der Blöcke — einzeln, damit der erste Block im Desktop-Grid in
@@ -43,7 +71,7 @@ function BlockBody({ block }: { block: NumberedBlock }) {
 
 function BlockCard({ no, block }: { no: string; block: NumberedBlock }) {
   return (
-    <div>
+    <div data-anchor={block.anchor || undefined} className="scroll-mt-14">
       <NumRow no={no} />
       <BlockHeading>{block.heading}</BlockHeading>
       <BlockBody block={block} />
@@ -70,6 +98,7 @@ export function NumberedBlocksItem({
   const left = blocks.filter((_, i) => i % 2 === 0);
   const right = blocks.filter((_, i) => i % 2 === 1);
   const no = (b: NumberedBlock) => String(blocks.indexOf(b) + 1).padStart(2, "0");
+  useAnchorScroll();
 
   return (
     <section id={id} className="px-[var(--page-x)] py-[clamp(64px,8vw,128px)] scroll-mt-14">
@@ -122,7 +151,9 @@ export function NumberedBlocksItem({
           des Fließtexts — „02" liegt damit immer exakt auf der Höhe der
           ersten Textzeile von 01, unabhängig von Inhalt und Fensterbreite. */}
       <div className="hidden md:grid md:grid-cols-2 md:grid-rows-[auto_auto_1fr] gap-x-[clamp(40px,5vw,88px)]">
-        <div className="col-start-1 row-start-1">
+        {/* Block 01 ist im Desktop-Raster in Zeilen zerlegt — die Sprungmarke
+            sitzt auf der Nummernzeile (oberste Kante des Blocks). */}
+        <div className="col-start-1 row-start-1 scroll-mt-14" data-anchor={left[0].anchor || undefined}>
           <NumRow no={no(left[0])} />
         </div>
         <div className="col-start-1 row-start-2">

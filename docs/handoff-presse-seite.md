@@ -105,11 +105,14 @@ Sektion `pressPage`, eine pro Seite:
   Webby-Vorschau harmlos). Felder: Name, E-Mail, Medium/Redaktion (alle
   Pflicht), Consent-Checkbox NICHT vorausgefüllt mit Zweck-Text „Ich möchte
   Pressemitteilungen zur Art Düsseldorf erhalten." + Widerrufs-/Datenschutz-
-  Hinweis. `signupPrivacyHref` zeigt vorerst auf `/datenschutz`; **WICHTIG
-  (Annalena 29.8.): Die Datenschutzerklärung erwähnt den Presseverteiler
-  aktuell NICHT — eine eigene Ziffer ergänzen** (Zweck, Brevo als
-  Auftragsverarbeiter, Widerruf), dann den Link mit Anker auf diese Ziffer
-  pflegen (z. B. `/datenschutz#presseverteiler`).
+  Hinweis. Die Presseverteiler-Ziffer der Datenschutzerklärung liegt als
+  Webby-Entwurf bereit (Block `blk_k3b62z5`). **Seit v0.17.1 können
+  numberedBlocks-Ziffern eigene Sprungmarken tragen** (`anchor`-Feld pro
+  Block, funktioniert in Mobil- UND Desktop-Layout): auf dem Ziffern-Block
+  `anchor: "presseverteiler"` setzen (per Webby-API wie beim Anlegen des
+  Blocks), dann im pressPage-Item
+  `signupPrivacyHref: "/datenschutz#presseverteiler"` pflegen — der
+  Formular-Link springt dann direkt zur Ziffer.
 - **contacts** (Überschrift-Default „Pressekontakt."; Karten wechseln
   Lime/Schwarz der Reihe nach):
   1. label „Allgemeine Presseanfragen" / „General press enquiries",

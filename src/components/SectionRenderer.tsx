@@ -401,7 +401,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
 
     case "numberedBlocks": {
       const blocks = (s.blocks ?? [])
-        .map((b) => ({ heading: loc(b.heading, lang), body: loc(b.body, lang) }))
+        .map((b) => ({ heading: loc(b.heading, lang), body: loc(b.body, lang), anchor: b.anchor || undefined }))
         .filter((b) => b.heading || b.body);
       if (blocks.length === 0) return null;
       const image = img(s.image)

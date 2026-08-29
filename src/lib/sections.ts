@@ -137,6 +137,7 @@ export interface NumBlock {
   _key: string;
   heading?: Loc;
   body?: Loc; // Links als [Text](https://…) — z. B. Impressum/Datenschutz
+  anchor?: string; // Sprungmarke der Ziffer, z. B. "presseverteiler" (29.8.2026)
 }
 export interface NumberedBlocksSection {
   _key: string;
