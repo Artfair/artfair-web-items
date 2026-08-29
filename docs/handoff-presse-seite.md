@@ -61,11 +61,16 @@
    `attributes: { LANGUAGE, NAME, MEDIUM }` — Attribute vorher in Brevo
    anlegen). Eigene Env-Variablen:
 
-   - `BREVO_PRESS_LIST_ID` — ID der neuen Presseverteiler-Liste
-     (Annalena legt die Liste in Brevo an)
+   - `BREVO_PRESS_LIST_ID_DE` / `BREVO_PRESS_LIST_ID_EN` — Annalena hat
+     ZWEI Listen angelegt (DE + EN, anders als beim Newsletter mit einer
+     Liste + LANGUAGE-Attribut). Die Route wählt die Liste anhand des
+     FormData-Felds `language`:
+     `includeListIds: [language === "en" ? enListId : deListId]`
    - DOI-Template/Redirect: entweder die Newsletter-Werte wiederverwenden
      oder eigene `BREVO_PRESS_DOI_TEMPLATE_ID`/`…_REDIRECT_URL` (empfohlen:
-     eigenes DOI-Template, damit die Bestätigungsmail „Presseverteiler" sagt)
+     eigenes DOI-Template, damit die Bestätigungsmail „Presseverteiler"
+     sagt; bei Bedarf je Sprache eines — Brevo-Templates können aber auch
+     mehrsprachig auf das LANGUAGE-Attribut reagieren)
 
    Das Item schickt per POST an `signupAction` (in Webby auf
    `/api/press-list` setzen); 2xx = Bestätigung, non-2xx = Fehlertext.
