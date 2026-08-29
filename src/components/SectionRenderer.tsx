@@ -323,6 +323,47 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
         .map((d) => ({ label: loc(d.label, lang), href: d.href || undefined }))
         .filter((d) => d.label);
       const accreditationCta = resolveCta(s.accreditationCta, lang);
+      // Presseverteiler-Formular: Micro-Copy mit Sprach-Fallbacks; die
+      // Sektion verschwindet nur über den signupHidden-Schalter.
+      const signup = s.signupHidden
+        ? undefined
+        : {
+            heading: loc(s.signupHeading, lang) || (de ? "Presseverteiler." : "Press mailing list."),
+            body:
+              loc(s.signupBody, lang) ||
+              (de
+                ? "Sie möchten Pressemitteilungen der Art Düsseldorf direkt erhalten? Tragen Sie sich in unseren Presseverteiler ein."
+                : "Would you like to receive Art Düsseldorf press releases directly? Join our press mailing list."),
+            language: lang,
+            namePlaceholder: loc(s.signupNamePlaceholder, lang) || "Name",
+            emailPlaceholder: loc(s.signupEmailPlaceholder, lang) || (de ? "E-Mail-Adresse" : "Email address"),
+            mediumPlaceholder:
+              loc(s.signupMediumPlaceholder, lang) || (de ? "Medium/Redaktion" : "Outlet/editorial team"),
+            submitLabel: loc(s.signupSubmitLabel, lang) || (de ? "Eintragen" : "Sign up"),
+            consentText:
+              loc(s.signupConsentText, lang) ||
+              (de
+                ? "Ich möchte Pressemitteilungen zur Art Düsseldorf erhalten."
+                : "I would like to receive press releases about Art Düsseldorf."),
+            privacyIntro:
+              loc(s.signupPrivacyIntro, lang) ||
+              (de
+                ? "Die Einwilligung ist jederzeit widerrufbar; Hinweise zur Verarbeitung in der"
+                : "Consent can be revoked at any time; details on processing in the"),
+            privacyLabel: loc(s.signupPrivacyLabel, lang) || (de ? "Datenschutzerklärung" : "privacy policy"),
+            privacyHref: withLang(s.signupPrivacyHref || "/datenschutz", lang),
+            confirmation:
+              loc(s.signupConfirmation, lang) ||
+              (de
+                ? "Danke! Bitte bestätigen Sie Ihre Anmeldung über den Link in Ihrem Postfach."
+                : "Thank you! Please confirm your sign-up via the link in your inbox."),
+            errorText:
+              loc(s.signupErrorText, lang) ||
+              (de
+                ? "Senden fehlgeschlagen — bitte versuchen Sie es erneut."
+                : "Sending failed — please try again."),
+            action: s.signupAction || undefined,
+          };
       const contacts = (s.contacts ?? [])
         .filter((c) => !c.hidden)
         .map((c) => ({
@@ -351,6 +392,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           }
           downloadsHeading={loc(s.downloadsHeading, lang) || (de ? "Presseinfos" : "Press information")}
           downloads={downloads}
+          signup={signup}
           contactsHeading={loc(s.contactsHeading, lang) || (de ? "Pressekontakt." : "Press contact.")}
           contacts={contacts}
         />

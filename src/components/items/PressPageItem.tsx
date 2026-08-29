@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useId, useState } from "react";
 import { InfoHeaderItem } from "./InfoHeaderItem";
 
 // „Presse-Seite" — die GANZE Presseseite als EIN Baukasten-Item (Muster
@@ -16,6 +19,10 @@ import { InfoHeaderItem } from "./InfoHeaderItem";
 //     mit Link sind klickbar (extern in neuem Tab), ohne Link reiner Text
 //   – Pressekontakt als Karten-Paar im Look der Über-uns-Adressen (Lime-Box +
 //     Schwarz-Box nebeneinander, Karten wechseln die Töne der Reihe nach)
+//   – Presseverteiler-Formular (Annalena 29.8., dritte Runde): E-Mail +
+//     Pflicht-Consent, POST an `signup.action` (Brevo-Double-Opt-in wie die
+//     Newsletter-Anmeldung, eigene Brevo-Liste); ohne action clientseitige
+//     Bestätigung (Webby-Vorschau). Versand-Muster wie NewsletterPageItem.
 // Typo-Stufen aus der Über-uns-Skala wiederverwendet (H2/H3/Body/Label);
 // Telefon/E-Mail in Weissenhof Light 15px, KEINE Geist Mono (v0.14.16).
 
@@ -39,9 +46,159 @@ export interface PressContact {
   email?: string;
 }
 
+export interface PressSignup {
+  heading: string; // z. B. „Presseverteiler."
+  body?: string; // kurzer Text über dem Formular
+  language: "de" | "en"; // geht als FormData-Feld mit (Brevo-Attribut LANGUAGE)
+  namePlaceholder: string; // z. B. „Name"
+  emailPlaceholder: string;
+  mediumPlaceholder: string; // z. B. „Medium/Redaktion"
+  submitLabel: string;
+  consentText: string; // Zweck-Text der Checkbox („Ich möchte Pressemitteilungen …")
+  privacyIntro: string; // Überleitung zum Datenschutz-Link („Hinweise zur Verarbeitung in der")
+  privacyHref: string; // gern mit Anker auf die Verteiler-Ziffer, z. B. /datenschutz#presseverteiler
+  privacyLabel: string;
+  confirmation: string; // nach erfolgreichem Versand (Double-Opt-in-Hinweis)
+  errorText: string;
+  action?: string; // POST-Ziel (name + email + medium + language + consent); ohne: clientseitige Bestätigung
+}
+
+// Verteiler-Formular als eigene Client-Teilkomponente, damit der Formular-
+// Zustand (gesendet/Fehler) nicht die ganze Seite neu rendert.
+function SignupForm({ s }: { s: PressSignup }) {
+  const uid = useId();
+  const [done, setDone] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [failed, setFailed] = useState(false);
+
+  async function submit(form: HTMLFormElement) {
+    if (!s.action) {
+      setDone(true);
+      return;
+    }
+    setSending(true);
+    setFailed(false);
+    try {
+      const res = await fetch(s.action, { method: "POST", body: new FormData(form) });
+      if (!res.ok) throw new Error(String(res.status));
+      setDone(true);
+    } catch {
+      setFailed(true);
+    } finally {
+      setSending(false);
+    }
+  }
+
+  if (done) {
+    return (
+      <p role="status" className="flex items-start gap-3 text-[17px] leading-[1.6] mt-[clamp(20px,2.2vw,32px)]">
+        <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime shrink-0 mt-[9px]" />
+        {s.confirmation}
+      </p>
+    );
+  }
+
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        void submit(e.currentTarget);
+      }}
+      className="max-w-[640px] mt-[clamp(20px,2.2vw,32px)]"
+    >
+      {/* Name + E-Mail nebeneinander (ab 2 Spalten Platz), Medium/Redaktion
+          in voller Breite darunter — alle drei Pflichtfelder. */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <label htmlFor={`${uid}-name`} className="sr-only">
+          {s.namePlaceholder}
+        </label>
+        <input
+          id={`${uid}-name`}
+          name="name"
+          type="text"
+          required
+          autoComplete="name"
+          placeholder={s.namePlaceholder}
+          className={INPUT}
+        />
+        <label htmlFor={`${uid}-email`} className="sr-only">
+          {s.emailPlaceholder}
+        </label>
+        <input
+          id={`${uid}-email`}
+          name="email"
+          type="email"
+          required
+          autoComplete="email"
+          placeholder={s.emailPlaceholder}
+          className={INPUT}
+        />
+        <label htmlFor={`${uid}-medium`} className="sr-only">
+          {s.mediumPlaceholder}
+        </label>
+        <input
+          id={`${uid}-medium`}
+          name="medium"
+          type="text"
+          required
+          autoComplete="organization"
+          placeholder={s.mediumPlaceholder}
+          className={`${INPUT} sm:col-span-2`}
+        />
+      </div>
+      <input type="hidden" name="language" value={s.language} />
+      {/* Aktive Einwilligung mit eigenem Zweck-Text (Annalena 29.8.) — NICHT
+          vorausgefüllt; ohne Häkchen blockt die native required-Validierung
+          das Absenden. Double-Opt-in passiert serverseitig (Brevo). */}
+      <label className="flex items-start gap-3 max-w-[560px] mt-5 cursor-pointer select-none">
+        <span className="relative inline-flex shrink-0 mt-[2px]">
+          <input
+            type="checkbox"
+            name="consent"
+            required
+            className="peer appearance-none w-[18px] h-[18px] border border-artdus-black bg-white checked:bg-artdus-black cursor-pointer focus-visible:outline-none focus-visible:border-artdus-lime focus-visible:ring-1 focus-visible:ring-artdus-lime"
+          />
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 12 12"
+            fill="none"
+            className="pointer-events-none absolute inset-0 m-auto w-[11px] h-[11px] opacity-0 peer-checked:opacity-100 text-white"
+          >
+            <path d="M2 6.5L4.8 9.2 10 3.5" stroke="currentColor" strokeWidth="1.8" />
+          </svg>
+        </span>
+        <span className="text-[14px] leading-[1.6] text-neutral-600">
+          {s.consentText}{" "}
+          <span className="text-[13px] text-neutral-500">
+            {s.privacyIntro}{" "}
+            <a href={s.privacyHref} className="underline underline-offset-[3px] hover:text-artdus-black">
+              {s.privacyLabel}
+            </a>
+            .
+          </span>
+        </span>
+      </label>
+      {failed && (
+        <p role="alert" className="text-[14px] leading-[1.5] text-artdus-red mt-4">
+          {s.errorText}
+        </p>
+      )}
+      <button
+        type="submit"
+        disabled={sending}
+        className="mt-6 text-[13px] font-medium tracking-[0.14em] uppercase text-white bg-artdus-black px-[30px] py-[14px] cursor-pointer disabled:opacity-60 disabled:cursor-wait"
+      >
+        {s.submitLabel}
+      </button>
+    </form>
+  );
+}
+
 const H2 = "font-light text-[clamp(30px,3.4vw,52px)] leading-[1.06] tracking-[-0.02em]";
 const BODY = "text-[clamp(17px,1.4vw,20px)] leading-[1.62] text-neutral-600";
 const LABEL = "text-[13px] font-semibold tracking-[0.14em] uppercase text-neutral-500";
+const INPUT =
+  "min-w-0 text-[15px] text-artdus-black px-[18px] py-[14px] border border-artdus-black bg-white outline-none placeholder:text-neutral-500 focus:border-artdus-lime focus:ring-1 focus:ring-artdus-lime";
 
 // Externe Ziele (Downloads, Presse-Ordner) in neuem Tab, interne im selben.
 function SmartLink({ href, className, children }: { href: string; className: string; children: React.ReactNode }) {
@@ -69,6 +226,7 @@ export function PressPageItem({
   accreditationCta,
   downloadsHeading,
   downloads,
+  signup,
   contactsHeading,
   contacts,
 }: {
@@ -83,6 +241,7 @@ export function PressPageItem({
   accreditationCta?: { label: string; href: string }; // später: Formular-Link
   downloadsHeading: string;
   downloads: PressDownload[]; // leer = Sektion entfällt komplett
+  signup?: PressSignup; // Presseverteiler-Formular; fehlt = Sektion entfällt
   contactsHeading: string;
   contacts: PressContact[]; // Karten wechseln Lime/Schwarz; leer = Sektion entfällt
 }) {
@@ -157,6 +316,19 @@ export function PressPageItem({
                   </li>
                 ))}
               </ul>
+            </div>
+          )}
+          {/* Presseverteiler: Aufnahme in den Verteiler, Brevo-Double-Opt-in
+              wie die Newsletter-Anmeldung (eigene Liste). */}
+          {signup && (
+            <div className="mt-[clamp(48px,6vw,88px)]">
+              <h2 className={H2}>{signup.heading}</h2>
+              {signup.body && (
+                <p className={`${BODY} mt-[clamp(16px,1.9vw,28px)] max-w-[64ch] whitespace-pre-line`}>
+                  {signup.body}
+                </p>
+              )}
+              <SignupForm s={signup} />
             </div>
           )}
         </div>

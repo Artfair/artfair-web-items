@@ -7,8 +7,12 @@
 > und Kontakte in Webby gepflegt werden können.
 >
 > Design-Entscheidungen (Annalena 29.8.):
-> – Header ohne Eyebrow und ohne Presskit-Knopf; KEINE „Stand:"-Zeile mehr
->   (Annalena 29.8., zweite Runde — Meta-Zeile nur noch Pressekontakt)
+> – Header ohne Eyebrow und ohne Presskit-Knopf; Meta-Zeile KOMPLETT leer
+>   (Annalena 29.8.: „Stand:" raus, „Pressekontakt:" raus — die konkreten
+>   Ansprechpartnerinnen stehen unten als Kontakt-Karten)
+> – Presseverteiler-Formular (Name, E-Mail, Medium/Redaktion, Pflicht-
+>   Consent NICHT vorausgefüllt) → Brevo-Double-Opt-in wie der Newsletter,
+>   eigene Brevo-Liste; braucht eine neue API-Route in AD27 (unten)
 > – Intro ohne „Akkreditierung" („Pressemitteilungen und Bildmaterial …")
 > – Pressemitteilungen per Schalter `releasesHidden` KOMPLETT ausblendbar —
 >   derzeit AUS, erst wieder an, wenn es tatsächlich neue Mitteilungen gibt
@@ -50,6 +54,22 @@
    den anderen Webby-Seiten), damit die Universal-Route mit der Webby-Seite
    `/press` greift. Indexierbarkeit (`robotsFor('/press')`) beibehalten.
 
+5. **API-Route Presseverteiler** — `app/api/press-list/route.ts`: Kopie von
+   `app/api/newsletter/route.ts` (Brevo-Double-Opt-in), zusätzlich zu
+   `email`/`language`/`consent` die FormData-Felder **`name`** und
+   **`medium`** entgegennehmen und als Brevo-Attribute mitgeben (z. B.
+   `attributes: { LANGUAGE, NAME, MEDIUM }` — Attribute vorher in Brevo
+   anlegen). Eigene Env-Variablen:
+
+   - `BREVO_PRESS_LIST_ID` — ID der neuen Presseverteiler-Liste
+     (Annalena legt die Liste in Brevo an)
+   - DOI-Template/Redirect: entweder die Newsletter-Werte wiederverwenden
+     oder eigene `BREVO_PRESS_DOI_TEMPLATE_ID`/`…_REDIRECT_URL` (empfohlen:
+     eigenes DOI-Template, damit die Bestätigungsmail „Presseverteiler" sagt)
+
+   Das Item schickt per POST an `signupAction` (in Webby auf
+   `/api/press-list` setzen); 2xx = Bestätigung, non-2xx = Fehlertext.
+
 ## Inhalte für Webby (Startzustand, Annalena 29.8.)
 
 Sektion `pressPage`, eine pro Seite:
@@ -57,8 +77,8 @@ Sektion `pressPage`, eine pro Seite:
 - **title**: „Presse." / „Press."
 - **intro**: „Pressemitteilungen und Bildmaterial zur Art Düsseldorf 2027." /
   „Press releases and image material for Art Düsseldorf 2027."
-- **meta**: [„Pressekontakt: press@art-dus.de" /
-  „Press contact: press@art-dus.de"] — bewusst OHNE „Stand:"-Zeile
+- **meta**: LEER lassen — bewusst ohne „Stand:"- und „Pressekontakt:"-Zeile
+  (die Ansprechpartnerinnen stehen unten als Karten)
 - **releasesHidden**: AN (keine aktuellen Mitteilungen; Liste leer lassen,
   Einträge erst pflegen, wenn etwas da ist — Felder pro Eintrag: date,
   title, teaser, href optional, hidden)
@@ -69,6 +89,18 @@ Sektion `pressPage`, eine pro Seite:
      (URL bei Annalena erfragen — Dropbox/Ablage, stand am 29.8. noch aus)
   2. „Logo-Paket (Demnächst)" — ohne href (reiner Text)
   - „Pressemappe 2027" ist bewusst RAUS
+- **Presseverteiler** (zwischen Presseinfos und Pressekontakt; Überschrift-
+  Default „Presseverteiler."): Alle Texte haben Renderer-Fallbacks, in Webby
+  muss nur **signupAction = `/api/press-list`** gesetzt werden (ohne action
+  zeigt das Formular nur eine clientseitige Bestätigung — so bleibt die
+  Webby-Vorschau harmlos). Felder: Name, E-Mail, Medium/Redaktion (alle
+  Pflicht), Consent-Checkbox NICHT vorausgefüllt mit Zweck-Text „Ich möchte
+  Pressemitteilungen zur Art Düsseldorf erhalten." + Widerrufs-/Datenschutz-
+  Hinweis. `signupPrivacyHref` zeigt vorerst auf `/datenschutz`; **WICHTIG
+  (Annalena 29.8.): Die Datenschutzerklärung erwähnt den Presseverteiler
+  aktuell NICHT — eine eigene Ziffer ergänzen** (Zweck, Brevo als
+  Auftragsverarbeiter, Widerruf), dann den Link mit Anker auf diese Ziffer
+  pflegen (z. B. `/datenschutz#presseverteiler`).
 - **contacts** (Überschrift-Default „Pressekontakt."; Karten wechseln
   Lime/Schwarz der Reihe nach):
   1. label „Allgemeine Presseanfragen" / „General press enquiries",

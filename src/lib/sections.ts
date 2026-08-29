@@ -689,6 +689,25 @@ export interface PressPageSection {
   accreditationCta?: Cta; // 2027: Link zum Akkreditierungs-Formular
   downloadsHeading?: Loc; // Default „Presseinfos"/„Press information"
   downloads?: PressDownloadData[]; // leer = Sektion entfällt
+  // Presseverteiler-Formular (Brevo-Double-Opt-in wie die Newsletter-
+  // Anmeldung, eigene Brevo-Liste; Annalena 29.8.). Micro-Copy hat
+  // Renderer-Fallbacks; signupAction ist das POST-Ziel in AD27
+  // (z. B. /api/press-list) — ohne action clientseitige Bestätigung (Webby).
+  signupHidden?: boolean; // Formular-Sektion ausblenden
+  signupHeading?: Loc; // Default „Presseverteiler."/„Press mailing list."
+  signupBody?: Loc; // kurzer Text über dem Formular (Fallback im Renderer)
+  signupNamePlaceholder?: Loc; // Default „Name"
+  signupEmailPlaceholder?: Loc; // Default „E-Mail-Adresse"/„Email address"
+  signupMediumPlaceholder?: Loc; // Default „Medium/Redaktion"/„Outlet/editorial team"
+  signupSubmitLabel?: Loc; // Default „Eintragen"/„Sign up"
+  signupConsentText?: Loc; // Zweck-Text der Checkbox, NICHT vorausgefüllt
+  signupPrivacyIntro?: Loc; // Überleitung zum Datenschutz-Link
+  signupPrivacyLabel?: Loc; // Default „Datenschutzerklärung"/„privacy policy"
+  signupPrivacyHref?: string; // Default /datenschutz — sobald die Erklärung
+  // eine eigene Verteiler-Ziffer hat, mit Anker pflegen (…#presseverteiler)
+  signupConfirmation?: Loc; // Bestätigung (Double-Opt-in-Hinweis)
+  signupErrorText?: Loc;
+  signupAction?: string; // POST-Ziel; leer = clientseitige Bestätigung
   contactsHeading?: Loc; // Default „Pressekontakt."/„Press contact."
   contacts?: PressContactData[]; // Karten wechseln Lime/Schwarz; leer = Sektion entfällt
 }
