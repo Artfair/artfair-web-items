@@ -87,7 +87,9 @@ Sektion `pressPage`, eine pro Seite:
 - **downloads** (Überschrift-Default „Presseinfos"):
   1. „Pressefotos" → href: **Public Press File Art Düsseldorf**
      (URL bei Annalena erfragen — Dropbox/Ablage, stand am 29.8. noch aus)
-  2. „Logo-Paket (Demnächst)" — ohne href (reiner Text)
+  2. „Logo-Paket" → href:
+     `https://artdus.px.media/share/1787973819pFbOTrTJ2fE5XT`
+     (pixx.io-Share, Annalena 29.8. — ohne „(Demnächst)")
   - „Pressemappe 2027" ist bewusst RAUS
 - **Presseverteiler** (zwischen Presseinfos und Pressekontakt; Überschrift-
   Default „Presseverteiler."): Alle Texte haben Renderer-Fallbacks, in Webby
