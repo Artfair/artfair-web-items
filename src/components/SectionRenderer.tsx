@@ -33,6 +33,7 @@ import { FaqPageItem } from "./items/FaqPageItem";
 import { PartnerPageItem } from "./items/PartnerPageItem";
 import { ExhibitorArchiveItem } from "./items/ExhibitorArchiveItem";
 import { LinkHubItem } from "./items/LinkHubItem";
+import { PressPageItem } from "./items/PressPageItem";
 import { Fragment } from "react";
 import {
   loc,
@@ -297,6 +298,61 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           creditsIntro={s.creditsIntro}
           credits={credits}
           footerNote={s.footerNote}
+        />
+      );
+    }
+
+    case "pressPage": {
+      const de = lang === "de";
+      const meta = (s.meta ?? []).map((m) => loc(m, lang)).filter(Boolean);
+      // releasesHidden schaltet die ganze Mitteilungs-Sektion aus — sie kommt
+      // erst wieder, wenn es tatsächlich neue Mitteilungen gibt (Annalena 29.8.).
+      const releases = s.releasesHidden
+        ? []
+        : (s.releases ?? [])
+            .filter((r) => !r.hidden)
+            .map((r) => ({
+              date: loc(r.date, lang) || undefined,
+              title: loc(r.title, lang),
+              teaser: loc(r.teaser, lang) || undefined,
+              href: r.href || undefined,
+            }))
+            .filter((r) => r.title);
+      const downloads = (s.downloads ?? [])
+        .filter((d) => !d.hidden)
+        .map((d) => ({ label: loc(d.label, lang), href: d.href || undefined }))
+        .filter((d) => d.label);
+      const accreditationCta = resolveCta(s.accreditationCta, lang);
+      const contacts = (s.contacts ?? [])
+        .filter((c) => !c.hidden)
+        .map((c) => ({
+          label: loc(c.label, lang),
+          name: c.name ?? "",
+          lines: c.lines || undefined,
+          phone: c.phone || undefined,
+          email: c.email || undefined,
+        }))
+        .filter((c) => c.label || c.name);
+      return (
+        <PressPageItem
+          key={s._key}
+          id={s.anchor}
+          title={loc(s.title, lang) || (de ? "Presse." : "Press.")}
+          intro={loc(s.intro, lang) || undefined}
+          meta={meta}
+          releasesHeading={loc(s.releasesHeading, lang) || (de ? "Pressemitteilungen" : "Press releases")}
+          releases={releases}
+          accreditationHeading={loc(s.accreditationHeading, lang) || (de ? "Akkreditierung" : "Accreditation")}
+          accreditationBody={loc(s.accreditationBody, lang) || undefined}
+          accreditationCta={
+            accreditationCta
+              ? { label: accreditationCta.label, href: withLang(accreditationCta.href, lang) }
+              : undefined
+          }
+          downloadsHeading={loc(s.downloadsHeading, lang) || (de ? "Presseinfos" : "Press information")}
+          downloads={downloads}
+          contactsHeading={loc(s.contactsHeading, lang) || (de ? "Pressekontakt." : "Press contact.")}
+          contacts={contacts}
         />
       );
     }

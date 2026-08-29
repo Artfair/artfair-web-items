@@ -639,6 +639,60 @@ export interface LinkHubSection {
   footerNote?: Loc; // Default „© Art Düsseldorf"
 }
 
+// 31 — Presse-Seite (PressPageItem) — die GANZE Presseseite als EIN Item
+// (Muster faqPage/aboutPage). Ersetzt die in AD27 fest verdrahtete Route
+// app/[lang]/press. Design-Entscheidungen Annalena 29.8.2026: Header ohne
+// Eyebrow und ohne Presskit-Knopf, „Stand: 2026" ohne Monat; Pressemitteilungen
+// per releasesHidden KOMPLETT ausblendbar (erst wieder an, wenn es neue gibt);
+// keine Rahmen-Boxen. Akkreditierung ist vorerst ganz draußen (Annalena
+// 29.8.: „kommt erst 2027 dazu") — die Sektion rendert nur, wenn Text oder
+// CTA gepflegt sind; zur Messe 2027 Body + Formular-Link eintragen.
+// Downloads-Überschrift heißt „Presseinfos" (nicht mehr „Pressemappen").
+export interface PressReleaseData {
+  _key: string;
+  date?: Loc; // z. B. „12. März 2027" oder „Demnächst"
+  title?: Loc;
+  teaser?: Loc;
+  href?: string; // optional: Link zur Mitteilung (PDF/Magazin-Artikel)
+  hidden?: boolean; // Eintrag ausgeblendet, bleibt gespeichert
+}
+export interface PressDownloadData {
+  _key: string;
+  label?: Loc; // z. B. „Pressefotos"
+  href?: string; // leer = unverlinkter Eintrag („Logo-Paket (Demnächst)")
+  hidden?: boolean; // Eintrag ausgeblendet, bleibt gespeichert
+}
+// Pressekontakt-Karte im Look der Über-uns-Adressen (Lime-Box + Schwarz-Box
+// nebeneinander; die Karten wechseln die Töne der Reihe nach: 1. Lime,
+// 2. Schwarz, …). Name/Adresse/Telefon sind sprachneutral (string, kein Loc).
+export interface PressContactData {
+  _key: string;
+  label?: Loc; // Versal-Label, z. B. „Allgemeine Presseanfragen"
+  name?: string; // z. B. „Kathrin Luz"
+  lines?: string; // Firma + Adresse, mehrzeilig (\n)
+  phone?: string; // Anzeige-Text, z. B. „M +49 171 310 24 72"
+  email?: string;
+  hidden?: boolean; // Karte ausgeblendet, bleibt gespeichert
+}
+export interface PressPageSection {
+  _key: string;
+  _type: "pressPage";
+  anchor?: string;
+  title?: Loc; // H1, Default „Presse."/„Press."
+  intro?: Loc; // kurze Einordnung unter der Headline
+  meta?: Loc[]; // Meta-Zeile unter der Haarlinie, z. B. „Stand: 2026", Kontakt
+  releasesHeading?: Loc; // Default „Pressemitteilungen"/„Press releases"
+  releasesHidden?: boolean; // ganze Mitteilungs-Sektion aus (Schalter in Webby)
+  releases?: PressReleaseData[]; // leer = Sektion entfällt ebenfalls
+  accreditationHeading?: Loc; // Default „Akkreditierung"/„Accreditation"
+  accreditationBody?: Loc; // leer UND kein CTA = Sektion entfällt (bis 2027 so)
+  accreditationCta?: Cta; // 2027: Link zum Akkreditierungs-Formular
+  downloadsHeading?: Loc; // Default „Presseinfos"/„Press information"
+  downloads?: PressDownloadData[]; // leer = Sektion entfällt
+  contactsHeading?: Loc; // Default „Pressekontakt."/„Press contact."
+  contacts?: PressContactData[]; // Karten wechseln Lime/Schwarz; leer = Sektion entfällt
+}
+
 // Marker für feste, im Code gepflegte Riegel (Talks-Fahrplan usw.): im CMS nur
 // Typ + _key, der Inhalt kommt als React-Knoten über SectionRenderer `slots`.
 export interface SlotMarkerSection {
@@ -835,7 +889,8 @@ export type Section =
   | FaqPageSection
   | PartnerPageSection
   | ExhibitorArchiveSection
-  | LinkHubSection;
+  | LinkHubSection
+  | PressPageSection;
 
 export type SectionType = Section["_type"];
 
