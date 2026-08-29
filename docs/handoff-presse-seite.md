@@ -67,11 +67,14 @@
      LANGUAGE-Attribut; IDs von Annalena, 29.8.). Die Route wählt die
      Liste anhand des FormData-Felds `language`:
      `includeListIds: [language === "en" ? enListId : deListId]`
-   - DOI-Template/Redirect: entweder die Newsletter-Werte wiederverwenden
-     oder eigene `BREVO_PRESS_DOI_TEMPLATE_ID`/`…_REDIRECT_URL` (empfohlen:
-     eigenes DOI-Template, damit die Bestätigungsmail „Presseverteiler"
-     sagt; bei Bedarf je Sprache eines — Brevo-Templates können aber auch
-     mehrsprachig auf das LANGUAGE-Attribut reagieren)
+   - `BREVO_PRESS_DOI_TEMPLATE_ID_DE` / `BREVO_PRESS_DOI_TEMPLATE_ID_EN` —
+     Annalena legt ZWEI eigene DOI-Vorlagen an (je Sprache eine, Betreff
+     und Text sagen „Presseverteiler" statt „Newsletter"; IDs folgen).
+     Die Route wählt Vorlage UND Liste anhand des `language`-Felds.
+   - `BREVO_PRESS_DOI_REDIRECT_URL` — Ziel nach dem Bestätigungsklick;
+     Vorschlag: `https://www.art-dus.de/de/presse` (bzw. die Route hängt
+     je Sprache `/de/presse` oder `/en/press` an — Walters Wahl, auch die
+     Newsletter-Redirect-URL wiederzuverwenden ist okay)
 
    Das Item schickt per POST an `signupAction` (in Webby auf
    `/api/press-list` setzen); 2xx = Bestätigung, non-2xx = Fehlertext.
