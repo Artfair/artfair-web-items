@@ -85,8 +85,9 @@ Sektion `pressPage`, eine pro Seite:
 - **accreditationBody/-Cta**: LEER lassen (Sektion erscheint dadurch nicht;
   2027 Body + Formular-Link eintragen, Überschrift-Default „Akkreditierung")
 - **downloads** (Überschrift-Default „Presseinfos"):
-  1. „Pressefotos" → href: **Public Press File Art Düsseldorf**
-     (URL bei Annalena erfragen — Dropbox/Ablage, stand am 29.8. noch aus)
+  1. „Pressefotos" → href:
+     `https://artdus.px.media/share/1787973891tSjEcy5NKqr7b9`
+     (pixx.io-Share „Public Press File", Annalena 29.8.)
   2. „Logo-Paket" → href:
      `https://artdus.px.media/share/1787973819pFbOTrTJ2fE5XT`
      (pixx.io-Share, Annalena 29.8. — ohne „(Demnächst)")
