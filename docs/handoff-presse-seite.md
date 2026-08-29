@@ -61,10 +61,11 @@
    `attributes: { LANGUAGE, NAME, MEDIUM }` — Attribute vorher in Brevo
    anlegen). Eigene Env-Variablen:
 
-   - `BREVO_PRESS_LIST_ID_DE` / `BREVO_PRESS_LIST_ID_EN` — Annalena hat
-     ZWEI Listen angelegt (DE + EN, anders als beim Newsletter mit einer
-     Liste + LANGUAGE-Attribut). Die Route wählt die Liste anhand des
-     FormData-Felds `language`:
+   - `BREVO_PRESS_LIST_ID_DE=224` („presseverteiler") /
+     `BREVO_PRESS_LIST_ID_EN=225` („Press EN") — Annalena hat ZWEI Listen
+     angelegt (DE + EN, anders als beim Newsletter mit einer Liste +
+     LANGUAGE-Attribut; IDs von Annalena, 29.8.). Die Route wählt die
+     Liste anhand des FormData-Felds `language`:
      `includeListIds: [language === "en" ? enListId : deListId]`
    - DOI-Template/Redirect: entweder die Newsletter-Werte wiederverwenden
      oder eigene `BREVO_PRESS_DOI_TEMPLATE_ID`/`…_REDIRECT_URL` (empfohlen:
