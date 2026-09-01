@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useId, useState } from "react";
+import { INLINE_LINK_LIGHT, renderInlineLinks } from "../inlineLinks";
 import { InfoHeaderItem } from "./InfoHeaderItem";
 
 // „Presse-Seite" — die GANZE Presseseite als EIN Baukasten-Item (Muster
@@ -30,7 +31,16 @@ export interface PressRelease {
   date?: string; // z. B. „12. März 2027" oder „Demnächst"
   title: string;
   teaser?: string;
-  href?: string; // optional: Link zur Mitteilung (PDF/Magazin-Artikel)
+  body?: string; // Volltext der Mitteilung — aufklappbar, kopierbar; Absätze mit \n\n, Links als [Text](https://…)
+  href?: string; // optional: PDF der Mitteilung (pixx.io-Share); mit body als „PDF herunterladen"-Knopf, ohne body verlinkt der Titel
+}
+
+// Beschriftungen der Volltext-Funktionen (Renderer setzt Sprach-Defaults).
+export interface PressReleaseLabels {
+  fullText: string; // „Volltext"
+  copy: string; // „Text kopieren"
+  copied: string; // „Kopiert!"
+  pdf: string; // „PDF herunterladen"
 }
 
 export interface PressDownload {
@@ -214,6 +224,101 @@ function SmartLink({ href, className, children }: { href: string; className: str
   );
 }
 
+// Eine Pressemitteilung: Datum, Titel, Teaser — und optional der Volltext als
+// Aufklapper (Plus auf Lime-Quadrat, Haus-Motiv wie im FAQ) mit „Text
+// kopieren"-Knopf (Zwischenablage, für Redaktionen) und PDF-Knopf daneben.
+function ReleaseCard({ r, labels }: { r: PressRelease; labels: PressReleaseLabels }) {
+  const [copied, setCopied] = useState(false);
+
+  function copyText() {
+    if (!r.body) return;
+    // [Text](URL)-Links als „Text (URL)" mitkopieren — Redaktionen sollen
+    // reinen Fließtext bekommen, keine Markdown-Syntax.
+    const plain = r.body.replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, "$1 ($2)");
+    const text = `${r.title}\n\n${plain}`;
+    const done = () => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    };
+    // Fallback für Umgebungen ohne Clipboard-API-Berechtigung (ältere
+    // Browser, eingebettete Ansichten): unsichtbares Textfeld + execCommand.
+    const fallback = () => {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        if (document.execCommand("copy")) done();
+      } finally {
+        ta.remove();
+      }
+    };
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else {
+      fallback();
+    }
+  }
+
+  const pdfLink = r.href && (
+    <SmartLink
+      href={r.href}
+      className="inline-flex items-center gap-1.5 text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-artdus-lime pb-[3px]"
+    >
+      {labels.pdf} <span aria-hidden="true">↓</span>
+    </SmartLink>
+  );
+
+  return (
+    <>
+      {r.date && <span className={`${LABEL} block mb-2.5`}>{r.date}</span>}
+      <h3 className="text-[clamp(20px,1.8vw,26px)] font-normal leading-[1.15]">
+        {r.href && !r.body ? (
+          <SmartLink
+            href={r.href}
+            className="underline decoration-artdus-lime decoration-2 underline-offset-4 hover:bg-artdus-lime transition-colors"
+          >
+            {r.title}
+          </SmartLink>
+        ) : (
+          r.title
+        )}
+      </h3>
+      {r.teaser && <p className={`${BODY} mt-2.5 max-w-[64ch]`}>{r.teaser}</p>}
+      {r.body ? (
+        <details className="group mt-4">
+          <summary className="inline-flex items-center gap-2.5 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+            <span
+              aria-hidden="true"
+              className="w-6 h-6 bg-artdus-lime text-artdus-black inline-flex items-center justify-center text-[17px] font-medium shrink-0 group-open:rotate-45 transition-transform"
+            >
+              +
+            </span>
+            <span className="text-[13px] font-semibold tracking-[0.06em] uppercase">{labels.fullText}</span>
+          </summary>
+          {/* Volltext bewusst als normaler, markierbarer Fließtext — Absätze
+              mit \n\n, Links als [Text](https://…). */}
+          <p className="text-[15px] leading-[1.62] text-neutral-600 whitespace-pre-line max-w-[64ch] mt-4">
+            {renderInlineLinks(r.body, { className: INLINE_LINK_LIGHT })}
+          </p>
+          <div className="flex flex-wrap items-center gap-x-7 gap-y-3 mt-5">
+            <button
+              type="button"
+              onClick={copyText}
+              className="inline-flex items-center gap-1.5 text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-artdus-lime pb-[3px] cursor-pointer"
+            >
+              {copied ? labels.copied : labels.copy}
+            </button>
+            {pdfLink}
+          </div>
+        </details>
+      ) : null}
+    </>
+  );
+}
+
 export function PressPageItem({
   id,
   title,
@@ -221,6 +326,7 @@ export function PressPageItem({
   meta,
   releasesHeading,
   releases,
+  releaseLabels,
   accreditationHeading,
   accreditationBody,
   accreditationCta,
@@ -236,6 +342,7 @@ export function PressPageItem({
   meta?: string[]; // Meta-Zeile unter der Haarlinie, z. B. „Stand: 2026"
   releasesHeading: string;
   releases: PressRelease[]; // leer = Sektion entfällt komplett
+  releaseLabels: PressReleaseLabels;
   accreditationHeading: string;
   accreditationBody?: string; // mehrzeilig, Absätze mit \n
   accreditationCta?: { label: string; href: string }; // später: Formular-Link
@@ -257,20 +364,7 @@ export function PressPageItem({
               <ul className="mt-[clamp(24px,2.8vw,40px)]">
                 {releases.map((r) => (
                   <li key={r.title} className="border-b border-neutral-200 py-[clamp(20px,2.2vw,32px)] first:pt-0">
-                    {r.date && <span className={`${LABEL} block mb-2.5`}>{r.date}</span>}
-                    <h3 className="text-[clamp(20px,1.8vw,26px)] font-normal leading-[1.15]">
-                      {r.href ? (
-                        <SmartLink
-                          href={r.href}
-                          className="underline decoration-artdus-lime decoration-2 underline-offset-4 hover:bg-artdus-lime transition-colors"
-                        >
-                          {r.title}
-                        </SmartLink>
-                      ) : (
-                        r.title
-                      )}
-                    </h3>
-                    {r.teaser && <p className={`${BODY} mt-2.5 max-w-[64ch]`}>{r.teaser}</p>}
+                    <ReleaseCard r={r} labels={releaseLabels} />
                   </li>
                 ))}
               </ul>

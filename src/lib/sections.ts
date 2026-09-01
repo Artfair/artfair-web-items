@@ -654,7 +654,10 @@ export interface PressReleaseData {
   date?: Loc; // z. B. „12. März 2027" oder „Demnächst"
   title?: Loc;
   teaser?: Loc;
-  href?: string; // optional: Link zur Mitteilung (PDF/Magazin-Artikel)
+  body?: Loc; // Volltext (aufklappbar + „Text kopieren"-Knopf, v0.18.0);
+  // Absätze mit \n\n, Links als [Text](https://…)
+  href?: string; // PDF der Mitteilung (pixx.io-Share) — mit body als
+  // „PDF herunterladen"-Knopf, ohne body verlinkt der Titel direkt
   hidden?: boolean; // Eintrag ausgeblendet, bleibt gespeichert
 }
 export interface PressDownloadData {
@@ -685,6 +688,11 @@ export interface PressPageSection {
   releasesHeading?: Loc; // Default „Pressemitteilungen"/„Press releases"
   releasesHidden?: boolean; // ganze Mitteilungs-Sektion aus (Schalter in Webby)
   releases?: PressReleaseData[]; // leer = Sektion entfällt ebenfalls
+  // Beschriftungen der Volltext-Funktionen (Defaults im Renderer):
+  releaseFullTextLabel?: Loc; // „Volltext"/„Full text"
+  releaseCopyLabel?: Loc; // „Text kopieren"/„Copy text"
+  releaseCopiedLabel?: Loc; // „Kopiert!"/„Copied!"
+  releasePdfLabel?: Loc; // „PDF herunterladen"/„Download PDF"
   accreditationHeading?: Loc; // Default „Akkreditierung"/„Accreditation"
   accreditationBody?: Loc; // leer UND kein CTA = Sektion entfällt (bis 2027 so)
   accreditationCta?: Cta; // 2027: Link zum Akkreditierungs-Formular

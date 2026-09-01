@@ -315,9 +315,16 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
               date: loc(r.date, lang) || undefined,
               title: loc(r.title, lang),
               teaser: loc(r.teaser, lang) || undefined,
+              body: loc(r.body, lang) || undefined,
               href: r.href || undefined,
             }))
             .filter((r) => r.title);
+      const releaseLabels = {
+        fullText: loc(s.releaseFullTextLabel, lang) || (de ? "Volltext" : "Full text"),
+        copy: loc(s.releaseCopyLabel, lang) || (de ? "Text kopieren" : "Copy text"),
+        copied: loc(s.releaseCopiedLabel, lang) || (de ? "Kopiert!" : "Copied!"),
+        pdf: loc(s.releasePdfLabel, lang) || (de ? "PDF herunterladen" : "Download PDF"),
+      };
       const downloads = (s.downloads ?? [])
         .filter((d) => !d.hidden)
         .map((d) => ({ label: loc(d.label, lang), href: d.href || undefined }))
@@ -383,6 +390,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           meta={meta}
           releasesHeading={loc(s.releasesHeading, lang) || (de ? "Pressemitteilungen" : "Press releases")}
           releases={releases}
+          releaseLabels={releaseLabels}
           accreditationHeading={loc(s.accreditationHeading, lang) || (de ? "Akkreditierung" : "Accreditation")}
           accreditationBody={loc(s.accreditationBody, lang) || undefined}
           accreditationCta={

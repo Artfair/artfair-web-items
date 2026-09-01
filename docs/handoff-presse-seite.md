@@ -1,5 +1,16 @@
 # An Walter: Presseseite als Baukasten-Item (pressPage) in AD27 einbinden
 
+> **NACHTRAG v0.18.0 (31.8., Seite ist live):** Pressemitteilungen können
+> jetzt einen **Volltext** tragen — aufklappbar auf der Seite, mit „Text
+> kopieren"-Knopf (Zwischenablage, für Redaktionen) und „PDF herunterladen"-
+> Knopf. Neue Felder: `PressReleaseData.body` (Loc, Absätze \n\n, Links als
+> [Text](URL)) — `href` wird mit body zum PDF-Knopf, ohne body verlinkt
+> weiter der Titel; Micro-Copy `releaseFullTextLabel`/`releaseCopyLabel`/
+> `releaseCopiedLabel`/`releasePdfLabel` (Renderer-Fallbacks vorhanden).
+> Dafür: **Pin auf `^0.18.0` heben** (npm install, Lockfile), Typ + Case neu
+> aus dem Paket spiegeln. Anlass: erste echte PM (DE/EN) liegt vor — Annalena
+> lädt die PDFs zu pixx.io, Volltexte + Links kommen dann in die releases.
+
 > Von Annalena/Claude, 29.08.2026. Das Items-Paket **v0.17.0** enthält das neue
 > Item `PressPageItem` (Sektionstyp `pressPage`): die GANZE Presseseite als
 > EIN Item (Muster faqPage/aboutPage). Es löst die in AD27 fest verdrahtete
@@ -121,12 +132,12 @@ Sektion `pressPage`, eine pro Seite:
   Lime/Schwarz der Reihe nach):
   1. label „Allgemeine Presseanfragen" / „General press enquiries",
      name „Kathrin Luz",
-     lines „Art.Fair International GmbH\nMaria-Hilf-Str. 9\n50677 Köln",
+     lines „art.fair International GmbH\nMaria-Hilf-Str. 9\n50677 Köln",
      phone „M +49 171 310 24 72", email „kl@luz-communication.de"
   2. label „Interviewanfragen & Markenkommunikation" /
      „Interview requests & brand communication",
      name „Dr. Annalena Roters",
-     lines „Art.Fair International GmbH\nMaria-Hilf-Str. 9\n50677 Köln",
+     lines „art.fair International GmbH\nMaria-Hilf-Str. 9\n50677 Köln",
      phone „M +49 15155480502", email „roters@art-dus.de"
 
 ## Webby-Editor (analog linkHub)
