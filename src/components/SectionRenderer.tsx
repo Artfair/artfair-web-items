@@ -316,7 +316,8 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
               title: loc(r.title, lang),
               teaser: loc(r.teaser, lang) || undefined,
               body: loc(r.body, lang) || undefined,
-              href: r.href || undefined,
+              // PDF je Sprache: EN-Seite nutzt hrefEn, sonst href (v0.18.1)
+              href: (lang === "en" && r.hrefEn) || r.href || undefined,
             }))
             .filter((r) => r.title);
       const releaseLabels = {

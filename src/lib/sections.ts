@@ -656,8 +656,10 @@ export interface PressReleaseData {
   teaser?: Loc;
   body?: Loc; // Volltext (aufklappbar + „Text kopieren"-Knopf, v0.18.0);
   // Absätze mit \n\n, Links als [Text](https://…)
-  href?: string; // PDF der Mitteilung (pixx.io-Share) — mit body als
-  // „PDF herunterladen"-Knopf, ohne body verlinkt der Titel direkt
+  href?: string; // PDF der Mitteilung (pixx.io-Share), deutsche Fassung —
+  // der Knopf ist immer sichtbar (v0.18.1); ohne body verlinkt der Titel
+  hrefEn?: string; // PDF der englischen Fassung (v0.18.1) — die EN-Seite
+  // nutzt diesen Link; leer = href gilt für beide Sprachen
   hidden?: boolean; // Eintrag ausgeblendet, bleibt gespeichert
 }
 export interface PressDownloadData {

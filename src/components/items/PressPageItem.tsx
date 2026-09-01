@@ -32,7 +32,9 @@ export interface PressRelease {
   title: string;
   teaser?: string;
   body?: string; // Volltext der Mitteilung — aufklappbar, kopierbar; Absätze mit \n\n, Links als [Text](https://…)
-  href?: string; // optional: PDF der Mitteilung (pixx.io-Share); mit body als „PDF herunterladen"-Knopf, ohne body verlinkt der Titel
+  href?: string; // PDF der Mitteilung, bereits sprachaufgelöst (Renderer wählt
+  // hrefEn auf der EN-Seite) — der Knopf ist IMMER sichtbar, auch bei
+  // eingeklapptem Volltext (Annalena 1.9.2026); ohne body verlinkt der Titel
 }
 
 // Beschriftungen der Volltext-Funktionen (Renderer setzt Sprach-Defaults).
@@ -303,7 +305,7 @@ function ReleaseCard({ r, labels }: { r: PressRelease; labels: PressReleaseLabel
           <p className="text-[15px] leading-[1.62] text-neutral-600 whitespace-pre-line max-w-[64ch] mt-4">
             {renderInlineLinks(r.body, { className: INLINE_LINK_LIGHT })}
           </p>
-          <div className="flex flex-wrap items-center gap-x-7 gap-y-3 mt-5">
+          <div className="mt-5">
             <button
               type="button"
               onClick={copyText}
@@ -311,10 +313,12 @@ function ReleaseCard({ r, labels }: { r: PressRelease; labels: PressReleaseLabel
             >
               {copied ? labels.copied : labels.copy}
             </button>
-            {pdfLink}
           </div>
         </details>
       ) : null}
+      {/* PDF-Knopf außerhalb des Aufklappers — bleibt auch bei eingeklapptem
+          Volltext sichtbar (Annalena 1.9.2026). */}
+      {r.body && r.href && <div className="mt-4">{pdfLink}</div>}
     </>
   );
 }
