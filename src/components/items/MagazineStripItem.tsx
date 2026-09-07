@@ -46,7 +46,9 @@ export function MagazineStripItem({
                   src={m.img}
                   alt=""
                   loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform"
+                  // Fokus oben statt mittig: der 4:3-Kasten schneidet Hochformat-
+                  // Bilder sonst so, dass Gesichter (oberes Drittel) verloren gehen.
+                  className="w-full h-full object-cover object-[50%_25%] group-hover:scale-[1.02] transition-transform"
                 />
               )}
             </div>
