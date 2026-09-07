@@ -321,6 +321,41 @@
   color: var(--mag-accent-ink);
 }
 
+/* Pull-Quote-Band: gelber Streifen mitten im unteren Raster, EIN Zitat aus
+   einem Artikel, das ganze Band verlinkt dorthin. */
+.mag-quoteband {
+  display: block;
+  background: var(--mag-accent);
+  color: var(--mag-accent-ink);
+  text-decoration: none;
+  text-align: center;
+  padding: 3.2rem 2rem;
+  margin: 2.2rem 0;
+}
+.mag-quoteband__kicker {
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0 0 1rem;
+}
+.mag-quoteband__quote {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  max-width: 34ch;
+  margin: 0 auto 0.9rem;
+}
+.mag-quoteband__attrib {
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin: 0;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+.mag-quoteband:hover .mag-quoteband__attrib { opacity: 1; }
+
 /* Störer-Variante: die ganze Box ist EIN Link zur Newsletter-Anmeldeseite
    (kein Formular mehr — das echte Brevo-Formular lebt auf /newsletter). */
 .mag-newsletter--link {

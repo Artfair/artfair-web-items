@@ -25,6 +25,20 @@ export interface MagListPill {
   active: boolean
 }
 
+// Gelbes Pull-Quote-Band mitten im unteren Karten-Raster: EIN Zitat aus einem
+// Artikel, verlinkt dorthin. `after` = nach wie vielen Karten des unteren
+// Rasters das Band steht (das Puzzle-Muster startet danach neu — gewollt, das
+// Band wirkt als Kapitelmarke). Idealerweise steht das Band nahe beim Artikel
+// der zitierten Person.
+export interface MagListQuote {
+  text: string // ohne Anführungszeichen — der Renderer setzt „…“
+  attribution: string
+  href: string
+  linkLabel: string // z. B. „Zum Interview“
+  kicker?: string // Default: „Aus dem Magazin“/„From the magazine“
+  after?: number // Default 6
+}
+
 // HTML-Entities aus WordPress-Import dekodieren (server-sicher, kein DOM).
 const NAMED: Record<string, string> = {
   amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ',
@@ -100,6 +114,7 @@ export function MagazineListing({
   mostRead,
   newsletterTitle,
   newsletterBody,
+  quote,
   chrome = true,
 }: {
   lang: 'de' | 'en'
@@ -113,6 +128,8 @@ export function MagazineListing({
   // leer = eingebaute Defaults.
   newsletterTitle?: string
   newsletterBody?: string
+  // Optionales Pull-Quote-Band im unteren Raster; weglassen = kein Band.
+  quote?: MagListQuote | null
   // chrome=true rendert die ganze Seite (Rahmen: .magazine-theme/.mag-wrap +
   // Masthead + Nav). chrome=false rendert NUR den Inhalt (Standfirst + Hero +
   // Mosaik + Sidebar + Extra) — für Konsumenten, die Rahmen/Masthead/Nav selbst
@@ -208,13 +225,39 @@ export function MagazineListing({
           </aside>
         </div>
 
-        {mosaicExtra.length > 0 && (
-          <div className="mag-mosaic mag-mosaic--extra">
-            {mosaicExtra.map((a, i) => (
-              <Card key={a.id} a={a} wide={i % 4 === 0 || i % 4 === 3} />
-            ))}
-          </div>
-        )}
+        {(() => {
+          // Band mitten im unteren Raster: Karten davor/danach als GETRENNTE
+          // Grids (das nth-child-Puzzle-Muster darf nicht durch ein fremdes
+          // Grid-Kind verschoben werden — es startet nach dem Band neu).
+          const cut = quote ? Math.min(quote.after ?? 6, mosaicExtra.length) : mosaicExtra.length
+          const before = mosaicExtra.slice(0, cut)
+          const after = mosaicExtra.slice(cut)
+          const grid = (cards: MagListCard[], key: string) =>
+            cards.length > 0 && (
+              <div key={key} className="mag-mosaic mag-mosaic--extra">
+                {cards.map((a, i) => (
+                  <Card key={a.id} a={a} wide={i % 4 === 0 || i % 4 === 3} />
+                ))}
+              </div>
+            )
+          return (
+            <>
+              {grid(before, 'extra1')}
+              {quote && (
+                <a href={quote.href} className="mag-quoteband">
+                  <p className="mag-quoteband__kicker">
+                    {quote.kicker || (lang === 'de' ? 'Aus dem Magazin' : 'From the magazine')}
+                  </p>
+                  <p className="mag-quoteband__quote">„{quote.text}“</p>
+                  <p className="mag-quoteband__attrib">
+                    {quote.attribution}&nbsp;&nbsp;·&nbsp;&nbsp;{quote.linkLabel} →
+                  </p>
+                </a>
+              )}
+              {grid(after, 'extra2')}
+            </>
+          )
+        })()}
     </>
   )
 
