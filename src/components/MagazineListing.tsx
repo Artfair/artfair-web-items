@@ -42,17 +42,24 @@ function decode(input: string | null | undefined): string {
     .trim()
 }
 
-// Sanity-Bild skalieren (identisch zu AD27 lib/magazine/format.ts).
+// Sanity-Bild skalieren (identisch zu AD27 lib/magazine/format.ts). Beim
+// Zuschnitt (height gesetzt) liegt der Fokuspunkt bei 35 % von oben statt
+// mittig — Gesichter stehen fast immer im oberen Bilddrittel; ein mittiger
+// Crop schneidet bei Hochformat-Quellen die Köpfe an.
 function scaled(url: string | null | undefined, width: number, height?: number): string {
   if (!url) return ''
   if (!url.includes('cdn.sanity.io')) return url
   const sep = url.includes('?') ? '&' : '?'
   return height
-    ? `${url}${sep}w=${width}&h=${height}&fit=crop&auto=format`
+    ? `${url}${sep}w=${width}&h=${height}&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.35&auto=format`
     : `${url}${sep}w=${width}&auto=format&fit=max`
 }
 
-function Card({ a }: { a: MagListCard }) {
+// wide = Karte auf den Puzzle-Positionen 1/4 im Viererblock (CSS: 3:2 quer).
+// Der geladene Zuschnitt MUSS zum CSS-Seitenverhältnis passen, sonst wird das
+// Bild zweimal beschnitten (Sanity-Crop 3:4 + object-fit-Crop aufs 3:2-Feld)
+// und es bleibt nur ein schmaler Streifen aus der Bildmitte übrig.
+function Card({ a, wide = false }: { a: MagListCard; wide?: boolean }) {
   const title = decode(a.title)
   const excerpt = decode(a.excerpt)
   return (
@@ -60,7 +67,11 @@ function Card({ a }: { a: MagListCard }) {
       <div className={`mag-card__img${a.imageUrl ? '' : ' mag-card__img--empty'}`}>
         {a.imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={scaled(a.imageUrl, 600, 800)} alt={title} loading="lazy" />
+          <img
+            src={wide ? scaled(a.imageUrl, 900, 600) : scaled(a.imageUrl, 600, 800)}
+            alt={title}
+            loading="lazy"
+          />
         ) : (
           <span aria-hidden>{title.slice(0, 1)}</span>
         )}
@@ -138,8 +149,8 @@ export function MagazineListing({
 
         <div className="mag-content">
           <div className="mag-mosaic">
-            {mosaicMain.map((a) => (
-              <Card key={a.id} a={a} />
+            {mosaicMain.map((a, i) => (
+              <Card key={a.id} a={a} wide={i % 4 === 0 || i % 4 === 3} />
             ))}
           </div>
 
@@ -193,8 +204,8 @@ export function MagazineListing({
 
         {mosaicExtra.length > 0 && (
           <div className="mag-mosaic mag-mosaic--extra">
-            {mosaicExtra.map((a) => (
-              <Card key={a.id} a={a} />
+            {mosaicExtra.map((a, i) => (
+              <Card key={a.id} a={a} wide={i % 4 === 0 || i % 4 === 3} />
             ))}
           </div>
         )}
