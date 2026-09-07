@@ -291,8 +291,11 @@
 }
 .mag-mostread__link:hover { opacity: 0.6; }
 
-/* Kleines Rubrik-Label über dem Titel */
-.mag-mostread__cat {
+/* Kleines Rubrik-Label über dem Titel. Doppelklasse nötig: die Grundregel
+   .mag-card__bubble (position:absolute) steht WEITER UNTEN in dieser Datei und
+   würde eine gleich-spezifische Ausnahme hier überstimmen — die Blase klebte
+   dann absolut über der Meistgelesen-Überschrift. */
+.mag-card__bubble.mag-mostread__cat {
   font-size: 0.5rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
