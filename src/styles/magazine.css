@@ -774,7 +774,10 @@
     gap: 1.5rem;
   }
   .mag-hero__text { padding-right: 0; }
-  .mag-hero__bar { display: none; }
+  /* Mobil wandert der Lime-Balken unter das Hero-Bild (quer statt hochkant) —
+     vorher war er ausgeblendet und der Hero hatte keinen Gelb-Akzent. */
+  .mag-hero__visual { flex-direction: column; }
+  .mag-hero__bar { width: 100%; height: 1rem; }
   .mag-mosaic { grid-template-columns: 1fr 1fr; }
   .mag-mosaic .mag-card:nth-child(4n+1),
   .mag-mosaic .mag-card:nth-child(4n) { grid-column: span 2; }
