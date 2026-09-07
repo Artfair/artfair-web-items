@@ -193,13 +193,13 @@ export function MagazineListing({
                 {newsletterTitle || 'Newsletter'}
               </p>
               <h3 className="mag-newsletter__headline">
-                {lang === 'de' ? 'Kunst.\nNeu erschlossen.' : 'Art.\nRediscovered.'}
+                {lang === 'de' ? 'Community.\nInsights.\nTermine.' : 'Community.\nInsights.\nDates.'}
               </h3>
               <p className="mag-newsletter__sub">
                 {newsletterBody ||
                   (lang === 'de'
-                    ? 'Neuigkeiten, Interviews und Einblicke aus der Welt der ART DÜSSELDORF.'
-                    : 'News, interviews and insights from the world of ART DÜSSELDORF.')}
+                    ? 'Werden Sie Teil der Art-Düsseldorf-Community – mit Einblicken hinter die Kulissen und allen wichtigen Terminen zuerst.'
+                    : 'Join the Art Düsseldorf community – with behind-the-scenes insights and every key date first.')}
               </p>
               <span className="mag-newsletter__cta">
                 {lang === 'de' ? 'Jetzt anmelden' : 'Sign up now'} →
