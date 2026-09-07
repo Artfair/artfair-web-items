@@ -1,5 +1,4 @@
 import React from 'react'
-import { NewsletterBlockItem } from './items/NewsletterBlockItem'
 
 // Vollständige Magazin-LISTENSEITE als geteilte Anzeige-Komponente (Schrank).
 // Rein präsentational: Daten kommen als Props (fertige Karten). Nutzt die
@@ -110,8 +109,8 @@ export function MagazineListing({
   featured: MagListCard | null
   mosaic: MagListCard[]
   mostRead: MagListCard[]
-  // Newsletter-Block am Seitenende (gleiches Element wie auf der Startseite,
-  // inkl. echtem Brevo-Formular). Defaults = Startseiten-Texte.
+  // Texte des gelben Newsletter-Störers in der Sidebar (Label + Untertext);
+  // leer = eingebaute Defaults.
   newsletterTitle?: string
   newsletterBody?: string
   // chrome=true rendert die ganze Seite (Rahmen: .magazine-theme/.mag-wrap +
@@ -186,6 +185,26 @@ export function MagazineListing({
               </div>
             )}
 
+            {/* Gelber Newsletter-Störer (Annalena 7.9.): reiner Teaser OHNE
+                Formular — verlinkt auf die Anmeldeseite (dort steht das echte
+                Brevo-Formular). */}
+            <a href={`/${lang}/newsletter`} className="mag-newsletter mag-newsletter--link">
+              <p className="mag-newsletter__title">
+                {newsletterTitle || 'Newsletter'}
+              </p>
+              <h3 className="mag-newsletter__headline">
+                {lang === 'de' ? 'Kunst.\nNeu erschlossen.' : 'Art.\nRediscovered.'}
+              </h3>
+              <p className="mag-newsletter__sub">
+                {newsletterBody ||
+                  (lang === 'de'
+                    ? 'Neuigkeiten, Interviews und Einblicke aus der Welt der ART DÜSSELDORF.'
+                    : 'News, interviews and insights from the world of ART DÜSSELDORF.')}
+              </p>
+              <span className="mag-newsletter__cta">
+                {lang === 'de' ? 'Jetzt anmelden' : 'Sign up now'} →
+              </span>
+            </a>
           </aside>
         </div>
 
@@ -196,22 +215,6 @@ export function MagazineListing({
             ))}
           </div>
         )}
-
-        {/* Newsletter am Seitenende — dasselbe Element wie auf der Startseite
-            (statt der früheren Attrappen-Box in der Sidebar). */}
-        <NewsletterBlockItem
-          lang={lang}
-          title={
-            newsletterTitle ||
-            (lang === 'de' ? 'Bleiben Sie verbunden.' : 'Stay connected.')
-          }
-          body={
-            newsletterBody ||
-            (lang === 'de'
-              ? 'Programm, Preview-Termine und Tickets – die wichtigsten Neuigkeiten direkt in Ihr Postfach.'
-              : 'Program, preview dates and tickets — the news that matters, straight to your inbox.')
-          }
-        />
     </>
   )
 

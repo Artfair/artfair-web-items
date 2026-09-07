@@ -321,6 +321,26 @@
   color: var(--mag-accent-ink);
 }
 
+/* Störer-Variante: die ganze Box ist EIN Link zur Newsletter-Anmeldeseite
+   (kein Formular mehr — das echte Brevo-Formular lebt auf /newsletter). */
+.mag-newsletter--link {
+  display: block;
+  text-decoration: none;
+  color: var(--mag-accent-ink);
+}
+.mag-newsletter__cta {
+  display: inline-block;
+  background: var(--mag-accent-ink);
+  color: var(--mag-accent);
+  padding: 0.6rem 1rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: opacity 0.2s;
+}
+.mag-newsletter--link:hover .mag-newsletter__cta { opacity: 0.85; }
+
 .mag-newsletter__title {
   font-size: 0.6rem;
   letter-spacing: 0.22em;
