@@ -430,7 +430,9 @@ export default function Header({
                 <Link href={teaser.href} onClick={close} className="block aspect-[4/3] overflow-hidden bg-artdus-black">
                   {teaser.imageUrl && (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={teaser.imageUrl} alt={teaser.title} className="w-full h-full object-cover" />
+                    // Fokus oben statt mittig: der 4:3-Kasten schneidet Hochformat-
+                    // Bilder sonst so, dass Gesichter (oberes Drittel) verloren gehen.
+                    <img src={teaser.imageUrl} alt={teaser.title} className="w-full h-full object-cover object-[50%_25%]" />
                   )}
                 </Link>
                 {teaser.meta && (
