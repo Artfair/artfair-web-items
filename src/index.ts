@@ -7,6 +7,10 @@ export * from './lib/slugs' // DE_SLUGS + localizeHref()
 // Anzeige-Regal: der SectionRenderer mappt Abschnitte auf die Web-Items.
 export { default as SectionRenderer } from './components/SectionRenderer'
 
+// Newsletter-Anmeldeformular (echtes Brevo-Submit via POST /api/newsletter) —
+// exportiert, damit AD27s Startseiten-Fallback dasselbe Formular nutzt.
+export { default as NewsletterForm } from './components/NewsletterForm'
+
 // Magazin-Listenseite (Anzeige): geteilte Komponente + Kartentypen. CSS liegt
 // unter '@artfair/web-items/styles/magazine.css' (Konsument importiert sie).
 export {

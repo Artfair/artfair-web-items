@@ -1,4 +1,5 @@
 import React from 'react'
+import { NewsletterBlockItem } from './items/NewsletterBlockItem'
 
 // Vollständige Magazin-LISTENSEITE als geteilte Anzeige-Komponente (Schrank).
 // Rein präsentational: Daten kommen als Props (fertige Karten). Nutzt die
@@ -98,6 +99,8 @@ export function MagazineListing({
   featured,
   mosaic,
   mostRead,
+  newsletterTitle,
+  newsletterBody,
   chrome = true,
 }: {
   lang: 'de' | 'en'
@@ -107,6 +110,10 @@ export function MagazineListing({
   featured: MagListCard | null
   mosaic: MagListCard[]
   mostRead: MagListCard[]
+  // Newsletter-Block am Seitenende (gleiches Element wie auf der Startseite,
+  // inkl. echtem Brevo-Formular). Defaults = Startseiten-Texte.
+  newsletterTitle?: string
+  newsletterBody?: string
   // chrome=true rendert die ganze Seite (Rahmen: .magazine-theme/.mag-wrap +
   // Masthead + Nav). chrome=false rendert NUR den Inhalt (Standfirst + Hero +
   // Mosaik + Sidebar + Extra) — für Konsumenten, die Rahmen/Masthead/Nav selbst
@@ -114,7 +121,8 @@ export function MagazineListing({
   chrome?: boolean
 }) {
   const readMore = lang === 'de' ? 'Weiterlesen' : 'Read more'
-  const mostReadLabel = lang === 'de' ? 'Meistgelesen' : 'Most Read'
+  const mostReadLabel =
+    lang === 'de' ? 'Unsere meist gelesenen Artikel' : 'Our most read articles'
   const mosaicMain = mosaic.slice(0, 6)
   const mosaicExtra = mosaic.slice(6)
 
@@ -178,27 +186,6 @@ export function MagazineListing({
               </div>
             )}
 
-            <div className="mag-newsletter">
-              <p className="mag-newsletter__title">Newsletter</p>
-              <h3 className="mag-newsletter__headline">
-                {lang === 'de' ? 'Kunst.\nNeu erschlossen.' : 'Art.\nRediscovered.'}
-              </h3>
-              <p className="mag-newsletter__sub">
-                {lang === 'de'
-                  ? 'Neuigkeiten, Interviews und Einblicke aus der Welt der ART DÜSSELDORF.'
-                  : 'News, interviews and insights from the world of ART DÜSSELDORF.'}
-              </p>
-              <form className="mag-newsletter__form" action="#" method="post">
-                <input
-                  type="email"
-                  name="email"
-                  className="mag-newsletter__input"
-                  placeholder={lang === 'de' ? 'Ihre E-Mail' : 'Your email'}
-                  aria-label={lang === 'de' ? 'E-Mail-Adresse' : 'Email address'}
-                />
-                <button type="submit" className="mag-newsletter__btn">→</button>
-              </form>
-            </div>
           </aside>
         </div>
 
@@ -209,6 +196,22 @@ export function MagazineListing({
             ))}
           </div>
         )}
+
+        {/* Newsletter am Seitenende — dasselbe Element wie auf der Startseite
+            (statt der früheren Attrappen-Box in der Sidebar). */}
+        <NewsletterBlockItem
+          lang={lang}
+          title={
+            newsletterTitle ||
+            (lang === 'de' ? 'Bleiben Sie verbunden.' : 'Stay connected.')
+          }
+          body={
+            newsletterBody ||
+            (lang === 'de'
+              ? 'Programm, Preview-Termine und Tickets – die wichtigsten Neuigkeiten direkt in Ihr Postfach.'
+              : 'Program, preview dates and tickets — the news that matters, straight to your inbox.')
+          }
+        />
     </>
   )
 
