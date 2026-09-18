@@ -1,6 +1,7 @@
 'use client'
 
 import {useId, useState} from 'react'
+import {BotShieldFields} from '../BotShieldFields'
 
 // „Newsletter-Anmeldung" — die GANZE Landingpage als EIN Baukasten-Item (wie
 // AboutPageItem). Design-Handoff „Newsletter Landingpage" (11.8.2026), in die
@@ -412,6 +413,7 @@ export function NewsletterPageItem({
                 </div>
               )}
               <input type="hidden" name="language" value={language} />
+              <BotShieldFields action={action} />
               <button
                 type="submit"
                 disabled={sending}

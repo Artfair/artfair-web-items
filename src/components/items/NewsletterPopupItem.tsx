@@ -1,6 +1,7 @@
 'use client'
 
 import {useEffect, useRef, useState} from 'react'
+import {BotShieldFields} from '../BotShieldFields'
 
 // Baukasten-Item „Newsletter-Popup" (INSIDE ART DÜSSELDORF) — scrollausgelöstes
 // Anmelde-Overlay nach Agentur-Handoff 18.9.2026 (Optik/Copy abgenommen: Lime-
@@ -240,6 +241,7 @@ export function NewsletterPopupItem({
                 className="border-0 border-b-[1.5px] border-artdus-black bg-transparent px-0.5 py-2 text-[15px] text-artdus-black outline-none placeholder:text-artdus-black/60"
               />
               <input type="hidden" name="language" value={lang} />
+              <BotShieldFields action={action} />
 
               <label className="flex cursor-pointer select-none items-start gap-2 text-left">
                 <span className="relative mt-[1px] inline-flex shrink-0">

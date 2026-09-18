@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { BotShieldFields } from "./BotShieldFields";
 
 type Lang = "de" | "en";
 
@@ -80,6 +81,7 @@ export default function NewsletterForm({
         </button>
       </div>
       <input type="hidden" name="language" value={lang} />
+      <BotShieldFields action={action} />
       {failed && (
         <p role="alert" className="text-[14px] leading-[1.5] text-artdus-red mt-4 text-center">
           {de
