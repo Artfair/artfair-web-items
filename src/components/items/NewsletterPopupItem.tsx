@@ -14,6 +14,7 @@ import {useEffect, useRef, useState} from 'react'
 //  · Nach erfolgreicher Anmeldung dauerhaft still (localStorage), nach dem
 //    Wegklicken nur für die laufende Sitzung (sessionStorage).
 //  · Bild stapelt mobil oben (feste 240px-Spalte hätte das Handy zerlegt).
+//  · Sie-Form statt Handoff-Du (Konsistenz mit dem Rest der Site, 18.9.).
 
 const SCROLL_MIN_PX = 250 // Mindest-Scrolltiefe …
 const SCROLL_RATIO = 0.15 // … UND Mindest-Anteil der scrollbaren Strecke
@@ -47,13 +48,13 @@ const COPY = {
     headline: 'Get inside.',
     body:
       'Ein genauerer Blick auf die Kunstwelt, kuratiert von Art Düsseldorf. Monatliche Highlights, Sammlerperspektiven und was sich in der Rheinland-Kunstszene wirklich lohnt.',
-    placeholder: 'Deine E-Mail-Adresse',
+    placeholder: 'E-Mail-Adresse',
     button: 'Get Inside',
     consentPre: 'Ich stimme der',
     consentLink: 'Datenschutzerklärung',
     consentPost: 'zu und möchte den Newsletter erhalten. Jederzeit kündbar.',
-    success: 'Fast geschafft — bitte bestätige deine Anmeldung per E-Mail.',
-    error: 'Da ist etwas schiefgelaufen — bitte versuch es erneut.',
+    success: 'Fast geschafft — bitte bestätigen Sie Ihre Anmeldung über den Link in Ihrem Postfach.',
+    error: 'Da ist etwas schiefgelaufen — bitte versuchen Sie es erneut.',
     close: 'Schließen',
     dialogLabel: 'Newsletter-Anmeldung',
   },
