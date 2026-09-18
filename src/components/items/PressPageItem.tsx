@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useId, useState } from "react";
 import { INLINE_LINK_LIGHT, renderInlineLinks } from "../inlineLinks";
+import { BotShieldFields } from "../BotShieldFields";
 import { InfoHeaderItem } from "./InfoHeaderItem";
 
 // „Presse-Seite" — die GANZE Presseseite als EIN Baukasten-Item (Muster
@@ -159,6 +160,7 @@ function SignupForm({ s }: { s: PressSignup }) {
         />
       </div>
       <input type="hidden" name="language" value={s.language} />
+      <BotShieldFields action={s.action} />
       {/* Aktive Einwilligung mit eigenem Zweck-Text (Annalena 29.8.) — NICHT
           vorausgefüllt; ohne Häkchen blockt die native required-Validierung
           das Absenden. Double-Opt-in passiert serverseitig (Brevo). */}
