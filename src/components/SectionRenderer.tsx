@@ -17,6 +17,7 @@ import { LogoMarqueeItem } from "./items/LogoMarqueeItem";
 import { MagazineStripItem, type MagCard } from "./items/MagazineStripItem";
 import { ThemesSection } from "./ThemesSection";
 import { NewsletterBlockItem } from "./items/NewsletterBlockItem";
+import { NewsletterPopupItem } from "./items/NewsletterPopupItem";
 import { PartnerFeatureItem } from "./items/PartnerFeatureItem";
 import { TalksScheduleItem } from "./items/TalksScheduleItem";
 import { HeroStageItem } from "./items/HeroStageItem";
@@ -545,6 +546,22 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
 
     case "newsletter": {
       return <NewsletterBlockItem key={s._key} lang={lang} title={loc(s.title, lang)} body={loc(s.body, lang)} />;
+    }
+
+    case "newsletterPopup": {
+      // Fixed-Overlay — die Position in der Sektionsliste ist fürs Layout egal,
+      // die Sektion macht das Popup nur auf dieser Seite verfügbar.
+      return (
+        <NewsletterPopupItem
+          key={s._key}
+          lang={lang}
+          eyebrow={loc(s.eyebrow, lang) || undefined}
+          headline={loc(s.headline, lang) || undefined}
+          body={loc(s.body, lang) || undefined}
+          imageSrc={img(s.image, 800) || undefined}
+          imageAlt={s.image?.alt ?? ""}
+        />
+      );
     }
 
     case "partnerFeature": {

@@ -279,6 +279,20 @@ export interface NewsletterSection {
   body?: Loc
 }
 
+// 16b — Newsletter-Popup (NewsletterPopupItem) — scrollausgelöstes
+// Anmelde-Overlay „INSIDE ART DÜSSELDORF" (Handoff 18.9.2026). Texte optional,
+// leer = abgenommene Standard-Copy im Item; „Get inside." bleibt als
+// Marken-Mikro-Claim in beiden Sprachen unübersetzt. Formular-Mikrotexte
+// (Platzhalter, Knopf, Einwilligung) sind fix im Item.
+export interface NewsletterPopupSection {
+  _key: string;
+  _type: "newsletterPopup";
+  eyebrow?: Loc;
+  headline?: Loc;
+  body?: Loc;
+  image?: ImageRef; // 3:4-Messefoto links (mobil oben); ohne Bild volle Textbreite
+}
+
 // ── Programm-Bausteine (Partner/Talks) ──────────────────────────────────────
 
 // 17 — Partner-Porträt (PartnerFeatureItem)
@@ -906,6 +920,7 @@ export type Section =
   | MagazineStripSection
   | ThemesSectionData
   | NewsletterSection
+  | NewsletterPopupSection
   | PartnerFeatureSection
   | TalksScheduleSection
   | HeroStageSection
