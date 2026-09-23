@@ -30,18 +30,24 @@ export function NewsletterConfirmedNotice({lang}: {lang: 'de' | 'en'}) {
   const [show, setShow] = useState(false)
 
   useEffect(() => {
-    const url = new URL(window.location.href)
-    if (url.searchParams.get(PARAM) !== VALUE) return
+    if (new URL(window.location.href).searchParams.get(PARAM) !== VALUE) return
     setShow(true)
     try {
       window.localStorage.setItem(POPUP_DONE_KEY, '1')
     } catch {
       /* Private Mode o. Ä. — dann bleibt nur das Popup-Verhalten wie gehabt */
     }
-    // Parameter aus der Adresszeile nehmen, damit Reload/Teilen ihn nicht trägt.
+    // Der Parameter bleibt bis zum Schließen in der URL — würde er sofort
+    // entfernt, verlöre die Meldung bei einem Remount (Dev-Hydration,
+    // Router-Eigenheiten) ihren Anlass und verschwände wieder.
+  }, [])
+
+  function close() {
+    setShow(false)
+    const url = new URL(window.location.href)
     url.searchParams.delete(PARAM)
     window.history.replaceState(null, '', url.pathname + url.search + url.hash)
-  }, [])
+  }
 
   if (!show) return null
 
@@ -53,7 +59,7 @@ export function NewsletterConfirmedNotice({lang}: {lang: 'de' | 'en'}) {
       <p className="min-w-0 flex-1 text-[15px] leading-[1.5]">{t.text}</p>
       <button
         type="button"
-        onClick={() => setShow(false)}
+        onClick={close}
         aria-label={t.close}
         className="shrink-0 cursor-pointer p-1 text-[18px] leading-none opacity-60 hover:opacity-100"
       >
