@@ -10,6 +10,9 @@ export { default as SectionRenderer } from './components/SectionRenderer'
 // Newsletter-Anmeldeformular (echtes Brevo-Submit via POST /api/newsletter) —
 // exportiert, damit AD27s Startseiten-Fallback dasselbe Formular nutzt.
 export { default as NewsletterForm } from './components/NewsletterForm'
+// „Danke"-Hinweis nach bestätigtem Double-Opt-in (?newsletter=bestaetigt),
+// wird von AD27 auf der Startseite gemountet.
+export { NewsletterConfirmedNotice } from './components/NewsletterConfirmedNotice'
 
 // Magazin-Listenseite (Anzeige): geteilte Komponente + Kartentypen. CSS liegt
 // unter '@artfair/web-items/styles/magazine.css' (Konsument importiert sie).

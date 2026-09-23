@@ -110,6 +110,13 @@ export function NewsletterPopupItem({
   useEffect(() => {
     if (flagged('session', SESSION_KEY) || flagged('local', DONE_KEY)) return
     function maybeShow() {
+      // Flags auch im Auslöse-Moment prüfen: die Danke-Meldung
+      // (NewsletterConfirmedNotice) setzt das done-Flag erst NACH dem Mount —
+      // ohne Re-Check würde das Popup frisch Bestätigten trotzdem aufgehen.
+      if (flagged('session', SESSION_KEY) || flagged('local', DONE_KEY)) {
+        window.removeEventListener('scroll', maybeShow)
+        return
+      }
       const scrollable = document.documentElement.scrollHeight - window.innerHeight
       const deepEnough =
         window.scrollY > SCROLL_MIN_PX &&
