@@ -54,7 +54,8 @@ const COPY = {
     consentPre: 'Ich stimme der',
     consentLink: 'Datenschutzerklärung',
     consentPost: 'zu und möchte den Newsletter erhalten. Jederzeit kündbar.',
-    success: 'Fast geschafft — bitte bestätigen Sie Ihre Anmeldung über den Link in Ihrem Postfach.',
+    successLead: 'Fast geschafft',
+    successRest: ' — bitte bestätigen Sie Ihre Anmeldung über den Link in Ihrem Postfach.',
     error: 'Da ist etwas schiefgelaufen — bitte versuchen Sie es erneut.',
     close: 'Schließen',
     dialogLabel: 'Newsletter-Anmeldung',
@@ -69,7 +70,8 @@ const COPY = {
     consentPre: 'I agree to the',
     consentLink: 'privacy policy',
     consentPost: 'and to receive the newsletter. Unsubscribe anytime.',
-    success: "You're in — please confirm your signup via the link in your inbox.",
+    successLead: "You're in",
+    successRest: ' — please confirm your signup via the link in your inbox.',
     error: 'Something went wrong — please try again.',
     close: 'Close',
     dialogLabel: 'Newsletter signup',
@@ -226,12 +228,17 @@ export function NewsletterPopupItem({
             <p className="mb-2 text-[24px] font-bold uppercase leading-[1.1] tracking-[0.08em]">
               {eyebrow || t.eyebrow}
             </p>
-            <p className="text-[14px] leading-[1.45]">{body || t.body}</p>
+            {/* Nach der Anmeldung fällt der Beschreibungstext weg, damit die
+                Bestätigungs-Botschaft nicht untergeht (Annalena 23.9.). */}
+            {status !== 'success' && (
+              <p className="text-[14px] leading-[1.45]">{body || t.body}</p>
+            )}
           </div>
 
           {status === 'success' ? (
-            <p className="text-[14px] leading-[1.45]" role="status">
-              {t.success}
+            <p className="text-[15px] leading-[1.5]" role="status">
+              <strong className="font-bold">{t.successLead}</strong>
+              {t.successRest}
             </p>
           ) : (
             <form onSubmit={submit} className="flex flex-col gap-3">
