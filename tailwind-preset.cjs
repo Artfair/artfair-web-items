@@ -12,7 +12,11 @@
 //     content: ['./…', './node_modules/@artfair/web-items/src/**/*.{ts,tsx}'],
 //   }
 //
-// CommonJS, weil Tailwind-Configs es projektübergreifend am robustesten laden.
+// CommonJS — Dateiendung .cjs, weil das Paket "type": "module" ist. Als .js
+// wurde die Datei als ESM geparst; `module.exports` erzeugt dort keine Exports,
+// und ein `import preset from …` scheiterte mit "The module has no exports at
+// all" (Turbopack/AD27). Der oeffentliche Pfad @artfair/web-items/tailwind-preset
+// bleibt unveraendert, weil das exports-Feld ihn aufloest.
 module.exports = {
   theme: {
     extend: {

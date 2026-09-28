@@ -1,6 +1,6 @@
 {
   "name": "@artfair/web-items",
-  "version": "0.24.0",
+  "version": "0.25.0",
   "description": "Geteiltes Design-Regal der Art Düsseldorf — Item-Bauteile, SectionRenderer, Theme (Tailwind-Preset + Tokens + Fonts). Wird von AD27 (Website) und Webby (Editor) importiert, damit beide dieselben Bauteile im gleichen Look rendern.",
   "license": "UNLICENSED",
   "type": "module",
@@ -9,13 +9,13 @@
   ],
   "exports": {
     ".": "./src/index.ts",
-    "./tailwind-preset": "./tailwind-preset.js",
+    "./tailwind-preset": "./tailwind-preset.cjs",
     "./styles/tokens.css": "./src/styles/tokens.css",
     "./styles/magazine.css": "./src/styles/magazine.css"
   },
   "files": [
     "src",
-    "tailwind-preset.js"
+    "tailwind-preset.cjs"
   ],
   "peerDependencies": {
     "next": ">=14",
