@@ -1,14 +1,15 @@
-// Geteiltes Tailwind-Theme (Token-Konsolidierung 2026).
-// Wird von AD27 und Webby als Preset eingebunden, damit beide dieselben
-// Utility-Klassen (brand-accent, text-ink, animate-marquee …) verstehen.
-// Seit 0.22.0 tragen die Markenfarben zusätzlich markenfreie Namen (brand-*),
-// damit das Paket auch von einer zweiten Messe genutzt werden kann.
-// Die Farb-Werte hinter den var()-Tokens leben in ./src/styles/tokens.css.
+// Geteiltes Tailwind-Theme der Messe-Website. Wird von der Website und vom
+// Redaktionswerkzeug eingebunden, damit beide dieselben Bauteile im gleichen
+// Look rendern.
+//
+// Die Markenfarben sind seit 1.0.0 nicht mehr an eine Messe gebunden: Die
+// Utility-Klassen heissen brand-* und lesen CSS-Variablen, die jede Instanz
+// selbst setzt.
 //
 //   // tailwind.config.*
-//   import artfairPreset from '@artfair/web-items/tailwind-preset'
+//   import preset from '@artfair/web-items/tailwind-preset'
 //   export default {
-//     presets: [artfairPreset],
+//     presets: [preset],
 //     content: ['./…', './node_modules/@artfair/web-items/src/**/*.{ts,tsx}'],
 //   }
 //
@@ -36,44 +37,26 @@ module.exports = {
         'earth-2': 'var(--earth-2)',
         'earth-3': 'var(--earth-3)',
         'earth-line': 'var(--earth-line)',
-        // ── Markenfarben, alte Namen (Bestand) ────────────────────────────
-        // Bleiben unverändert in Betrieb. Werden erst entfernt, wenn nirgends
-        // mehr verwendet — siehe Block darunter.
-        'artdus-black': '#0A0A0A',
-        'artdus-red': '#E8192C',
-        'artdus-gray': '#888888',
-        'artdus-light': '#F5F5F5',
-        'artdus-border': '#222222',
-        'artdus-lime': '#E7FA31',
-        'artdus-paper': '#F6F6F4',
-        'artdus-line': '#ECECEC',
-
-        // ── Markenfarben, neue Namen (ab 0.22.0) ──────────────────────────
-        // Wertgleiche Zweitnamen zu den artdus-* oben — KEINE Farbänderung,
-        // rein additiv. Zweck: die Utility-Klassen tragen die Marke nicht mehr
-        // im Namen, damit eine zweite Messe dasselbe Paket nutzen kann.
+        // ── Markenfarben ────────────────────────────────────────────────
+        // Die Werte kommen aus CSS-Variablen, die jede Instanz selbst setzt.
+        // Der Hex-Wert dahinter ist die Rueckfallebene, falls eine Instanz die
+        // Variable nicht definiert; er entspricht dem art.fair-Wert und
+        // entfaellt, sobald jede Instanz ihre Werte setzt.
         //
-        // Umstellung läuft schrittweise: beide Namensätze funktionieren
-        // parallel, neue Arbeit nutzt brand-*, Bestand wird nach und nach
-        // nachgezogen. Erst wenn kein artdus-* mehr vorkommt, fällt der Block
-        // oben weg (dann Major-Sprung, weil Konsumenten sie noch nutzen —
-        // Webby: ConciergePanel, EditShell).
+        // Eine zweite Messe setzt --brand-ink, --brand-accent usw. in ihrer
+        // eigenen CSS -- alle Bauteile ziehen mit, ohne Codeaenderung.
         //
-        // Werte stehen hier bewusst als Hex und nicht als var(--…): tokens.css
-        // liegt derzeit doppelt vor (Paket + AD27/app/tokens.css, bereits
-        // auseinandergedriftet). Die Überführung auf CSS-Variablen kommt,
-        // wenn diese Doppelung aufgelöst ist.
-        //
-        // Benennung nach Rolle statt nach Farbe — Namen sind noch nicht
-        // endgültig, solange sie niemand verwendet (Abstimmung Annalena).
-        'brand-ink': 'var(--brand-ink, #0A0A0A)', //  = artdus-black · Text, dunkle Flächen
-        'brand-accent': 'var(--brand-accent, #E7FA31)', //  = artdus-lime  · Akzent, CTA
-        'brand-paper': 'var(--brand-paper, #F6F6F4)', //  = artdus-paper · Grundfläche
-        'brand-surface': 'var(--brand-surface, #F5F5F5)', //  = artdus-light · hellere Fläche, Badges
-        'brand-line': 'var(--brand-line, #ECECEC)', //  = artdus-line  · Trennlinien
-        'brand-muted': 'var(--brand-muted, #888888)', //  = artdus-gray  · gedämpfter Text
-        'brand-danger': 'var(--brand-danger, #E8192C)', //  = artdus-red   · Fehlermeldungen (role="alert")
-        'brand-border': 'var(--brand-border, #222222)', //  = artdus-border · derzeit unbenutzt
+        // Bis 0.26.0 standen hier zusaetzlich die Namen artdus-* mit festen
+        // Hex-Werten. Sie sind in 1.0.0 entfallen, nachdem Paket, AD27 und
+        // Webby vollstaendig umgestellt waren.
+        'brand-ink': 'var(--brand-ink, #0A0A0A)', // Text, dunkle Flächen
+        'brand-accent': 'var(--brand-accent, #E7FA31)', // Akzent, CTA
+        'brand-paper': 'var(--brand-paper, #F6F6F4)', // Grundfläche
+        'brand-surface': 'var(--brand-surface, #F5F5F5)', // hellere Fläche, Badges
+        'brand-line': 'var(--brand-line, #ECECEC)', // Trennlinien
+        'brand-muted': 'var(--brand-muted, #888888)', // gedämpfter Text
+        'brand-danger': 'var(--brand-danger, #E8192C)', // Fehlermeldungen (role="alert")
+        'brand-border': 'var(--brand-border, #222222)', // derzeit unbenutzt
 
           // Transparenzstufen als eigene Namen. Tailwind kann auf eine
           // var()-Farbe keinen /opacity-Modifier anwenden (in v3 gar nicht;
