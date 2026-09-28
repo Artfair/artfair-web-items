@@ -83,6 +83,9 @@ module.exports = {
           'brand-ink-75': 'color-mix(in srgb, var(--brand-ink, #0A0A0A) 75%, transparent)',
           'brand-ink-60': 'color-mix(in srgb, var(--brand-ink, #0A0A0A) 60%, transparent)',
           'brand-ink-10': 'color-mix(in srgb, var(--brand-ink, #0A0A0A) 10%, transparent)',
+          'brand-ink-70': 'color-mix(in srgb, var(--brand-ink, #0A0A0A) 70%, transparent)',
+          'brand-ink-55': 'color-mix(in srgb, var(--brand-ink, #0A0A0A) 55%, transparent)',
+          'brand-accent-50': 'color-mix(in srgb, var(--brand-accent, #E7FA31) 50%, transparent)',
       },
       fontFamily: {
         sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
