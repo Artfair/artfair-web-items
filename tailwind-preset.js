@@ -1,6 +1,8 @@
-// Geteiltes Tailwind-Theme der Art Düsseldorf (Token-Konsolidierung 2026).
+// Geteiltes Tailwind-Theme (Token-Konsolidierung 2026).
 // Wird von AD27 und Webby als Preset eingebunden, damit beide dieselben
-// Utility-Klassen (artdus-lime, text-ink, animate-marquee …) verstehen.
+// Utility-Klassen (brand-accent, text-ink, animate-marquee …) verstehen.
+// Seit 0.22.0 tragen die Markenfarben zusätzlich markenfreie Namen (brand-*),
+// damit das Paket auch von einer zweiten Messe genutzt werden kann.
 // Die Farb-Werte hinter den var()-Tokens leben in ./src/styles/tokens.css.
 //
 //   // tailwind.config.*
@@ -30,6 +32,9 @@ module.exports = {
         'earth-2': 'var(--earth-2)',
         'earth-3': 'var(--earth-3)',
         'earth-line': 'var(--earth-line)',
+        // ── Markenfarben, alte Namen (Bestand) ────────────────────────────
+        // Bleiben unverändert in Betrieb. Werden erst entfernt, wenn nirgends
+        // mehr verwendet — siehe Block darunter.
         'artdus-black': '#0A0A0A',
         'artdus-red': '#E8192C',
         'artdus-gray': '#888888',
@@ -38,6 +43,33 @@ module.exports = {
         'artdus-lime': '#E7FA31',
         'artdus-paper': '#F6F6F4',
         'artdus-line': '#ECECEC',
+
+        // ── Markenfarben, neue Namen (ab 0.22.0) ──────────────────────────
+        // Wertgleiche Zweitnamen zu den artdus-* oben — KEINE Farbänderung,
+        // rein additiv. Zweck: die Utility-Klassen tragen die Marke nicht mehr
+        // im Namen, damit eine zweite Messe dasselbe Paket nutzen kann.
+        //
+        // Umstellung läuft schrittweise: beide Namensätze funktionieren
+        // parallel, neue Arbeit nutzt brand-*, Bestand wird nach und nach
+        // nachgezogen. Erst wenn kein artdus-* mehr vorkommt, fällt der Block
+        // oben weg (dann Major-Sprung, weil Konsumenten sie noch nutzen —
+        // Webby: ConciergePanel, EditShell).
+        //
+        // Werte stehen hier bewusst als Hex und nicht als var(--…): tokens.css
+        // liegt derzeit doppelt vor (Paket + AD27/app/tokens.css, bereits
+        // auseinandergedriftet). Die Überführung auf CSS-Variablen kommt,
+        // wenn diese Doppelung aufgelöst ist.
+        //
+        // Benennung nach Rolle statt nach Farbe — Namen sind noch nicht
+        // endgültig, solange sie niemand verwendet (Abstimmung Annalena).
+        'brand-ink': '#0A0A0A', //  = artdus-black · Text, dunkle Flächen
+        'brand-accent': '#E7FA31', //  = artdus-lime  · Akzent, CTA
+        'brand-paper': '#F6F6F4', //  = artdus-paper · Grundfläche
+        'brand-surface': '#F5F5F5', //  = artdus-light · hellere Fläche, Badges
+        'brand-line': '#ECECEC', //  = artdus-line  · Trennlinien
+        'brand-muted': '#888888', //  = artdus-gray  · gedämpfter Text
+        'brand-danger': '#E8192C', //  = artdus-red   · Fehlermeldungen (role="alert")
+        'brand-border': '#222222', //  = artdus-border · derzeit unbenutzt
       },
       fontFamily: {
         sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
