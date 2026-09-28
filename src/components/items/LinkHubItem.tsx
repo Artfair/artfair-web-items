@@ -121,7 +121,7 @@ export function LinkHubItem({
               <img src={imageSrc} alt={imageAlt} className="block w-full aspect-[4/3] object-cover" />
               <div
                 aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-t from-brand-ink/75 via-brand-ink/10 to-transparent"
+                className="absolute inset-0 bg-gradient-to-t from-brand-ink-75 via-brand-ink-10 to-transparent"
               />
               <div className="absolute left-5 right-5 bottom-[18px]">
                 <Logo className="w-full h-auto" />

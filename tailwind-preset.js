@@ -62,14 +62,23 @@ module.exports = {
         //
         // Benennung nach Rolle statt nach Farbe — Namen sind noch nicht
         // endgültig, solange sie niemand verwendet (Abstimmung Annalena).
-        'brand-ink': '#0A0A0A', //  = artdus-black · Text, dunkle Flächen
-        'brand-accent': '#E7FA31', //  = artdus-lime  · Akzent, CTA
-        'brand-paper': '#F6F6F4', //  = artdus-paper · Grundfläche
-        'brand-surface': '#F5F5F5', //  = artdus-light · hellere Fläche, Badges
-        'brand-line': '#ECECEC', //  = artdus-line  · Trennlinien
-        'brand-muted': '#888888', //  = artdus-gray  · gedämpfter Text
-        'brand-danger': '#E8192C', //  = artdus-red   · Fehlermeldungen (role="alert")
-        'brand-border': '#222222', //  = artdus-border · derzeit unbenutzt
+        'brand-ink': 'var(--brand-ink, #0A0A0A)', //  = artdus-black · Text, dunkle Flächen
+        'brand-accent': 'var(--brand-accent, #E7FA31)', //  = artdus-lime  · Akzent, CTA
+        'brand-paper': 'var(--brand-paper, #F6F6F4)', //  = artdus-paper · Grundfläche
+        'brand-surface': 'var(--brand-surface, #F5F5F5)', //  = artdus-light · hellere Fläche, Badges
+        'brand-line': 'var(--brand-line, #ECECEC)', //  = artdus-line  · Trennlinien
+        'brand-muted': 'var(--brand-muted, #888888)', //  = artdus-gray  · gedämpfter Text
+        'brand-danger': 'var(--brand-danger, #E8192C)', //  = artdus-red   · Fehlermeldungen (role="alert")
+        'brand-border': 'var(--brand-border, #222222)', //  = artdus-border · derzeit unbenutzt
+
+          // Transparenzstufen als eigene Namen. Tailwind kann auf eine
+          // var()-Farbe keinen /opacity-Modifier anwenden (in v3 gar nicht;
+          // Webby laeuft auf 3.4) — deshalb hier ausformuliert. Bleiben
+          // mandantenfaehig, weil sie dieselbe Variable lesen.
+          'brand-accent-40': 'color-mix(in srgb, var(--brand-accent, #E7FA31) 40%, transparent)',
+          'brand-ink-75': 'color-mix(in srgb, var(--brand-ink, #0A0A0A) 75%, transparent)',
+          'brand-ink-60': 'color-mix(in srgb, var(--brand-ink, #0A0A0A) 60%, transparent)',
+          'brand-ink-10': 'color-mix(in srgb, var(--brand-ink, #0A0A0A) 10%, transparent)',
       },
       fontFamily: {
         sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],

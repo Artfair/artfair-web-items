@@ -252,7 +252,7 @@ export function NewsletterPopupItem({
                 required
                 autoComplete="email"
                 placeholder={t.placeholder}
-                className="border-0 border-b-[1.5px] border-brand-ink bg-transparent px-0.5 py-2 text-[15px] text-brand-ink outline-none placeholder:text-brand-ink/60"
+                className="border-0 border-b-[1.5px] border-brand-ink bg-transparent px-0.5 py-2 text-[15px] text-brand-ink outline-none placeholder:text-brand-ink-60"
               />
               <input type="hidden" name="language" value={lang} />
               <BotShieldFields action={action} />

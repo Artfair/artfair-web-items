@@ -32,6 +32,22 @@
   --earth-3:      #9a8f76;  /* warm — Kategorie-Label der Karten */
   --earth-line:   #c8cf9c;  /* Rahmen Advertorial-Badge */
 
+  /* ── Markenfarben ──────────────────────────────────────────────────
+     Die Werte einer Messe. Ein zweiter Mandant ueberschreibt sie in
+     seiner eigenen CSS — die Bauteile ziehen dann mit, ohne Codeaenderung.
+     Das Tailwind-Preset liest sie ueber var(--brand-*) mit genau diesen
+     Werten als Rueckfallebene, damit nichts bricht, wenn diese Datei
+     nicht geladen ist (AD27 importiert derzeit seine eigene tokens.css).
+     Die Rueckfallebene entfaellt, sobald jede Instanz ihre Werte setzt. */
+  --brand-ink:     #0A0A0A;  /* Text, dunkle Flaechen */
+  --brand-accent:  #E7FA31;  /* Akzent, Handlungsaufforderung */
+  --brand-paper:   #F6F6F4;  /* Grundflaeche */
+  --brand-surface: #F5F5F5;  /* hellere Flaeche, Badges */
+  --brand-line:    #ECECEC;  /* Trennlinien */
+  --brand-muted:   #888888;  /* gedaempfter Text */
+  --brand-danger:  #E8192C;  /* Fehlermeldungen */
+  --brand-border:  #222222;  /* kraeftiger Rahmen */
+
   /* Layout — geteilt, weil die Web-Items px-[var(--page-x)] nutzen */
   --page-x:       clamp(20px, 4vw, 56px);  /* Seitenränder links/rechts */
 }
