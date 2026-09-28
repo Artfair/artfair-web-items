@@ -36,7 +36,7 @@ export function NewsletterHeroItem({
       <div className="flex flex-col justify-center px-[var(--page-x)] py-[clamp(48px,6.1vw,88px)] md:pr-[clamp(28px,3.3vw,48px)]">
         {eyebrow && (
           <span className="flex items-center gap-2.5 text-[13px] font-medium tracking-[0.2em] uppercase mb-[clamp(14px,1.5vw,22px)]">
-            <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
+            <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
             {eyebrow}
           </span>
         )}
@@ -54,7 +54,7 @@ export function NewsletterHeroItem({
               e.preventDefault()
               setDone(true)
             }}
-            className="flex max-w-[520px] border-2 border-artdus-black"
+            className="flex max-w-[520px] border-2 border-brand-ink"
           >
             <label htmlFor="newsletter-hero-email" className="sr-only">
               {emailPlaceholder}
@@ -69,7 +69,7 @@ export function NewsletterHeroItem({
             />
             <button
               type="submit"
-              className="bg-artdus-black text-white text-[13px] font-medium tracking-[0.14em] uppercase px-[26px] whitespace-nowrap"
+              className="bg-brand-ink text-white text-[13px] font-medium tracking-[0.14em] uppercase px-[26px] whitespace-nowrap"
             >
               {submitLabel} →
             </button>

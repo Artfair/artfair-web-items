@@ -66,8 +66,8 @@ export function LogoMarqueeItem({
   const loop = [...base, ...base];
 
   return (
-    <section className="py-[clamp(40px,5vw,80px)] border-t border-b border-artdus-line overflow-hidden">
-      <div className="text-xs tracking-[0.12em] uppercase text-artdus-black px-[var(--page-x)] mb-[clamp(22px,3vw,36px)]">
+    <section className="py-[clamp(40px,5vw,80px)] border-t border-b border-brand-line overflow-hidden">
+      <div className="text-xs tracking-[0.12em] uppercase text-brand-ink px-[var(--page-x)] mb-[clamp(22px,3vw,36px)]">
         {headline}
       </div>
       <div className="overflow-hidden whitespace-nowrap">

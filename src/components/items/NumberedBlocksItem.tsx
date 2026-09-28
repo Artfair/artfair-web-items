@@ -104,7 +104,7 @@ export function NumberedBlocksItem({
     <section id={id} className="px-[var(--page-x)] py-[clamp(64px,8vw,128px)] scroll-mt-14">
       {eyebrow && (
         <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase mb-5">
-          <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
+          <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
           {eyebrow}
         </span>
       )}
@@ -121,7 +121,7 @@ export function NumberedBlocksItem({
             className="w-full aspect-[21/9] object-cover"
           />
           {image.caption && (
-            <span className="absolute left-0 bottom-0 bg-artdus-black text-white text-[11px] tracking-[0.12em] uppercase px-3.5 py-2">
+            <span className="absolute left-0 bottom-0 bg-brand-ink text-white text-[11px] tracking-[0.12em] uppercase px-3.5 py-2">
               {image.caption}
             </span>
           )}
@@ -133,7 +133,7 @@ export function NumberedBlocksItem({
           href={headLink.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-artdus-lime pb-[3px] mb-[clamp(36px,4vw,64px)]"
+          className="inline-block text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px] mb-[clamp(36px,4vw,64px)]"
         >
           {headLink.label} →
         </a>

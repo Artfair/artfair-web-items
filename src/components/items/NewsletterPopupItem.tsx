@@ -197,7 +197,7 @@ export function NewsletterPopupItem({
         aria-modal="true"
         aria-label={t.dialogLabel}
         tabIndex={-1}
-        className={`relative flex max-h-[calc(100vh-48px)] w-full max-w-[680px] flex-col overflow-y-auto bg-artdus-lime text-artdus-black shadow-[0_24px_60px_rgba(0,0,0,0.28)] outline-none transition-[transform,opacity] duration-300 md:flex-row ${
+        className={`relative flex max-h-[calc(100vh-48px)] w-full max-w-[680px] flex-col overflow-y-auto bg-brand-accent text-brand-ink shadow-[0_24px_60px_rgba(0,0,0,0.28)] outline-none transition-[transform,opacity] duration-300 md:flex-row ${
           shown ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-2 scale-[0.94] opacity-0'
         }`}
       >
@@ -205,7 +205,7 @@ export function NewsletterPopupItem({
           <img
             src={imageSrc}
             alt={imageAlt ?? ''}
-            className="h-44 w-full shrink-0 bg-artdus-black object-cover md:h-auto md:w-[240px]"
+            className="h-44 w-full shrink-0 bg-brand-ink object-cover md:h-auto md:w-[240px]"
           />
         )}
 
@@ -213,7 +213,7 @@ export function NewsletterPopupItem({
           type="button"
           onClick={close}
           aria-label={t.close}
-          className="absolute right-3 top-2.5 cursor-pointer p-1.5 text-[20px] leading-none text-artdus-black opacity-60 hover:opacity-100"
+          className="absolute right-3 top-2.5 cursor-pointer p-1.5 text-[20px] leading-none text-brand-ink opacity-60 hover:opacity-100"
         >
           ✕
         </button>
@@ -252,7 +252,7 @@ export function NewsletterPopupItem({
                 required
                 autoComplete="email"
                 placeholder={t.placeholder}
-                className="border-0 border-b-[1.5px] border-artdus-black bg-transparent px-0.5 py-2 text-[15px] text-artdus-black outline-none placeholder:text-artdus-black/60"
+                className="border-0 border-b-[1.5px] border-brand-ink bg-transparent px-0.5 py-2 text-[15px] text-brand-ink outline-none placeholder:text-brand-ink/60"
               />
               <input type="hidden" name="language" value={lang} />
               <BotShieldFields action={action} />
@@ -265,13 +265,13 @@ export function NewsletterPopupItem({
                     required
                     checked={consent}
                     onChange={(e) => setConsent(e.target.checked)}
-                    className="peer h-4 w-4 cursor-pointer appearance-none border-2 border-artdus-black bg-transparent checked:bg-artdus-black focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-artdus-black"
+                    className="peer h-4 w-4 cursor-pointer appearance-none border-2 border-brand-ink bg-transparent checked:bg-brand-ink focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-ink"
                   />
                   <svg
                     aria-hidden="true"
                     viewBox="0 0 12 10"
                     fill="none"
-                    className="pointer-events-none absolute inset-0 m-auto h-2 w-2.5 text-artdus-lime opacity-0 peer-checked:opacity-100"
+                    className="pointer-events-none absolute inset-0 m-auto h-2 w-2.5 text-brand-accent opacity-0 peer-checked:opacity-100"
                   >
                     <path d="M1 5L4.5 8.5L11 1.5" stroke="currentColor" strokeWidth="2" strokeLinecap="square" />
                   </svg>
@@ -288,7 +288,7 @@ export function NewsletterPopupItem({
               <button
                 type="submit"
                 disabled={status === 'loading' || !consent}
-                className="inline-flex w-full cursor-pointer items-center justify-center rounded-full border border-artdus-black bg-artdus-black px-5 py-2.5 text-[15px] font-medium uppercase tracking-[0.02em] text-white disabled:cursor-not-allowed disabled:opacity-40"
+                className="inline-flex w-full cursor-pointer items-center justify-center rounded-full border border-brand-ink bg-brand-ink px-5 py-2.5 text-[15px] font-medium uppercase tracking-[0.02em] text-white disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {t.button}
               </button>

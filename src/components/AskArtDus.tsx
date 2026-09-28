@@ -134,7 +134,7 @@ export default function AskArtDus({ lang, assetBase = "" }: { lang: Lang; assetB
       />
       <div className="absolute inset-0 bg-[rgba(10,10,10,0.52)]" />
       <div className="relative flex items-center gap-[11px]">
-        <span className="w-2.5 h-2.5 rounded-full bg-artdus-lime shrink-0" />
+        <span className="w-2.5 h-2.5 rounded-full bg-brand-accent shrink-0" />
         {title}
       </div>
       <div className="relative flex items-center gap-1.5">{buttons}</div>
@@ -155,7 +155,7 @@ export default function AskArtDus({ lang, assetBase = "" }: { lang: Lang; assetB
     <button
       key={q}
       onClick={onClick}
-      className="text-[12.5px] leading-[1.3] text-artdus-black bg-white border border-artdus-black rounded-full px-[15px] py-[9px] text-left cursor-pointer hover:bg-artdus-black hover:text-white transition-colors"
+      className="text-[12.5px] leading-[1.3] text-brand-ink bg-white border border-brand-ink rounded-full px-[15px] py-[9px] text-left cursor-pointer hover:bg-brand-ink hover:text-white transition-colors"
     >
       {q}
     </button>
@@ -164,7 +164,7 @@ export default function AskArtDus({ lang, assetBase = "" }: { lang: Lang; assetB
   return (
     <>
       {showDock && (
-        <div className="fixed right-[clamp(14px,2vw,26px)] bottom-[clamp(14px,2vw,26px)] z-[58] w-[min(430px,calc(100vw-28px))] bg-white border border-artdus-black rounded-[26px] overflow-hidden shadow-[0_26px_64px_rgba(0,0,0,0.24)] animate-dock-in">
+        <div className="fixed right-[clamp(14px,2vw,26px)] bottom-[clamp(14px,2vw,26px)] z-[58] w-[min(430px,calc(100vw-28px))] bg-white border border-brand-ink rounded-[26px] overflow-hidden shadow-[0_26px_64px_rgba(0,0,0,0.24)] animate-dock-in">
           {imageHead(
             <span className="leading-[1.12]">
               <span className="block font-medium text-[17px] text-white">{t.launcherLabel}</span>
@@ -185,18 +185,18 @@ export default function AskArtDus({ lang, assetBase = "" }: { lang: Lang; assetB
             }}
             className="px-3.5 pt-3.5 pb-2.5"
           >
-            <div className="flex items-center gap-1.5 border border-artdus-black rounded-full p-[5px] pl-[18px]">
+            <div className="flex items-center gap-1.5 border border-brand-ink rounded-full p-[5px] pl-[18px]">
               <input
                 value={heroDraft}
                 onChange={(e) => setHeroDraft(e.target.value)}
                 placeholder={t.askPlaceholder}
                 aria-label={t.askPlaceholder}
-                className="flex-1 min-w-0 text-[15px] py-[9px] outline-none bg-transparent text-artdus-black placeholder:text-neutral-500"
+                className="flex-1 min-w-0 text-[15px] py-[9px] outline-none bg-transparent text-brand-ink placeholder:text-neutral-500"
               />
               <button
                 type="submit"
                 aria-label={t.botSend}
-                className="w-[42px] h-[42px] rounded-full text-[17px] text-white bg-artdus-black shrink-0 cursor-pointer flex items-center justify-center"
+                className="w-[42px] h-[42px] rounded-full text-[17px] text-white bg-brand-ink shrink-0 cursor-pointer flex items-center justify-center"
               >
                 →
               </button>
@@ -212,7 +212,7 @@ export default function AskArtDus({ lang, assetBase = "" }: { lang: Lang; assetB
         <button
           onClick={() => setCollapsed(false)}
           aria-label={`${t.launcherLabel} öffnen`}
-          className="fixed right-3.5 top-1/2 -translate-y-1/2 z-[59] bg-artdus-lime text-artdus-black rounded-full px-[15px] py-[26px] flex flex-col items-center cursor-pointer animate-tab-in shadow-[0_8px_20px_rgba(0,0,0,0.22),0_26px_60px_rgba(0,0,0,0.32)] transition-transform hover:-translate-x-1.5"
+          className="fixed right-3.5 top-1/2 -translate-y-1/2 z-[59] bg-brand-accent text-brand-ink rounded-full px-[15px] py-[26px] flex flex-col items-center cursor-pointer animate-tab-in shadow-[0_8px_20px_rgba(0,0,0,0.22),0_26px_60px_rgba(0,0,0,0.32)] transition-transform hover:-translate-x-1.5"
         >
           <span className="[writing-mode:vertical-rl] rotate-180 font-semibold text-[15px] tracking-[0.1em] uppercase">
             {t.launcherLabel}
@@ -221,7 +221,7 @@ export default function AskArtDus({ lang, assetBase = "" }: { lang: Lang; assetB
       )}
 
       {chatOpen && (
-        <div className="fixed right-[clamp(14px,2vw,26px)] bottom-[clamp(14px,2vw,26px)] z-[60] w-[min(376px,calc(100vw-28px))] h-[min(560px,74vh)] bg-white border border-artdus-black rounded-[28px] overflow-hidden flex flex-col shadow-[0_30px_70px_rgba(0,0,0,0.24)] animate-chat-pop">
+        <div className="fixed right-[clamp(14px,2vw,26px)] bottom-[clamp(14px,2vw,26px)] z-[60] w-[min(376px,calc(100vw-28px))] h-[min(560px,74vh)] bg-white border border-brand-ink rounded-[28px] overflow-hidden flex flex-col shadow-[0_30px_70px_rgba(0,0,0,0.24)] animate-chat-pop">
           {imageHead(
             <span className="leading-[1.12]">
               <span className="block font-light text-[21px] text-white">{t.botName}</span>
@@ -233,7 +233,7 @@ export default function AskArtDus({ lang, assetBase = "" }: { lang: Lang; assetB
             "px-4 py-[18px] pl-[18px]",
           )}
           <div role="log" aria-live="polite" className="flex-1 overflow-y-auto px-4 py-[18px] flex flex-col gap-2.5">
-            <div className="self-start max-w-[86%] bg-[#f4f4f2] text-artdus-black text-sm leading-[1.45] px-[15px] py-3 rounded-[20px_20px_20px_6px]">
+            <div className="self-start max-w-[86%] bg-[#f4f4f2] text-brand-ink text-sm leading-[1.45] px-[15px] py-3 rounded-[20px_20px_20px_6px]">
               {t.botGreeting}
             </div>
             {msgs.map((m, i) => (
@@ -241,8 +241,8 @@ export default function AskArtDus({ lang, assetBase = "" }: { lang: Lang; assetB
                 key={i}
                 className={`max-w-[86%] text-sm leading-[1.45] px-[15px] py-3 whitespace-pre-line ${
                   m.role === "user"
-                    ? "self-end bg-artdus-black text-white rounded-[20px_20px_6px_20px]"
-                    : "self-start bg-[#f4f4f2] text-artdus-black rounded-[20px_20px_20px_6px]"
+                    ? "self-end bg-brand-ink text-white rounded-[20px_20px_6px_20px]"
+                    : "self-start bg-[#f4f4f2] text-brand-ink rounded-[20px_20px_20px_6px]"
                 }`}
               >
                 {m.content}
@@ -269,19 +269,19 @@ export default function AskArtDus({ lang, assetBase = "" }: { lang: Lang; assetB
             }}
             className="px-3.5 pt-3 pb-4"
           >
-            <div className="flex items-center gap-1.5 border border-artdus-black rounded-full p-[5px] pl-[17px]">
+            <div className="flex items-center gap-1.5 border border-brand-ink rounded-full p-[5px] pl-[17px]">
               <input
                 value={draft}
                 onChange={(e) => setDraft(e.target.value)}
                 placeholder={t.askPlaceholder}
                 aria-label={t.askPlaceholder}
-                className="flex-1 min-w-0 text-sm py-2 outline-none bg-transparent text-artdus-black placeholder:text-neutral-500"
+                className="flex-1 min-w-0 text-sm py-2 outline-none bg-transparent text-brand-ink placeholder:text-neutral-500"
               />
               <button
                 type="submit"
                 aria-label={t.botSend}
                 disabled={loading}
-                className="w-[38px] h-[38px] rounded-full text-base text-white bg-artdus-black shrink-0 cursor-pointer flex items-center justify-center disabled:opacity-40"
+                className="w-[38px] h-[38px] rounded-full text-base text-white bg-brand-ink shrink-0 cursor-pointer flex items-center justify-center disabled:opacity-40"
               >
                 →
               </button>

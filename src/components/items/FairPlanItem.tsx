@@ -94,13 +94,13 @@ export function FairPlanItem({
   }
 
   const zoomBtn =
-    'w-[44px] h-[44px] border border-artdus-black bg-white text-[20px] leading-none transition-colors hover:bg-artdus-black hover:text-white disabled:opacity-25 disabled:hover:bg-white disabled:hover:text-artdus-black'
+    'w-[44px] h-[44px] border border-brand-ink bg-white text-[20px] leading-none transition-colors hover:bg-brand-ink hover:text-white disabled:opacity-25 disabled:hover:bg-white disabled:hover:text-brand-ink'
 
   return (
     <section id={id} className="px-[var(--page-x)] pb-[clamp(64px,8vw,128px)] scroll-mt-14">
       {eyebrow && (
         <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase mb-5">
-          <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
+          <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
           {eyebrow}
         </span>
       )}
@@ -127,7 +127,7 @@ export function FairPlanItem({
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-artdus-lime pb-[3px] whitespace-nowrap"
+            className="text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px] whitespace-nowrap"
           >
             {link.label} →
           </a>

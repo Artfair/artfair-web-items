@@ -105,7 +105,7 @@ function SignupForm({ s }: { s: PressSignup }) {
   if (done) {
     return (
       <p role="status" className="flex items-start gap-3 text-[17px] leading-[1.6] mt-[clamp(20px,2.2vw,32px)]">
-        <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime shrink-0 mt-[9px]" />
+        <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent shrink-0 mt-[9px]" />
         {s.confirmation}
       </p>
     );
@@ -170,7 +170,7 @@ function SignupForm({ s }: { s: PressSignup }) {
             type="checkbox"
             name="consent"
             required
-            className="peer appearance-none w-[18px] h-[18px] border border-artdus-black bg-white checked:bg-artdus-black cursor-pointer focus-visible:outline-none focus-visible:border-artdus-lime focus-visible:ring-1 focus-visible:ring-artdus-lime"
+            className="peer appearance-none w-[18px] h-[18px] border border-brand-ink bg-white checked:bg-brand-ink cursor-pointer focus-visible:outline-none focus-visible:border-brand-accent focus-visible:ring-1 focus-visible:ring-brand-accent"
           />
           <svg
             aria-hidden="true"
@@ -185,7 +185,7 @@ function SignupForm({ s }: { s: PressSignup }) {
           {s.consentText}{" "}
           <span className="text-[13px] text-neutral-500">
             {s.privacyIntro}{" "}
-            <a href={s.privacyHref} className="underline underline-offset-[3px] hover:text-artdus-black">
+            <a href={s.privacyHref} className="underline underline-offset-[3px] hover:text-brand-ink">
               {s.privacyLabel}
             </a>
             .
@@ -193,14 +193,14 @@ function SignupForm({ s }: { s: PressSignup }) {
         </span>
       </label>
       {failed && (
-        <p role="alert" className="text-[14px] leading-[1.5] text-artdus-red mt-4">
+        <p role="alert" className="text-[14px] leading-[1.5] text-brand-danger mt-4">
           {s.errorText}
         </p>
       )}
       <button
         type="submit"
         disabled={sending}
-        className="mt-6 text-[13px] font-medium tracking-[0.14em] uppercase text-white bg-artdus-black px-[30px] py-[14px] cursor-pointer disabled:opacity-60 disabled:cursor-wait"
+        className="mt-6 text-[13px] font-medium tracking-[0.14em] uppercase text-white bg-brand-ink px-[30px] py-[14px] cursor-pointer disabled:opacity-60 disabled:cursor-wait"
       >
         {s.submitLabel}
       </button>
@@ -212,7 +212,7 @@ const H2 = "font-light text-[clamp(30px,3.4vw,52px)] leading-[1.06] tracking-[-0
 const BODY = "text-[clamp(17px,1.4vw,20px)] leading-[1.62] text-neutral-600";
 const LABEL = "text-[13px] font-semibold tracking-[0.14em] uppercase text-neutral-500";
 const INPUT =
-  "min-w-0 text-[15px] text-artdus-black px-[18px] py-[14px] border border-artdus-black bg-white outline-none placeholder:text-neutral-500 focus:border-artdus-lime focus:ring-1 focus:ring-artdus-lime";
+  "min-w-0 text-[15px] text-brand-ink px-[18px] py-[14px] border border-brand-ink bg-white outline-none placeholder:text-neutral-500 focus:border-brand-accent focus:ring-1 focus:ring-brand-accent";
 
 // Externe Ziele (Downloads, Presse-Ordner) in neuem Tab, interne im selben.
 function SmartLink({ href, className, children }: { href: string; className: string; children: React.ReactNode }) {
@@ -269,7 +269,7 @@ function ReleaseCard({ r, labels }: { r: PressRelease; labels: PressReleaseLabel
   const pdfLink = r.href && (
     <SmartLink
       href={r.href}
-      className="inline-flex items-center gap-1.5 text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-artdus-lime pb-[3px]"
+      className="inline-flex items-center gap-1.5 text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px]"
     >
       {labels.pdf} <span aria-hidden="true">↓</span>
     </SmartLink>
@@ -282,7 +282,7 @@ function ReleaseCard({ r, labels }: { r: PressRelease; labels: PressReleaseLabel
         {r.href && !r.body ? (
           <SmartLink
             href={r.href}
-            className="underline decoration-artdus-lime decoration-2 underline-offset-4 hover:bg-artdus-lime transition-colors"
+            className="underline decoration-brand-accent decoration-2 underline-offset-4 hover:bg-brand-accent transition-colors"
           >
             {r.title}
           </SmartLink>
@@ -296,7 +296,7 @@ function ReleaseCard({ r, labels }: { r: PressRelease; labels: PressReleaseLabel
           <summary className="inline-flex items-center gap-2.5 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
             <span
               aria-hidden="true"
-              className="w-6 h-6 bg-artdus-lime text-artdus-black inline-flex items-center justify-center text-[17px] font-medium shrink-0 group-open:rotate-45 transition-transform"
+              className="w-6 h-6 bg-brand-accent text-brand-ink inline-flex items-center justify-center text-[17px] font-medium shrink-0 group-open:rotate-45 transition-transform"
             >
               +
             </span>
@@ -311,7 +311,7 @@ function ReleaseCard({ r, labels }: { r: PressRelease; labels: PressReleaseLabel
             <button
               type="button"
               onClick={copyText}
-              className="inline-flex items-center gap-1.5 text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-artdus-lime pb-[3px] cursor-pointer"
+              className="inline-flex items-center gap-1.5 text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px] cursor-pointer"
             >
               {copied ? labels.copied : labels.copy}
             </button>
@@ -388,7 +388,7 @@ export function PressPageItem({
             {accreditationCta && (
               <SmartLink
                 href={accreditationCta.href}
-                className="inline-flex items-center gap-2 bg-artdus-black text-white text-[13px] font-medium tracking-[0.14em] uppercase px-[28px] py-[15px] whitespace-nowrap mt-[clamp(24px,2.5vw,36px)]"
+                className="inline-flex items-center gap-2 bg-brand-ink text-white text-[13px] font-medium tracking-[0.14em] uppercase px-[28px] py-[15px] whitespace-nowrap mt-[clamp(24px,2.5vw,36px)]"
               >
                 {accreditationCta.label}
               </SmartLink>
@@ -402,11 +402,11 @@ export function PressPageItem({
               <ul className="mt-[clamp(20px,2.2vw,32px)] space-y-[14px]">
                 {downloads.map((d) => (
                   <li key={d.label} className="flex items-center gap-3">
-                    <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime shrink-0" />
+                    <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent shrink-0" />
                     {d.href ? (
                       <SmartLink
                         href={d.href}
-                        className="text-[clamp(17px,1.4vw,20px)] leading-[1.4] underline decoration-artdus-lime decoration-2 underline-offset-4 hover:bg-artdus-lime transition-colors"
+                        className="text-[clamp(17px,1.4vw,20px)] leading-[1.4] underline decoration-brand-accent decoration-2 underline-offset-4 hover:bg-brand-accent transition-colors"
                       >
                         {d.label}
                       </SmartLink>
@@ -445,7 +445,7 @@ export function PressPageItem({
                   <address
                     key={c.name || i}
                     className={`not-italic px-10 pt-11 pb-12 min-h-[320px] flex flex-col ${
-                      dark ? "bg-artdus-black text-white" : "bg-artdus-lime text-artdus-black"
+                      dark ? "bg-brand-ink text-white" : "bg-brand-accent text-brand-ink"
                     }`}
                   >
                     <span className="text-[13px] font-semibold tracking-[0.14em] uppercase">
@@ -453,7 +453,7 @@ export function PressPageItem({
                     </span>
                     <span
                       aria-hidden="true"
-                      className={`block h-px mt-5 mb-8 ${dark ? "bg-artdus-lime" : "bg-artdus-black"}`}
+                      className={`block h-px mt-5 mb-8 ${dark ? "bg-brand-accent" : "bg-brand-ink"}`}
                     />
                     <span className="block font-light text-[clamp(28px,2.6vw,40px)] leading-[1.06] tracking-[-0.02em] whitespace-pre-line">
                       {c.name}

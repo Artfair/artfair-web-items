@@ -54,7 +54,7 @@ export function NewsletterConfirmedNotice({lang}: {lang: 'de' | 'en'}) {
   return (
     <div
       role="status"
-      className="fixed left-1/2 top-[72px] z-[1100] flex w-[calc(100%-32px)] max-w-[560px] -translate-x-1/2 items-start gap-3 bg-artdus-lime px-5 py-4 text-artdus-black shadow-[0_12px_32px_rgba(0,0,0,0.18)]"
+      className="fixed left-1/2 top-[72px] z-[1100] flex w-[calc(100%-32px)] max-w-[560px] -translate-x-1/2 items-start gap-3 bg-brand-accent px-5 py-4 text-brand-ink shadow-[0_12px_32px_rgba(0,0,0,0.18)]"
     >
       <p className="min-w-0 flex-1 text-[15px] leading-[1.5]">{t.text}</p>
       <button

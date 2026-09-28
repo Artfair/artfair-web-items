@@ -52,7 +52,7 @@ export function AdvertorialCardsItem({
             <div className="relative aspect-[4/5] overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={f.img} alt="" loading="lazy" className="w-full h-full object-cover" />
-              <span className="absolute top-3 left-3 text-[9px] font-bold tracking-[0.16em] uppercase text-artdus-black bg-artdus-lime px-[9px] py-[5px]">
+              <span className="absolute top-3 left-3 text-[9px] font-bold tracking-[0.16em] uppercase text-brand-ink bg-brand-accent px-[9px] py-[5px]">
                 {adTag}
               </span>
             </div>

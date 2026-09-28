@@ -70,12 +70,12 @@ export default function NewsletterForm({
           required
           autoComplete="email"
           placeholder={placeholder}
-          className="flex-[1_1_240px] min-w-0 text-[15px] text-artdus-black px-[18px] py-[15px] border border-artdus-black bg-white outline-none placeholder:text-neutral-500"
+          className="flex-[1_1_240px] min-w-0 text-[15px] text-brand-ink px-[18px] py-[15px] border border-brand-ink bg-white outline-none placeholder:text-neutral-500"
         />
         <button
           type="submit"
           disabled={sending}
-          className="text-sm font-medium tracking-[0.03em] text-white bg-artdus-black px-[30px] py-[15px] cursor-pointer disabled:opacity-60 disabled:cursor-wait"
+          className="text-sm font-medium tracking-[0.03em] text-white bg-brand-ink px-[30px] py-[15px] cursor-pointer disabled:opacity-60 disabled:cursor-wait"
         >
           {button}
         </button>
@@ -83,7 +83,7 @@ export default function NewsletterForm({
       <input type="hidden" name="language" value={lang} />
       <BotShieldFields action={action} />
       {failed && (
-        <p role="alert" className="text-[14px] leading-[1.5] text-artdus-red mt-4 text-center">
+        <p role="alert" className="text-[14px] leading-[1.5] text-brand-danger mt-4 text-center">
           {de
             ? "Das hat leider nicht geklappt — bitte versuchen Sie es später erneut."
             : "Something went wrong — please try again later."}
@@ -95,7 +95,7 @@ export default function NewsletterForm({
             type="checkbox"
             name="consent"
             required
-            className="peer appearance-none w-[18px] h-[18px] border border-artdus-black bg-white checked:bg-artdus-black cursor-pointer focus-visible:outline-none focus-visible:border-artdus-lime focus-visible:ring-1 focus-visible:ring-artdus-lime"
+            className="peer appearance-none w-[18px] h-[18px] border border-brand-ink bg-white checked:bg-brand-ink cursor-pointer focus-visible:outline-none focus-visible:border-brand-accent focus-visible:ring-1 focus-visible:ring-brand-accent"
           />
           <svg
             aria-hidden="true"
@@ -110,7 +110,7 @@ export default function NewsletterForm({
           {de
             ? "Ich möchte den Newsletter der Art Düsseldorf erhalten. Hinweise zum Widerruf in der"
             : "I would like to receive the Art Düsseldorf newsletter. Details on withdrawal in the"}{" "}
-          <a href={privacy} className="underline underline-offset-[3px] hover:text-artdus-black">
+          <a href={privacy} className="underline underline-offset-[3px] hover:text-brand-ink">
             {de ? "Datenschutzerklärung" : "privacy policy"}
           </a>
           .

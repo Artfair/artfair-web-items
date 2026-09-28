@@ -28,7 +28,7 @@ export function CardTrioItem({
     <section className="px-[var(--page-x)] pb-[clamp(64px,8vw,128px)]">
       {eyebrow && (
         <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase mb-5">
-          <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
+          <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
           {eyebrow}
         </span>
       )}
@@ -60,7 +60,7 @@ export function CardTrioItem({
             {card.link && (
               <Link
                 href={card.link.href}
-                className="self-start text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-artdus-lime pb-[3px] mt-4"
+                className="self-start text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px] mt-4"
               >
                 {card.link.label} →
               </Link>

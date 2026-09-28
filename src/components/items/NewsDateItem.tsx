@@ -35,7 +35,7 @@ export function NewsDateItem({
     <div className="flex flex-col gap-7">
       {eyebrow && (
         <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase">
-          <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
+          <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
           {eyebrow}
         </span>
       )}
@@ -47,7 +47,7 @@ export function NewsDateItem({
         <a
           href={cta.href}
           {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-          className="self-start text-[13px] font-semibold tracking-[0.14em] uppercase text-white bg-artdus-black px-[30px] py-[15px]"
+          className="self-start text-[13px] font-semibold tracking-[0.14em] uppercase text-white bg-brand-ink px-[30px] py-[15px]"
         >
           {cta.label} →
         </a>
@@ -71,7 +71,7 @@ export function NewsDateItem({
         {text}
         <div
           className={`w-[280px] max-w-full aspect-[4/3] px-10 py-12 flex flex-col items-center justify-center text-center ${
-            lime ? "bg-artdus-lime" : "border-[3px] border-artdus-lime bg-white"
+            lime ? "bg-brand-accent" : "border-[3px] border-brand-accent bg-white"
           }`}
         >
           {box.kicker && (

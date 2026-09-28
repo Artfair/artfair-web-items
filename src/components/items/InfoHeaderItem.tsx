@@ -29,12 +29,12 @@ export function InfoHeaderItem({
   return (
     <section id={id}>
       <div className="px-[var(--page-x)] pt-[clamp(48px,6.1vw,88px)] pb-[clamp(24px,2.8vw,40px)] flex gap-[clamp(20px,2.5vw,36px)] items-stretch">
-        <div aria-hidden="true" className="w-[clamp(16px,1.9vw,28px)] bg-artdus-lime shrink-0" />
+        <div aria-hidden="true" className="w-[clamp(16px,1.9vw,28px)] bg-brand-accent shrink-0" />
         <div className="flex-1 flex justify-between items-end gap-10 flex-wrap">
           <div className="min-w-0">
             {eyebrow && (
               <span className="flex items-center gap-2.5 text-[13px] font-medium tracking-[0.18em] uppercase mb-[clamp(16px,1.7vw,24px)]">
-                <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
+                <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
                 {eyebrow}
               </span>
             )}
@@ -52,7 +52,7 @@ export function InfoHeaderItem({
           {action && (
             <Link
               href={action.href}
-              className="inline-flex items-center gap-2 bg-artdus-black text-white text-[13px] font-medium tracking-[0.14em] uppercase px-[28px] py-[15px] whitespace-nowrap shrink-0"
+              className="inline-flex items-center gap-2 bg-brand-ink text-white text-[13px] font-medium tracking-[0.14em] uppercase px-[28px] py-[15px] whitespace-nowrap shrink-0"
             >
               {action.label}
             </Link>
@@ -60,7 +60,7 @@ export function InfoHeaderItem({
         </div>
       </div>
       <div className="px-[var(--page-x)] pt-[clamp(16px,1.7vw,24px)]">
-        <div aria-hidden="true" className="h-px bg-artdus-black" />
+        <div aria-hidden="true" className="h-px bg-brand-ink" />
       </div>
       {meta && meta.length > 0 && (
         <div className="px-[var(--page-x)] pt-5 pb-[clamp(24px,2.8vw,40px)] flex gap-x-8 gap-y-2 flex-wrap text-[13px] tracking-[0.1em] uppercase text-neutral-600">

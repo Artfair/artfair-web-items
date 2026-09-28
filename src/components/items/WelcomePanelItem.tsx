@@ -16,7 +16,7 @@ export function WelcomePanelItem({
 }) {
   return (
     <section className="grid grid-cols-1 md:grid-cols-9 items-stretch gap-[clamp(10px,1.8vw,32px)] px-[var(--page-x)] pt-[clamp(48px,7vw,110px)] pb-[clamp(56px,9vh,120px)]">
-      <div className="md:col-span-5 bg-artdus-lime text-artdus-black flex flex-col justify-center p-[clamp(30px,3.6vw,68px)]">
+      <div className="md:col-span-5 bg-brand-accent text-brand-ink flex flex-col justify-center p-[clamp(30px,3.6vw,68px)]">
         <div className="text-[clamp(11px,0.95vw,14px)] font-medium tracking-[0.16em] uppercase opacity-60 mb-[clamp(28px,3.4vw,50px)]">
           {kicker}
         </div>

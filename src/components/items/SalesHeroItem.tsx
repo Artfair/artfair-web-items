@@ -44,10 +44,10 @@ export function SalesHeroItem({
   return (
     <section id={id} className="px-[var(--page-x)] pt-[clamp(24px,2.8vw,40px)] pb-[clamp(36px,3.9vw,56px)]">
       <div className="grid md:grid-cols-2 gap-[clamp(20px,2.8vw,40px)] items-stretch">
-        <div className="flex flex-col justify-center border-[3px] border-artdus-lime p-[clamp(28px,3.3vw,48px)]">
+        <div className="flex flex-col justify-center border-[3px] border-brand-accent p-[clamp(28px,3.3vw,48px)]">
           {eyebrow && (
             <span className="flex items-center gap-2.5 text-[13px] font-medium tracking-[0.18em] uppercase mb-[clamp(18px,1.8vw,26px)]">
-              <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
+              <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
               {eyebrow}
             </span>
           )}
@@ -62,7 +62,7 @@ export function SalesHeroItem({
               {primaryCta && (
                 <Link
                   href={primaryCta.href}
-                  className="inline-flex items-center gap-2 bg-artdus-lime text-artdus-black text-[13px] font-semibold tracking-[0.14em] uppercase px-[30px] py-[15px]"
+                  className="inline-flex items-center gap-2 bg-brand-accent text-brand-ink text-[13px] font-semibold tracking-[0.14em] uppercase px-[30px] py-[15px]"
                 >
                   {primaryCta.label} →
                 </Link>
@@ -70,7 +70,7 @@ export function SalesHeroItem({
               {secondaryCta && (
                 <Link
                   href={secondaryCta.href}
-                  className="inline-flex items-center border border-artdus-black text-[13px] font-medium tracking-[0.14em] uppercase px-[26px] py-[14px]"
+                  className="inline-flex items-center border border-brand-ink text-[13px] font-medium tracking-[0.14em] uppercase px-[26px] py-[14px]"
                 >
                   {secondaryCta.label}
                 </Link>

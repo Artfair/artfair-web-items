@@ -83,7 +83,7 @@ export default function Footer({ nav }: { nav?: { items?: NavItem[] } | null }) 
   for (let i = 0; i < links.length; i += 2) linkCols.push(links.slice(i, i + 2));
 
   return (
-    <footer className="bg-artdus-black text-white">
+    <footer className="bg-brand-ink text-white">
       <div className="px-[var(--page-x)] pt-[clamp(46px,6vw,84px)] pb-[clamp(30px,3.5vw,44px)]">
         <div className="grid grid-cols-3 md:grid-cols-[1.6fr_1fr_1fr_1fr] gap-x-[clamp(16px,3vw,32px)] gap-y-10 items-start">
           {/* Spalte 1: Wortmarke + Adresse — mobil als eigene Zeile über den Links */}
@@ -100,7 +100,7 @@ export default function Footer({ nav }: { nav?: { items?: NavItem[] } | null }) 
                 <Link
                   key={l.label}
                   href={withLang(l.href)}
-                  className="text-[13px] text-white hover:text-artdus-lime transition-colors"
+                  className="text-[13px] text-white hover:text-brand-accent transition-colors"
                 >
                   {l.label}
                 </Link>
@@ -118,7 +118,7 @@ export default function Footer({ nav }: { nav?: { items?: NavItem[] } | null }) 
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={s.label}
-                className="text-neutral-400 hover:text-artdus-lime transition-colors"
+                className="text-neutral-400 hover:text-brand-accent transition-colors"
               >
                 <svg
                   viewBox="0 0 24 24"

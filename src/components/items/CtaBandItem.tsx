@@ -64,11 +64,11 @@ export function CtaBandItem({
   // ursprüngliche Gewichtung.
   const cols = videoSrc ? "md:grid-cols-[0.85fr_1.15fr]" : "md:grid-cols-[1.1fr_0.9fr]";
   return (
-    <section id={id} className={`grid ${cols} bg-artdus-black scroll-mt-14`}>
+    <section id={id} className={`grid ${cols} bg-brand-ink scroll-mt-14`}>
       <div className="flex flex-col justify-center gap-7 px-[clamp(40px,5vw,80px)] py-[clamp(64px,8vw,128px)]">
         {eyebrow && (
           <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase text-neutral-400">
-            <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
+            <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
             {eyebrow}
           </span>
         )}
@@ -77,7 +77,7 @@ export function CtaBandItem({
         </h2>
         <p className="text-[17px] leading-[1.6] text-neutral-300 max-w-[44ch]">{body}</p>
         {contact && (
-          <div className="border-l-2 border-artdus-lime pl-5">
+          <div className="border-l-2 border-brand-accent pl-5">
             <span className="block text-[16px] font-medium text-white">{contact.name}</span>
             {contact.role && (
               <span className="block text-[12px] font-semibold tracking-[0.14em] uppercase text-neutral-400 mt-1">
@@ -96,7 +96,7 @@ export function CtaBandItem({
         )}
         <CtaLink
           href={cta.href}
-          className="self-start text-[13px] font-semibold tracking-[0.14em] uppercase text-artdus-black bg-artdus-lime px-[30px] py-[15px] mt-1.5"
+          className="self-start text-[13px] font-semibold tracking-[0.14em] uppercase text-brand-ink bg-brand-accent px-[30px] py-[15px] mt-1.5"
         >
           {cta.label} →
         </CtaLink>

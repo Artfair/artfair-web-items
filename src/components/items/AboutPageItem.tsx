@@ -106,7 +106,7 @@ function enquiryExtra(links: EnquiryLink[]): React.ReactNode {
   return (
     <>
       {mono.length > 0 && (
-        <span className="flex flex-col items-start gap-1 mt-[18px] font-light text-[15px] text-artdus-black">
+        <span className="flex flex-col items-start gap-1 mt-[18px] font-light text-[15px] text-brand-ink">
           {mono.map((i) => (
             <a key={i.href} href={i.href} className="hover:underline underline-offset-[3px]">
               {i.label || i.href}
@@ -118,7 +118,7 @@ function enquiryExtra(links: EnquiryLink[]): React.ReactNode {
         <a
           key={i.href}
           href={i.href}
-          className="self-start inline-block mt-[18px] text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-artdus-lime pb-[3px]"
+          className="self-start inline-block mt-[18px] text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px]"
         >
           {i.label || i.href}
         </a>
@@ -203,7 +203,7 @@ export function AboutPageItem(props: {
             </p>
           </div>
           {p.visionQuote?.text ? (
-            <figure className="m-0 border-l border-artdus-black pl-[clamp(24px,3vw,48px)] flex flex-col gap-6">
+            <figure className="m-0 border-l border-brand-ink pl-[clamp(24px,3vw,48px)] flex flex-col gap-6">
               <QuoteFigure quote={p.visionQuote} />
             </figure>
           ) : null}
@@ -272,11 +272,11 @@ export function AboutPageItem(props: {
         <h2 className="font-light text-[clamp(30px,3.4vw,52px)] leading-[1.06] tracking-[-0.02em] mb-[clamp(32px,4vw,56px)]">
           {p.profileHeading}
         </h2>
-        <div className="border-t border-artdus-black">
+        <div className="border-t border-brand-ink">
           {p.profileSections.map((s, i) => (
             <div
               key={s.name || i}
-              className="grid grid-cols-[48px_1fr] md:grid-cols-[64px_minmax(180px,1fr)_minmax(280px,2fr)] gap-x-[clamp(16px,3vw,48px)] gap-y-2 items-baseline py-[clamp(24px,3vw,40px)] border-b border-artdus-black"
+              className="grid grid-cols-[48px_1fr] md:grid-cols-[64px_minmax(180px,1fr)_minmax(280px,2fr)] gap-x-[clamp(16px,3vw,48px)] gap-y-2 items-baseline py-[clamp(24px,3vw,40px)] border-b border-brand-ink"
             >
               <span className="text-[15px] text-neutral-600 tracking-[0.08em]">
                 {String(i + 1).padStart(2, '0')}
@@ -297,7 +297,7 @@ export function AboutPageItem(props: {
               {p.profileThemes.map((t) => (
                 <span
                   key={t}
-                  className="inline-flex border border-artdus-black rounded-full px-4 py-[6px] text-[13px] font-medium tracking-[0.06em] uppercase whitespace-nowrap"
+                  className="inline-flex border border-brand-ink rounded-full px-4 py-[6px] text-[13px] font-medium tracking-[0.06em] uppercase whitespace-nowrap"
                 >
                   {t}
                 </span>
@@ -331,7 +331,7 @@ export function AboutPageItem(props: {
         className="px-[var(--page-x)] pt-[clamp(48px,6vw,88px)] pb-10 scroll-mt-14"
       >
         <div className="flex items-stretch gap-[clamp(20px,2.5vw,36px)]">
-          <div aria-hidden="true" className="w-[28px] bg-artdus-lime shrink-0" />
+          <div aria-hidden="true" className="w-[28px] bg-brand-accent shrink-0" />
           <div className="flex-1 flex flex-wrap justify-between items-end gap-10">
             <div>
               {/* Bewusst H1-Größe (wie der Hero): „Kontakt & Team" funktioniert
@@ -346,20 +346,20 @@ export function AboutPageItem(props: {
             {p.contactCta?.href ? (
               <a
                 href={p.contactCta.href}
-                className="inline-flex items-center gap-2 bg-artdus-black text-white text-[13px] font-semibold tracking-[0.14em] uppercase px-7 py-[15px] whitespace-nowrap shrink-0"
+                className="inline-flex items-center gap-2 bg-brand-ink text-white text-[13px] font-semibold tracking-[0.14em] uppercase px-7 py-[15px] whitespace-nowrap shrink-0"
               >
                 {p.contactCta.label}
               </a>
             ) : null}
           </div>
         </div>
-        <div aria-hidden="true" className="h-px bg-artdus-black mt-6" />
+        <div aria-hidden="true" className="h-px bg-brand-ink mt-6" />
         <div className="mt-5 flex flex-wrap gap-x-8 gap-y-2 text-[13px] font-semibold tracking-[0.14em] uppercase text-neutral-500">
           {p.contactAddressLine ? <span>{p.contactAddressLine}</span> : null}
           {p.contactPhone ? (
             <a
               href={`tel:${p.contactPhone.replace(/[\s-]+/g, '')}`}
-              className="hover:text-artdus-black transition-colors"
+              className="hover:text-brand-ink transition-colors"
             >
               {p.contactPhone}
             </a>
@@ -440,7 +440,7 @@ export function AboutPageItem(props: {
               <address
                 key={a.name || i}
                 className={`not-italic px-10 pt-11 pb-12 min-h-[320px] flex flex-col ${
-                  dark ? 'bg-artdus-black text-white' : 'bg-artdus-lime text-artdus-black'
+                  dark ? 'bg-brand-ink text-white' : 'bg-brand-accent text-brand-ink'
                 }`}
               >
                 <span className="text-[13px] font-semibold tracking-[0.14em] uppercase">
@@ -448,7 +448,7 @@ export function AboutPageItem(props: {
                 </span>
                 <span
                   aria-hidden="true"
-                  className={`block h-px mt-5 mb-8 ${dark ? 'bg-artdus-lime' : 'bg-artdus-black'}`}
+                  className={`block h-px mt-5 mb-8 ${dark ? 'bg-brand-accent' : 'bg-brand-ink'}`}
                 />
                 <span className="block font-light text-[clamp(28px,2.6vw,40px)] leading-[1.06] tracking-[-0.02em] whitespace-pre-line">
                   {a.name}

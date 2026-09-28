@@ -40,7 +40,7 @@ export function ListHeaderItem({
         <div className="min-w-0">
           {eyebrow && (
             <span className="flex items-center gap-2.5 text-[13px] font-medium tracking-[0.18em] uppercase mb-[clamp(14px,1.5vw,22px)]">
-              <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
+              <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
               {eyebrow}
             </span>
           )}
@@ -50,7 +50,7 @@ export function ListHeaderItem({
         </div>
         {counterValue && (
           <div className="text-[20px] text-neutral-600 whitespace-nowrap">
-            <strong className="text-artdus-black font-medium">{counterValue}</strong>{' '}
+            <strong className="text-brand-ink font-medium">{counterValue}</strong>{' '}
             {counterLabel}
           </div>
         )}
@@ -68,10 +68,10 @@ export function ListHeaderItem({
                     type="button"
                     aria-pressed={isActive}
                     onClick={() => onFilterChange(f.value)}
-                    className={`rounded-[50px] border border-artdus-black px-[20px] py-[6px] text-[15px] transition-colors ${
+                    className={`rounded-[50px] border border-brand-ink px-[20px] py-[6px] text-[15px] transition-colors ${
                       isActive
-                        ? 'bg-artdus-black text-white'
-                        : 'bg-white hover:bg-artdus-black hover:text-white'
+                        ? 'bg-brand-ink text-white'
+                        : 'bg-white hover:bg-brand-ink hover:text-white'
                     }`}
                   >
                     {f.label}
@@ -81,7 +81,7 @@ export function ListHeaderItem({
             </div>
           )}
           {onSearchChange && (
-            <div className="flex items-center border-[1.5px] border-artdus-black min-w-[260px] max-w-[360px] flex-1">
+            <div className="flex items-center border-[1.5px] border-brand-ink min-w-[260px] max-w-[360px] flex-1">
               <span aria-hidden="true" className="px-[14px] text-[18px] text-neutral-600">⌕</span>
               <input
                 type="search"
@@ -96,7 +96,7 @@ export function ListHeaderItem({
         </div>
       )}
 
-      <div aria-hidden="true" className="mx-[var(--page-x)] h-[5px] bg-artdus-lime" />
+      <div aria-hidden="true" className="mx-[var(--page-x)] h-[5px] bg-brand-accent" />
     </section>
   )
 }

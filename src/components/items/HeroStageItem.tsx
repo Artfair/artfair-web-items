@@ -25,7 +25,7 @@ export function HeroStageItem({
   imageAlt: string;
 }) {
   return (
-    <section id={id} className="relative h-[clamp(520px,43vw,620px)] bg-artdus-black overflow-hidden">
+    <section id={id} className="relative h-[clamp(520px,43vw,620px)] bg-brand-ink overflow-hidden">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={imageSrc}
@@ -56,7 +56,7 @@ export function HeroStageItem({
             {primaryCta && (
               <Link
                 href={primaryCta.href}
-                className="inline-flex items-center gap-2 bg-white text-artdus-black text-[13px] font-medium tracking-[0.14em] uppercase px-[28px] py-[15px]"
+                className="inline-flex items-center gap-2 bg-white text-brand-ink text-[13px] font-medium tracking-[0.14em] uppercase px-[28px] py-[15px]"
               >
                 {primaryCta.label} →
               </Link>

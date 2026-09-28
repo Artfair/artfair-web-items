@@ -28,7 +28,7 @@ export function ProgrammArtWalks({lang, assetBase = ''}: {lang: 'de' | 'en'; ass
           extra: (
             <a
               href={localizeHref('/tickets', lang)}
-              className="self-start inline-block text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-artdus-lime pb-[3px] mt-5"
+              className="self-start inline-block text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px] mt-5"
             >
               {de ? 'Zum Ticketshop' : 'To the ticket shop'} →
             </a>
@@ -63,7 +63,7 @@ export function ProgrammArtWalks({lang, assetBase = ''}: {lang: 'de' | 'en'; ass
               </ul>
               <a
                 href="mailto:vip@art-dus.de"
-                className="self-start inline-block text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-artdus-lime pb-[3px] mt-5"
+                className="self-start inline-block text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px] mt-5"
               >
                 vip@art-dus.de →
               </a>

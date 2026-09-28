@@ -31,7 +31,7 @@ export function MagazineStripItem({
         </h2>
         <Link
           href={moreHref}
-          className="text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-artdus-lime pb-[3px]"
+          className="text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px]"
         >
           {moreLabel} →
         </Link>
@@ -39,7 +39,7 @@ export function MagazineStripItem({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[clamp(20px,2.4vw,36px)]">
         {cards.map((m) => (
           <Link key={m.href + m.title} href={m.href} className="flex flex-col gap-3.5 group">
-            <div className="aspect-[4/3] overflow-hidden bg-artdus-black">
+            <div className="aspect-[4/3] overflow-hidden bg-brand-ink">
               {m.img && (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img

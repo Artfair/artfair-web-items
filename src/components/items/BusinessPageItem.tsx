@@ -56,7 +56,7 @@ export function BusinessPageItem(props: {
 }) {
   const p = props
   return (
-    <div className="bg-white text-artdus-black pt-14 animate-fade-in">
+    <div className="bg-white text-brand-ink pt-14 animate-fade-in">
       <SalesHeroItem
         eyebrow={p.heroEyebrow}
         title={p.heroTitle}

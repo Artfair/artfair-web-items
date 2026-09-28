@@ -49,7 +49,7 @@ export function TalksScheduleItem({
     <section id={id} className="px-[var(--page-x)] pb-[clamp(64px,8vw,128px)] scroll-mt-14">
       {eyebrow && (
         <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase mb-5">
-          <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
+          <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
           {eyebrow}
         </span>
       )}
@@ -73,7 +73,7 @@ export function TalksScheduleItem({
           />
           {imageCaption && (
             <div className="absolute left-6 bottom-6 flex items-center gap-2 text-[11px] tracking-[0.14em] uppercase text-white bg-[rgba(0,0,0,0.55)] px-3.5 py-2">
-              <span aria-hidden="true" className="w-2 h-2 bg-artdus-lime inline-block" />
+              <span aria-hidden="true" className="w-2 h-2 bg-brand-accent inline-block" />
               {imageCaption}
             </div>
           )}
@@ -98,7 +98,7 @@ export function TalksScheduleItem({
               {day.talks.map((talk) => (
                 <li
                   key={talk.title}
-                  className="group relative overflow-hidden bg-artdus-black text-white flex flex-col lg:min-h-[420px]"
+                  className="group relative overflow-hidden bg-brand-ink text-white flex flex-col lg:min-h-[420px]"
                 >
                   {talk.imageSrc && (
                     // eslint-disable-next-line @next/next/no-img-element
@@ -116,7 +116,7 @@ export function TalksScheduleItem({
                   />
                   <div className="relative p-7 flex flex-col flex-1">
                     <div className="flex items-center gap-2.5 mb-5">
-                      <span className="bg-artdus-lime text-artdus-black text-[15px] font-medium tracking-[0.06em] px-[11px] py-1">
+                      <span className="bg-brand-accent text-brand-ink text-[15px] font-medium tracking-[0.06em] px-[11px] py-1">
                         {talk.time}
                       </span>
                       <span className="text-[11px] tracking-[0.14em] uppercase text-white/70">
@@ -138,7 +138,7 @@ export function TalksScheduleItem({
                       {talk.moderation && (
                         <div className="border-t border-white/25 pt-3 mt-1">
                           <div className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.14em] uppercase text-white/70 mb-1">
-                            <span aria-hidden="true" className="w-1.5 h-1.5 bg-artdus-lime inline-block" />
+                            <span aria-hidden="true" className="w-1.5 h-1.5 bg-brand-accent inline-block" />
                             Moderation
                           </div>
                           <div className="text-[15px] font-medium leading-[1.3]">

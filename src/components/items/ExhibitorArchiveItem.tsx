@@ -158,8 +158,8 @@ export function ExhibitorArchiveItem({
       onClick={onClick}
       className={`rounded-[50px] border px-[14px] py-[3px] min-h-[26px] text-[13px] tracking-[0.06em] uppercase whitespace-nowrap transition-all duration-[120ms] ${
         isActive
-          ? 'bg-artdus-lime text-artdus-black border-artdus-black'
-          : 'bg-white border-artdus-black hover:border-artdus-lime hover:shadow-[inset_0_0_0_2px_#E7FA31]'
+          ? 'bg-brand-accent text-brand-ink border-brand-ink'
+          : 'bg-white border-brand-ink hover:border-brand-accent hover:shadow-[inset_0_0_0_2px_#E7FA31]'
       }`}
     >
       {label}
@@ -189,7 +189,7 @@ export function ExhibitorArchiveItem({
       value={country ?? 'all'}
       onChange={(e) => setCountry(e.target.value === 'all' ? null : e.target.value)}
       aria-label={t.countryLabel}
-      className="border-0 border-b border-neutral-300 rounded-none py-[10px] text-[16px] bg-white outline-none focus:border-b-2 focus:border-artdus-black w-full md:w-[240px]"
+      className="border-0 border-b border-neutral-300 rounded-none py-[10px] text-[16px] bg-white outline-none focus:border-b-2 focus:border-brand-ink w-full md:w-[240px]"
     >
       <option value="all">{t.countryAll}</option>
       {countries.map((c) => (
@@ -207,7 +207,7 @@ export function ExhibitorArchiveItem({
         aria-pressed={letter === null}
         onClick={() => setLetter(null)}
         className={`min-w-[34px] h-[34px] px-2 text-[14px] transition-colors duration-[120ms] ${
-          letter === null ? 'bg-artdus-lime text-artdus-black' : 'hover:bg-neutral-100'
+          letter === null ? 'bg-brand-accent text-brand-ink' : 'hover:bg-neutral-100'
         }`}
       >
         {t.all}
@@ -223,7 +223,7 @@ export function ExhibitorArchiveItem({
             aria-pressed={isActive}
             onClick={() => setLetter(isActive ? null : l)}
             className={`min-w-[34px] h-[34px] text-[14px] transition-colors duration-[120ms] disabled:opacity-25 ${
-              isActive ? 'bg-artdus-lime text-artdus-black' : available ? 'hover:bg-neutral-100' : ''
+              isActive ? 'bg-brand-accent text-brand-ink' : available ? 'hover:bg-neutral-100' : ''
             }`}
           >
             {l}
@@ -234,7 +234,7 @@ export function ExhibitorArchiveItem({
   )
 
   const searchField = (
-    <div className="flex items-center border-0 border-b border-neutral-300 focus-within:border-b-2 focus-within:border-artdus-black w-full md:w-[300px]">
+    <div className="flex items-center border-0 border-b border-neutral-300 focus-within:border-b-2 focus-within:border-brand-ink w-full md:w-[300px]">
       <input
         type="search"
         value={q}
@@ -260,7 +260,7 @@ export function ExhibitorArchiveItem({
           </h1>
         </div>
         <div className="pb-[14px] text-[clamp(15px,1.5vw,22px)] text-neutral-600 whitespace-nowrap">
-          <strong className="text-artdus-black font-medium">{data.exhibitors.length}</strong>{' '}
+          <strong className="text-brand-ink font-medium">{data.exhibitors.length}</strong>{' '}
           {t.counter}
         </div>
       </div>
@@ -300,7 +300,7 @@ export function ExhibitorArchiveItem({
               type="button"
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen((o) => !o)}
-              className="rounded-[50px] bg-artdus-black text-white px-[16px] py-[4px] min-h-[26px] text-[13px] tracking-[0.06em] uppercase whitespace-nowrap shrink-0"
+              className="rounded-[50px] bg-brand-ink text-white px-[16px] py-[4px] min-h-[26px] text-[13px] tracking-[0.06em] uppercase whitespace-nowrap shrink-0"
             >
               {t.filter}
               {activeCount > 0 ? ` (${activeCount})` : ''} {mobileOpen ? '▴' : '▾'}
@@ -324,7 +324,7 @@ export function ExhibitorArchiveItem({
         </div>
 
         {/* Acid-Abschlusslinie */}
-        <div aria-hidden="true" className="h-[4px] bg-artdus-lime mt-[6px]" />
+        <div aria-hidden="true" className="h-[4px] bg-brand-accent mt-[6px]" />
       </div>
 
       {/* Index */}
@@ -333,7 +333,7 @@ export function ExhibitorArchiveItem({
         <div className="columns-1 md:columns-2 lg:columns-3 gap-[56px]">
           {groups.map(([l, items]) => (
             <section key={l} className="break-inside-avoid mb-[34px]">
-              <h2 className="text-[34px] font-normal leading-none border-b-[1.5px] border-artdus-black pb-2">
+              <h2 className="text-[34px] font-normal leading-none border-b-[1.5px] border-brand-ink pb-2">
                 {l}
               </h2>
               <ul className="list-none">
@@ -382,7 +382,7 @@ export function ExhibitorArchiveItem({
                     </span>
                   )
                   const rowClass =
-                    'block py-[11px] pr-[10px] border-b border-neutral-200 transition-all duration-[120ms] hover:shadow-[inset_0_0_0_2px_#E7FA31] hover:border-artdus-lime hover:pl-[10px] focus-visible:shadow-[inset_0_0_0_2px_#E7FA31] focus-visible:pl-[10px] focus-visible:outline-none'
+                    'block py-[11px] pr-[10px] border-b border-neutral-200 transition-all duration-[120ms] hover:shadow-[inset_0_0_0_2px_#E7FA31] hover:border-brand-accent hover:pl-[10px] focus-visible:shadow-[inset_0_0_0_2px_#E7FA31] focus-visible:pl-[10px] focus-visible:outline-none'
                   return (
                     <li key={e.name}>
                       {e.url ? (

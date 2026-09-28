@@ -52,7 +52,7 @@ interface MockConfig {
 
 const eyebrowClass =
   'flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase'
-const acidSquare = <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime shrink-0" />
+const acidSquare = <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent shrink-0" />
 
 // Beispiel-Newsletter im Haus-Look — im Code gebaut statt Screenshot
 // (Annalena 11.8.2026: Posteingang soll erkennbar sein, Newsletter in unserem
@@ -61,14 +61,14 @@ const acidSquare = <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus
 function MockNewsletter({mock, compact}: {mock: MockConfig; compact?: boolean}) {
   return (
     <div className="bg-white">
-      <div className={`bg-artdus-black text-white text-center ${compact ? 'py-3' : 'py-4'}`}>
+      <div className={`bg-brand-ink text-white text-center ${compact ? 'py-3' : 'py-4'}`}>
         <span
           className={`block font-medium uppercase tracking-[0.3em] ${compact ? 'text-[12px]' : 'text-[15px]'}`}
         >
           {mock.sender}
         </span>
         <span className="mt-1 flex items-center justify-center gap-1.5 text-[9px] tracking-[0.22em] uppercase text-neutral-400">
-          <span aria-hidden="true" className="w-[5px] h-[5px] bg-artdus-lime" />
+          <span aria-hidden="true" className="w-[5px] h-[5px] bg-brand-accent" />
           {mock.mastheadKicker}
         </span>
       </div>
@@ -80,14 +80,14 @@ function MockNewsletter({mock, compact}: {mock: MockConfig; compact?: boolean}) 
       )}
       <div className={compact ? 'px-4 py-4' : 'px-6 py-5'}>
         <span className="flex items-center gap-2 text-[10px] font-semibold tracking-[0.16em] uppercase text-neutral-500">
-          <span aria-hidden="true" className="w-[5px] h-[5px] bg-artdus-lime shrink-0" />
+          <span aria-hidden="true" className="w-[5px] h-[5px] bg-brand-accent shrink-0" />
           {mock.kicker}
         </span>
         <p className={`font-normal leading-[1.2] mt-2 ${compact ? 'text-[16px]' : 'text-[19px]'}`}>
           {mock.title}
         </p>
         <p className="text-[13px] leading-[1.55] text-neutral-600 mt-2">{mock.text}</p>
-        <span className="inline-block mt-3 text-[11px] font-semibold tracking-[0.08em] uppercase border-b-2 border-artdus-lime pb-[2px]">
+        <span className="inline-block mt-3 text-[11px] font-semibold tracking-[0.08em] uppercase border-b-2 border-brand-accent pb-[2px]">
           {mock.linkLabel}
         </span>
       </div>
@@ -113,7 +113,7 @@ function BrowserFrame({mock, url}: {mock: MockConfig; url: string}) {
           <span className="w-2 h-2 rounded-full bg-neutral-300" />
         </span>
         <span className="flex-1 text-center">
-          <span className="inline-block bg-artdus-light rounded-full px-4 py-1 text-[12px] tracking-[0.04em] text-neutral-600">
+          <span className="inline-block bg-brand-surface rounded-full px-4 py-1 text-[12px] tracking-[0.04em] text-neutral-600">
             {url}
           </span>
         </span>
@@ -128,12 +128,12 @@ function BrowserFrame({mock, url}: {mock: MockConfig; url: string}) {
             <div
               key={r.subject}
               className={`px-5 py-3 border-b border-neutral-100 ${
-                r.active ? 'bg-artdus-light border-l-2 border-l-artdus-black' : ''
+                r.active ? 'bg-brand-surface border-l-2 border-l-brand-ink' : ''
               }`}
             >
               <div className="flex items-baseline justify-between gap-2">
                 <span className="flex items-center gap-2 min-w-0 text-[13px] font-semibold">
-                  {r.active && <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-artdus-lime shrink-0" />}
+                  {r.active && <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-brand-accent shrink-0" />}
                   <span className="truncate">{mock.sender}</span>
                 </span>
                 <span className="text-[11px] text-neutral-400 shrink-0">{r.date}</span>
@@ -148,7 +148,7 @@ function BrowserFrame({mock, url}: {mock: MockConfig; url: string}) {
             <div className="text-[15px] font-medium truncate">{mock.subject}</div>
             <div className="text-[12px] text-neutral-500 truncate mt-0.5">{`${mock.sender} <${mock.from}>`}</div>
           </div>
-          <div className="flex-1 overflow-hidden bg-artdus-light">
+          <div className="flex-1 overflow-hidden bg-brand-surface">
             <div className="max-w-[440px] mx-auto mt-6 border border-neutral-200">
               <MockNewsletter mock={mock} />
             </div>
@@ -177,7 +177,7 @@ function PhoneFrame({mock, label}: {mock: MockConfig; label: string}) {
       </div>
       <div className="aspect-[340/620] overflow-hidden flex flex-col">
         <div className="flex items-center gap-3 px-4 py-3 border-b border-neutral-200">
-          <span className="w-9 h-9 shrink-0 bg-artdus-black text-white flex items-center justify-center text-[12px] font-semibold tracking-[0.08em]">
+          <span className="w-9 h-9 shrink-0 bg-brand-ink text-white flex items-center justify-center text-[12px] font-semibold tracking-[0.08em]">
             {monogram}
           </span>
           <span className="min-w-0">
@@ -299,8 +299,8 @@ export function NewsletterPageItem({
   }
 
   const pillClass = (active: boolean) =>
-    `rounded-full border border-artdus-black px-4 py-[9px] text-[13px] font-medium tracking-[0.06em] uppercase cursor-pointer transition-colors ${
-      active ? 'bg-artdus-black text-white' : 'bg-white text-artdus-black hover:bg-artdus-black hover:text-white'
+    `rounded-full border border-brand-ink px-4 py-[9px] text-[13px] font-medium tracking-[0.06em] uppercase cursor-pointer transition-colors ${
+      active ? 'bg-brand-ink text-white' : 'bg-white text-brand-ink hover:bg-brand-ink hover:text-white'
     }`
 
   // Mockup-Inhalte auflösen: CMS-Werte gewinnen, sonst Sprach-Defaults.
@@ -353,7 +353,7 @@ export function NewsletterPageItem({
   return (
     <div id={id} className="pt-14 animate-fade-in scroll-mt-14">
       {/* Hero mit Anmeldung */}
-      <section className="px-[var(--page-x)] pt-[clamp(64px,9vw,128px)] pb-[clamp(56px,7vw,96px)] flex flex-col items-center text-center border-b border-artdus-line">
+      <section className="px-[var(--page-x)] pt-[clamp(64px,9vw,128px)] pb-[clamp(56px,7vw,96px)] flex flex-col items-center text-center border-b border-brand-line">
         {heroEyebrow && (
           <span className={eyebrowClass}>
             {acidSquare}
@@ -369,7 +369,7 @@ export function NewsletterPageItem({
 
         {done ? (
           <p role="status" className="flex items-start gap-3 text-[17px] leading-[1.6] mt-10">
-            <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime shrink-0 mt-[9px]" />
+            <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent shrink-0 mt-[9px]" />
             {confirmation}
           </p>
         ) : (
@@ -391,7 +391,7 @@ export function NewsletterPageItem({
                 required
                 autoComplete="email"
                 placeholder={emailPlaceholder}
-                className="flex-[1_1_240px] min-w-0 text-[15px] text-artdus-black px-[18px] py-[14px] border border-artdus-black bg-white outline-none placeholder:text-neutral-500 focus:border-artdus-lime focus:ring-1 focus:ring-artdus-lime"
+                className="flex-[1_1_240px] min-w-0 text-[15px] text-brand-ink px-[18px] py-[14px] border border-brand-ink bg-white outline-none placeholder:text-neutral-500 focus:border-brand-accent focus:ring-1 focus:ring-brand-accent"
               />
               {showLanguageToggle && (
                 <div
@@ -417,13 +417,13 @@ export function NewsletterPageItem({
               <button
                 type="submit"
                 disabled={sending}
-                className="text-[13px] font-medium tracking-[0.14em] uppercase text-white bg-artdus-black px-[30px] py-[14px] cursor-pointer disabled:opacity-60 disabled:cursor-wait"
+                className="text-[13px] font-medium tracking-[0.14em] uppercase text-white bg-brand-ink px-[30px] py-[14px] cursor-pointer disabled:opacity-60 disabled:cursor-wait"
               >
                 {submitLabel}
               </button>
             </div>
             {failed && (
-              <p role="alert" className="text-[14px] leading-[1.5] text-artdus-red mt-4">
+              <p role="alert" className="text-[14px] leading-[1.5] text-brand-danger mt-4">
                 {errorText}
               </p>
             )}
@@ -435,7 +435,7 @@ export function NewsletterPageItem({
                   type="checkbox"
                   name="consent"
                   required
-                  className="peer appearance-none w-[18px] h-[18px] border border-artdus-black bg-white checked:bg-artdus-black cursor-pointer focus-visible:outline-none focus-visible:border-artdus-lime focus-visible:ring-1 focus-visible:ring-artdus-lime"
+                  className="peer appearance-none w-[18px] h-[18px] border border-brand-ink bg-white checked:bg-brand-ink cursor-pointer focus-visible:outline-none focus-visible:border-brand-accent focus-visible:ring-1 focus-visible:ring-brand-accent"
                 />
                 <svg
                   aria-hidden="true"
@@ -448,7 +448,7 @@ export function NewsletterPageItem({
               </span>
               <span className="text-[13px] leading-[1.6] text-neutral-500">
                 {consentText}{' '}
-                <a href={privacyHref} className="underline underline-offset-[3px] hover:text-artdus-black">
+                <a href={privacyHref} className="underline underline-offset-[3px] hover:text-brand-ink">
                   {privacyLabel}
                 </a>
                 .
@@ -472,7 +472,7 @@ export function NewsletterPageItem({
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-12">
             {benefits.map((b) => (
-              <div key={b.title || b.eyebrow} className="flex flex-col gap-4 pt-6 border-t-2 border-artdus-black">
+              <div key={b.title || b.eyebrow} className="flex flex-col gap-4 pt-6 border-t-2 border-brand-ink">
                 {b.eyebrow && (
                   <span className={eyebrowClass}>
                     {acidSquare}
@@ -508,7 +508,7 @@ export function NewsletterPageItem({
 
       {/* Vorschau — Desktop: Browser mit überlappendem Phone, Mobile: nur Phone */}
       {previewHeading ? (
-        <section className="bg-artdus-light border-t border-artdus-line px-[var(--page-x)] py-[clamp(64px,8vw,112px)]">
+        <section className="bg-brand-surface border-t border-brand-line px-[var(--page-x)] py-[clamp(64px,8vw,112px)]">
           <div className="text-center">
             {previewEyebrow && (
               <span className={`${eyebrowClass} justify-center`}>
@@ -535,7 +535,7 @@ export function NewsletterPageItem({
       {quoteText && (
         <section className="px-[var(--page-x)] py-[clamp(72px,9vw,128px)] flex justify-center">
           <figure className="m-0 max-w-[760px] text-center flex flex-col items-center gap-7">
-            <span aria-hidden="true" className="w-2 h-2 bg-artdus-lime" />
+            <span aria-hidden="true" className="w-2 h-2 bg-brand-accent" />
             <blockquote className="font-light text-[clamp(24px,2.6vw,40px)] leading-[1.22] tracking-[-0.01em]">
               {quoteText}
             </blockquote>

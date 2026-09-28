@@ -253,13 +253,13 @@ export default function Header({
   const close = () => setMenuOpen(false);
 
   const langPill = (
-    <div className="inline-flex items-center border border-artdus-black rounded-full overflow-hidden">
+    <div className="inline-flex items-center border border-brand-ink rounded-full overflow-hidden">
       <Link
         href={langHref("de")}
         onClick={close}
         aria-current={lang === "de" ? "true" : undefined}
         className={`px-[15px] py-[7px] text-xs font-semibold tracking-[0.08em] transition-colors ${
-          lang === "de" ? "bg-artdus-black text-white" : "text-neutral-600 hover:text-artdus-black"
+          lang === "de" ? "bg-brand-ink text-white" : "text-neutral-600 hover:text-brand-ink"
         }`}
       >
         DE
@@ -269,7 +269,7 @@ export default function Header({
         onClick={close}
         aria-current={lang === "en" ? "true" : undefined}
         className={`px-[15px] py-[7px] text-xs font-semibold tracking-[0.08em] transition-colors ${
-          lang === "en" ? "bg-artdus-black text-white" : "text-neutral-600 hover:text-artdus-black"
+          lang === "en" ? "bg-brand-ink text-white" : "text-neutral-600 hover:text-brand-ink"
         }`}
       >
         EN
@@ -278,10 +278,10 @@ export default function Header({
   );
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-artdus-line text-artdus-black">
+    <header className="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-brand-line text-brand-ink">
       <div className="w-full h-full flex items-center justify-between px-[var(--page-x)]">
         <Link href={lang === "en" ? "/en" : "/"} className="flex items-center" onClick={close}>
-          <Logo className="text-artdus-black h-4 md:h-6 w-auto" />
+          <Logo className="text-brand-ink h-4 md:h-6 w-auto" />
         </Link>
 
         <div className="flex items-center gap-[18px]">
@@ -292,9 +292,9 @@ export default function Header({
             aria-expanded={menuOpen}
             className="-mr-2 flex flex-col justify-center gap-[5px] w-[42px] h-[34px] px-2 py-1.5 cursor-pointer"
           >
-            <span className="block h-[2px] w-full bg-artdus-black" />
-            <span className="block h-[2px] w-full bg-artdus-black" />
-            <span className="block h-[2px] w-full bg-artdus-black" />
+            <span className="block h-[2px] w-full bg-brand-ink" />
+            <span className="block h-[2px] w-full bg-brand-ink" />
+            <span className="block h-[2px] w-full bg-brand-ink" />
           </button>
         </div>
       </div>
@@ -310,7 +310,7 @@ export default function Header({
                 {...(isExternal(ticketsBtn.href)
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
-                className="justify-self-start text-xs font-semibold tracking-[0.1em] uppercase text-white bg-artdus-black rounded-full px-4 md:px-5 py-[9px]"
+                className="justify-self-start text-xs font-semibold tracking-[0.1em] uppercase text-white bg-brand-ink rounded-full px-4 md:px-5 py-[9px]"
               >
                 {ticketsBtn.label}
               </Link>
@@ -319,7 +319,7 @@ export default function Header({
               <span aria-hidden className="justify-self-start" />
             )}
             <Link href={lang === "en" ? "/en" : "/"} onClick={close}>
-              <Logo className="text-artdus-black h-4 md:h-6 w-auto" />
+              <Logo className="text-brand-ink h-4 md:h-6 w-auto" />
             </Link>
             <div className="justify-self-end flex items-center gap-3 md:gap-[22px]">
               <span className="hidden sm:block">{langPill}</span>
@@ -332,7 +332,7 @@ export default function Header({
               </button>
             </div>
           </div>
-          <div className="border-t border-artdus-line" />
+          <div className="border-t border-brand-line" />
 
           <nav
             aria-label={lang === "en" ? "Main menu" : "Hauptmenü"}
@@ -344,7 +344,7 @@ export default function Header({
                   <Link
                     href={withLang(col.href)}
                     onClick={close}
-                    className="text-[15px] lg:text-[17px] font-semibold tracking-[0.02em] uppercase underline underline-offset-[5px] hover:text-artdus-gray transition-colors self-start"
+                    className="text-[15px] lg:text-[17px] font-semibold tracking-[0.02em] uppercase underline underline-offset-[5px] hover:text-brand-muted transition-colors self-start"
                   >
                     {col.head}
                   </Link>
@@ -361,7 +361,7 @@ export default function Header({
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={close}
-                      className="text-[15px] lg:text-[17px] text-neutral-900 hover:text-artdus-gray transition-colors"
+                      className="text-[15px] lg:text-[17px] text-neutral-900 hover:text-brand-muted transition-colors"
                     >
                       {item.label}
                     </a>
@@ -370,7 +370,7 @@ export default function Header({
                       key={item.label}
                       href={withLang(item.href)}
                       onClick={close}
-                      className="text-[15px] lg:text-[17px] text-neutral-900 hover:text-artdus-gray transition-colors"
+                      className="text-[15px] lg:text-[17px] text-neutral-900 hover:text-brand-muted transition-colors"
                     >
                       {item.label}
                     </Link>
@@ -381,7 +381,7 @@ export default function Header({
 
             {/* Meta-Spalte — schwarze Header, lime unterstrichen */}
             <div className="flex flex-col gap-[13px]">
-              <span className="text-[15px] font-bold tracking-[0.04em] uppercase underline decoration-artdus-lime decoration-[3px] underline-offset-[5px]">
+              <span className="text-[15px] font-bold tracking-[0.04em] uppercase underline decoration-brand-accent decoration-[3px] underline-offset-[5px]">
                 {moreGroup.head}
               </span>
               {moreGroup.items.map((item) => (
@@ -394,7 +394,7 @@ export default function Header({
                   {item.label}
                 </Link>
               ))}
-              <span className="mt-2.5 text-[15px] font-bold tracking-[0.04em] uppercase underline decoration-artdus-lime decoration-[3px] underline-offset-[5px]">
+              <span className="mt-2.5 text-[15px] font-bold tracking-[0.04em] uppercase underline decoration-brand-accent decoration-[3px] underline-offset-[5px]">
                 {t.followHead}
               </span>
               {FOLLOW.map((item) => (
@@ -408,7 +408,7 @@ export default function Header({
                   {item.label}
                 </a>
               ))}
-              <span className="mt-2.5 text-[15px] font-bold tracking-[0.04em] uppercase underline decoration-artdus-lime decoration-[3px] underline-offset-[5px]">
+              <span className="mt-2.5 text-[15px] font-bold tracking-[0.04em] uppercase underline decoration-brand-accent decoration-[3px] underline-offset-[5px]">
                 {companyGroup.head}
               </span>
               {companyGroup.items.map((item) => (
@@ -427,7 +427,7 @@ export default function Header({
             {teaser && (
               <div className="col-span-2 md:col-span-1 flex flex-col gap-[13px]">
                 <span className="text-[13px] font-bold tracking-[0.06em] uppercase">{t.magHead}</span>
-                <Link href={teaser.href} onClick={close} className="block aspect-[4/3] overflow-hidden bg-artdus-black">
+                <Link href={teaser.href} onClick={close} className="block aspect-[4/3] overflow-hidden bg-brand-ink">
                   {teaser.imageUrl && (
                     // eslint-disable-next-line @next/next/no-img-element
                     // Fokus oben statt mittig: der 4:3-Kasten schneidet Hochformat-

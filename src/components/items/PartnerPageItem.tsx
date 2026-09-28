@@ -56,7 +56,7 @@ export function PartnerPageItem(props: {
 }) {
   const p = props
   return (
-    <div className="bg-white text-artdus-black pt-14 animate-fade-in">
+    <div className="bg-white text-brand-ink pt-14 animate-fade-in">
       <PartnerHeroItem
         eyebrow={p.heroEyebrow}
         title={p.heroTitle}
@@ -113,7 +113,7 @@ export function PartnerPageItem(props: {
               Gleicher Ton wie die ©-Linie im Footer (white/15).
               Annalena 19.8.2026: Linie gehört HIERHER (nicht auf Business
               meets Art) — in v0.13.5 kurzzeitig falsch herum umgezogen. */}
-          <div aria-hidden="true" className="h-0 border-t border-white/15 bg-artdus-black" />
+          <div aria-hidden="true" className="h-0 border-t border-white/15 bg-brand-ink" />
         </>
       )}
     </div>

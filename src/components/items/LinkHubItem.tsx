@@ -82,7 +82,7 @@ export function LinkHubItem({
         href={link.href}
         onClick={() => trackClick(label, link.href, l)}
         style={{animationDelay: `${100 + i * 80}ms`, animationFillMode: 'both'}}
-        className="animate-fade-in flex items-center justify-center text-center rounded-[50px] border-2 border-artdus-lime text-white min-h-[44px] px-6 py-3 text-[15px] uppercase tracking-[0.14em] font-medium no-underline cursor-pointer transition-colors duration-200 hover:bg-artdus-lime hover:text-artdus-black active:translate-y-px"
+        className="animate-fade-in flex items-center justify-center text-center rounded-[50px] border-2 border-brand-accent text-white min-h-[44px] px-6 py-3 text-[15px] uppercase tracking-[0.14em] font-medium no-underline cursor-pointer transition-colors duration-200 hover:bg-brand-accent hover:text-brand-ink active:translate-y-px"
       >
         {label}
       </a>
@@ -97,7 +97,7 @@ export function LinkHubItem({
       onClick={() => setL(code)}
       className={`px-3 py-2 text-[12px] font-medium uppercase tracking-[0.14em] border cursor-pointer transition-colors duration-150 ${
         l === code
-          ? 'bg-artdus-lime text-artdus-black border-artdus-lime'
+          ? 'bg-brand-accent text-brand-ink border-brand-accent'
           : 'bg-transparent text-white border-white/25 hover:border-white/60'
       }`}
     >
@@ -106,7 +106,7 @@ export function LinkHubItem({
   )
 
   return (
-    <section id={id} className="bg-artdus-black text-white min-h-[100svh] flex justify-center px-5 py-6">
+    <section id={id} className="bg-brand-ink text-white min-h-[100svh] flex justify-center px-5 py-6">
       <div className="w-full max-w-[480px] flex flex-col items-center gap-7">
         <h1 className="sr-only">{l === 'de' ? 'Art Düsseldorf — Links' : 'Art Düsseldorf — links'}</h1>
 
@@ -121,7 +121,7 @@ export function LinkHubItem({
               <img src={imageSrc} alt={imageAlt} className="block w-full aspect-[4/3] object-cover" />
               <div
                 aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-t from-artdus-black/75 via-artdus-black/10 to-transparent"
+                className="absolute inset-0 bg-gradient-to-t from-brand-ink/75 via-brand-ink/10 to-transparent"
               />
               <div className="absolute left-5 right-5 bottom-[18px]">
                 <Logo className="w-full h-auto" />
@@ -152,7 +152,7 @@ export function LinkHubItem({
         {/* Bildnachweise — Textblöcke mit Inline-Links (Fotoquelle + Lizenz) */}
         {credits.length > 0 && (
           <div className="w-full mt-1 pt-5 border-t border-white/15">
-            <div className="text-[13px] font-medium tracking-[0.14em] uppercase text-artdus-lime text-center mb-3">
+            <div className="text-[13px] font-medium tracking-[0.14em] uppercase text-brand-accent text-center mb-3">
               {loc(creditsTitle, l) || (l === 'de' ? 'Bildnachweise' : 'Image credits')}
             </div>
             {loc(creditsIntro, l) && (
@@ -170,7 +170,7 @@ export function LinkHubItem({
                     <p className="text-[13px] leading-[1.6] text-white/65 whitespace-pre-line">
                       {renderInlineLinks(loc(c.body, l), {
                         className:
-                          'text-white underline decoration-artdus-lime underline-offset-[3px] transition-colors hover:text-artdus-lime',
+                          'text-white underline decoration-brand-accent underline-offset-[3px] transition-colors hover:text-brand-accent',
                         onClick: (label, href) => trackClick(label, href, l),
                       })}
                     </p>

@@ -13,7 +13,7 @@ import {useId, useState} from 'react'
 
 const labelClass = 'block text-[13px] font-medium tracking-[0.1em] uppercase mb-2'
 const fieldClass =
-  'w-full text-[15px] text-artdus-black px-[16px] py-[13px] border border-artdus-black bg-white outline-none placeholder:text-neutral-500 focus:border-artdus-lime focus:ring-1 focus:ring-artdus-lime'
+  'w-full text-[15px] text-brand-ink px-[16px] py-[13px] border border-brand-ink bg-white outline-none placeholder:text-neutral-500 focus:border-brand-accent focus:ring-1 focus:ring-brand-accent'
 
 // Props auch als Typ exportiert — das BusinessPageItem bettet das Formular
 // als Teilobjekt ein (inquiry-Prop) und reicht sie 1:1 durch.
@@ -86,7 +86,7 @@ export function InquiryFormItem({
       <div className="max-w-[720px]">
         {eyebrow && (
           <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase mb-5">
-            <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
+            <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
             {eyebrow}
           </span>
         )}
@@ -97,7 +97,7 @@ export function InquiryFormItem({
 
         {done ? (
           <p role="status" className="flex items-start gap-3 text-[17px] leading-[1.6] mt-10">
-            <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime shrink-0 mt-[9px]" />
+            <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent shrink-0 mt-[9px]" />
             {confirmation}
           </p>
         ) : (
@@ -186,12 +186,12 @@ export function InquiryFormItem({
               <button
                 type="submit"
                 disabled={sending}
-                className="inline-flex items-center gap-2 bg-artdus-lime text-artdus-black text-[13px] font-semibold tracking-[0.14em] uppercase px-[30px] py-[15px] cursor-pointer disabled:opacity-60 disabled:cursor-wait"
+                className="inline-flex items-center gap-2 bg-brand-accent text-brand-ink text-[13px] font-semibold tracking-[0.14em] uppercase px-[30px] py-[15px] cursor-pointer disabled:opacity-60 disabled:cursor-wait"
               >
                 {submitLabel} →
               </button>
               {failed && (
-                <p role="alert" className="text-[14px] leading-[1.5] text-artdus-red mt-3">
+                <p role="alert" className="text-[14px] leading-[1.5] text-brand-danger mt-3">
                   {errorText ?? ''}
                 </p>
               )}

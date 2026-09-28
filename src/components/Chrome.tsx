@@ -27,7 +27,7 @@ export default function Chrome({
     <>
       <a
         href="#inhalt"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-artdus-black focus:text-white focus:px-4 focus:py-2.5 focus:text-sm focus:font-medium"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-brand-ink focus:text-white focus:px-4 focus:py-2.5 focus:text-sm focus:font-medium"
       >
         {isEn ? "Skip to content" : "Zum Inhalt springen"}
       </a>

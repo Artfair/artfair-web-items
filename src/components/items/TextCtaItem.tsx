@@ -28,7 +28,7 @@ export function TextCtaItem({
     <>
       {eyebrow && (
         <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase">
-          <span aria-hidden="true" className="w-[7px] h-[7px] bg-artdus-lime" />
+          <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
           {eyebrow}
         </span>
       )}
@@ -40,7 +40,7 @@ export function TextCtaItem({
         <a
           href={cta.href}
           {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-          className="self-start text-[13px] font-semibold tracking-[0.14em] uppercase text-white bg-artdus-black px-[30px] py-[15px]"
+          className="self-start text-[13px] font-semibold tracking-[0.14em] uppercase text-white bg-brand-ink px-[30px] py-[15px]"
         >
           {cta.label} →
         </a>

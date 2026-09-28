@@ -14,7 +14,7 @@ export function TickerItem({
   while (units.length < 8) units.push(...items);
 
   return (
-    <div className="relative overflow-hidden whitespace-nowrap bg-artdus-black border-b-[1.5px] border-white">
+    <div className="relative overflow-hidden whitespace-nowrap bg-brand-ink border-b-[1.5px] border-white">
       {imageSrc && (
         <>
           {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -62,8 +62,8 @@ export function FaqPageItem({
       type="button"
       aria-pressed={isActive}
       onClick={onClick}
-      className={`rounded-[50px] border border-artdus-black px-[18px] py-[5px] text-[14px] tracking-[0.02em] cursor-pointer transition-colors ${
-        isActive ? 'bg-artdus-black text-white' : 'bg-white hover:bg-artdus-black hover:text-white'
+      className={`rounded-[50px] border border-brand-ink px-[18px] py-[5px] text-[14px] tracking-[0.02em] cursor-pointer transition-colors ${
+        isActive ? 'bg-brand-ink text-white' : 'bg-white hover:bg-brand-ink hover:text-white'
       }`}
     >
       {label}
@@ -73,7 +73,7 @@ export function FaqPageItem({
   return (
     <section id={id}>
       <div className="px-[var(--page-x)] pt-[clamp(48px,6.1vw,88px)] pb-[clamp(24px,2.8vw,40px)] flex gap-[clamp(20px,2.5vw,36px)] items-stretch">
-        <div aria-hidden="true" className="w-[clamp(16px,1.9vw,28px)] bg-artdus-lime shrink-0" />
+        <div aria-hidden="true" className="w-[clamp(16px,1.9vw,28px)] bg-brand-accent shrink-0" />
         <div className="flex-1 flex justify-between items-start gap-x-10 gap-y-6 flex-wrap">
           <div className="flex-[1_1_320px] min-w-0">
             <h1 className="font-normal text-[clamp(42px,5.8vw,84px)] leading-[0.98] tracking-[-0.01em]">
@@ -88,7 +88,7 @@ export function FaqPageItem({
           {switchCta && (
             <Link
               href={switchCta.href}
-              className="inline-flex items-center gap-2 rounded-full border border-artdus-black bg-white px-5 py-[9px] mt-1.5 text-[13px] font-medium tracking-[0.1em] uppercase whitespace-nowrap shrink-0 transition-colors hover:bg-artdus-black hover:text-white"
+              className="inline-flex items-center gap-2 rounded-full border border-brand-ink bg-white px-5 py-[9px] mt-1.5 text-[13px] font-medium tracking-[0.1em] uppercase whitespace-nowrap shrink-0 transition-colors hover:bg-brand-ink hover:text-white"
             >
               {switchCta.label}
               <span aria-hidden="true" className="text-[14px]">↗</span>
@@ -97,7 +97,7 @@ export function FaqPageItem({
         </div>
       </div>
       <div className="px-[var(--page-x)] pt-[clamp(16px,1.7vw,24px)]">
-        <div aria-hidden="true" className="h-px bg-artdus-black" />
+        <div aria-hidden="true" className="h-px bg-brand-ink" />
       </div>
 
       <div className="px-[var(--page-x)] pt-5 pb-[clamp(24px,2.8vw,40px)] flex gap-3 flex-wrap">
@@ -114,7 +114,7 @@ export function FaqPageItem({
                   <span className="text-[17px] font-medium leading-[1.35]">{f.q}</span>
                   <span
                     aria-hidden="true"
-                    className="w-6 h-6 bg-artdus-lime text-artdus-black inline-flex items-center justify-center text-[17px] font-medium shrink-0 group-open:rotate-45 transition-transform"
+                    className="w-6 h-6 bg-brand-accent text-brand-ink inline-flex items-center justify-center text-[17px] font-medium shrink-0 group-open:rotate-45 transition-transform"
                   >
                     +
                   </span>

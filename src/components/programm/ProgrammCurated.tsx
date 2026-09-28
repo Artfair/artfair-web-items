@@ -19,7 +19,7 @@ export function ProgrammCurated({lang}: {lang: 'de' | 'en'}) {
           extra: (
             <p className="text-[15px] leading-[1.62] text-neutral-600 mt-4">
               {de ? 'Kuratiert von ' : 'Curated by '}
-              <span className="font-medium text-artdus-black">Pola van den Hövel</span>.
+              <span className="font-medium text-brand-ink">Pola van den Hövel</span>.
             </p>
           ),
         },
@@ -33,9 +33,9 @@ export function ProgrammCurated({lang}: {lang: 'de' | 'en'}) {
               {de
                 ? 'Zuletzt mit dem anonymous art project, Tokio (kuratiert von '
                 : 'Most recently with the anonymous art project, Tokyo (curated by '}
-              <span className="font-medium text-artdus-black">Eriko Kimura</span>
+              <span className="font-medium text-brand-ink">Eriko Kimura</span>
               {de ? ') und J. Park. The Art of Noise, Daegu (kuratiert von ' : ') and J. Park. The Art of Noise, Daegu (curated by '}
-              <span className="font-medium text-artdus-black">Gregor Jansen</span>).
+              <span className="font-medium text-brand-ink">Gregor Jansen</span>).
             </p>
           ),
         },
