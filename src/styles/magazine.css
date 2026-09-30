@@ -741,6 +741,75 @@
   border: none;
 }
 
+/* Abbinder „Die Sammlung erleben" — abgesetzter Kasten am Interview-Ende:
+   Lime-Chip als Label, Orte als Karten (Grid), Name in der Magazin-Serife,
+   Enddatum als Outline-Pille. Markup kommt als htmlBlock aus Webby:
+   .mag-venues > p.__label + p.__item (span.__name/__addr/__date + a). */
+.mag-venues {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 2.25rem;
+  background: #efdfe5; /* Soft-Rosé, wie der Gräfling-Block im Content-Newsletter */
+  padding: 2.1rem 1.75rem 1.9rem;
+  margin: 3.5rem 0 1rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+.mag-venues__label {
+  position: absolute;
+  top: 0;
+  left: 1.4rem;
+  transform: translateY(-50%);
+  background: var(--mag-accent, #e7fa31);
+  color: var(--mag-accent-ink, #0d0c0b);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 0.5em 1.1em;
+  border-radius: var(--radius-pill, 100px);
+  margin: 0;
+}
+.mag-venues__item {
+  margin: 0;
+}
+.mag-venues__name {
+  display: block;
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.4rem;
+}
+.mag-venues__addr {
+  display: block;
+  color: var(--color-muted);
+  font-size: 0.82rem;
+  margin-bottom: 0.9rem;
+}
+.mag-venues__date {
+  display: inline-block;
+  border: 1px solid var(--color-line, rgba(13, 12, 11, 0.18));
+  border-radius: var(--radius-pill, 100px);
+  padding: 0.25em 0.9em;
+  font-size: 0.74rem;
+  letter-spacing: 0.03em;
+  color: var(--color-muted);
+  margin-top: 0.75rem;
+}
+.mag-venues a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--mag-accent, #e7fa31);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+@media (max-width: 640px) {
+  .mag-venues { grid-template-columns: 1fr; }
+}
+
 /* Zurück-Link */
 .mag-art__back {
   display: inline-block;
