@@ -741,10 +741,13 @@
   border: none;
 }
 
-/* Abbinder „Die Sammlung erleben" — abgesetzter Kasten am Interview-Ende:
-   Lime-Chip als Label, Orte als Karten (Grid), Name in der Magazin-Serife,
-   Enddatum als Outline-Pille. Markup kommt als htmlBlock aus Webby:
-   .mag-venues > p.__label + p.__item (span.__name/__addr/__date + a). */
+/* Abbinder „Ausstellungen" (z. B. „Die Sammlung erleben") — abgesetzter
+   Kasten am Artikel-Ende: Lime-Chip als Label, Orte als Karten (Grid), Name
+   in der Magazin-Serife, Enddatum als Outline-Pille. Markup kommt aus dem
+   geteilten MagVenuesItem (components/items/MagVenuesItem.tsx); AD27 füllt
+   es über den Body-Block `venuesBlock`:
+   .mag-venues > p.__label + p.__item
+     (span.__name/__addr + span.__link > a + span.__date). */
 .mag-venues {
   position: relative;
   display: grid;
@@ -788,6 +791,9 @@
   color: var(--color-muted);
   font-size: 0.82rem;
   margin-bottom: 0.9rem;
+}
+.mag-venues__link {
+  display: block; /* Link auf eigener Zeile — die Datums-Pille rutscht darunter */
 }
 .mag-venues__date {
   display: inline-block;
