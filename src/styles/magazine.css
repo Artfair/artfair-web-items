@@ -642,6 +642,7 @@
   line-height: 1.45;
   color: var(--color-ink);
   font-weight: 400;
+  font-style: italic; /* Unterzeile immer kursiv (Annalena 30.9.2026) */
   margin: 0 0 1.5rem;
   opacity: 0.75;
 }
