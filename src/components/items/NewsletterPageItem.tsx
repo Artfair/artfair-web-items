@@ -2,6 +2,7 @@
 
 import {useId, useState} from 'react'
 import {BotShieldFields} from '../BotShieldFields'
+import type { Lang } from '../../lib/sections';
 
 // „Newsletter-Anmeldung" — die GANZE Landingpage als EIN Baukasten-Item (wie
 // AboutPageItem). Design-Handoff „Newsletter Landingpage" (11.8.2026), in die
@@ -242,7 +243,7 @@ export function NewsletterPageItem({
   emailPlaceholder: string
   submitLabel: string
   showLanguageToggle?: boolean // DE/EN-Pills (Newsletter-Sprache ≠ Seitensprache)
-  defaultLanguage: 'de' | 'en' // vorausgewählte Newsletter-Sprache = Seitensprache
+  defaultLanguage: Lang // vorausgewählte Newsletter-Sprache = Seitensprache
   consentText: string // DSGVO-Hinweis; der Datenschutz-Link wird angehängt
   privacyLabel: string
   privacyHref: string
@@ -275,7 +276,7 @@ export function NewsletterPageItem({
   quoteAttribution: string
 }) {
   const uid = useId()
-  const [language, setLanguage] = useState<'de' | 'en'>(defaultLanguage)
+  const [language, setLanguage] = useState<Lang>(defaultLanguage)
   const [done, setDone] = useState(false)
   const [sending, setSending] = useState(false)
   const [failed, setFailed] = useState(false)

@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { BotShieldFields } from "./BotShieldFields";
+import type { Lang } from '../lib/sections';
 
-type Lang = "de" | "en";
 
 // Newsletter-Anmeldung → POST /api/newsletter (Brevo, Double-Opt-in). Gleicher
 // Kontrakt wie das Formular der Newsletter-Anmeldeseite (NewsletterPageItem):

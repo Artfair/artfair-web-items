@@ -1,6 +1,7 @@
 'use client'
 
 import {useEffect, useState} from 'react'
+import type { Lang } from '../lib/sections';
 
 // „Danke"-Hinweis nach bestätigtem Double-Opt-in (Annalena 23.9.2026):
 // Der Bestätigungslink der Brevo-DOI-Mail leitet auf die Startseite mit
@@ -25,8 +26,8 @@ const COPY = {
   },
 } as const
 
-export function NewsletterConfirmedNotice({lang}: {lang: 'de' | 'en'}) {
-  const t = COPY[lang] ?? COPY.en
+export function NewsletterConfirmedNotice({lang}: {lang: Lang}) {
+  const t = COPY[lang as keyof typeof COPY] ?? COPY.en
   const [show, setShow] = useState(false)
 
   useEffect(() => {

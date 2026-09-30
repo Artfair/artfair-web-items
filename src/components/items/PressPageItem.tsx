@@ -5,6 +5,7 @@ import { useId, useState } from "react";
 import { INLINE_LINK_LIGHT, renderInlineLinks } from "../inlineLinks";
 import { BotShieldFields } from "../BotShieldFields";
 import { InfoHeaderItem } from "./InfoHeaderItem";
+import type { Lang } from '../../lib/sections';
 
 // „Presse-Seite" — die GANZE Presseseite als EIN Baukasten-Item (Muster
 // FaqPageItem/AboutPageItem). Löst die in AD27 fest verdrahtete Presse-Route
@@ -62,7 +63,7 @@ export interface PressContact {
 export interface PressSignup {
   heading: string; // z. B. „Presseverteiler."
   body?: string; // kurzer Text über dem Formular
-  language: "de" | "en"; // geht als FormData-Feld mit (Brevo-Attribut LANGUAGE)
+  language: Lang; // geht als FormData-Feld mit (Brevo-Attribut LANGUAGE)
   namePlaceholder: string; // z. B. „Name"
   emailPlaceholder: string;
   mediumPlaceholder: string; // z. B. „Medium/Redaktion"

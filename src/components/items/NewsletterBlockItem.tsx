@@ -1,4 +1,5 @@
 import NewsletterForm from "../NewsletterForm";
+import type { Lang } from '../../lib/sections';
 
 // Baukasten-Item „Newsletter" — zentrierter Block mit Überschrift, Text und
 // dem festen Anmeldeformular. 1:1 aus der Startseite herausgelöst. Das Formular
@@ -9,7 +10,7 @@ export function NewsletterBlockItem({
   title,
   body,
 }: {
-  lang: "de" | "en";
+  lang: Lang;
   title: string;
   body: string;
 }) {

@@ -1,11 +1,12 @@
 import {TalksScheduleItem} from '../items/TalksScheduleItem'
 import {withBase} from '../../lib/assets'
+import type { Lang } from '../../lib/sections';
 
 // Talks-Fahrplan (Programm) — fest im Code gepflegter Riegel: das komplette
 // Talkprogramm 2027 (drei Tage, Speaker, Zeiten). Bewusst NICHT im Baukasten
 // editierbar („Fahrplan im Code"); wird im Hybrid als Slot eingehängt und im
 // Code-Fallback direkt gerendert.
-export function ProgrammSchedule({lang, assetBase = ''}: {lang: 'de' | 'en'; assetBase?: string}) {
+export function ProgrammSchedule({lang, assetBase = ''}: {lang: Lang; assetBase?: string}) {
   const de = lang === 'de'
   const a = (p: string) => withBase(p, assetBase)
   return (

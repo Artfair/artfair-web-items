@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { withBase } from "../lib/assets";
+import type { Lang } from '../lib/sections';
 
-type Lang = "de" | "en";
 
 interface Msg {
   role: "user" | "assistant";
@@ -56,7 +56,7 @@ const DICT = {
 // Scrollen, einklappbarer Lime-Tab, Chat-Panel. Antworten von /api/ask.
 // `assetBase` löst Bild + API-Adresse auf (leer = lokal in AD27).
 export default function AskArtDus({ lang, assetBase = "" }: { lang: Lang; assetBase?: string }) {
-  const t = DICT[lang];
+  const t = DICT[lang as keyof typeof DICT] ?? DICT.en;
   const [chatOpen, setChatOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [collapsed, setCollapsed] = useState(false);

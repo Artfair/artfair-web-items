@@ -11,6 +11,7 @@
 // oft deaktiviert). Zusätzlich +/−-Knöpfe und Schließen per × oder Escape.
 
 import { useEffect, useRef, useState } from 'react'
+import type { Lang } from '../../lib/sections';
 
 const MIN_ZOOM = 1
 const MAX_ZOOM = 5
@@ -37,9 +38,9 @@ export function FairPlanItem({
   planSrc: string
   planAlt: string
   link?: { label: string; href: string }
-  lang?: 'de' | 'en' // nur für die Beschriftungen der Vollbild-Ansicht
+  lang?: Lang // nur für die Beschriftungen der Vollbild-Ansicht
 }) {
-  const t = T[lang]
+  const t = T[lang as keyof typeof T] ?? T.en
   const [open, setOpen] = useState(false)
   const [zoom, setZoom] = useState(1)
   const scrollRef = useRef<HTMLDivElement>(null)

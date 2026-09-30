@@ -22,6 +22,7 @@ import {
   type ArchiveSectionKey,
   type ArchiveThemeKey,
 } from '../../lib/exhibitors2026'
+import { loc, type Lang } from '../../lib/sections';
 
 // Führende Artikel/Gattungswörter fallen für die Einsortierung weg (wie im
 // Galerien-Index des Konsumenten).
@@ -39,7 +40,7 @@ function groupLetter(e: ArchiveExhibitor): string {
   return /[A-Z]/.test(c) ? c : '#'
 }
 
-function countryName(iso: string, lang: 'de' | 'en'): string {
+function countryName(iso: string, lang: Lang): string {
   try {
     return new Intl.DisplayNames([lang], { type: 'region' }).of(iso) ?? iso
   } catch {
@@ -85,13 +86,13 @@ export function ExhibitorArchiveItem({
   intro,
 }: {
   id?: string
-  lang: 'de' | 'en'
+  lang: Lang
   edition?: string // Schlüssel in ARCHIVE_EDITIONS; weitere Jahrgänge ergänzbar
   eyebrow?: string // Default „Ausstellerliste"/„Exhibitor list"
   title?: string // Default „Galerien 2026."/„Galleries 2026."
   intro?: string // optionale Einordnung unter dem Kopf
 }) {
-  const t = T[lang]
+  const t = T[lang as keyof typeof T] ?? T.en
   const data = ARCHIVE_EDITIONS[edition]
   const [sec, setSec] = useState<ArchiveSectionKey | null>(null)
   const [theme, setTheme] = useState<ArchiveThemeKey | null>(null)
@@ -170,7 +171,7 @@ export function ExhibitorArchiveItem({
     <>
       {pill(t.all, sec === null, () => setSec(null), 'sec-all')}
       {data.sections.map((s) =>
-        pill(s.label[lang], sec === s.key, () => setSec(sec === s.key ? null : s.key), s.key),
+        pill(loc(s.label, lang), sec === s.key, () => setSec(sec === s.key ? null : s.key), s.key),
       )}
     </>
   )
@@ -362,7 +363,7 @@ export function ExhibitorArchiveItem({
                                 style={{ backgroundColor: meta.color }}
                               />
                               <span className="text-[10px] font-medium tracking-[0.14em] uppercase">
-                                {meta.label[lang]}
+                                {loc(meta.label, lang)}
                               </span>
                             </span>
                           )

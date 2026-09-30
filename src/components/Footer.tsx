@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import Logo, { type Wortmarke } from "./Logo";
 import { localizeHref } from "../lib/slugs";
 import type { NavItem } from "../lib/navigation";
+import { loc, langFromPath, type Lang } from '../lib/sections';
 
 // Social-Ziele — identisch zur „Folgen"-Liste im Mega-Menü.
 const SOCIALS = [
@@ -63,24 +64,39 @@ const LINKS = {
 export default function Footer({
   nav,
   marke,
+  langs = ["de", "en"],
+  address = "art.fair International GmbH\nMaria-Hilf-Str. 9\n50677 Köln",
+  copyright = "© 2026 Art Düsseldorf",
+  socials = SOCIALS,
 }: {
   nav?: { items?: NavItem[] } | null;
   /** Eigene Wortmarke der Instanz; ohne sie der eingebaute Schriftzug. */
   marke?: Wortmarke | null;
+  /** Sprachen dieser Instanz, erste ist die Hauptsprache. */
+  langs?: readonly Lang[];
+  /** Anschrift im Fuß, mehrzeilig. Mandantendatei, nicht CMS. */
+  address?: string;
+  /** Zeile unten links. */
+  copyright?: string;
+  /** Social-Ziele mit ihren Symbolen; leere Liste blendet sie aus. */
+  socials?: typeof SOCIALS;
 }) {
   const pathname = usePathname();
-  const lang: "de" | "en" = pathname.startsWith("/en") ? "en" : "de";
+  const lang: Lang = langFromPath(pathname, langs[0]);
 
   // Footer-Links aus dem CMS (siteNavigation.footer); Fallback: feste Liste.
   const cmsLinks = (nav?.items ?? [])
-    .filter((i) => !i.hidden && i.href && (i.label?.de || i.label?.en))
+    .filter((i) => !i.hidden && i.href && loc(i.label, lang))
     .map((i) => ({
-      label: (i.label?.[lang] || i.label?.de || i.label?.en) as string,
+      label: loc(i.label, lang),
       href: i.href as string,
     }));
   const links = cmsLinks.length
     ? cmsLinks
-    : LINKS[lang].map((l) => ({ label: l.label as string, href: l.href as string }));
+    : (LINKS[lang as keyof typeof LINKS] ?? LINKS.en).map((l) => ({
+        label: l.label as string,
+        href: l.href as string,
+      }));
 
   // Interne Links: Sprache präfigieren + deutsche Slugs (lib/site/slugs.ts).
   const withLang = (href: string) => localizeHref(href, lang);
@@ -97,7 +113,7 @@ export default function Footer({
           <div className="col-span-3 md:col-span-1 flex flex-col gap-6">
             <Logo marke={marke} className="text-white h-4 w-auto self-start" />
             <div className="text-[13px] leading-[1.7] text-neutral-400 whitespace-pre-line">
-              {"art.fair International GmbH\nMaria-Hilf-Str. 9\n50677 Köln"}
+              {address}
             </div>
           </div>
           {/* Link-Spalten à zwei Einträge */}
@@ -116,9 +132,9 @@ export default function Footer({
           ))}
         </div>
         <div className="border-t border-white/15 mt-[clamp(32px,4vw,56px)] pt-5 flex items-center justify-between gap-4">
-          <span className="text-xs text-neutral-400">© 2026 Art Düsseldorf</span>
+          <span className="text-xs text-neutral-400">{copyright}</span>
           <div className="flex items-center gap-5">
-            {SOCIALS.map((s) => (
+            {socials.map((s) => (
               <a
                 key={s.label}
                 href={s.href}

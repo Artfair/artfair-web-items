@@ -3,7 +3,7 @@
 import {useState} from 'react'
 import Logo from '../Logo'
 import {renderInlineLinks} from '../inlineLinks'
-import {loc, type Loc} from '../../lib/sections'
+import { loc, type Lang, type Loc } from '../../lib/sections';
 
 // „Linkseite" (LinkHubItem) — Linktree-artige Unterseite für die Instagram-Bio.
 // Design-Handoff „Instagram Linktree" (27.8.2026), umgesetzt als Variante A
@@ -60,7 +60,7 @@ export function LinkHubItem({
   footerNote,
 }: {
   id?: string
-  lang?: 'de' | 'en' // Startsprache (aus der Route); danach wechselt der Umschalter
+  lang?: Lang // Startsprache (aus der Route); danach wechselt der Umschalter
   imageSrc?: string // Foto-Bühne (4:3); ohne Foto steht die Wortmarke frei
   imageAlt?: string
   dateLine?: Loc // z. B. „9 – 11 April 2027"
@@ -72,7 +72,7 @@ export function LinkHubItem({
   credits?: LinkHubCredit[] // Textblöcke; leer = Sektion entfällt
   footerNote?: Loc // Default „© Art Düsseldorf"
 }) {
-  const [l, setL] = useState<'de' | 'en'>(lang)
+  const [l, setL] = useState<Lang>(lang)
 
   const pill = (link: LinkHubLink, i: number) => {
     const label = loc(link.label, l)
@@ -89,7 +89,7 @@ export function LinkHubItem({
     )
   }
 
-  const langButton = (code: 'de' | 'en') => (
+  const langButton = (code: Lang) => (
     <button
       key={code}
       type="button"

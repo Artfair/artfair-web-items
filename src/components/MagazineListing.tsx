@@ -1,4 +1,5 @@
 import React from 'react'
+import type { Lang } from '../lib/sections';
 
 // Vollständige Magazin-LISTENSEITE als geteilte Anzeige-Komponente (Schrank).
 // Rein präsentational: Daten kommen als Props (fertige Karten). Nutzt die
@@ -117,7 +118,7 @@ export function MagazineListing({
   quote,
   chrome = true,
 }: {
-  lang: 'de' | 'en'
+  lang: Lang
   heading?: string
   intro?: string | null
   pills?: MagListPill[]

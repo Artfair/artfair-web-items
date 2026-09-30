@@ -2,6 +2,7 @@
 
 import {useEffect, useRef, useState} from 'react'
 import {BotShieldFields} from '../BotShieldFields'
+import type { Lang } from '../../lib/sections';
 
 // Baukasten-Item „Newsletter-Popup" (INSIDE ART DÜSSELDORF) — scrollausgelöstes
 // Anmelde-Overlay nach Agentur-Handoff 18.9.2026 (Optik/Copy abgenommen: Lime-
@@ -79,7 +80,7 @@ const COPY = {
 } as const
 
 export interface NewsletterPopupProps {
-  lang: 'de' | 'en'
+  lang: Lang
   eyebrow?: string
   headline?: string
   body?: string
@@ -99,7 +100,7 @@ export function NewsletterPopupItem({
   action = '/api/newsletter',
   privacyHref,
 }: NewsletterPopupProps) {
-  const t = COPY[lang] ?? COPY.en
+  const t = COPY[lang as keyof typeof COPY] ?? COPY.en
   const privacy = privacyHref ?? `/${lang}/datenschutz`
 
   const [open, setOpen] = useState(false) // im DOM

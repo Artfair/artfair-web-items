@@ -1,11 +1,12 @@
 import {NumberedBlocksItem} from '../items/NumberedBlocksItem'
 import {localizeHref} from '../../lib/slugs'
 import {withBase} from '../../lib/assets'
+import type { Lang } from '../../lib/sections';
 
 // Art Walks (Programm) — fest im Code gepflegter Riegel: Messeführungen +
 // private Führungen mit Preis-Tabelle und Kontakt. Wird sowohl im Baukasten-
 // Hybrid (als Slot) als auch im Code-Fallback der Programm-Seite verwendet.
-export function ProgrammArtWalks({lang, assetBase = ''}: {lang: 'de' | 'en'; assetBase?: string}) {
+export function ProgrammArtWalks({lang, assetBase = ''}: {lang: Lang; assetBase?: string}) {
   const de = lang === 'de'
   const a = (p: string) => withBase(p, assetBase)
   return (

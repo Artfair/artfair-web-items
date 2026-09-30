@@ -6,6 +6,7 @@ import { useState } from "react";
 import { localizeHref } from "../lib/slugs";
 import Logo, { type Wortmarke } from "./Logo";
 import type { SiteNav, NavItem } from "../lib/navigation";
+import { loc, langFromPath, type Lang, type Loc } from '../lib/sections';
 
 // Mega-Menü-Inhalte (Design-Handoff, Variante B), DE/EN
 const MENU = {
@@ -150,16 +151,19 @@ export default function Header({
   magazineTeaser,
   nav,
   marke,
+  langs = ["de", "en"],
 }: {
-  magazineTeaser?: { de: MagazineTeaser | null; en: MagazineTeaser | null };
+  magazineTeaser?: Partial<Record<string, MagazineTeaser | null>>;
   nav?: SiteNav | null;
   /** Eigene Wortmarke der Instanz; ohne sie der eingebaute Schriftzug. */
   marke?: Wortmarke | null;
+  /** Sprachen dieser Instanz, erste ist die Hauptsprache. */
+  langs?: readonly Lang[];
 }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-  const lang: "de" | "en" = pathname.startsWith("/en") ? "en" : "de";
-  const t = MENU[lang];
+  const lang: Lang = langFromPath(pathname, langs[0]);
+  const t = MENU[lang as keyof typeof MENU] ?? MENU.en;
 
   // Magazin-Teaser folgt dem Magazin-Menüpunkt: Steht der Link im CMS-Menü
   // (Webby-Schrank) auf hidden — oder fehlt er ganz —, verschwindet auch die
@@ -178,10 +182,10 @@ export default function Header({
   // fest hinterlegten Menüs. hidden-Punkte (live/hidden-Schalter in Webby)
   // werden herausgefiltert.
   type MenuList = { head: string; href?: string; items: { label: string; href: string }[] };
-  const pickL = (f?: { de?: string; en?: string }) => f?.[lang] || f?.de || f?.en || "";
+  const pickL = (f?: Loc) => loc(f, lang);
   const visible = (items?: NavItem[]) =>
     (items ?? [])
-      .filter((i) => !i.hidden && i.href && (i.label?.de || i.label?.en))
+      .filter((i) => !i.hidden && i.href && pickL(i.label))
       .map((i) => ({ label: pickL(i.label), href: i.href as string }));
 
   const cols: MenuList[] = nav?.cols?.length
@@ -236,17 +240,17 @@ export default function Header({
   // Externe Links (http/https) öffnen in neuem Tab; interne bleiben SPA-Links.
   const isExternal = (href: string) => /^https?:\/\//.test(href);
 
-  // Sprachwechsel: "/" ↔ "/en" für die Startseite, /de/… ↔ /en/… für
-  // sprach-präfigierte Routen; übrige (deutsch-only) Seiten → EN-Startseite.
-  const langHref = (target: "de" | "en") => {
-    const m = pathname.match(/^\/(de|en)(\/.*)?$/);
+  // Sprachwechsel: Die Hauptsprache wohnt auf "/", jede weitere unter ihrem
+  // Kürzel. /de/… ↔ /en/… für sprach-präfigierte Routen; Seiten ohne Präfix
+  // wechseln auf die Startseite der Zielsprache.
+  const langHref = (target: Lang) => {
+    const m = pathname.match(/^\/([a-z]{2})(\/.*)?$/);
     if (m) {
       const rest = m[2] ?? "";
-      if (rest === "") return target === "de" ? "/" : "/en";
+      if (rest === "") return target === langs[0] ? "/" : `/${target}`;
       return `/${target}${rest}`;
     }
-    if (target === "de") return pathname || "/";
-    return pathname === "/" ? "/en" : "/en";
+    return target === langs[0] ? pathname || "/" : `/${target}`;
   };
 
   // Interne Menü-Links: Sprache präfigieren + deutsche Slugs übersetzen
@@ -255,35 +259,30 @@ export default function Header({
 
   const close = () => setMenuOpen(false);
 
+  // Ein Knopf je Sprache der Instanz — bei zwei Sprachen sieht die Pille aus
+  // wie zuvor (DE|EN), bei einer japanischen Messe steht EN|JA darin.
   const langPill = (
     <div className="inline-flex items-center border border-brand-ink rounded-full overflow-hidden">
-      <Link
-        href={langHref("de")}
-        onClick={close}
-        aria-current={lang === "de" ? "true" : undefined}
-        className={`px-[15px] py-[7px] text-xs font-semibold tracking-[0.08em] transition-colors ${
-          lang === "de" ? "bg-brand-ink text-white" : "text-neutral-600 hover:text-brand-ink"
-        }`}
-      >
-        DE
-      </Link>
-      <Link
-        href={langHref("en")}
-        onClick={close}
-        aria-current={lang === "en" ? "true" : undefined}
-        className={`px-[15px] py-[7px] text-xs font-semibold tracking-[0.08em] transition-colors ${
-          lang === "en" ? "bg-brand-ink text-white" : "text-neutral-600 hover:text-brand-ink"
-        }`}
-      >
-        EN
-      </Link>
+      {langs.map((code) => (
+        <Link
+          key={code}
+          href={langHref(code)}
+          onClick={close}
+          aria-current={lang === code ? "true" : undefined}
+          className={`px-[15px] py-[7px] text-xs font-semibold tracking-[0.08em] transition-colors ${
+            lang === code ? "bg-brand-ink text-white" : "text-neutral-600 hover:text-brand-ink"
+          }`}
+        >
+          {code.toUpperCase()}
+        </Link>
+      ))}
     </div>
   );
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-brand-line text-brand-ink">
       <div className="w-full h-full flex items-center justify-between px-[var(--page-x)]">
-        <Link href={lang === "en" ? "/en" : "/"} className="flex items-center" onClick={close}>
+        <Link href={lang === langs[0] ? "/" : `/${lang}`} className="flex items-center" onClick={close}>
           <Logo marke={marke} className="text-brand-ink h-4 md:h-6 w-auto" />
         </Link>
 

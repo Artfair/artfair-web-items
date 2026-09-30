@@ -15,7 +15,15 @@
 // die Zwischenheadline „Kontakt & Team"; diese Felder sind @deprecated.
 // ─────────────────────────────────────────────────────────────────────────
 
-export type Loc = { de?: string; en?: string };
+// Sprachkürzel (ISO 639-1). Welche Sprachen eine Instanz führt, entscheidet
+// der Mandant — das Paket legt sich nicht auf Deutsch/Englisch fest.
+export type Lang = string;
+
+// Ein übersetztes Feld: Sprachkürzel → Text. Die Art Düsseldorf füllt „de"
+// und „en", eine japanische Messe „en" und „ja" — beides sind gültige Loc.
+export type Loc = { de?: string; en?: string } & {
+  [lang: string]: string | undefined;
+};
 
 export interface ImageRef {
   _ref?: string; // Sanity-Asset-ID
@@ -347,6 +355,18 @@ export interface TalksScheduleSection {
 // ── Seiten-Header-Bausteine (Header-System, Typ 2) ──────────────────────────
 
 // 19 — Hero-Bühne (HeroStageItem, Typ 2a) — trägt die H1, pro Seite max. einmal
+// 19b — Bildkarussell (HeroCarouselItem) — ganzflächige Bilder OHNE Text.
+// Für Messen, deren Auftakt allein aus Bildern besteht. Trägt KEINE H1 —
+// die Seite muss ihre Überschrift weiter unten tragen.
+export interface HeroCarouselSection {
+  _key: string;
+  _type: "heroCarousel";
+  anchor?: string;
+  images?: ImageRef[];
+  /** Wechseltakt in Millisekunden; 0 schaltet den Wechsel ab. */
+  intervalMs?: number;
+}
+
 export interface HeroStageSection {
   _key: string;
   _type: "heroStage";
@@ -924,6 +944,7 @@ export type Section =
   | PartnerFeatureSection
   | TalksScheduleSection
   | HeroStageSection
+  | HeroCarouselSection
   | PartnerHeroSection
   | SalesHeroSection
   | InfoHeaderSection
@@ -939,8 +960,33 @@ export type Section =
 
 export type SectionType = Section["_type"];
 
-// Sprachwahl mit Rückfall (identisch zu sanity.ts#pick).
-export function loc(field: Loc | undefined, lang: "de" | "en"): string {
+// Sprachwahl mit Rückfall.
+//
+// Erst die gewünschte Sprache, dann die beiden Sprachen der ersten Instanz
+// (Deutsch, Englisch) — so verhält sich die Art Düsseldorf unverändert —,
+// zuletzt irgendeine gepflegte Fassung. Der letzte Schritt ist das, was eine
+// Messe mit anderen Sprachen (etwa Englisch/Japanisch) rettet: sie fällt auf
+// ihre eigene Zweitsprache zurück statt auf einen leeren String.
+export function loc(field: Loc | undefined, lang: Lang): string {
   if (!field) return "";
-  return field[lang] || field.de || field.en || "";
+  const treffer = field[lang] || field.de || field.en;
+  if (treffer) return treffer;
+  // Nur echte Sprachschlüssel durchsuchen: Sanity legt in denselben Objekten
+  // auch `_type`/`_key` ab — die dürfen niemals als Text auf der Seite landen.
+  for (const [schluessel, wert] of Object.entries(field)) {
+    if (wert && /^[a-z]{2}$/.test(schluessel)) return wert;
+  }
+  return "";
+}
+
+// Sprache aus dem Pfad lesen: „/en/visit" → „en", „/ja" → „ja". Ohne
+// erkennbares Zwei-Buchstaben-Präfix gilt die Hauptsprache der Instanz.
+// Ersetzt das frühere `pathname.startsWith("/en") ? "en" : "de"` in Header
+// und Footer, das jede dritte Sprache stumm zu Deutsch gemacht hätte.
+export function langFromPath(
+  pathname: string | null | undefined,
+  standard: Lang = "de",
+): Lang {
+  const m = (pathname ?? "").match(/^\/([a-z]{2})(?:\/|$)/);
+  return m ? m[1] : standard;
 }

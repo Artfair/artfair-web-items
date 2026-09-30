@@ -21,6 +21,7 @@ import { NewsletterPopupItem } from "./items/NewsletterPopupItem";
 import { PartnerFeatureItem } from "./items/PartnerFeatureItem";
 import { TalksScheduleItem } from "./items/TalksScheduleItem";
 import { HeroStageItem } from "./items/HeroStageItem";
+import { HeroCarouselItem } from "./items/HeroCarouselItem";
 import { PartnerHeroItem } from "./items/PartnerHeroItem";
 import { SalesHeroItem } from "./items/SalesHeroItem";
 import { InfoHeaderItem } from "./items/InfoHeaderItem";
@@ -39,6 +40,7 @@ import { Fragment } from "react";
 import {
   loc,
   type Cta,
+  type Lang,
   type ImageRef,
   type Loc,
   type Section,
@@ -48,7 +50,6 @@ import {
 import { localizeHref } from "../lib/slugs";
 import { withBase } from "../lib/assets";
 
-type Lang = "de" | "en";
 
 // Feste, im Code gepflegte Riegel (z. B. der Talks-Fahrplan). Diese Abschnitte
 // tragen im CMS nur einen Marker (Typ + _key), ihr Inhalt kommt als fertiger
@@ -635,6 +636,21 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           secondaryCta={resolveCta(s.secondaryCta, lang)}
           imageSrc={image}
           imageAlt={s.image?.alt ?? ""}
+        />
+      );
+    }
+
+    case "heroCarousel": {
+      const bilder = (s.images ?? [])
+        .map((b) => ({ src: img(b, 2200), alt: b.alt ?? "" }))
+        .filter((b) => b.src);
+      if (!bilder.length) return null;
+      return (
+        <HeroCarouselItem
+          key={s._key}
+          id={s.anchor}
+          images={bilder}
+          intervalMs={s.intervalMs}
         />
       );
     }

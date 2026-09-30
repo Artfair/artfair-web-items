@@ -1,9 +1,10 @@
 import {NumberedBlocksItem} from '../items/NumberedBlocksItem'
+import type { Lang } from '../../lib/sections';
 
 // Kuratierte Bereiche (Programm) — fest im Code gepflegter Riegel: Fragile
 // Realities / International Practices inkl. Kurator*innen-Nennungen. Wird im
 // Baukasten-Hybrid als Slot eingehängt und im Code-Fallback direkt gerendert.
-export function ProgrammCurated({lang}: {lang: 'de' | 'en'}) {
+export function ProgrammCurated({lang}: {lang: Lang}) {
   const de = lang === 'de'
   return (
     <NumberedBlocksItem

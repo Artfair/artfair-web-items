@@ -26,20 +26,35 @@ export const DE_SLUGS: Record<string, string> = {
   imprint: "impressum",
 };
 
-// Interne Links mit Sprache präfigieren und für Deutsch den Slug übersetzen.
+// Slug-Verzeichnis je Sprache: Sprachkürzel → (kanonischer Slug → lokaler).
+// Sprachen ohne Eintrag behalten die kanonischen englischen Slugs — das gilt
+// für Englisch selbst und für jede Sprache, die keine eigenen Wege braucht.
+export type SlugMap = Record<string, Record<string, string>>;
+
+// Standard ist das Verzeichnis der Art Düsseldorf. Eine andere Messe reicht
+// ihr eigenes als dritten Parameter durch (oder gar keins).
+export const DEFAULT_SLUG_MAP: SlugMap = { de: DE_SLUGS };
+
+// Interne Links mit Sprache präfigieren und den Slug in die Sprache übersetzen.
 // Anker, mailto und externe URLs bleiben unberührt; bereits sprach-
 // präfigierte Links werden nicht doppelt präfigiert (aber noch übersetzt).
-export function localizeHref(href: string, lang: "de" | "en"): string {
+export function localizeHref(
+  href: string,
+  lang: string,
+  slugs: SlugMap = DEFAULT_SLUG_MAP,
+): string {
   if (/^(mailto:|tel:|https?:|#)/.test(href)) return href;
   if (href.startsWith("/#")) return `/${lang}${href.slice(1)}`;
 
-  // ggf. vorhandenes Sprachpräfix abtrennen
-  const prefixed = href.match(/^\/(de|en)(\/.*|#.*|)$/);
+  // ggf. vorhandenes Sprachpräfix abtrennen — jedes Zwei-Buchstaben-Kürzel,
+  // nicht nur de/en, sonst bliebe „/ja/visit" beim Umschalten kleben.
+  const prefixed = href.match(/^\/([a-z]{2})(\/.*|#.*|)$/);
   const path = prefixed ? prefixed[2] || "/" : href;
 
-  if (lang === "de") {
+  const verzeichnis = slugs[lang];
+  if (verzeichnis) {
     const m = path.match(/^\/([^/#?]+)(.*)$/);
-    if (m && DE_SLUGS[m[1]]) return `/de/${DE_SLUGS[m[1]]}${m[2]}`;
+    if (m && verzeichnis[m[1]]) return `/${lang}/${verzeichnis[m[1]]}${m[2]}`;
   }
   return `/${lang}${path === "/" ? "" : path}`;
 }
