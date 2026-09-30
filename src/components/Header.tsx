@@ -435,7 +435,7 @@ export default function Header({
                     // eslint-disable-next-line @next/next/no-img-element
                     // Fokus oben statt mittig: der 4:3-Kasten schneidet Hochformat-
                     // Bilder sonst so, dass Gesichter (oberes Drittel) verloren gehen.
-                    <img src={teaser.imageUrl} alt={teaser.title} className="w-full h-full object-cover object-[50%_25%]" />
+                    <img src={teaser.imageUrl} alt={teaser.title} className="w-full h-full object-cover object-center" />
                   )}
                 </Link>
                 {teaser.meta && (
