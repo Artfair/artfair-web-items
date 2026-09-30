@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { localizeHref } from "../lib/slugs";
-import Logo from "./Logo";
+import Logo, { type Wortmarke } from "./Logo";
 import type { SiteNav, NavItem } from "../lib/navigation";
 
 // Mega-Menü-Inhalte (Design-Handoff, Variante B), DE/EN
@@ -149,9 +149,12 @@ export interface MagazineTeaser {
 export default function Header({
   magazineTeaser,
   nav,
+  marke,
 }: {
   magazineTeaser?: { de: MagazineTeaser | null; en: MagazineTeaser | null };
   nav?: SiteNav | null;
+  /** Eigene Wortmarke der Instanz; ohne sie der eingebaute Schriftzug. */
+  marke?: Wortmarke | null;
 }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -281,7 +284,7 @@ export default function Header({
     <header className="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-brand-line text-brand-ink">
       <div className="w-full h-full flex items-center justify-between px-[var(--page-x)]">
         <Link href={lang === "en" ? "/en" : "/"} className="flex items-center" onClick={close}>
-          <Logo className="text-brand-ink h-4 md:h-6 w-auto" />
+          <Logo marke={marke} className="text-brand-ink h-4 md:h-6 w-auto" />
         </Link>
 
         <div className="flex items-center gap-[18px]">
@@ -319,7 +322,7 @@ export default function Header({
               <span aria-hidden className="justify-self-start" />
             )}
             <Link href={lang === "en" ? "/en" : "/"} onClick={close}>
-              <Logo className="text-brand-ink h-4 md:h-6 w-auto" />
+              <Logo marke={marke} className="text-brand-ink h-4 md:h-6 w-auto" />
             </Link>
             <div className="justify-self-end flex items-center gap-3 md:gap-[22px]">
               <span className="hidden sm:block">{langPill}</span>

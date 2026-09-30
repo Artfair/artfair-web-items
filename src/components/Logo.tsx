@@ -1,10 +1,28 @@
+export type Wortmarke = {
+  /** Fundstelle der hochgeladenen Datei (SVG, PNG, WebP). */
+  src: string;
+  /** Vorlesetext — üblicherweise der Name der Messe. */
+  alt: string;
+};
+
 type Props = {
   className?: string;
+  /**
+   * Eigene Wortmarke dieser Instanz. Fehlt sie, erscheint der eingebaute
+   * Schriftzug — der ist die Wortmarke von ART DÜSSELDORF und gehört damit
+   * NICHT einer anderen Messe. Eine zweite Messe muss hier etwas setzen.
+   */
+  marke?: Wortmarke | null;
 };
 
 // Original SVG-Lettermark aus art-dus.de — ART DÜSSELDORF Schriftzug
 // Original viewBox 220x22, fill auf currentColor gesetzt damit Tailwind text-* greift.
-export default function Logo({ className = "" }: Props) {
+export default function Logo({ className = "", marke }: Props) {
+  if (marke?.src) {
+    // Höhe kommt aus className (h-4 / h-6), Breite richtet sich danach.
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img src={marke.src} alt={marke.alt} className={className} />;
+  }
   return (
     <svg
       width="220"

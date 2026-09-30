@@ -31,7 +31,7 @@ export * from './components/items'
 export { default as Header, type MagazineTeaser } from './components/Header'
 export { default as Footer } from './components/Footer'
 export { default as Chrome } from './components/Chrome'
-export { default as Logo } from './components/Logo'
+export { default as Logo, type Wortmarke } from './components/Logo'
 export * from './lib/navigation' // SiteNav, NavItem, NavGroup, LocaleField
 
 // Custom-Items (einmal entwickelt, nicht als Riegel editierbar):

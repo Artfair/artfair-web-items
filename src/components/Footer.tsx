@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Logo from "./Logo";
+import Logo, { type Wortmarke } from "./Logo";
 import { localizeHref } from "../lib/slugs";
 import type { NavItem } from "../lib/navigation";
 
@@ -60,7 +60,14 @@ const LINKS = {
 
 // Dunkler Footer — Schwarz mit Lime-Akzentlinie, weiße Schrift.
 // Links in Zweier-Spalten: Tickets/Anreise · Presse/Kontakt · Impressum/Datenschutz.
-export default function Footer({ nav }: { nav?: { items?: NavItem[] } | null }) {
+export default function Footer({
+  nav,
+  marke,
+}: {
+  nav?: { items?: NavItem[] } | null;
+  /** Eigene Wortmarke der Instanz; ohne sie der eingebaute Schriftzug. */
+  marke?: Wortmarke | null;
+}) {
   const pathname = usePathname();
   const lang: "de" | "en" = pathname.startsWith("/en") ? "en" : "de";
 
@@ -88,7 +95,7 @@ export default function Footer({ nav }: { nav?: { items?: NavItem[] } | null }) 
         <div className="grid grid-cols-3 md:grid-cols-[1.6fr_1fr_1fr_1fr] gap-x-[clamp(16px,3vw,32px)] gap-y-10 items-start">
           {/* Spalte 1: Wortmarke + Adresse — mobil als eigene Zeile über den Links */}
           <div className="col-span-3 md:col-span-1 flex flex-col gap-6">
-            <Logo className="text-white h-4 w-auto self-start" />
+            <Logo marke={marke} className="text-white h-4 w-auto self-start" />
             <div className="text-[13px] leading-[1.7] text-neutral-400 whitespace-pre-line">
               {"art.fair International GmbH\nMaria-Hilf-Str. 9\n50677 Köln"}
             </div>
