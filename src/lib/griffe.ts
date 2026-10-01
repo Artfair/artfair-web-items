@@ -40,6 +40,13 @@ export interface Griff {
   name: string;
   /** Eine Zeile, wofür die Leiste gedacht ist. */
   hinweis: string;
+  /**
+   * Unter welcher Überschrift die Leiste in Webbys Menü „Abschnitt hinzufügen"
+   * steht — einer der Gruppentitel dort (z. B. „Kopf / Hero"). Ohne Angabe oder
+   * bei unbekanntem Titel landet sie unter „Weitere". Ohne Gruppe wäre eine neue
+   * Leiste zwar im Katalog, aber im Menü unauffindbar.
+   */
+  gruppe?: string;
   /** Die Fächer in der Reihenfolge, in der sie im Formular stehen. */
   faecher: Fach[];
   /** Startbefüllung einer neu eingelegten Leiste (ohne _key/_type). */
@@ -51,6 +58,7 @@ export const GRIFFE: Griff[] = [
     typ: "heroSplit",
     name: "Hero (Farb-Block + Medium)",
     hinweis: "Großer Kopf: Titel, Text, zwei Knöpfe, Video/Bild",
+    gruppe: "Kopf / Hero",
     faecher: [
       { art: "loc", feld: "eyebrow", label: "Kicker (kleine Zeile)" },
       { art: "loc", feld: "title", label: "Titel (Zeilenumbruch = neue Zeile)", mehrzeilig: true },
@@ -65,6 +73,7 @@ export const GRIFFE: Griff[] = [
     typ: "ctaBand",
     name: "CTA-Band (dunkel)",
     hinweis: "Dunkles Band: Text links, Foto rechts, ein Knopf",
+    gruppe: "Inhalt",
     faecher: [
       { art: "text", feld: "anchor", label: "Sprungmarke (optional)", platzhalter: "tickets" },
       { art: "loc", feld: "eyebrow", label: "Kicker" },
@@ -78,6 +87,7 @@ export const GRIFFE: Griff[] = [
     typ: "textCta",
     name: "Text + Knopf",
     hinweis: "Heller Abschnitt, optional Foto links",
+    gruppe: "Inhalt",
     faecher: [
       { art: "text", feld: "anchor", label: "Sprungmarke (optional)", platzhalter: "hotels" },
       { art: "loc", feld: "eyebrow", label: "Kicker" },
@@ -91,6 +101,7 @@ export const GRIFFE: Griff[] = [
     typ: "newsDate",
     name: "News + Datum",
     hinweis: "Heller Abschnitt, Datums-Kasten rechts (z. B. Bewerbungsfrist)",
+    gruppe: "Inhalt",
     faecher: [
       { art: "text", feld: "anchor", label: "Sprungmarke (optional)", platzhalter: "bewerbung" },
       { art: "loc", feld: "eyebrow", label: "Kicker" },
@@ -107,6 +118,7 @@ export const GRIFFE: Griff[] = [
     typ: "fairPlan",
     name: "Messeplan",
     hinweis: "Plan in voller Breite + Erläuterung",
+    gruppe: "Medien & Logos",
     faecher: [
       { art: "text", feld: "anchor", label: "Sprungmarke (optional)", platzhalter: "messeplan" },
       { art: "loc", feld: "eyebrow", label: "Kicker" },
@@ -120,6 +132,7 @@ export const GRIFFE: Griff[] = [
     typ: "exhibitorArchive",
     name: "Galerien-Archiv (Liste)",
     hinweis: "Galerienliste einer vergangenen Ausgabe — Daten fest im Paket, nur Kopfzeilen editierbar",
+    gruppe: "Ganze Seiten",
     faecher: [
       { art: "text", feld: "anchor", label: "Sprungmarke (optional)", platzhalter: "galerien" },
       { art: "text", feld: "edition", label: "Ausgabe (Edition)", platzhalter: "2026" },
@@ -132,6 +145,7 @@ export const GRIFFE: Griff[] = [
     typ: "welcomePanel",
     name: "Willkommen-Panel",
     hinweis: "Lime-Block mit Text neben Bild/Video",
+    gruppe: "Kopf / Hero",
     faecher: [
       { art: "loc", feld: "kicker", label: "Kicker (kleine Zeile)" },
       { art: "loc", feld: "title", label: "Überschrift (Zeilenumbruch erlaubt)", mehrzeilig: true },
@@ -144,6 +158,7 @@ export const GRIFFE: Griff[] = [
     typ: "magazineStrip",
     name: "Magazin-Streifen",
     hinweis: "Überschrift + „mehr\"-Link (Karten automatisch)",
+    gruppe: "Medien & Logos",
     faecher: [
       { art: "loc", feld: "title", label: "Überschrift" },
       { art: "loc", feld: "moreLabel", label: "Mehr-Link-Beschriftung" },
@@ -154,6 +169,7 @@ export const GRIFFE: Griff[] = [
     typ: "newsletter",
     name: "Newsletter",
     hinweis: "Überschrift + Text (Formular fix)",
+    gruppe: "Programm & Newsletter",
     faecher: [
       { art: "loc", feld: "title", label: "Überschrift" },
       { art: "loc", feld: "body", label: "Text", mehrzeilig: true },
@@ -163,6 +179,7 @@ export const GRIFFE: Griff[] = [
     typ: "newsletterPopup",
     name: "Newsletter-Popup",
     hinweis: "Scrollausgelöstes Anmelde-Overlay „INSIDE\" — Texte optional (leer = Standard-Copy), Foto 3:4",
+    gruppe: "Programm & Newsletter",
     faecher: [
       { art: "loc", feld: "headline", label: "Kleine Zeile oben (Standard: Get inside.)" },
       { art: "loc", feld: "eyebrow", label: "Große Zeile (Standard: INSIDE ART DÜSSELDORF)" },
@@ -174,6 +191,7 @@ export const GRIFFE: Griff[] = [
     typ: "partnerFeature",
     name: "Partner-Porträt",
     hinweis: "Großes Foto, daneben Name, Text und Link",
+    gruppe: "Inhalt",
     faecher: [
       { art: "text", feld: "anchor", label: "Sprungmarke (optional)", platzhalter: "partner" },
       { art: "loc", feld: "eyebrow", label: "Kicker" },
@@ -188,6 +206,7 @@ export const GRIFFE: Griff[] = [
     typ: "heroStage",
     name: "Hero-Bühne (Vollbild)",
     hinweis: "Seiten-Header: Foto ganzflächig, Titel unten links, zwei Knöpfe",
+    gruppe: "Kopf / Hero",
     faecher: [
       { art: "text", feld: "anchor", label: "Sprungmarke (optional)" },
       { art: "loc", feld: "eyebrow", label: "Kicker (kleine Zeile)" },
@@ -202,6 +221,7 @@ export const GRIFFE: Griff[] = [
     typ: "listHeader",
     name: "Listen-Header",
     hinweis: "Seiten-Header: kompakter Titel + Zähler, Acid-Linie (Filter liefert die Seite)",
+    gruppe: "Kopf / Hero",
     faecher: [
       { art: "text", feld: "anchor", label: "Sprungmarke (optional)" },
       { art: "loc", feld: "eyebrow", label: "Kicker (kleine Zeile)" },
@@ -214,6 +234,7 @@ export const GRIFFE: Griff[] = [
     typ: "heroCarousel",
     name: "Bildkarussell",
     hinweis: "Ganzflächige Bilder ohne Text, wechseln sich ab — trägt keine H1",
+    gruppe: "Kopf / Hero",
     faecher: [
       { art: "text", feld: "anchor", label: "Sprungmarke (optional)" },
       { art: "bildliste", feld: "images", label: "Bilder" },
