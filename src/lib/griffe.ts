@@ -547,8 +547,13 @@ function kurz(label: string): string {
   return label.replace(/\s*\([^)]*\)/g, "").replace(/[„“"]/g, "").replace(/\s+—.*$/, "").trim();
 }
 
+// Laufende Nummer eines Listeneintrags: ersetzt {n} in der Beschriftung, sonst angehängt.
+function mitNr(label: string, nr: string): string {
+  return label.includes("{n}") ? label.replace("{n}", nr.trim()) : label + nr;
+}
+
 function beispielText(label: string, nr: string, mehrzeilig = false): { de: string; en: string } {
-  const k = kurz(label) + nr;
+  const k = mitNr(kurz(label), nr);
   return mehrzeilig
     ? { de: `${k} (Beispiel)\nzweite Zeile`, en: `${k} [EN]\nsecond line` }
     : { de: `${k} (Beispiel)`, en: `${k} [EN]` };
@@ -563,7 +568,7 @@ function fuelle(fach: Fach, nr: string): Record<string, unknown> {
     case "loc":
       return { [fach.feld]: beispielText(fach.label, nr, fach.mehrzeilig) };
     case "bild":
-      return { [fach.feld]: { url: platzhalterBild(kurz(fach.label) + nr), alt: `Beispielbild: ${kurz(fach.label)}${nr}` } };
+      return { [fach.feld]: { url: platzhalterBild(mitNr(kurz(fach.label), nr)), alt: `Beispielbild: ${mitNr(kurz(fach.label), nr)}` } };
     case "knopf":
       return { [fach.feld]: { label: beispielText(fach.label, nr), href: "/beispiel" } };
     case "bildliste":
