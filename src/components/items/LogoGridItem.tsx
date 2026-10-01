@@ -1,10 +1,38 @@
 // Baukasten-Item „Logo-Grid" — Sektionskopf + Raster aus Partner-Logos
 // (z. B. Exhibition Partner, VIP Programm, Media Partner).
 
+import type { CSSProperties } from "react";
+
 export interface GridLogo {
   src: string;
   name: string; // Partnername — dient als Alt-Text
   href?: string; // optionaler Link zur Partner-Website
+  // Optische Vereinheitlichung wie im Logo-Laufband und Partner-Hero:
+  // Form-Klasse (Default mix) und Feinabgleich der Größe (1 = neutral).
+  variant?: "wortmarke" | "mix" | "wappen";
+  scale?: number;
+}
+
+// Gleiche Form-Faktoren wie im Logo-Laufband.
+const VARIANT_FACTOR: Record<NonNullable<GridLogo["variant"]>, number> = {
+  wortmarke: 0.75,
+  mix: 1,
+  wappen: 1.375,
+};
+
+// Jedes Logo steht in einer 3:2-Kachel mit 8 % Innenabstand (Bezug: Kachelbreite).
+// Die Feinjustierung ändert nur diesen Innenabstand: kleiner = mehr Rand, größer =
+// weniger Rand. Breite und Höhe sind getrennt begrenzt — ein breites Logo darf bis
+// an den Seitenrand der Kachel wachsen, ein hohes bis an Ober- und Unterkante, nie
+// in die Nachbarkachel. Ungesetzt (Faktor 1) bleibt es bei der Klasse p-[8%].
+const INHALT_B = 0.84; // nutzbare Breite bei 8 % Rand links/rechts
+const INHALT_H = 2 / 3 - 0.16; // nutzbare Höhe in Kachelbreiten
+function feinabstand(logo: GridLogo): CSSProperties | undefined {
+  const f = VARIANT_FACTOR[logo.variant ?? "mix"] * (logo.scale ?? 1);
+  if (f === 1) return undefined;
+  const x = Math.max(0, ((1 - INHALT_B * f) / 2) * 100);
+  const y = Math.max(0, ((2 / 3 - INHALT_H * f) / 2) * 100);
+  return { padding: `${y.toFixed(2)}% ${x.toFixed(2)}%` };
 }
 
 export function LogoGridItem({
@@ -38,6 +66,7 @@ export function LogoGridItem({
               alt={logo.name}
               loading="lazy"
               className="w-full aspect-[3/2] object-contain p-[8%] transition-transform duration-500 ease-out group-hover:scale-[1.05]"
+              style={feinabstand(logo)}
             />
           );
           return (

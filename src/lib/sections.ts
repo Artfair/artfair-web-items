@@ -183,8 +183,8 @@ export interface LogoData {
   _key: string;
   image?: ImageRef; // url = src, alt = Partnername
   href?: string;
-  // Fürs Partner-Hero-Karussell und das Logo-Laufband: optische
-  // Vereinheitlichung der Logos.
+  // Fürs Partner-Hero-Karussell, das Logo-Laufband und (seit 1.8) das
+  // Logo-Raster: optische Vereinheitlichung der Logos.
   variant?: "wortmarke" | "mix" | "wappen"; // Form-Klasse (Default mix)
   scale?: number; // Feinabgleich der Größe „auf Sicht"; Webby-Regler 30–180 % (0.3–1.8; 1 = neutral)
 }

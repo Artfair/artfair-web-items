@@ -65,10 +65,15 @@ export type Fach =
       hoechstens?: number;
     }
   /** Liste übersetzter Zeilen ohne weitere Fächer (Laufband-Meldungen, Meta-Zeile). */
-  | { art: "locliste"; feld: string; label: string; eintrag: string; neu: string };
+  | { art: "locliste"; feld: string; label: string; eintrag: string; neu: string }
+  /**
+   * Logo-Feinjustierung: Form-Klasse (`variant`) und Größe (`scale`) eines Logos.
+   * Nur in Listeneinträgen — sie setzt zwei Felder des Eintrags zugleich.
+   */
+  | { art: "logofein" };
 
 /** Was in einem Listeneintrag stehen kann. */
-export type EintragFach = Extract<Fach, { art: "text" | "loc" | "bild" | "knopf" | "wahl" }>;
+export type EintragFach = Extract<Fach, { art: "text" | "loc" | "bild" | "knopf" | "wahl" | "logofein" }>;
 
 export interface Griff {
   /** Bauart der Leiste — der `_type` im CMS. */
@@ -401,6 +406,7 @@ export const GRIFFE: Griff[] = [
         eintrag: [
           { art: "bild", feld: "image", label: "Logo {n} (Alt-Text = Partnername)" },
           { art: "text", feld: "href", label: "Link zur Partner-Website (optional)" },
+          { art: "logofein" },
         ],
       },
     ],

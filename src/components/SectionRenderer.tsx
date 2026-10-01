@@ -458,7 +458,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
     case "logoGrid": {
       const logos = (s.logos ?? [])
         .filter((l) => l.image?.url)
-        .map((l) => ({ src: img(l.image, 320), name: l.image?.alt ?? "", href: l.href }));
+        .map((l) => ({ src: img(l.image, 320), name: l.image?.alt ?? "", href: l.href, variant: l.variant, scale: l.scale }));
       if (logos.length === 0) return null;
       return (
         <LogoGridItem
