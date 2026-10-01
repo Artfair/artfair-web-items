@@ -38,7 +38,37 @@ export type Fach =
   /** Zwischentitel im Formular — kein Feld, gliedert nur. */
   | { art: "zwischentitel"; text: string }
   /** Grauer Hinweis im Formular — kein Feld, erklärt nur. */
-  | { art: "notiz"; text: string };
+  | { art: "notiz"; text: string }
+  /**
+   * Liste von Einträgen mit eigenen Fächern (Karten, Logos, Fakten …). Jeder Eintrag
+   * bekommt einen `_key` mit dem Präfix `schluessel`. In Beschriftungen der
+   * Eintrags-Fächer steht `{n}` für die laufende Nummer (1, 2, …).
+   */
+  | {
+      art: "liste";
+      feld: string;
+      /** Überschrift der Liste im Formular. */
+      label: string;
+      eintrag: EintragFach[];
+      /** Beschriftung des Hinzufügen-Knopfs, z. B. „+ Karte". */
+      neu: string;
+      schluessel: string;
+      /** Tooltip des Entfernen-Knopfs, z. B. „Karte entfernen". */
+      entfernen: string;
+      /** Beschriftung des Entfernen-Knopfs (Standard „✕ entfernen"). */
+      entfernenText?: string;
+      /** Pfeile ↑↓ zum Umsortieren, mit ihren Tooltips. */
+      sortierbar?: { hoch: string; runter: string };
+      /** Startwerte eines neuen Eintrags (neben `_key`). */
+      start?: Record<string, unknown>;
+      /** Höchstzahl — danach verschwindet der Hinzufügen-Knopf. */
+      hoechstens?: number;
+    }
+  /** Liste übersetzter Zeilen ohne weitere Fächer (Laufband-Meldungen, Meta-Zeile). */
+  | { art: "locliste"; feld: string; label: string; eintrag: string; neu: string };
+
+/** Was in einem Listeneintrag stehen kann. */
+export type EintragFach = Extract<Fach, { art: "text" | "loc" | "bild" | "knopf" | "wahl" }>;
 
 export interface Griff {
   /** Bauart der Leiste — der `_type` im CMS. */
@@ -269,6 +299,212 @@ export const GRIFFE: Griff[] = [
       { art: "bildliste", feld: "images", label: "Bilder" },
     ],
     leer: { images: [] },
+  },
+  {
+    typ: "ticker",
+    name: "Laufband",
+    hinweis: "Laufende Kurzmeldungen über Foto",
+    gruppe: "Medien & Logos",
+    faecher: [
+      { art: "locliste", feld: "items", label: "Laufende Meldungen", eintrag: "Meldung {n}", neu: "+ Meldung" },
+      { art: "bild", feld: "image", label: "Hintergrund-Foto" },
+    ],
+  },
+  {
+    typ: "contactBlock",
+    name: "Kontakt-Block",
+    hinweis: "Überschrift + Adress-/Kontaktkarten (Name, Adresse, Tel/E-Mail), mit Sprungmarke",
+    gruppe: "Ganze Seiten",
+    faecher: [
+      { art: "text", feld: "anchor", label: "Sprungmarke (für den Menüpunkt Kontakt)", platzhalter: "kontakt" },
+      { art: "loc", feld: "heading", label: "Überschrift" },
+      {
+        art: "liste", feld: "cards", label: "Kontakt-/Adresskarten", neu: "+ Karte", schluessel: "addr", entfernen: "Karte entfernen",
+        eintrag: [
+          { art: "loc", feld: "name", label: "Name / Titel" },
+          { art: "loc", feld: "lines", label: "Adresse (mehrzeilig)", mehrzeilig: true },
+          { art: "loc", feld: "contact", label: "Telefon / E-Mail (mehrzeilig)", mehrzeilig: true },
+        ],
+      },
+    ],
+  },
+  {
+    typ: "factsRow",
+    name: "Fakten-Zeile",
+    hinweis: "Bis zu vier Kurzinfos (Label + Wert)",
+    gruppe: "Inhalt",
+    faecher: [
+      { art: "text", feld: "anchor", label: "Sprungmarke (optional, für Menü-Links)", platzhalter: "oeffnungszeiten" },
+      {
+        art: "liste", feld: "facts", label: "Fakten (bis 4)", neu: "+ Faktum", schluessel: "fact", entfernen: "Faktum entfernen",
+        eintrag: [
+          { art: "loc", feld: "label", label: "Label" },
+          { art: "loc", feld: "value", label: "Wert (Zeilenumbruch erlaubt)", mehrzeilig: true },
+        ],
+      },
+    ],
+  },
+  {
+    typ: "numberedBlocks",
+    name: "Nummerierte Blöcke",
+    hinweis: "Editoriale 01…-Blöcke, optional Foto",
+    gruppe: "Inhalt",
+    faecher: [
+      { art: "text", feld: "anchor", label: "Sprungmarke (optional)", platzhalter: "anreise" },
+      { art: "loc", feld: "eyebrow", label: "Kicker" },
+      { art: "loc", feld: "heading", label: "Überschrift" },
+      { art: "bild", feld: "image", label: "Foto im Kopf (optional)" },
+      { art: "loc", feld: "imageCaption", label: "Bild-Beschriftung (optional)" },
+      { art: "knopf", feld: "headLink", label: "Link im Kopf (optional)" },
+      {
+        art: "liste", feld: "blocks", label: "Blöcke (werden 01, 02, … nummeriert)", neu: "+ Block", schluessel: "blk", entfernen: "Block entfernen",
+        eintrag: [
+          { art: "loc", feld: "heading", label: "Block {n} — Überschrift" },
+          { art: "loc", feld: "body", label: "Text", mehrzeilig: true },
+        ],
+      },
+    ],
+  },
+  {
+    typ: "cardTrio",
+    name: "Karten (2–3)",
+    hinweis: "Bild-Karten mit Label, Titel, Text, Link",
+    gruppe: "Inhalt",
+    faecher: [
+      { art: "loc", feld: "eyebrow", label: "Kicker" },
+      { art: "loc", feld: "heading", label: "Überschrift" },
+      {
+        art: "liste", feld: "cards", label: "Karten (2–3)", neu: "+ Karte", schluessel: "card", entfernen: "Karte entfernen", entfernenText: "✕ Karte entfernen",
+        eintrag: [
+          { art: "bild", feld: "image", label: "Karte {n} — Bild" },
+          { art: "loc", feld: "label", label: "Label" },
+          { art: "loc", feld: "title", label: "Titel" },
+          { art: "loc", feld: "body", label: "Text", mehrzeilig: true },
+          { art: "text", feld: "anchor", label: "Sprungmarke (optional)" },
+          { art: "knopf", feld: "link", label: "Link (optional)" },
+        ],
+      },
+    ],
+  },
+  {
+    typ: "logoGrid",
+    name: "Logo-Raster",
+    hinweis: "Raster aus Partner-Logos",
+    gruppe: "Medien & Logos",
+    faecher: [
+      { art: "text", feld: "anchor", label: "Sprungmarke (optional)" },
+      { art: "loc", feld: "eyebrow", label: "Kicker" },
+      { art: "loc", feld: "heading", label: "Überschrift" },
+      {
+        art: "liste", feld: "logos", label: "Logos", neu: "+ Logo", schluessel: "logo", entfernen: "Logo entfernen",
+        sortierbar: { hoch: "Nach oben", runter: "Nach unten" },
+        eintrag: [
+          { art: "bild", feld: "image", label: "Logo {n} (Alt-Text = Partnername)" },
+          { art: "text", feld: "href", label: "Link zur Partner-Website (optional)" },
+        ],
+      },
+    ],
+  },
+  {
+    typ: "advertorialCards",
+    name: "Advertorial-Karten",
+    hinweis: "Galerie-Fokus: Karten mit „Anzeige\"-Badge",
+    gruppe: "Inhalt",
+    faecher: [
+      { art: "loc", feld: "kicker", label: "Kicker" },
+      { art: "loc", feld: "title", label: "Überschrift" },
+      { art: "loc", feld: "adLabel", label: "Anzeige-Label (oben rechts)" },
+      { art: "loc", feld: "adTag", label: "Anzeige-Badge (auf dem Bild)" },
+      { art: "loc", feld: "moreLabel", label: "Mehr-Link-Beschriftung" },
+      {
+        art: "liste", feld: "cards", label: "Karten", neu: "+ Karte", schluessel: "card", entfernen: "Karte entfernen",
+        eintrag: [
+          { art: "bild", feld: "image", label: "Karte {n} — Bild" },
+          { art: "loc", feld: "cat", label: "Kategorie" },
+          { art: "loc", feld: "name", label: "Name" },
+          { art: "loc", feld: "teaser", label: "Teaser", mehrzeilig: true },
+          { art: "text", feld: "href", label: "Link", platzhalter: "/catalogue" },
+        ],
+      },
+    ],
+  },
+  {
+    typ: "navMosaic",
+    name: "Nav-Mosaik",
+    hinweis: "Vier verlinkte Bildkacheln",
+    gruppe: "Medien & Logos",
+    faecher: [
+      { art: "loc", feld: "title", label: "Überschrift" },
+      { art: "loc", feld: "sub", label: "Untertitel", mehrzeilig: true },
+      {
+        art: "liste", feld: "tiles", label: "Kacheln (genau 4: erste groß)", neu: "+ Kachel", schluessel: "tile", entfernen: "Kachel entfernen",
+        eintrag: [
+          { art: "bild", feld: "image", label: "Kachel {n} — Bild" },
+          { art: "loc", feld: "label", label: "Beschriftung" },
+          { art: "text", feld: "href", label: "Link", platzhalter: "/galleries" },
+        ],
+      },
+    ],
+  },
+  {
+    typ: "themesSection",
+    name: "Themen",
+    hinweis: "Nummerierte Bild-Text-Reihen",
+    gruppe: "Inhalt",
+    faecher: [
+      { art: "text", feld: "anchor", label: "Sprungmarke (optional)", platzhalter: "themen" },
+      { art: "loc", feld: "title", label: "Überschrift" },
+      { art: "loc", feld: "intro", label: "Einleitung", mehrzeilig: true },
+      {
+        art: "liste", feld: "themes", label: "Themen (Bild-Text-Reihen)", neu: "+ Thema", schluessel: "theme", entfernen: "Thema entfernen",
+        start: { ratio: "4/3" },
+        eintrag: [
+          { art: "bild", feld: "image", label: "Thema {n} — Bild" },
+          { art: "loc", feld: "heading", label: "Titel" },
+          { art: "loc", feld: "body", label: "Text", mehrzeilig: true },
+          {
+            art: "wahl", feld: "ratio", label: "Bildformat", standard: "4/3",
+            optionen: [
+              { wert: "4/3", label: "4:3 (quer)" },
+              { wert: "4/5", label: "4:5 (hoch)" },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    typ: "infoHeader",
+    name: "Info-Header (Text)",
+    hinweis: "Seiten-Header: Text auf Weiß, Acid-Balken links, Haarlinie + Meta",
+    gruppe: "Kopf / Hero",
+    faecher: [
+      { art: "text", feld: "anchor", label: "Sprungmarke (optional)" },
+      { art: "loc", feld: "eyebrow", label: "Kicker (kleine Zeile)" },
+      { art: "loc", feld: "title", label: "Titel (H1 der Seite)" },
+      { art: "loc", feld: "body", label: "Text (optional)", mehrzeilig: true },
+      { art: "knopf", feld: "action", label: "Knopf rechts (schwarz, optional — z. B. Presskit)" },
+      { art: "locliste", feld: "meta", label: "Meta-Zeile unter der Haarlinie (z. B. „Stand: …“, Kontakt)", eintrag: "Eintrag {n}", neu: "+ Eintrag" },
+      { art: "notiz", text: "Suchfeld und Filter-Pills (FAQ-Seiten) liefert die Website-Seite selbst." },
+    ],
+  },
+  {
+    typ: "newsletterHero",
+    name: "Newsletter-Hero",
+    hinweis: "Seiten-Header: Titel, E-Mail-Anmeldung + zwei Fotos (Formular fix)",
+    gruppe: "Kopf / Hero",
+    faecher: [
+      { art: "text", feld: "anchor", label: "Sprungmarke (optional)" },
+      { art: "loc", feld: "eyebrow", label: "Kicker (kleine Zeile)" },
+      { art: "loc", feld: "title", label: "Titel (H1 der Seite)" },
+      { art: "loc", feld: "body", label: "Text", mehrzeilig: true },
+      {
+        art: "liste", feld: "images", label: "Zwei gestapelte Fotos (rechte Hälfte)", neu: "+ Foto", schluessel: "slide", entfernen: "Foto entfernen",
+        hoechstens: 2,
+        eintrag: [{ art: "bild", feld: "image", label: "Foto {n}" }],
+      },
+      { art: "notiz", text: "Das Anmeldeformular selbst ist fest — editierbar sind Texte und Fotos." },
+    ],
   },
 ];
 

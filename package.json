@@ -1,6 +1,6 @@
 {
   "name": "@artfair/web-items",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Geteiltes Design-Regal fuer Messe-Websites — Item-Bauteile, SectionRenderer, Theme (Tailwind-Preset + Tokens + Fonts). Die Markenfarben kommen aus CSS-Variablen, die jede Instanz selbst setzt.",
   "license": "UNLICENSED",
   "type": "module",
