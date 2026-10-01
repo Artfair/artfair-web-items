@@ -63,6 +63,8 @@ export type Fach =
       start?: Record<string, unknown>;
       /** Höchstzahl — danach verschwindet der Hinzufügen-Knopf. */
       hoechstens?: number;
+      /** Mindestzahl, ab der die Website die Leiste überhaupt zeigt (z. B. Nav-Mosaik: 4). */
+      mindestens?: number;
     }
   /** Liste übersetzter Zeilen ohne weitere Fächer (Laufband-Meldungen, Meta-Zeile). */
   | { art: "locliste"; feld: string; label: string; eintrag: string; neu: string }
@@ -444,6 +446,7 @@ export const GRIFFE: Griff[] = [
       { art: "loc", feld: "sub", label: "Untertitel", mehrzeilig: true },
       {
         art: "liste", feld: "tiles", label: "Kacheln (genau 4: erste groß)", neu: "+ Kachel", schluessel: "tile", entfernen: "Kachel entfernen",
+        mindestens: 4,
         eintrag: [
           { art: "bild", feld: "image", label: "Kachel {n} — Bild" },
           { art: "loc", feld: "label", label: "Beschriftung" },
@@ -517,4 +520,86 @@ export const GRIFFE: Griff[] = [
 /** Den Griff einer Bauart holen — `undefined`, wenn sie (noch) keinen hat. */
 export function griff(typ: string): Griff | undefined {
   return GRIFFE.find((g) => g.typ === typ);
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Beispieldaten — aus dem Griff erzeugt.
+//
+// Jede Leiste mit Griff hat damit zwei Prüffälle: „leer" (frisch eingelegt,
+// nur die Startbefüllung) und „voll" (jedes Fach befüllt, Listen mit drei
+// Einträgen). Die automatische Prüfung rendert beide, der Schaukasten in Webby
+// zeigt sie. Bilder sind neutrale Platzhalter ohne Netzzugriff.
+// ─────────────────────────────────────────────────────────────────────────
+
+export type Beispielfall = "leer" | "voll";
+
+function platzhalterBild(text: string): string {
+  const t = text.replace(/[<>&"]/g, "");
+  const svg =
+    `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">` +
+    `<rect width="1200" height="800" fill="#d9d9d4"/>` +
+    `<text x="600" y="414" font-family="sans-serif" font-size="40" fill="#6b6b66" text-anchor="middle">${t}</text></svg>`;
+  return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+}
+
+// Kurzform einer Beschriftung für Beispieltexte: ohne Klammerzusätze und Anführungszeichen.
+function kurz(label: string): string {
+  return label.replace(/\s*\([^)]*\)/g, "").replace(/[„“"]/g, "").replace(/\s+—.*$/, "").trim();
+}
+
+function beispielText(label: string, nr: string, mehrzeilig = false): { de: string; en: string } {
+  const k = kurz(label) + nr;
+  return mehrzeilig
+    ? { de: `${k} (Beispiel)\nzweite Zeile`, en: `${k} [EN]\nsecond line` }
+    : { de: `${k} (Beispiel)`, en: `${k} [EN]` };
+}
+
+function fuelle(fach: Fach, nr: string): Record<string, unknown> {
+  switch (fach.art) {
+    case "text":
+      if (/video/i.test(fach.feld)) return {}; // kein Video ohne Datei
+      if (/href|url|link/i.test(fach.feld)) return { [fach.feld]: fach.platzhalter ?? "/beispiel" };
+      return { [fach.feld]: fach.platzhalter ?? `beispiel-${fach.feld.toLowerCase()}${nr.trim()}` };
+    case "loc":
+      return { [fach.feld]: beispielText(fach.label, nr, fach.mehrzeilig) };
+    case "bild":
+      return { [fach.feld]: { url: platzhalterBild(kurz(fach.label) + nr), alt: `Beispielbild: ${kurz(fach.label)}${nr}` } };
+    case "knopf":
+      return { [fach.feld]: { label: beispielText(fach.label, nr), href: "/beispiel" } };
+    case "bildliste":
+      return {
+        [fach.feld]: [1, 2, 3].map((i) => ({ _key: `bild-${i}`, url: platzhalterBild(`Bild ${i}`), alt: `Beispielbild ${i}` })),
+      };
+    case "wahl":
+      // Die letzte Option, damit nicht nur der Standard geprüft wird.
+      return { [fach.feld]: fach.optionen[fach.optionen.length - 1]?.wert ?? fach.standard };
+    case "liste": {
+      const n = Math.max(fach.mindestens ?? 0, Math.min(3, fach.hoechstens ?? 3));
+      return {
+        [fach.feld]: Array.from({ length: n }, (_, i) => {
+          const eintrag: Record<string, unknown> = { _key: `${fach.schluessel}-${i + 1}`, ...(fach.start ?? {}) };
+          for (const f of fach.eintrag) Object.assign(eintrag, fuelle(f, ` ${i + 1}`));
+          return eintrag;
+        }),
+      };
+    }
+    case "locliste":
+      return { [fach.feld]: [1, 2, 3].map((i) => beispielText(fach.eintrag.replace("{n}", String(i)), "")) };
+    case "logofein":
+      // Nur der zweite Eintrag wird justiert — so sind beide Zustände im Bild.
+      return nr.trim() === "2" ? { variant: "wappen", scale: 1.2 } : {};
+    default:
+      return {};
+  }
+}
+
+/** Beispiel-Abschnitt einer Leiste: „leer" oder „voll" befüllt. */
+export function beispiel(g: Griff, fall: Beispielfall): { _type: string; _key: string } & Record<string, unknown> {
+  const abschnitt: { _type: string; _key: string } & Record<string, unknown> = {
+    _type: g.typ,
+    _key: `beispiel-${g.typ}-${fall}`,
+    ...(g.leer ?? {}),
+  };
+  if (fall === "voll") for (const f of g.faecher) Object.assign(abschnitt, fuelle(f, ""));
+  return abschnitt;
 }
