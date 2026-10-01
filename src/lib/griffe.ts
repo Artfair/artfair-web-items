@@ -13,9 +13,10 @@
 // übersetzter Text 250×, Text 71×, Bild 36×, Knopf 27×). Listen und
 // Sonderfächer kommen dazu, wenn eine Leiste sie braucht.
 //
-// HERKUNFT DER ERSTEN 13 GRIFFE: maschinell aus Webbys Formularen abgelesen
-// (Stand Webby ded8edc, 01.10.2026) — Beschriftung, Reihenfolge, Mehrzeiligkeit
-// und Platzhalter sind damit Wort für Wort gleich. Wird ein handgeschriebenes
+// HERKUNFT DER ERSTEN 13 GRIFFE: aus Webbys Formularen abgelesen (Stand Webby
+// ded8edc, 01.10.2026). In v1.5 fehlten dabei Hinweiszeilen, ein Zwischentitel und
+// die Auswahl „Kasten-Farbe" (newsDate) — seit v1.6 sind die 13 vollständig und
+// gegen die handgeschriebenen Formulare Element für Element geprüft. Wird ein
 // Formular in Webby durch den Griff ersetzt, ändert sich für die Redaktion nichts.
 // ─────────────────────────────────────────────────────────────────────────
 
@@ -31,7 +32,13 @@ export type Fach =
   /** Knopf: übersetzte Beschriftung + Ziel. */
   | { art: "knopf"; feld: string; label: string }
   /** Liste von Bildern, sortierbar. */
-  | { art: "bildliste"; feld: string; label: string };
+  | { art: "bildliste"; feld: string; label: string }
+  /** Auswahl aus festen Werten (Klappliste); `standard` gilt, solange nichts gewählt ist. */
+  | { art: "wahl"; feld: string; label: string; optionen: { wert: string; label: string }[]; standard: string }
+  /** Zwischentitel im Formular — kein Feld, gliedert nur. */
+  | { art: "zwischentitel"; text: string }
+  /** Grauer Hinweis im Formular — kein Feld, erklärt nur. */
+  | { art: "notiz"; text: string };
 
 export interface Griff {
   /** Bauart der Leiste — der `_type` im CMS. */
@@ -108,10 +115,21 @@ export const GRIFFE: Griff[] = [
       { art: "loc", feld: "heading", label: "Überschrift (Zeilenumbruch erlaubt)", mehrzeilig: true },
       { art: "loc", feld: "body", label: "Text", mehrzeilig: true },
       { art: "knopf", feld: "cta", label: "Knopf" },
+      { art: "zwischentitel", text: "Datums-Kasten" },
       { art: "loc", feld: "boxKicker", label: "Versalzeile 1 (z. B. Bewerbungsportal)" },
       { art: "loc", feld: "boxIntro", label: "Versalzeile 2 (z. B. Öffnet am)" },
       { art: "loc", feld: "boxDate", label: "Datum groß (z. B. 1.) — leer = kein Kasten" },
       { art: "loc", feld: "boxLabel", label: "Unterzeile (z. B. September, Zeilenumbruch erlaubt)", mehrzeilig: true },
+      {
+        art: "wahl",
+        feld: "boxTone",
+        label: "Kasten-Farbe",
+        optionen: [
+          { wert: "outline", label: "Lime-Rahmen (Ankündigung)" },
+          { wert: "lime", label: "Lime-Fläche (Frist läuft)" },
+        ],
+        standard: "outline",
+      },
     ],
   },
   {
@@ -134,6 +152,10 @@ export const GRIFFE: Griff[] = [
     hinweis: "Galerienliste einer vergangenen Ausgabe — Daten fest im Paket, nur Kopfzeilen editierbar",
     gruppe: "Ganze Seiten",
     faecher: [
+      {
+        art: "notiz",
+        text: "Galerienliste einer vergangenen Ausgabe — die Galerien (Namen, Sektionen, Stände, Orte) liegen fest im Bauteil und werden hier nicht gepflegt.",
+      },
       { art: "text", feld: "anchor", label: "Sprungmarke (optional)", platzhalter: "galerien" },
       { art: "text", feld: "edition", label: "Ausgabe (Edition)", platzhalter: "2026" },
       { art: "loc", feld: "eyebrow", label: "Kicker (leer = „Ausstellerliste“)" },
@@ -163,6 +185,7 @@ export const GRIFFE: Griff[] = [
       { art: "loc", feld: "title", label: "Überschrift" },
       { art: "loc", feld: "moreLabel", label: "Mehr-Link-Beschriftung" },
       { art: "text", feld: "moreHref", label: "Mehr-Link (Adresse)", platzhalter: "/magazine" },
+      { art: "notiz", text: "Die Karten füllt die Website automatisch mit aktuellen Magazin-Artikeln." },
     ],
   },
   {
@@ -173,6 +196,7 @@ export const GRIFFE: Griff[] = [
     faecher: [
       { art: "loc", feld: "title", label: "Überschrift" },
       { art: "loc", feld: "body", label: "Text", mehrzeilig: true },
+      { art: "notiz", text: "Das Anmeldeformular selbst ist fest — nur Überschrift und Text sind editierbar." },
     ],
   },
   {
@@ -185,6 +209,10 @@ export const GRIFFE: Griff[] = [
       { art: "loc", feld: "eyebrow", label: "Große Zeile (Standard: INSIDE ART DÜSSELDORF)" },
       { art: "loc", feld: "body", label: "Text", mehrzeilig: true },
       { art: "bild", feld: "image", label: "Foto (3:4, mobil oben)" },
+      {
+        art: "notiz",
+        text: "Scrollausgelöstes Overlay: erscheint einmal je Sitzung nach ~15 % Scroll; nach Anmeldung dauerhaft still. Leere Textfelder nutzen die abgenommene Standard-Copy; Formular und Verhalten sind fest.",
+      },
     ],
   },
   {
@@ -228,6 +256,7 @@ export const GRIFFE: Griff[] = [
       { art: "loc", feld: "title", label: "Titel (H1 der Seite)" },
       { art: "text", feld: "counterValue", label: "Zähler-Wert (optional, z. B. 142 oder 380+)" },
       { art: "loc", feld: "counterLabel", label: "Zähler-Beschriftung (z. B. Galerien)" },
+      { art: "notiz", text: "Filter-Pills, Suche und die Liste selbst liefert die Website-Seite (Live-Daten)." },
     ],
   },
   {
