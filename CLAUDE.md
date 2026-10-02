@@ -31,7 +31,8 @@ Die Prüfung rendert jede Leiste damit, Webbys **Schaukasten** zeigt sie.
 
 **Vorderseite**
 - Bekommt alles über Props. **Keine Datenzugriffe**: kein `fetch` (außer `POST` zum Absenden
-  eines Formulars), keine Imports aus `@sanity/*`, `@supabase/*`, `next/headers`, `server-only`, `node:`.
+  eines Formulars — der Bot-Schutz `BotShieldFields` holt dafür per `GET` ein Token von derselben
+  Formular-Route), keine Imports aus `@sanity/*`, `@supabase/*`, `next/headers`, `server-only`, `node:`.
 - **Nur Marken-Tokens** für Farben und Schriften (`brand-*`, `var(--brand-…)`, `font-*` aus dem
   Preset). Keine festen Farbwerte (`#…`, `rgb(…)`); erlaubt ist durchsichtiges Schwarz/Weiß
   (`rgba(0,0,0,…)`, `rgba(255,255,255,…)`) für Schleier über Fotos.
@@ -76,8 +77,11 @@ der Version in den Instanzen (AD27, Webby) — das macht die WG nach der Freigab
 
 1. Zweig anlegen, die fünf Teile bauen.
 2. `npm install` und `npm run pruefen` — muss „Vertrag erfüllt.“ melden.
-3. PR öffnen: was die Leiste kann, Screenshot aus dem Schaukasten, ggf. Anschluss-Beschreibung.
-4. Walter prüft im Schaukasten und führt zusammen.
+3. PR öffnen: was die Leiste kann, ggf. Anschluss-Beschreibung. Vercel baut zu jedem PR eine
+   Vorschau des **Schaukastens** (`schaukasten/`, Projekt `web-items-schaukasten`) — der Link
+   erscheint im PR. Lokal: `cd schaukasten && npm install && npm run dev` (Port 3110).
+4. Walter prüft die neue Leiste im Schaukasten-Link und führt zusammen (main ist geschützt:
+   PR mit grüner Prüfung Pflicht, nur Walter führt zusammen).
 
 ## Bestand
 

@@ -563,14 +563,15 @@ function fuelle(fach: Fach, nr: string): Record<string, unknown> {
   switch (fach.art) {
     case "text":
       if (/video/i.test(fach.feld)) return {}; // kein Video ohne Datei
-      if (/href|url|link/i.test(fach.feld)) return { [fach.feld]: fach.platzhalter ?? "/beispiel" };
+      // Sprungmarke statt Seitenpfad: kein Vorabladen einer Seite, die es nicht gibt.
+      if (/href|url|link/i.test(fach.feld)) return { [fach.feld]: fach.platzhalter ?? "#beispiel" };
       return { [fach.feld]: fach.platzhalter ?? `beispiel-${fach.feld.toLowerCase()}${nr.trim()}` };
     case "loc":
       return { [fach.feld]: beispielText(fach.label, nr, fach.mehrzeilig) };
     case "bild":
       return { [fach.feld]: { url: platzhalterBild(mitNr(kurz(fach.label), nr)), alt: `Beispielbild: ${mitNr(kurz(fach.label), nr)}` } };
     case "knopf":
-      return { [fach.feld]: { label: beispielText(fach.label, nr), href: "/beispiel" } };
+      return { [fach.feld]: { label: beispielText(fach.label, nr), href: "#beispiel" } };
     case "bildliste":
       return {
         [fach.feld]: [1, 2, 3].map((i) => ({ _key: `bild-${i}`, url: platzhalterBild(`Bild ${i}`), alt: `Beispielbild ${i}` })),

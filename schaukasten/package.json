@@ -1,0 +1,27 @@
+{
+  "name": "web-items-schaukasten",
+  "private": true,
+  "description": "Vorschau des Schranks: jede Leiste mit Griff und Beispieldaten. Je PR ein Vercel-Link (Leisten-Vertrag, ../CLAUDE.md).",
+  "scripts": {
+    "schrank": "rm -rf schrank && mkdir schrank && cp -R ../src schrank/src && cp ../tailwind-preset.cjs schrank/",
+    "predev": "npm run schrank",
+    "prebuild": "npm run schrank",
+    "dev": "next dev -p 3110",
+    "build": "next build",
+    "start": "next start -p 3110"
+  },
+  "dependencies": {
+    "next": "16.2.4",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5"
+  }
+}

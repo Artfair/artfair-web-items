@@ -1,6 +1,6 @@
 {
   "name": "@artfair/web-items",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "description": "Geteiltes Design-Regal fuer Messe-Websites — Item-Bauteile, SectionRenderer, Theme (Tailwind-Preset + Tokens + Fonts). Die Markenfarben kommen aus CSS-Variablen, die jede Instanz selbst setzt.",
   "license": "UNLICENSED",
   "type": "module",
@@ -12,7 +12,8 @@
     "./griffe": "./src/lib/griffe.ts",
     "./tailwind-preset": "./tailwind-preset.cjs",
     "./styles/tokens.css": "./src/styles/tokens.css",
-    "./styles/magazine.css": "./src/styles/magazine.css"
+    "./styles/magazine.css": "./src/styles/magazine.css",
+    "./schaukasten": "./src/components/Schaukasten.tsx"
   },
   "files": [
     "src",
