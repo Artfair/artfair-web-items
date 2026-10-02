@@ -88,6 +88,8 @@ der Version in den Instanzen (AD27, Webby) — das macht die WG nach der Freigab
 Älter als dieser Vertrag und daher in der Prüfung als Ausnahme geführt (`scripts/pruefe-leisten.ts`):
 - `OHNE_GRIFF`: Leisten, deren Formular in Webby noch von Hand geschrieben ist. Wird kleiner,
   nie größer.
+- `FEST_IM_CODE`: feste Riegel der Programm-Seite (Inhalt im Code über `slots`) — bekommen keinen
+  Griff, sonst landeten sie in Webbys Menü aller Seiten.
 - `BESTAND`: Altlasten (feste Farben, Messe-Namen) in bestimmten Vorderseiten, je mit Grund.
   Ein neuer Eintrag ist eine bewusste Ausnahme und braucht Walters Freigabe im PR.
 
