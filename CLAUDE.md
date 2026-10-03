@@ -49,8 +49,10 @@ Die Prüfung rendert jede Leiste damit, Webbys **Schaukasten** zeigt sie.
 - `gruppe` ist eine Überschrift aus Webbys Menü „Abschnitt hinzufügen“:
   Layout · Kopf / Hero · Inhalt · Medien & Logos · Programm & Newsletter · Ganze Seiten · Formulare.
 - Jedes Fach (`feld`) gibt es in der Datenform. Fach-Arten: `text`, `loc`, `bild`, `knopf`,
-  `bildliste`, `wahl`, `liste` (mit `eintrag`-Fächern, optional `sortierbar`, `start`,
-  `hoechstens`, `mindestens`), `locliste`, `logofein`, `zwischentitel`, `notiz`.
+  `bildliste`, `wahl` (Darstellung Klappliste, `farbfelder` oder `stufen`), `schalter`,
+  `liste` (mit `eintrag`-Fächern — auch verschachtelt —, optional `sortierbar`, `start`,
+  `hoechstens`, `mindestens`, `notiz`, `titel`, `ausblendbar`), `locliste`, `logofein`,
+  `zwischentitel`, `notiz`.
 - Braucht eine Leiste eine Fach-Art, die es nicht gibt: nicht improvisieren, sondern im PR
   beschreiben — neue Fach-Arten brauchen eine Änderung an Webbys Halterung (WG).
 - `mindestens` setzen, wenn die Website die Leiste erst ab einer Anzahl zeigt — sonst sind
@@ -86,8 +88,10 @@ der Version in den Instanzen (AD27, Webby) — das macht die WG nach der Freigab
 ## Bestand
 
 Älter als dieser Vertrag und daher in der Prüfung als Ausnahme geführt (`scripts/pruefe-leisten.ts`):
-- `OHNE_GRIFF`: Leisten, deren Formular in Webby noch von Hand geschrieben ist. Wird kleiner,
-  nie größer.
+- `OHNE_GRIFF`: Leisten, deren Formular in Webby noch von Hand geschrieben ist — nur noch die
+  sechs ganzen Seiten. Wird kleiner, nie größer.
+- Die Farbpalette des Abstandhalters (`spacer`) im Griff ist die von art.fair; gespeichert wird
+  der Farbwert selbst. Für eine zweite Marke kommt sie später aus deren Marken-Tokens.
 - `FEST_IM_CODE`: feste Riegel der Programm-Seite (Inhalt im Code über `slots`) — bekommen keinen
   Griff, sonst landeten sie in Webbys Menü aller Seiten.
 - `BESTAND`: Altlasten (feste Farben, Messe-Namen) in bestimmten Vorderseiten, je mit Grund.
