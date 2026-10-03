@@ -515,6 +515,49 @@ export const GRIFFE: Griff[] = [
       { art: "notiz", text: "Das Anmeldeformular selbst ist fest — editierbar sind Texte und Fotos." },
     ],
   },
+  {
+    typ: "logoMarquee",
+    name: "Logo-Laufband",
+    hinweis: "Laufende Reihe von Partner-Logos",
+    gruppe: "Medien & Logos",
+    faecher: [
+      { art: "loc", feld: "headline", label: "Überschrift", mehrzeilig: true },
+      {
+        art: "liste", feld: "logos", label: "Logos", neu: "+ Logo", schluessel: "logo", entfernen: "Logo entfernen",
+        sortierbar: { hoch: "Nach vorne", runter: "Nach hinten" },
+        eintrag: [
+          { art: "bild", feld: "image", label: "Logo {n} (Alt-Text = Partnername)" },
+          { art: "text", feld: "href", label: "Link (optional)" },
+          { art: "logofein" },
+        ],
+      },
+    ],
+    leer: { logos: [] },
+  },
+  {
+    typ: "partnerHero",
+    name: "Partner-Hero (Split)",
+    hinweis: "Seiten-Header: Acid-Rahmen-Box + Foto mit Logo-Karussell",
+    gruppe: "Kopf / Hero",
+    faecher: [
+      { art: "text", feld: "anchor", label: "Sprungmarke (optional)" },
+      { art: "loc", feld: "eyebrow", label: "Kicker (kleine Zeile)" },
+      { art: "loc", feld: "title", label: "Titel (H1 der Seite)" },
+      { art: "loc", feld: "body", label: "Text", mehrzeilig: true },
+      { art: "knopf", feld: "primaryCta", label: "Erster Knopf (schwarz gefüllt)" },
+      { art: "knopf", feld: "secondaryCta", label: "Zweiter Knopf (umrandet, optional)" },
+      { art: "bild", feld: "image", label: "Foto (rechte Hälfte, Pflicht)" },
+      {
+        art: "liste", feld: "logos", label: "Logo-Karussell (weiß eingefärbt, wechselt alle 1,5 s)", neu: "+ Logo", schluessel: "logo", entfernen: "Logo entfernen",
+        sortierbar: { hoch: "Nach vorne (früher im Wechsel)", runter: "Nach hinten (später im Wechsel)" },
+        eintrag: [
+          { art: "bild", feld: "image", label: "Logo {n} (Alt-Text = Partnername)" },
+          { art: "logofein" },
+        ],
+      },
+    ],
+    leer: { primaryCta: {}, secondaryCta: {}, logos: [] },
+  },
 ];
 
 /** Den Griff einer Bauart holen — `undefined`, wenn sie (noch) keinen hat. */

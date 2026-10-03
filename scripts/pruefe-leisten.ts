@@ -36,11 +36,14 @@ const MENUE_GRUPPEN = ["Layout", "Kopf / Hero", "Inhalt", "Medien & Logos", "Pro
 // Bestand: Bauarten, deren Formular in Webby noch von Hand geschrieben ist.
 // Neue Bauarten kommen hier NICHT hinzu — sie bringen ihren Griff mit.
 const OHNE_GRIFF = [
-  "spacer", "aboutPage", "linkHub", "pressPage", "logoMarquee", "talksSchedule", "partnerHero", "salesHero",
+  "spacer", "aboutPage", "linkHub", "pressPage", "talksSchedule", "salesHero",
   "newsletterPage", "businessPage", "inquiryForm", "faqPage", "partnerPage",
-  // feste Riegel, Inhalt kommt im Code über `slots`
-  "programmArtWalks", "programmSchedule", "programmCurated",
 ];
+
+// Feste Riegel: Inhalt kommt im Code über `slots`, es gibt nichts zu befüllen —
+// sie brauchen keinen Griff. Bewusst nicht in Webbys Katalog (nur Programm-Seite);
+// ein Griff würde sie dort ins Menü aller Seiten bringen.
+const FEST_IM_CODE = ["programmArtWalks", "programmSchedule", "programmCurated"];
 
 // Bestand: Altlasten in Leisten-Bauteilen, je Datei und Regel, mit Grund.
 // Neue Einträge hier sind eine bewusste Ausnahme und brauchen Walters Freigabe.
@@ -87,7 +90,8 @@ const slotTypen = new Set([...(renderer.match(/SLOT_TYPES = \[([^\]]*)\]/)?.[1] 
 const griffTypen = new Set(GRIFFE.map((g) => g.typ as string));
 for (const typ of felderJeTyp.keys()) {
   if (!faelle.has(typ) && !slotTypen.has(typ)) fehler.push(`${typ}: kein Fall im SectionRenderer`);
-  if (!griffTypen.has(typ) && !OHNE_GRIFF.includes(typ)) fehler.push(`${typ}: neue Leiste ohne Griff (src/lib/griffe.ts)`);
+  if (!griffTypen.has(typ) && !OHNE_GRIFF.includes(typ) && !FEST_IM_CODE.includes(typ)) fehler.push(`${typ}: neue Leiste ohne Griff (src/lib/griffe.ts)`);
+  if (griffTypen.has(typ) && FEST_IM_CODE.includes(typ)) fehler.push(`${typ}: fester Riegel mit Griff — käme in Webbys Menü aller Seiten`);
 }
 for (const typ of OHNE_GRIFF) {
   if (griffTypen.has(typ)) hinweise.push(`${typ} hat jetzt einen Griff — aus OHNE_GRIFF streichen`);
@@ -174,7 +178,7 @@ for (const datei of readdirSync(ITEMS).filter((d) => d.endsWith(".tsx"))) {
 }
 
 // ── Bericht ─────────────────────────────────────────────────────────────────
-console.log(`Leisten-Vertrag: ${felderJeTyp.size} Bauarten, ${GRIFFE.length} mit Griff, ${dargestellt} Darstellungen geprüft.`);
+console.log(`Leisten-Vertrag: ${felderJeTyp.size} Bauarten, ${GRIFFE.length} mit Griff, ${FEST_IM_CODE.length} fest im Code, ${OHNE_GRIFF.length} noch ohne Griff, ${dargestellt} Darstellungen geprüft.`);
 for (const h of hinweise) console.log(`  Hinweis: ${h}`);
 for (const f of fehler) console.log(`  FEHLER:  ${f}`);
 if (fehler.length) {
