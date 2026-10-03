@@ -33,8 +33,21 @@ export type Fach =
   | { art: "knopf"; feld: string; label: string }
   /** Liste von Bildern, sortierbar. */
   | { art: "bildliste"; feld: string; label: string }
-  /** Auswahl aus festen Werten (Klappliste); `standard` gilt, solange nichts gewählt ist. */
-  | { art: "wahl"; feld: string; label: string; optionen: { wert: string; label: string }[]; standard: string }
+  /**
+   * Auswahl aus festen Werten; `standard` gilt, solange nichts gewählt ist.
+   * Darstellung: Klappliste (Standard), Farbfelder (`wert` = Farbwert, leer =
+   * durchsichtig; `label` erscheint als Tooltip) oder Stufen-Knöpfe nebeneinander.
+   */
+  | {
+      art: "wahl";
+      feld: string;
+      label: string;
+      optionen: { wert: string; label: string }[];
+      standard: string;
+      darstellung?: "klappliste" | "farbfelder" | "stufen";
+    }
+  /** Häkchen an/aus; `standard` gilt, solange nichts gesetzt ist. */
+  | { art: "schalter"; feld: string; label: string; standard: boolean }
   /** Zwischentitel im Formular — kein Feld, gliedert nur. */
   | { art: "zwischentitel"; text: string }
   /** Grauer Hinweis im Formular — kein Feld, erklärt nur. */
@@ -65,6 +78,16 @@ export type Fach =
       hoechstens?: number;
       /** Mindestzahl, ab der die Website die Leiste überhaupt zeigt (z. B. Nav-Mosaik: 4). */
       mindestens?: number;
+      /** Grauer Hinweis unter der Überschrift der Liste. */
+      notiz?: string;
+      /** Kopfzeile je Eintrag, z. B. „Button {n}". */
+      titel?: string;
+      /**
+       * Eintrag lässt sich ausblenden, ohne ihn zu löschen (Feld `hidden` im Eintrag,
+       * Häkchen „anzeigen" in der Kopfzeile — braucht `titel`). `hinweis` steht unter
+       * einem ausgeblendeten Eintrag.
+       */
+      ausblendbar?: { hinweis: string };
     }
   /** Liste übersetzter Zeilen ohne weitere Fächer (Laufband-Meldungen, Meta-Zeile). */
   | { art: "locliste"; feld: string; label: string; eintrag: string; neu: string }
@@ -74,8 +97,14 @@ export type Fach =
    */
   | { art: "logofein" };
 
-/** Was in einem Listeneintrag stehen kann. */
-export type EintragFach = Extract<Fach, { art: "text" | "loc" | "bild" | "knopf" | "wahl" | "logofein" }>;
+/**
+ * Was in einem Listeneintrag stehen kann — auch wieder eine Liste (Tage → Talks →
+ * Speaker). `labelErster` ersetzt die Beschriftung beim ersten Eintrag (z. B.
+ * „Foto 1 (Basis, Alt-Text hier pflegen)").
+ */
+export type EintragFach = Extract<Fach, { art: "text" | "loc" | "bild" | "knopf" | "wahl" | "schalter" | "liste" | "logofein" }> & {
+  labelErster?: string;
+};
 
 export interface Griff {
   /** Bauart der Leiste — der `_type` im CMS. */
@@ -558,6 +587,175 @@ export const GRIFFE: Griff[] = [
     ],
     leer: { primaryCta: {}, secondaryCta: {}, logos: [] },
   },
+  {
+    typ: "spacer",
+    name: "Abstandhalter",
+    hinweis: "Leeres farbiges Band — nur Luft, Farbe + Höhe wählbar",
+    gruppe: "Layout",
+    faecher: [
+      {
+        // Palette der Instanz art.fair (gespeichert wird der Farbwert selbst).
+        art: "wahl",
+        feld: "color",
+        label: "Farbe",
+        darstellung: "farbfelder",
+        optionen: [
+          { wert: "#E7FA31", label: "Lime" },
+          { wert: "#0A0A0A", label: "Schwarz" },
+          { wert: "#F6F6F4", label: "Papier" },
+          { wert: "#FFFFFF", label: "Weiß" },
+          { wert: "#E8192C", label: "Rot" },
+          { wert: "#F1F5D6", label: "Hellgrün" },
+          { wert: "", label: "Transparent" },
+        ],
+        standard: "",
+      },
+      {
+        art: "wahl",
+        feld: "height",
+        label: "Höhe",
+        darstellung: "stufen",
+        optionen: [
+          { wert: "32px", label: "Klein" },
+          { wert: "64px", label: "Mittel" },
+          { wert: "120px", label: "Groß" },
+        ],
+        standard: "64px",
+      },
+    ],
+    leer: { color: "#E7FA31", height: "64px" },
+  },
+  {
+    typ: "linkHub",
+    name: "Linkseite (Instagram-Bio)",
+    hinweis: "Schwarze Linktree-Seite: Foto mit Wortmarke, Lime-Buttons, Bildnachweise — für /links",
+    gruppe: "Ganze Seiten",
+    faecher: [
+      {
+        art: "notiz",
+        text: "Linkseite für die Instagram-Bio. Auf einer Seite mit dem Slug /links rendert die Website sie ohne Header/Footer. Button-Klicks werden in Vercel Analytics gezählt.",
+      },
+      { art: "bild", feld: "image", label: "Foto oben (4:3, Wortmarke liegt im dunklen Verlauf darauf)" },
+      { art: "loc", feld: "dateLine", label: "Datumszeile (z. B. „9 – 11 April 2027\")" },
+      { art: "loc", feld: "placeLine", label: "Ortszeile (z. B. „Areal Böhler\")" },
+      { art: "schalter", feld: "showLanguageToggle", label: "DE/EN-Umschalter oben rechts zeigen", standard: true },
+      {
+        art: "liste", feld: "links", label: "Haupt-Buttons", neu: "+ Button", schluessel: "lnk", entfernen: "Button entfernen",
+        titel: "Button {n}",
+        ausblendbar: { hinweis: "Button ist ausgeblendet — Beschriftung und Link bleiben gespeichert." },
+        sortierbar: { hoch: "Nach oben", runter: "Nach unten" },
+        eintrag: [
+          { art: "loc", feld: "label", label: "Beschriftung" },
+          { art: "text", feld: "href", label: "Link (https://…, interner Pfad oder mailto:)", platzhalter: "https://…" },
+        ],
+      },
+      { art: "loc", feld: "creditsTitle", label: "Bildnachweis-Überschrift (leer = „Bildnachweise“/„Image credits“)" },
+      { art: "loc", feld: "creditsIntro", label: "Bildnachweis-Erklärtext (kleine Zeile unter der Überschrift, optional)", mehrzeilig: true },
+      {
+        art: "liste", feld: "credits", label: "Bildnachweis-Einträge (leer = Sektion entfällt)", neu: "+ Bildnachweis", schluessel: "cred", entfernen: "Eintrag entfernen",
+        notiz: "Links im Text als [Beschriftung](https://…) schreiben — z. B. „Photo: [Susanne Nilsson](https://flickr.com/…). Licence: [CC BY-SA 2.0](https://creativecommons.org/…).\"",
+        titel: "Eintrag {n}",
+        ausblendbar: { hinweis: "Eintrag ist ausgeblendet — der Text bleibt gespeichert." },
+        sortierbar: { hoch: "Nach oben", runter: "Nach unten" },
+        eintrag: [
+          { art: "loc", feld: "heading", label: "Datum/Titel-Zeile (z. B. „Aug 27, 2026 — Yayoi Kusama\")" },
+          { art: "loc", feld: "body", label: "Nachweis-Text (Links als [Text](https://…))", mehrzeilig: true },
+        ],
+      },
+      { art: "loc", feld: "footerNote", label: "Fußzeile (leer = „© Art Düsseldorf\")" },
+    ],
+    leer: { links: [], credits: [] },
+  },
+  {
+    typ: "salesHero",
+    name: "Sales-Hero (Slideshow)",
+    hinweis: "Seiten-Header: Acid-Rahmen-Box, Acid-Knopf + Foto-Slideshow",
+    gruppe: "Kopf / Hero",
+    faecher: [
+      { art: "text", feld: "anchor", label: "Sprungmarke (optional)" },
+      { art: "loc", feld: "eyebrow", label: "Kicker (kleine Zeile)" },
+      { art: "loc", feld: "title", label: "Titel (H1 der Seite)" },
+      { art: "loc", feld: "body", label: "Text", mehrzeilig: true },
+      { art: "knopf", feld: "primaryCta", label: "Erster Knopf (Acid)" },
+      { art: "knopf", feld: "secondaryCta", label: "Zweiter Knopf (umrandet, optional)" },
+      {
+        art: "liste", feld: "images", label: "Slideshow-Fotos (Cross-Fade alle 1,8 s; erstes Bild = Basis)", neu: "+ Foto", schluessel: "slide", entfernen: "Foto entfernen",
+        eintrag: [{ art: "bild", feld: "image", label: "Foto {n}", labelErster: "Foto 1 (Basis, Alt-Text hier pflegen)" }],
+      },
+    ],
+    leer: { primaryCta: {}, secondaryCta: {}, images: [] },
+  },
+  {
+    typ: "inquiryForm",
+    name: "Anfrage-Formular",
+    hinweis: "Formular: Unternehmen, Ansprechpartner, Zeitraum, Gäste, Kontext",
+    gruppe: "Formulare",
+    faecher: [
+      { art: "text", feld: "anchor", label: "Sprungmarke (Ziel der Anfrage-senden-Knöpfe)", platzhalter: "anfrage" },
+      { art: "loc", feld: "eyebrow", label: "Kicker" },
+      { art: "loc", feld: "heading", label: "Überschrift (Pflicht — ohne entfällt das Formular)" },
+      { art: "loc", feld: "intro", label: "Einleitung (optional)", mehrzeilig: true },
+      { art: "loc", feld: "companyLabel", label: "Label: Unternehmen" },
+      { art: "loc", feld: "contactLabel", label: "Label: Ansprechpartner + Position" },
+      { art: "loc", feld: "periodLabel", label: "Label: Zeitraum" },
+      { art: "locliste", feld: "periodOptions", label: "Zeitraum-Optionen (Dropdown)", eintrag: "Option {n}", neu: "+ Option" },
+      { art: "loc", feld: "guestsLabel", label: "Label: Gästezahl" },
+      { art: "locliste", feld: "guestOptions", label: "Gästezahl-Optionen (Dropdown)", eintrag: "Option {n}", neu: "+ Option" },
+      { art: "loc", feld: "contextLabel", label: "Label: Kontext/Anlass (optionales Freitextfeld)" },
+      { art: "loc", feld: "contextPlaceholder", label: "Platzhalter: Kontext" },
+      { art: "loc", feld: "submitLabel", label: "Knopf-Beschriftung" },
+      { art: "loc", feld: "confirmation", label: "Bestätigungstext (nach dem Absenden)", mehrzeilig: true },
+      { art: "loc", feld: "errorText", label: "Fehlermeldung (optional)" },
+      { art: "text", feld: "action", label: "Formular-Ziel (action) — vom Backend gesetzt", platzhalter: "/api/business-inquiry" },
+    ],
+    leer: { periodOptions: [], guestOptions: [] },
+  },
+  {
+    typ: "talksSchedule",
+    name: "Talkprogramm",
+    hinweis: "Tages-Gruppen mit Talk-Karten (Zeit, Titel, Speaker)",
+    gruppe: "Programm & Newsletter",
+    faecher: [
+      { art: "text", feld: "anchor", label: "Sprungmarke (optional)", platzhalter: "talks" },
+      { art: "loc", feld: "eyebrow", label: "Kicker" },
+      { art: "loc", feld: "heading", label: "Überschrift" },
+      { art: "loc", feld: "intro", label: "Einleitung (optional)", mehrzeilig: true },
+      { art: "bild", feld: "image", label: "Großes Foto (optional, 21:9)" },
+      { art: "loc", feld: "imageCaption", label: "Foto-Beschriftung (Chip auf dem Foto, optional)" },
+      {
+        art: "liste", feld: "days", label: "Programmtage", neu: "+ Tag", schluessel: "day", entfernen: "Tag entfernen", entfernenText: "✕ Tag entfernen",
+        titel: "Tag {n}",
+        start: { talks: [] },
+        eintrag: [
+          { art: "loc", feld: "weekday", label: "Wochentag" },
+          { art: "loc", feld: "date", label: "Datum (z. B. „17. April“)" },
+          { art: "loc", feld: "theme", label: "Tagesthema (optional)" },
+          {
+            art: "liste", feld: "talks", label: "Talks", neu: "+ Talk", schluessel: "talk", entfernen: "Talk entfernen", entfernenText: "✕ Talk entfernen",
+            titel: "Talk {n}",
+            start: { speakers: [] },
+            eintrag: [
+              { art: "text", feld: "time", label: "Uhrzeit", platzhalter: "14:00" },
+              { art: "loc", feld: "duration", label: "Dauer (optional, Standard „60 Min“)" },
+              { art: "loc", feld: "title", label: "Titel", mehrzeilig: true },
+              { art: "bild", feld: "image", label: "Hintergrund-Foto (optional, sonst Schwarz)" },
+              {
+                art: "liste", feld: "speakers", label: "Speaker", neu: "+ Speaker", schluessel: "sp", entfernen: "Speaker entfernen", entfernenText: "✕ Speaker entfernen",
+                eintrag: [
+                  { art: "text", feld: "name", label: "Speaker {n} — Name" },
+                  { art: "loc", feld: "role", label: "Rolle (optional)" },
+                ],
+              },
+              { art: "text", feld: "moderationName", label: "Moderation — Name (optional)" },
+              { art: "loc", feld: "moderationRole", label: "Moderation — Rolle (optional)" },
+            ],
+          },
+        ],
+      },
+      { art: "loc", feld: "credit", label: "Credit-Zeile (optional, unter dem Programm)" },
+    ],
+    leer: { days: [] },
+  },
 ];
 
 /** Den Griff einer Bauart holen — `undefined`, wenn sie (noch) keinen hat. */
@@ -620,8 +818,10 @@ function fuelle(fach: Fach, nr: string): Record<string, unknown> {
         [fach.feld]: [1, 2, 3].map((i) => ({ _key: `bild-${i}`, url: platzhalterBild(`Bild ${i}`), alt: `Beispielbild ${i}` })),
       };
     case "wahl":
-      // Die letzte Option, damit nicht nur der Standard geprüft wird.
-      return { [fach.feld]: fach.optionen[fach.optionen.length - 1]?.wert ?? fach.standard };
+      // Die letzte Option mit Wert, damit nicht nur der Standard geprüft wird.
+      return { [fach.feld]: [...fach.optionen].reverse().find((o) => o.wert)?.wert ?? fach.standard };
+    case "schalter":
+      return { [fach.feld]: fach.standard };
     case "liste": {
       const n = Math.max(fach.mindestens ?? 0, Math.min(3, fach.hoechstens ?? 3));
       return {

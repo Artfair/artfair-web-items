@@ -35,10 +35,7 @@ const MENUE_GRUPPEN = ["Layout", "Kopf / Hero", "Inhalt", "Medien & Logos", "Pro
 
 // Bestand: Bauarten, deren Formular in Webby noch von Hand geschrieben ist.
 // Neue Bauarten kommen hier NICHT hinzu — sie bringen ihren Griff mit.
-const OHNE_GRIFF = [
-  "spacer", "aboutPage", "linkHub", "pressPage", "talksSchedule", "salesHero",
-  "newsletterPage", "businessPage", "inquiryForm", "faqPage", "partnerPage",
-];
+const OHNE_GRIFF = ["aboutPage", "pressPage", "newsletterPage", "businessPage", "faqPage", "partnerPage"];
 
 // Feste Riegel: Inhalt kommt im Code über `slots`, es gibt nichts zu befüllen —
 // sie brauchen keinen Griff. Bewusst nicht in Webbys Katalog (nur Programm-Seite);
@@ -110,7 +107,11 @@ function pruefeFaecher(typ: string, faecher: Fach[], form: ts.Type, wo: string) 
     if (f.art === "liste") {
       const el = elementTyp(form, f.feld);
       if (!el) fehler.push(`${typ}: Fach „${f.feld}“ ist eine Liste, das Feld aber kein Array`);
-      else pruefeFaecher(typ, f.eintrag, el, `Liste „${f.feld}“`);
+      else {
+        pruefeFaecher(typ, f.eintrag, el, `Liste „${f.feld}“`);
+        if (f.ausblendbar && !namen(el).has("hidden")) fehler.push(`${typ}: Liste „${f.feld}“ ist ausblendbar, der Eintrag hat aber kein Feld „hidden“`);
+        if (f.ausblendbar && !f.titel) fehler.push(`${typ}: Liste „${f.feld}“ ist ausblendbar, hat aber keinen \`titel\` (dort sitzt das Häkchen)`);
+      }
     }
   }
 }
