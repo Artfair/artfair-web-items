@@ -367,6 +367,22 @@ export interface HeroCarouselSection {
   intervalMs?: number;
 }
 
+// 19c — Kopf-Video (HeroVideoItem) — fertig geschnittenes Video in voller
+// Breite, Desktop 16:9 + optional Hochformat-Schnitt unter 768 px, optional
+// Partnerzeile (Text + Logo) oben. Trägt KEINE H1. Löst die feste
+// HeaderAnimation der art.fair-Startseite ab.
+export interface HeroVideoSection {
+  _key: string;
+  _type: "heroVideo";
+  anchor?: string;
+  videoUrl?: string; // Desktop-Schnitt 16:9 (Datei-URL)
+  videoUrlMobile?: string; // Hochformat-Schnitt unter 768 px (optional)
+  poster?: ImageRef; // Standbild Desktop (solange das Video lädt / reduzierte Bewegung)
+  posterMobile?: ImageRef; // Standbild mobil
+  partnerLabel?: Loc; // z. B. „Headline Partner"
+  partnerLogo?: ImageRef; // weiße Fassung, Alt-Text = Partnername
+}
+
 export interface HeroStageSection {
   _key: string;
   _type: "heroStage";
@@ -945,6 +961,7 @@ export type Section =
   | TalksScheduleSection
   | HeroStageSection
   | HeroCarouselSection
+  | HeroVideoSection
   | PartnerHeroSection
   | SalesHeroSection
   | InfoHeaderSection

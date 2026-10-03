@@ -588,6 +588,22 @@ export const GRIFFE: Griff[] = [
     leer: { primaryCta: {}, secondaryCta: {}, logos: [] },
   },
   {
+    typ: "heroVideo",
+    name: "Kopf-Video",
+    hinweis: "Video in voller Breite (Desktop 16:9, mobil Hochformat), optional Partnerzeile mit Logo — trägt keine H1",
+    gruppe: "Kopf / Hero",
+    faecher: [
+      { art: "text", feld: "anchor", label: "Sprungmarke (optional)" },
+      { art: "text", feld: "videoUrl", label: "Video Desktop (16:9) — Datei-URL", platzhalter: "/videos/…mp4" },
+      { art: "text", feld: "videoUrlMobile", label: "Video mobil (Hochformat, unter 768 px) — optional", platzhalter: "/videos/…mp4" },
+      { art: "bild", feld: "poster", label: "Standbild Desktop (solange das Video lädt; bei reduzierter Bewegung)" },
+      { art: "bild", feld: "posterMobile", label: "Standbild mobil (optional)" },
+      { art: "zwischentitel", text: "Partnerzeile (oben, weiß auf dunklem Verlauf — leer = keine)" },
+      { art: "loc", feld: "partnerLabel", label: "Text links (z. B. Headline Partner)" },
+      { art: "bild", feld: "partnerLogo", label: "Logo rechts (weiße Fassung, Alt-Text = Partnername)" },
+    ],
+  },
+  {
     typ: "spacer",
     name: "Abstandhalter",
     hinweis: "Leeres farbiges Band — nur Luft, Farbe + Höhe wählbar",

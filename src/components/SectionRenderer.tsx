@@ -22,6 +22,7 @@ import { PartnerFeatureItem } from "./items/PartnerFeatureItem";
 import { TalksScheduleItem } from "./items/TalksScheduleItem";
 import { HeroStageItem } from "./items/HeroStageItem";
 import { HeroCarouselItem } from "./items/HeroCarouselItem";
+import { HeroVideoItem } from "./items/HeroVideoItem";
 import { PartnerHeroItem } from "./items/PartnerHeroItem";
 import { SalesHeroItem } from "./items/SalesHeroItem";
 import { InfoHeaderItem } from "./items/InfoHeaderItem";
@@ -636,6 +637,22 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           secondaryCta={resolveCta(s.secondaryCta, lang)}
           imageSrc={image}
           imageAlt={s.image?.alt ?? ""}
+        />
+      );
+    }
+
+    case "heroVideo": {
+      const logo = img(s.partnerLogo);
+      return (
+        <HeroVideoItem
+          key={s._key}
+          id={s.anchor || undefined}
+          videoSrc={withBase(s.videoUrl, base) || undefined}
+          videoSrcMobile={withBase(s.videoUrlMobile, base) || undefined}
+          poster={img(s.poster, 2200) || undefined}
+          posterMobile={img(s.posterMobile, 1200) || undefined}
+          partnerLabel={loc(s.partnerLabel, lang) || undefined}
+          partnerLogo={logo ? { src: logo, alt: s.partnerLogo?.alt ?? "" } : undefined}
         />
       );
     }
