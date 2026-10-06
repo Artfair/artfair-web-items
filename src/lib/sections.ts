@@ -383,6 +383,27 @@ export interface HeroVideoSection {
   partnerLogo?: ImageRef; // weiße Fassung, Alt-Text = Partnername
 }
 
+// 19d — Ausstellerliste (ExhibitorListItem) — alle Aussteller einer Ausgabe
+// als Bildkarten, gruppiert nach Sektor (Reihenfolge des ersten Auftretens),
+// mit Sprungmarken je Sektor. Daten im CMS — anders als exhibitorArchive.
+export interface ExhibitorData {
+  _key: string;
+  name?: Loc; // Name der Galerie, je Sprache (Japanisch oft anders geschrieben)
+  cities?: Loc; // Städte, z. B. „Tokyo, Paris"
+  sector?: Loc; // Sektor, z. B. „Hana"; leer = ohne Sektor
+  image?: ImageRef; // Ausstellungs- oder Galeriefoto (4:3)
+  href?: string; // Website der Galerie
+}
+export interface ExhibitorListSection {
+  _key: string;
+  _type: "exhibitorList";
+  anchor?: string;
+  eyebrow?: Loc;
+  title?: Loc;
+  intro?: Loc;
+  exhibitors?: ExhibitorData[];
+}
+
 export interface HeroStageSection {
   _key: string;
   _type: "heroStage";
@@ -962,6 +983,7 @@ export type Section =
   | HeroStageSection
   | HeroCarouselSection
   | HeroVideoSection
+  | ExhibitorListSection
   | PartnerHeroSection
   | SalesHeroSection
   | InfoHeaderSection
