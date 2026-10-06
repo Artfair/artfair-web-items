@@ -35,7 +35,7 @@ export function TextCtaItem({
       <h2 className="font-light text-[clamp(30px,3.8vw,54px)] leading-[1.04] tracking-[-0.02em] whitespace-pre-line">
         {heading}
       </h2>
-      <p className="text-[17px] leading-[1.6] text-neutral-600 max-w-[52ch]">{body}</p>
+      <p className="text-[17px] leading-[1.6] text-neutral-600 max-w-[52ch] whitespace-pre-line">{body}</p>
       {cta && (
         <a
           href={cta.href}

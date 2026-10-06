@@ -58,7 +58,7 @@ export function LogoGridItem({
         {heading}
       </h2>
       <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-[clamp(32px,5vw,88px)] gap-y-[clamp(36px,5vw,72px)] list-none">
-        {logos.map((logo) => {
+        {logos.map((logo, i) => {
           const tile = (
             /* eslint-disable-next-line @next/next/no-img-element */
             <img
@@ -70,7 +70,7 @@ export function LogoGridItem({
             />
           );
           return (
-            <li key={logo.name} className="group">
+            <li key={`${i}-${logo.name}`} className="group">
               {logo.href ? (
                 <a href={logo.href} target="_blank" rel="noreferrer" aria-label={logo.name}>
                   {tile}
