@@ -23,6 +23,7 @@ import { TalksScheduleItem } from "./items/TalksScheduleItem";
 import { HeroStageItem } from "./items/HeroStageItem";
 import { HeroCarouselItem } from "./items/HeroCarouselItem";
 import { HeroVideoItem } from "./items/HeroVideoItem";
+import { ExhibitorListItem, type ExhibitorGroup } from "./items/ExhibitorListItem";
 import { PartnerHeroItem } from "./items/PartnerHeroItem";
 import { SalesHeroItem } from "./items/SalesHeroItem";
 import { InfoHeaderItem } from "./items/InfoHeaderItem";
@@ -637,6 +638,37 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           secondaryCta={resolveCta(s.secondaryCta, lang)}
           imageSrc={image}
           imageAlt={s.image?.alt ?? ""}
+        />
+      );
+    }
+
+    case "exhibitorList": {
+      // Gruppen nach Sektor in der Reihenfolge des ersten Auftretens. Die
+      // Sprungmarke kommt aus dem ersten gepflegten Sektor-Namen (sprachunabhängig).
+      const marke = (l?: Loc) =>
+        (Object.values(l ?? {}).find((v) => typeof v === "string" && v.trim()) as string | undefined ?? "")
+          .toLowerCase()
+          .normalize("NFKD")
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-|-$/g, "");
+      const gruppen: ExhibitorGroup[] = [];
+      for (const a of s.exhibitors ?? []) {
+        const name = loc(a.name, lang);
+        if (!name) continue;
+        const id = `sektor-${marke(a.sector) || "alle"}`;
+        let g = gruppen.find((x) => x.id === id);
+        if (!g) gruppen.push((g = { id, label: loc(a.sector, lang), exhibitors: [] }));
+        g.exhibitors.push({ name, cities: loc(a.cities, lang), imageSrc: img(a.image, 800), imageAlt: a.image?.alt || name, href: a.href || undefined });
+      }
+      if (gruppen.length === 0) return null;
+      return (
+        <ExhibitorListItem
+          key={s._key}
+          id={s.anchor || undefined}
+          eyebrow={loc(s.eyebrow, lang) || undefined}
+          title={loc(s.title, lang) || undefined}
+          intro={loc(s.intro, lang) || undefined}
+          groups={gruppen}
         />
       );
     }

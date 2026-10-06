@@ -604,6 +604,32 @@ export const GRIFFE: Griff[] = [
     ],
   },
   {
+    typ: "exhibitorList",
+    name: "Ausstellerliste",
+    hinweis: "Alle Aussteller als Bildkarten (Foto, Name, Städte), nach Sektor gruppiert, mit Sprungmarken",
+    gruppe: "Inhalt",
+    faecher: [
+      { art: "text", feld: "anchor", label: "Sprungmarke (optional)", platzhalter: "aussteller" },
+      { art: "loc", feld: "eyebrow", label: "Kicker (optional)" },
+      { art: "loc", feld: "title", label: "Überschrift (optional)" },
+      { art: "loc", feld: "intro", label: "Einleitung (optional)", mehrzeilig: true },
+      {
+        art: "liste", feld: "exhibitors", label: "Aussteller", neu: "+ Aussteller", schluessel: "aus", entfernen: "Aussteller entfernen",
+        notiz: "Reihenfolge = Reihenfolge auf der Website. Gleicher Sektor-Name = gleiche Gruppe; die Gruppen erscheinen in der Reihenfolge ihres ersten Ausstellers.",
+        titel: "Aussteller {n}",
+        sortierbar: { hoch: "Nach oben", runter: "Nach unten" },
+        eintrag: [
+          { art: "loc", feld: "name", label: "Name" },
+          { art: "loc", feld: "cities", label: "Städte (z. B. Tokyo, Paris)" },
+          { art: "loc", feld: "sector", label: "Sektor (leer = ohne Gruppe)" },
+          { art: "bild", feld: "image", label: "Foto (4:3)" },
+          { art: "text", feld: "href", label: "Website der Galerie (optional)", platzhalter: "https://…" },
+        ],
+      },
+    ],
+    leer: { exhibitors: [] },
+  },
+  {
     typ: "spacer",
     name: "Abstandhalter",
     hinweis: "Leeres farbiges Band — nur Luft, Farbe + Höhe wählbar",
