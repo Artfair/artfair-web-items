@@ -44,3 +44,11 @@ export { withBase } from './lib/assets' // Asset-Basis-Auflösung
 export { ProgrammArtWalks } from './components/programm/ProgrammArtWalks'
 export { ProgrammSchedule } from './components/programm/ProgrammSchedule'
 export { ProgrammCurated } from './components/programm/ProgrammCurated'
+
+// Magazin-Bausteine (nur Darstellung; Daten, Rubriken und Texte liefert die Instanz)
+export * from './lib/magazin'
+export { MagArtikel } from './components/magazin/MagArtikel'
+export { MagKarte, type MagKarteProps } from './components/magazin/MagKarte'
+export { MagRubrik } from './components/magazin/MagRubrik'
+export { MagNav } from './components/magazin/MagNav'
+export { MagRahmen } from './components/magazin/MagRahmen'
