@@ -21,6 +21,7 @@ export {
   MagazineListing,
   type MagListCard,
   type MagListPill,
+  type MagListTexte,
 } from './components/MagazineListing'
 
 // Web-Items einzeln (der „Schrank") — Konsumenten können jedes Bauteil direkt
