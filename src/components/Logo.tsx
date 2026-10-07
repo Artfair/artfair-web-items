@@ -3,6 +3,8 @@ export type Wortmarke = {
   src: string;
   /** Vorlesetext — üblicherweise der Name der Messe. */
   alt: string;
+  /** Fassung für dunklen Grund (Fußzeile). Fehlt sie, wird die Marke weiß eingefärbt. */
+  hell?: string;
 };
 
 type Props = {
@@ -13,15 +15,19 @@ type Props = {
    * NICHT einer anderen Messe. Eine zweite Messe muss hier etwas setzen.
    */
   marke?: Wortmarke | null;
+  /** Steht auf dunklem Grund: eigene helle Fassung oder die Marke weiß eingefärbt. */
+  aufDunkel?: boolean;
 };
 
 // Original SVG-Lettermark aus art-dus.de — ART DÜSSELDORF Schriftzug
 // Original viewBox 220x22, fill auf currentColor gesetzt damit Tailwind text-* greift.
-export default function Logo({ className = "", marke }: Props) {
+export default function Logo({ className = "", marke, aufDunkel = false }: Props) {
   if (marke?.src) {
     // Höhe kommt aus className (h-4 / h-6), Breite richtet sich danach.
+    const src = aufDunkel && marke.hell ? marke.hell : marke.src;
+    const weiss = aufDunkel && !marke.hell ? " brightness-0 invert" : "";
     // eslint-disable-next-line @next/next/no-img-element
-    return <img src={marke.src} alt={marke.alt} className={className} />;
+    return <img src={src} alt={marke.alt} className={className + weiss} />;
   }
   return (
     <svg
