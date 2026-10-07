@@ -105,6 +105,32 @@ function Card({ a, wide = false }: { a: MagListCard; wide?: boolean }) {
   )
 }
 
+/** Feste Texte der Magazin-Übersicht (Sidebar, Karten, Zitat-Band). */
+export type MagListTexte = {
+  weiterlesen: string
+  meistGelesen: string
+  newsletterZeile: string
+  newsletterText: string
+  newsletterKnopf: string
+  ausDemMagazin: string
+}
+const TEXTE_DE: MagListTexte = {
+  weiterlesen: 'Weiterlesen',
+  meistGelesen: 'Unsere meist gelesenen Artikel',
+  newsletterZeile: 'Community.\nInsights.\nTermine.',
+  newsletterText: 'Werden Sie Teil der Art-Düsseldorf-Community – mit Einblicken hinter die Kulissen und allen wichtigen Terminen zuerst.',
+  newsletterKnopf: 'Jetzt anmelden',
+  ausDemMagazin: 'Aus dem Magazin',
+}
+const TEXTE_EN: MagListTexte = {
+  weiterlesen: 'Read more',
+  meistGelesen: 'Our most read articles',
+  newsletterZeile: 'Community.\nInsights.\nDates.',
+  newsletterText: 'Join the Art Düsseldorf community – with behind-the-scenes insights and every key date first.',
+  newsletterKnopf: 'Sign up now',
+  ausDemMagazin: 'From the magazine',
+}
+
 export function MagazineListing({
   lang,
   heading,
@@ -117,6 +143,7 @@ export function MagazineListing({
   newsletterBody,
   quote,
   chrome = true,
+  texte,
 }: {
   lang: Lang
   heading?: string
@@ -131,15 +158,17 @@ export function MagazineListing({
   newsletterBody?: string
   // Optionales Pull-Quote-Band im unteren Raster; weglassen = kein Band.
   quote?: MagListQuote | null
+  // Feste Texte für weitere Marken/Sprachen; fehlende = eingebaute (DE, sonst EN).
+  texte?: Partial<MagListTexte>
   // chrome=true rendert die ganze Seite (Rahmen: .magazine-theme/.mag-wrap +
   // Masthead + Nav). chrome=false rendert NUR den Inhalt (Standfirst + Hero +
   // Mosaik + Sidebar + Extra) — für Konsumenten, die Rahmen/Masthead/Nav selbst
   // liefern (AD27-Layout). Webby nutzt chrome=true.
   chrome?: boolean
 }) {
-  const readMore = lang === 'de' ? 'Weiterlesen' : 'Read more'
-  const mostReadLabel =
-    lang === 'de' ? 'Unsere meist gelesenen Artikel' : 'Our most read articles'
+  const t: MagListTexte = { ...(lang === 'de' ? TEXTE_DE : TEXTE_EN), ...(texte ?? {}) }
+  const readMore = t.weiterlesen
+  const mostReadLabel = t.meistGelesen
   const mosaicMain = mosaic.slice(0, 6)
   const mosaicExtra = mosaic.slice(6)
 
@@ -211,16 +240,13 @@ export function MagazineListing({
                 {newsletterTitle || 'Newsletter'}
               </p>
               <h3 className="mag-newsletter__headline">
-                {lang === 'de' ? 'Community.\nInsights.\nTermine.' : 'Community.\nInsights.\nDates.'}
+                {t.newsletterZeile}
               </h3>
               <p className="mag-newsletter__sub">
-                {newsletterBody ||
-                  (lang === 'de'
-                    ? 'Werden Sie Teil der Art-Düsseldorf-Community – mit Einblicken hinter die Kulissen und allen wichtigen Terminen zuerst.'
-                    : 'Join the Art Düsseldorf community – with behind-the-scenes insights and every key date first.')}
+                {newsletterBody || t.newsletterText}
               </p>
               <span className="mag-newsletter__cta">
-                {lang === 'de' ? 'Jetzt anmelden' : 'Sign up now'} →
+                {t.newsletterKnopf} →
               </span>
             </a>
           </aside>
@@ -247,7 +273,7 @@ export function MagazineListing({
               {quote && (
                 <a href={quote.href} className="mag-quoteband">
                   <p className="mag-quoteband__kicker">
-                    {quote.kicker || (lang === 'de' ? 'Aus dem Magazin' : 'From the magazine')}
+                    {quote.kicker || t.ausDemMagazin}
                   </p>
                   <p className="mag-quoteband__quote">„{quote.text}“</p>
                   <p className="mag-quoteband__attrib">
