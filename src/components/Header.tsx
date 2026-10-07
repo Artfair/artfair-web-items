@@ -70,6 +70,10 @@ const MENU = {
       { label: "Datenschutz", href: "/datenschutz" },
     ],
     magHead: "Neu im Magazin",
+    menue: "Menü",
+    menueZu: "Menü schließen",
+    schliessen: "Schließen",
+    hauptmenue: "Hauptmenü",
   },
   en: {
     tickets: "Tickets",
@@ -131,6 +135,10 @@ const MENU = {
       { label: "Privacy", href: "/datenschutz" },
     ],
     magHead: "New in the magazine",
+    menue: "Menü",
+    menueZu: "Menü schließen",
+    schliessen: "Schließen",
+    hauptmenue: "Main menu",
   },
 } as const;
 
@@ -147,11 +155,28 @@ export interface MagazineTeaser {
   meta: string;
 }
 
+/** Feste Texte der Kopfzeile je Sprache — eine Instanz überschreibt, was sie braucht. */
+export type HeaderTexte = {
+  tickets: string;
+  moreHead: string;
+  followHead: string;
+  companyHead: string;
+  magHead: string;
+  /** Vorlesetexte: Menü-Knopf, Menü-Knopf offen, Schließen-Knopf, Hauptmenü. */
+  menue: string;
+  menueZu: string;
+  schliessen: string;
+  hauptmenue: string;
+};
+
 export default function Header({
   magazineTeaser,
   nav,
   marke,
   langs = ["de", "en"],
+  texte,
+  folgen = FOLLOW,
+  ticketsPfad = "/tickets",
 }: {
   magazineTeaser?: Partial<Record<string, MagazineTeaser | null>>;
   nav?: SiteNav | null;
@@ -159,11 +184,18 @@ export default function Header({
   marke?: Wortmarke | null;
   /** Sprachen dieser Instanz, erste ist die Hauptsprache. */
   langs?: readonly Lang[];
+  /** Eigene Texte je Sprache; fehlende fallen auf die eingebauten (DE, sonst EN). */
+  texte?: Partial<Record<string, Partial<HeaderTexte>>>;
+  /** „Folgen"-Liste im Menü; leer blendet sie samt Überschrift aus. */
+  folgen?: readonly { label: string; href: string }[];
+  /** Pfad, dem der Tickets-Knopf im Menü folgt. */
+  ticketsPfad?: string;
 }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const lang: Lang = langFromPath(pathname, langs[0]);
-  const t = MENU[lang as keyof typeof MENU] ?? MENU.en;
+  const basis = MENU[lang as keyof typeof MENU] ?? MENU.en;
+  const t = { ...basis, ...(texte?.[lang] ?? {}) };
 
   // Magazin-Teaser folgt dem Magazin-Menüpunkt: Steht der Link im CMS-Menü
   // (Webby-Schrank) auf hidden — oder fehlt er ganz —, verschwindet auch die
@@ -222,7 +254,8 @@ export default function Header({
   // hidden — oder fehlt der Punkt ganz —, verschwindet auch der schwarze
   // Button. Text und Ziel übernimmt er vom Menüpunkt (in Webby umbenennbar).
   // Ohne CMS-Menü (Code-Fallback) bleibt der Button sichtbar.
-  const isTicketsHref = (href?: string) => !!href && /^\/tickets(?:$|[/#?])/.test(href);
+  const ticketsMuster = new RegExp(`^${ticketsPfad.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?:$|[/#?])`);
+  const isTicketsHref = (href?: string) => !!href && ticketsMuster.test(href);
   const ticketsItem = [...(nav?.cols ?? []), nav?.more, nav?.company]
     .flatMap((g) => g?.items ?? [])
     .find((i) => !i.hidden && isTicketsHref(i.href));
@@ -230,7 +263,7 @@ export default function Header({
     ? ticketsItem
       ? { label: pickL(ticketsItem.label) || t.tickets, href: ticketsItem.href as string }
       : null
-    : { label: t.tickets as string, href: "/tickets" };
+    : { label: t.tickets as string, href: ticketsPfad };
 
   // VIP-Portal (art-dus.de/vip) und die Aussteller-Portale (Anmeldung,
   // Bewerbung, Ausstellerportal) sind normale Menüpunkte im CMS (siteNavigation,
@@ -290,7 +323,7 @@ export default function Header({
           {langPill}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label={menuOpen ? "Menü schließen" : "Menü"}
+            aria-label={menuOpen ? t.menueZu : t.menue}
             aria-expanded={menuOpen}
             className="-mr-2 flex flex-col justify-center gap-[5px] w-[42px] h-[34px] px-2 py-1.5 cursor-pointer"
           >
@@ -320,14 +353,14 @@ export default function Header({
               // leere erste Zelle, damit das Logo im 1fr_auto_1fr-Raster mittig bleibt
               <span aria-hidden className="justify-self-start" />
             )}
-            <Link href={lang === "en" ? "/en" : "/"} onClick={close}>
+            <Link href={lang === langs[0] ? "/" : `/${lang}`} onClick={close}>
               <Logo marke={marke} className="text-brand-ink h-4 md:h-6 w-auto" />
             </Link>
             <div className="justify-self-end flex items-center gap-3 md:gap-[22px]">
               <span className="hidden sm:block">{langPill}</span>
               <button
                 onClick={close}
-                aria-label="Schließen"
+                aria-label={t.schliessen}
                 className="text-3xl leading-none cursor-pointer px-1"
               >
                 ×
@@ -337,7 +370,7 @@ export default function Header({
           <div className="border-t border-brand-line" />
 
           <nav
-            aria-label={lang === "en" ? "Main menu" : "Hauptmenü"}
+            aria-label={t.hauptmenue}
             className="w-full max-w-[1500px] mx-auto grid grid-cols-2 gap-8 md:grid-cols-[repeat(3,minmax(150px,1fr))_minmax(170px,0.85fr)_minmax(240px,300px)] md:gap-[clamp(24px,3vw,52px)] px-[var(--page-x)] pt-10 pb-16"
           >
             {cols.map((col) => (
@@ -396,10 +429,12 @@ export default function Header({
                   {item.label}
                 </Link>
               ))}
+              {folgen.length > 0 && (
               <span className="mt-2.5 text-[15px] font-bold tracking-[0.04em] uppercase underline decoration-brand-accent decoration-[3px] underline-offset-[5px]">
                 {t.followHead}
               </span>
-              {FOLLOW.map((item) => (
+              )}
+              {folgen.map((item) => (
                 <a
                   key={item.label}
                   href={withLang(item.href)}

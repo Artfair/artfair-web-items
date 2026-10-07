@@ -29,8 +29,8 @@ export * from './components/items'
 
 // Rahmen: Header (Mega-Menü), Footer, Chrome (Layout-Klammer), Logo.
 // nav-Daten kommen als Prop (Konsument fetcht siteNavigation selbst).
-export { default as Header, type MagazineTeaser } from './components/Header'
-export { default as Footer } from './components/Footer'
+export { default as Header, type MagazineTeaser, type HeaderTexte } from './components/Header'
+export { default as Footer, type Sozial, SOZIAL_SYMBOLE } from './components/Footer'
 export { default as Chrome } from './components/Chrome'
 export { default as Logo, type Wortmarke } from './components/Logo'
 export * from './lib/navigation' // SiteNav, NavItem, NavGroup, LocaleField

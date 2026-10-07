@@ -1,7 +1,10 @@
 // Menü-Typen der Website-Navigation (Sanity-Dokument „siteNavigation").
 // NUR Typen — das Fetchen bleibt beim Konsumenten (AD27 und Webby haben je
 // ihren eigenen Sanity-Client). Header/Footer bekommen `nav` als Prop.
-export type LocaleField = { de?: string; en?: string }
+// Sprachen der Instanzen: de/en (art.fair), en/ja (Tokyo Gendai). Bewusst
+// benannte Felder statt offener Achse — sonst passen die eigenen Menütypen
+// der Instanzen (AD27 lib/site) nicht mehr. Neue Sprache = hier ergänzen.
+export type LocaleField = { de?: string; en?: string; ja?: string }
 
 export interface NavItem {
   _key?: string
