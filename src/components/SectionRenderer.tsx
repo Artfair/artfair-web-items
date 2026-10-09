@@ -454,6 +454,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           eyebrow={loc(s.eyebrow, lang)}
           heading={loc(s.heading, lang)}
           cards={cards}
+          dreiSpalten={!!s.dreiSpalten}
         />
       );
     }

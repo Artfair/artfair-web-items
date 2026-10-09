@@ -19,10 +19,13 @@ export function CardTrioItem({
   eyebrow,
   heading,
   cards,
+  dreiSpalten = false,
 }: {
   eyebrow?: string; // leer = keine Eyebrow-Zeile, auch kein Punkt (Annalena 14.8.2026)
   heading: string;
   cards: TrioCard[];
+  /** Immer drei Spalten (gleich große Karten), auch bei zwei Karten. */
+  dreiSpalten?: boolean;
 }) {
   return (
     <section className="px-[var(--page-x)] pb-[clamp(64px,8vw,128px)]">
@@ -38,7 +41,7 @@ export function CardTrioItem({
           {heading}
         </h2>
       )}
-      <div className={`grid gap-8 ${cards.length === 2 ? "md:grid-cols-2" : "md:grid-cols-3"}`}>
+      <div className={`grid gap-8 ${cards.length === 2 && !dreiSpalten ? "md:grid-cols-2" : "md:grid-cols-3"}`}>
         {cards.map((card) => (
           <div key={card.title} id={card.id} className="flex flex-col group scroll-mt-14">
             <div className="overflow-hidden mb-4 bg-neutral-100">

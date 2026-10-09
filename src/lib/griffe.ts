@@ -430,6 +430,7 @@ export const GRIFFE: Griff[] = [
           { art: "knopf", feld: "link", label: "Link (optional)" },
         ],
       },
+      { art: "schalter", feld: "dreiSpalten", label: "Immer drei Spalten (Karten gleich groß, auch bei zwei Karten)", standard: false },
     ],
   },
   {

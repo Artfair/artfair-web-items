@@ -178,6 +178,8 @@ export interface CardTrioSection {
   eyebrow?: Loc;
   heading?: Loc;
   cards?: TrioCardData[];
+  // Immer drei Spalten — Karten bleiben gleich groß, auch wenn es nur zwei sind.
+  dreiSpalten?: boolean;
 }
 
 // 09 — Logo-Grid (LogoGridItem)
