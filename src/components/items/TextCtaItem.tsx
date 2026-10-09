@@ -13,6 +13,7 @@ export function TextCtaItem({
   cta,
   imageSrc,
   imageAlt,
+  ohneAbstand = false,
 }: {
   id?: string; // Sprungmarke für Menü-Links (z. B. "hotels")
   eyebrow?: string;
@@ -21,6 +22,8 @@ export function TextCtaItem({
   cta?: { label: string; href: string };
   imageSrc?: string;
   imageAlt?: string;
+  /** Kein Weißraum oben/unten — Luft setzt die Seite per Abstandhalter. */
+  ohneAbstand?: boolean;
 }) {
   const isExternal = cta ? /^https?:/.test(cta.href) : false;
 
@@ -32,10 +35,13 @@ export function TextCtaItem({
           {eyebrow}
         </span>
       )}
-      <h2 className="font-light text-[clamp(30px,3.8vw,54px)] leading-[1.04] tracking-[-0.02em] whitespace-pre-line">
-        {heading}
-      </h2>
-      <p className="text-[17px] leading-[1.6] text-neutral-600 max-w-[52ch] whitespace-pre-line">{body}</p>
+      {/* Leere Felder nicht zeichnen — sonst bleibt eine unsichtbare Zeile samt Abstand stehen. */}
+      {heading && (
+        <h2 className="font-light text-[clamp(30px,3.8vw,54px)] leading-[1.04] tracking-[-0.02em] whitespace-pre-line">
+          {heading}
+        </h2>
+      )}
+      {body && <p className="text-[17px] leading-[1.6] text-neutral-600 max-w-[52ch] whitespace-pre-line">{body}</p>}
       {cta && (
         <a
           href={cta.href}
@@ -60,7 +66,7 @@ export function TextCtaItem({
             className="absolute inset-0 w-full h-full object-cover"
           />
         </div>
-        <div className="flex flex-col justify-center gap-7 px-[clamp(40px,5vw,80px)] py-[clamp(64px,8vw,128px)] max-md:order-1">
+        <div className={`flex flex-col justify-center gap-7 px-[clamp(40px,5vw,80px)] ${ohneAbstand ? "py-0" : "py-[clamp(64px,8vw,128px)]"} max-md:order-1`}>
           {content}
         </div>
       </section>
@@ -68,7 +74,7 @@ export function TextCtaItem({
   }
 
   return (
-    <section id={id} className="px-[var(--page-x)] py-[clamp(56px,7vw,104px)] scroll-mt-14">
+    <section id={id} className={`px-[var(--page-x)] ${ohneAbstand ? "py-0" : "py-[clamp(56px,7vw,104px)]"} scroll-mt-14`}>
       <div className="flex flex-col gap-7">{content}</div>
     </section>
   );

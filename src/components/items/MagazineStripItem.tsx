@@ -2,7 +2,8 @@ import Link from "next/link";
 
 // Baukasten-Item „Magazin-Streifen" — Überschrift + „mehr"-Link über drei
 // Magazin-Karten. 1:1 aus der Startseite herausgelöst. Die Karten liefert die
-// Seite (kuratierte/aktuelle Magazin-Artikel), damit der Streifen aktuell bleibt.
+// Seite (kuratierte/aktuelle Magazin-Artikel), damit der Streifen aktuell bleibt —
+// oder der Streifen trägt eigene Karten aus dem CMS (dann ist der „mehr"-Link optional).
 
 export interface MagCard {
   tag: string;
@@ -19,23 +20,28 @@ export function MagazineStripItem({
 }: {
   title: string;
   moreLabel: string;
-  moreHref: string;
+  /** Ohne Adresse kein „mehr"-Link (nur bei eigenen Karten). */
+  moreHref?: string;
   cards: MagCard[];
 }) {
   if (cards.length === 0) return null;
   return (
     <section className="px-[var(--page-x)] py-[clamp(48px,7vw,110px)]">
-      <div className="flex items-baseline justify-between gap-5 flex-wrap mb-[clamp(28px,4vw,48px)]">
-        <h2 className="font-light text-[clamp(30px,4vw,56px)] tracking-[-0.02em] leading-tight">
-          {title}
-        </h2>
-        <Link
-          href={moreHref}
-          className="text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px]"
-        >
-          {moreLabel} →
-        </Link>
-      </div>
+      {(title || moreHref) && (
+        <div className="flex items-baseline justify-between gap-5 flex-wrap mb-[clamp(28px,4vw,48px)]">
+          <h2 className="font-light text-[clamp(30px,4vw,56px)] tracking-[-0.02em] leading-tight">
+            {title}
+          </h2>
+          {moreHref && (
+            <Link
+              href={moreHref}
+              className="text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px]"
+            >
+              {moreLabel} →
+            </Link>
+          )}
+        </div>
+      )}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[clamp(20px,2.4vw,36px)]">
         {cards.map((m) => (
           <Link key={m.href + m.title} href={m.href} className="flex flex-col gap-3.5 group">
