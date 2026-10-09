@@ -35,10 +35,13 @@ export function TextCtaItem({
           {eyebrow}
         </span>
       )}
-      <h2 className="font-light text-[clamp(30px,3.8vw,54px)] leading-[1.04] tracking-[-0.02em] whitespace-pre-line">
-        {heading}
-      </h2>
-      <p className="text-[17px] leading-[1.6] text-neutral-600 max-w-[52ch] whitespace-pre-line">{body}</p>
+      {/* Leere Felder nicht zeichnen — sonst bleibt eine unsichtbare Zeile samt Abstand stehen. */}
+      {heading && (
+        <h2 className="font-light text-[clamp(30px,3.8vw,54px)] leading-[1.04] tracking-[-0.02em] whitespace-pre-line">
+          {heading}
+        </h2>
+      )}
+      {body && <p className="text-[17px] leading-[1.6] text-neutral-600 max-w-[52ch] whitespace-pre-line">{body}</p>}
       {cta && (
         <a
           href={cta.href}
