@@ -213,6 +213,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           cta={resolveCta(s.cta, lang)}
           imageSrc={img(s.image) || undefined}
           imageAlt={s.image?.alt ?? ""}
+          ohneAbstand={!!s.ohneAbstand}
         />
       );
     }
@@ -527,14 +528,24 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
     }
 
     case "magazineStrip": {
-      if (magazine.length === 0) return null;
+      // Eigene Karten aus dem CMS haben Vorrang; sonst füllt die Seite den Streifen.
+      const eigene: MagCard[] = (s.cards ?? [])
+        .map((c) => ({
+          tag: loc(c.tag, lang),
+          title: loc(c.title, lang),
+          img: img(c.image, 800) || null,
+          href: c.href ? withLang(c.href, lang) : "#",
+        }))
+        .filter((c) => c.title || c.img);
+      const cards = eigene.length ? eigene : magazine;
+      if (cards.length === 0) return null;
       return (
         <MagazineStripItem
           key={s._key}
           title={loc(s.title, lang)}
           moreLabel={loc(s.moreLabel, lang)}
-          moreHref={withLang(s.moreHref || "/magazine", lang)}
-          cards={magazine}
+          moreHref={eigene.length && !s.moreHref ? undefined : withLang(s.moreHref || "/magazine", lang)}
+          cards={cards}
         />
       );
     }

@@ -168,6 +168,7 @@ export const GRIFFE: Griff[] = [
       { art: "loc", feld: "body", label: "Text", mehrzeilig: true },
       { art: "knopf", feld: "cta", label: "Knopf" },
       { art: "bild", feld: "image", label: "Foto links (optional)" },
+      { art: "schalter", feld: "ohneAbstand", label: "Ohne Abstand oben und unten (Luft dann per Abstandhalter)", standard: false },
     ],
   },
   {
@@ -245,13 +246,22 @@ export const GRIFFE: Griff[] = [
   {
     typ: "magazineStrip",
     name: "Magazin-Streifen",
-    hinweis: "Überschrift + „mehr\"-Link (Karten automatisch)",
+    hinweis: "Überschrift + „mehr\"-Link, Karten automatisch oder eigene",
     gruppe: "Medien & Logos",
     faecher: [
       { art: "loc", feld: "title", label: "Überschrift" },
       { art: "loc", feld: "moreLabel", label: "Mehr-Link-Beschriftung" },
       { art: "text", feld: "moreHref", label: "Mehr-Link (Adresse)", platzhalter: "/magazine" },
-      { art: "notiz", text: "Die Karten füllt die Website automatisch mit aktuellen Magazin-Artikeln." },
+      {
+        art: "liste", feld: "cards", label: "Eigene Karten (optional)", neu: "+ Karte", schluessel: "card", entfernen: "Karte entfernen", entfernenText: "✕ Karte entfernen",
+        notiz: "Ohne eigene Karten füllt die Website den Streifen automatisch mit aktuellen Magazin-Artikeln. Mit eigenen Karten ist der Mehr-Link optional.",
+        eintrag: [
+          { art: "bild", feld: "image", label: "Karte {n} — Bild" },
+          { art: "loc", feld: "tag", label: "Kleine Zeile über dem Titel" },
+          { art: "loc", feld: "title", label: "Titel" },
+          { art: "text", feld: "href", label: "Link (Adresse)", platzhalter: "/programm" },
+        ],
+      },
     ],
   },
   {

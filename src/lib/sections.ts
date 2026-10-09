@@ -106,6 +106,8 @@ export interface TextCtaSection {
   body?: Loc;
   cta?: Cta;
   image?: ImageRef; // optional — mit Bild links, ohne nur Text
+  // Ohne eigenen Weißraum oben und unten; Luft dann per Abstandhalter (spacer).
+  ohneAbstand?: boolean;
 }
 
 // 05b — News + Datum (NewsDateItem) — Textsektion wie 05, aber mit
@@ -254,12 +256,23 @@ export interface LogoMarqueeSection {
 }
 
 // 14 — Magazin-Streifen (MagazineStripItem) — Karten liefert die Seite
+// Eigene Karte im Magazin-Streifen (statt der automatisch gefüllten Artikel),
+// z. B. Verweise auf Galerien, Programm, Talks.
+export interface MagStripCardData {
+  _key: string
+  image?: ImageRef
+  tag?: Loc
+  title?: Loc
+  href?: string
+}
 export interface MagazineStripSection {
   _key: string
   _type: 'magazineStrip'
   title?: Loc
   moreLabel?: Loc
   moreHref?: string
+  // Mit eigenen Karten zeigt der Streifen diese; ohne füllt ihn die Seite (magazine).
+  cards?: MagStripCardData[]
 }
 
 // 15 — Themen-Sektion (ThemesSection)
