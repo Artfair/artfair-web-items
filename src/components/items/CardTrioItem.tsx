@@ -32,9 +32,12 @@ export function CardTrioItem({
           {eyebrow}
         </span>
       )}
-      <h2 className="font-light text-[clamp(36px,5vw,68px)] leading-[1.02] tracking-[-0.02em] mb-[clamp(28px,3.5vw,56px)]">
-        {heading}
-      </h2>
+      {/* Leere Felder nicht zeichnen — sonst bleibt eine unsichtbare Zeile samt Abstand stehen. */}
+      {heading && (
+        <h2 className="font-light text-[clamp(36px,5vw,68px)] leading-[1.02] tracking-[-0.02em] mb-[clamp(28px,3.5vw,56px)]">
+          {heading}
+        </h2>
+      )}
       <div className={`grid gap-8 ${cards.length === 2 ? "md:grid-cols-2" : "md:grid-cols-3"}`}>
         {cards.map((card) => (
           <div key={card.title} id={card.id} className="flex flex-col group scroll-mt-14">
@@ -49,13 +52,17 @@ export function CardTrioItem({
                 }`}
               />
             </div>
-            <span className="text-[13px] font-medium tracking-[0.14em] uppercase text-neutral-600 mb-2">
-              {card.label}
-            </span>
+            {card.label && (
+              <span className="text-[13px] font-medium tracking-[0.14em] uppercase text-neutral-600 mb-2">
+                {card.label}
+              </span>
+            )}
             <h3 className="text-xl font-normal leading-[1.15] mb-2.5">{card.title}</h3>
-            <p className="text-[15px] leading-[1.62] text-neutral-600 whitespace-pre-line">
-              {card.body}
-            </p>
+            {card.body && (
+              <p className="text-[15px] leading-[1.62] text-neutral-600 whitespace-pre-line">
+                {card.body}
+              </p>
+            )}
             {card.extra}
             {card.link && (
               <Link
