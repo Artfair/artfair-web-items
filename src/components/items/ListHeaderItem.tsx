@@ -39,17 +39,17 @@ export function ListHeaderItem({
       <div className="px-[var(--page-x)] pt-[clamp(40px,5vw,72px)] pb-[clamp(20px,2.2vw,32px)] flex items-end justify-between gap-x-10 gap-y-4 flex-wrap">
         <div className="min-w-0">
           {eyebrow && (
-            <span className="flex items-center gap-2.5 text-[13px] font-medium tracking-[0.18em] uppercase mb-[clamp(14px,1.5vw,22px)]">
+            <span className="flex items-center gap-2.5 text-[length:calc(13px*var(--schrift-klein,1))] font-medium tracking-[0.18em] uppercase mb-[clamp(14px,1.5vw,22px)]">
               <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
               {eyebrow}
             </span>
           )}
-          <h1 className="font-normal text-[clamp(40px,5vw,72px)] leading-[0.98] tracking-[-0.01em]">
+          <h1 className="font-normal text-[length:calc(clamp(40px,5vw,72px)*var(--schrift-titel,1))] leading-[0.98] tracking-[-0.01em]">
             {title}
           </h1>
         </div>
         {counterValue && (
-          <div className="text-[20px] text-neutral-600 whitespace-nowrap">
+          <div className="text-[length:calc(20px*var(--schrift-text,1))] text-neutral-600 whitespace-nowrap">
             <strong className="text-brand-ink font-medium">{counterValue}</strong>{' '}
             {counterLabel}
           </div>
@@ -68,7 +68,7 @@ export function ListHeaderItem({
                     type="button"
                     aria-pressed={isActive}
                     onClick={() => onFilterChange(f.value)}
-                    className={`rounded-[50px] border border-brand-ink px-[20px] py-[6px] text-[15px] transition-colors ${
+                    className={`rounded-[50px] border border-brand-ink px-[20px] py-[6px] text-[length:calc(15px*var(--schrift-text,1))] transition-colors ${
                       isActive
                         ? 'bg-brand-ink text-white'
                         : 'bg-white hover:bg-brand-ink hover:text-white'
@@ -82,14 +82,14 @@ export function ListHeaderItem({
           )}
           {onSearchChange && (
             <div className="flex items-center border-[1.5px] border-brand-ink min-w-[260px] max-w-[360px] flex-1">
-              <span aria-hidden="true" className="px-[14px] text-[18px] text-neutral-600">⌕</span>
+              <span aria-hidden="true" className="px-[14px] text-[length:calc(18px*var(--schrift-text,1))] text-neutral-600">⌕</span>
               <input
                 type="search"
                 value={searchQuery ?? ''}
                 onChange={(e) => onSearchChange(e.target.value)}
                 placeholder={searchPlaceholder}
                 aria-label={searchLabel}
-                className="flex-1 min-w-0 border-0 outline-none text-[15px] py-[11px] pr-2 bg-white"
+                className="flex-1 min-w-0 border-0 outline-none text-[length:calc(15px*var(--schrift-text,1))] py-[11px] pr-2 bg-white"
               />
             </div>
           )}

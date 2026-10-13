@@ -35,19 +35,19 @@ export function NewsletterHeroItem({
     <section id={id} className="grid md:grid-cols-[1.1fr_1fr] items-stretch">
       <div className="flex flex-col justify-center px-[var(--page-x)] py-[clamp(48px,6.1vw,88px)] md:pr-[clamp(28px,3.3vw,48px)]">
         {eyebrow && (
-          <span className="flex items-center gap-2.5 text-[13px] font-medium tracking-[0.2em] uppercase mb-[clamp(14px,1.5vw,22px)]">
+          <span className="flex items-center gap-2.5 text-[length:calc(13px*var(--schrift-klein,1))] font-medium tracking-[0.2em] uppercase mb-[clamp(14px,1.5vw,22px)]">
             <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
             {eyebrow}
           </span>
         )}
-        <h1 className="font-normal text-[clamp(40px,5vw,72px)] leading-[1.02] tracking-[-0.01em] mb-[clamp(16px,1.7vw,24px)]">
+        <h1 className="font-normal text-[length:calc(clamp(40px,5vw,72px)*var(--schrift-titel,1))] leading-[1.02] tracking-[-0.01em] mb-[clamp(16px,1.7vw,24px)]">
           {title}
         </h1>
-        <p className="text-[clamp(17px,1.4vw,20px)] leading-[1.5] text-neutral-700 max-w-[480px] mb-[clamp(24px,2.5vw,36px)]">
+        <p className="text-[length:calc(clamp(17px,1.4vw,20px)*var(--schrift-text,1))] leading-[1.5] text-neutral-700 max-w-[480px] mb-[clamp(24px,2.5vw,36px)]">
           {body}
         </p>
         {done ? (
-          <p className="text-[15px] text-neutral-600">{thanksText}</p>
+          <p className="text-[length:calc(15px*var(--schrift-text,1))] text-neutral-600">{thanksText}</p>
         ) : (
           <form
             onSubmit={(e) => {
@@ -65,11 +65,11 @@ export function NewsletterHeroItem({
               required
               autoComplete="email"
               placeholder={emailPlaceholder}
-              className="flex-1 min-w-0 border-0 outline-none text-[16px] px-5 py-4 bg-white placeholder:text-neutral-500"
+              className="flex-1 min-w-0 border-0 outline-none text-[length:calc(16px*var(--schrift-text,1))] px-5 py-4 bg-white placeholder:text-neutral-500"
             />
             <button
               type="submit"
-              className="bg-brand-ink text-white text-[13px] font-medium tracking-[0.14em] uppercase px-[26px] whitespace-nowrap"
+              className="bg-brand-ink text-white text-[length:calc(13px*var(--schrift-klein,1))] font-medium tracking-[0.14em] uppercase px-[26px] whitespace-nowrap"
             >
               {submitLabel} →
             </button>

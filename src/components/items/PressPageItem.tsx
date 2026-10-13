@@ -105,7 +105,7 @@ function SignupForm({ s }: { s: PressSignup }) {
 
   if (done) {
     return (
-      <p role="status" className="flex items-start gap-3 text-[17px] leading-[1.6] mt-[clamp(20px,2.2vw,32px)]">
+      <p role="status" className="flex items-start gap-3 text-[length:calc(17px*var(--schrift-text,1))] leading-[1.6] mt-[clamp(20px,2.2vw,32px)]">
         <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent shrink-0 mt-[9px]" />
         {s.confirmation}
       </p>
@@ -182,9 +182,9 @@ function SignupForm({ s }: { s: PressSignup }) {
             <path d="M2 6.5L4.8 9.2 10 3.5" stroke="currentColor" strokeWidth="1.8" />
           </svg>
         </span>
-        <span className="text-[14px] leading-[1.6] text-neutral-600">
+        <span className="text-[length:calc(14px*var(--schrift-klein,1))] leading-[1.6] text-neutral-600">
           {s.consentText}{" "}
-          <span className="text-[13px] text-neutral-500">
+          <span className="text-[length:calc(13px*var(--schrift-klein,1))] text-neutral-500">
             {s.privacyIntro}{" "}
             <a href={s.privacyHref} className="underline underline-offset-[3px] hover:text-brand-ink">
               {s.privacyLabel}
@@ -194,14 +194,14 @@ function SignupForm({ s }: { s: PressSignup }) {
         </span>
       </label>
       {failed && (
-        <p role="alert" className="text-[14px] leading-[1.5] text-brand-danger mt-4">
+        <p role="alert" className="text-[length:calc(14px*var(--schrift-klein,1))] leading-[1.5] text-brand-danger mt-4">
           {s.errorText}
         </p>
       )}
       <button
         type="submit"
         disabled={sending}
-        className="mt-6 text-[13px] font-medium tracking-[0.14em] uppercase text-white bg-brand-ink px-[30px] py-[14px] cursor-pointer disabled:opacity-60 disabled:cursor-wait"
+        className="mt-6 text-[length:calc(13px*var(--schrift-klein,1))] font-medium tracking-[0.14em] uppercase text-white bg-brand-ink px-[30px] py-[14px] cursor-pointer disabled:opacity-60 disabled:cursor-wait"
       >
         {s.submitLabel}
       </button>
@@ -209,11 +209,11 @@ function SignupForm({ s }: { s: PressSignup }) {
   );
 }
 
-const H2 = "font-light text-[clamp(30px,3.4vw,52px)] leading-[1.06] tracking-[-0.02em]";
-const BODY = "text-[clamp(17px,1.4vw,20px)] leading-[1.62] text-neutral-600";
-const LABEL = "text-[13px] font-semibold tracking-[0.14em] uppercase text-neutral-500";
+const H2 = "font-light text-[length:calc(clamp(30px,3.4vw,52px)*var(--schrift-titel,1))] leading-[1.06] tracking-[-0.02em]";
+const BODY = "text-[length:calc(clamp(17px,1.4vw,20px)*var(--schrift-text,1))] leading-[1.62] text-neutral-600";
+const LABEL = "text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase text-neutral-500";
 const INPUT =
-  "min-w-0 text-[15px] text-brand-ink px-[18px] py-[14px] border border-brand-ink bg-white outline-none placeholder:text-neutral-500 focus:border-brand-accent focus:ring-1 focus:ring-brand-accent";
+  "min-w-0 text-[length:calc(15px*var(--schrift-text,1))] text-brand-ink px-[18px] py-[14px] border border-brand-ink bg-white outline-none placeholder:text-neutral-500 focus:border-brand-accent focus:ring-1 focus:ring-brand-accent";
 
 // Externe Ziele (Downloads, Presse-Ordner) in neuem Tab, interne im selben.
 function SmartLink({ href, className, children }: { href: string; className: string; children: React.ReactNode }) {
@@ -270,7 +270,7 @@ function ReleaseCard({ r, labels }: { r: PressRelease; labels: PressReleaseLabel
   const pdfLink = r.href && (
     <SmartLink
       href={r.href}
-      className="inline-flex items-center gap-1.5 text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px]"
+      className="inline-flex items-center gap-1.5 text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px]"
     >
       {labels.pdf} <span aria-hidden="true">↓</span>
     </SmartLink>
@@ -279,7 +279,7 @@ function ReleaseCard({ r, labels }: { r: PressRelease; labels: PressReleaseLabel
   return (
     <>
       {r.date && <span className={`${LABEL} block mb-2.5`}>{r.date}</span>}
-      <h3 className="text-[clamp(20px,1.8vw,26px)] font-normal leading-[1.15]">
+      <h3 className="text-[length:calc(clamp(20px,1.8vw,26px)*var(--schrift-zwischentitel,1))] font-normal leading-[1.15]">
         {r.href && !r.body ? (
           <SmartLink
             href={r.href}
@@ -297,22 +297,22 @@ function ReleaseCard({ r, labels }: { r: PressRelease; labels: PressReleaseLabel
           <summary className="inline-flex items-center gap-2.5 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
             <span
               aria-hidden="true"
-              className="w-6 h-6 bg-brand-accent text-brand-ink inline-flex items-center justify-center text-[17px] font-medium shrink-0 group-open:rotate-45 transition-transform"
+              className="w-6 h-6 bg-brand-accent text-brand-ink inline-flex items-center justify-center text-[length:calc(17px*var(--schrift-text,1))] font-medium shrink-0 group-open:rotate-45 transition-transform"
             >
               +
             </span>
-            <span className="text-[13px] font-semibold tracking-[0.06em] uppercase">{labels.fullText}</span>
+            <span className="text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.06em] uppercase">{labels.fullText}</span>
           </summary>
           {/* Volltext bewusst als normaler, markierbarer Fließtext — Absätze
               mit \n\n, Links als [Text](https://…). */}
-          <p className="text-[15px] leading-[1.62] text-neutral-600 whitespace-pre-line max-w-[64ch] mt-4">
+          <p className="text-[length:calc(15px*var(--schrift-text,1))] leading-[1.62] text-neutral-600 whitespace-pre-line max-w-[64ch] mt-4">
             {renderInlineLinks(r.body, { className: INLINE_LINK_LIGHT })}
           </p>
           <div className="mt-5">
             <button
               type="button"
               onClick={copyText}
-              className="inline-flex items-center gap-1.5 text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px] cursor-pointer"
+              className="inline-flex items-center gap-1.5 text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px] cursor-pointer"
             >
               {copied ? labels.copied : labels.copy}
             </button>
@@ -389,7 +389,7 @@ export function PressPageItem({
             {accreditationCta && (
               <SmartLink
                 href={accreditationCta.href}
-                className="inline-flex items-center gap-2 bg-brand-ink text-white text-[13px] font-medium tracking-[0.14em] uppercase px-[28px] py-[15px] whitespace-nowrap mt-[clamp(24px,2.5vw,36px)]"
+                className="inline-flex items-center gap-2 bg-brand-ink text-white text-[length:calc(13px*var(--schrift-klein,1))] font-medium tracking-[0.14em] uppercase px-[28px] py-[15px] whitespace-nowrap mt-[clamp(24px,2.5vw,36px)]"
               >
                 {accreditationCta.label}
               </SmartLink>
@@ -407,7 +407,7 @@ export function PressPageItem({
                     {d.href ? (
                       <SmartLink
                         href={d.href}
-                        className="text-[clamp(17px,1.4vw,20px)] leading-[1.4] underline decoration-brand-accent decoration-2 underline-offset-4 hover:bg-brand-accent transition-colors"
+                        className="text-[length:calc(clamp(17px,1.4vw,20px)*var(--schrift-text,1))] leading-[1.4] underline decoration-brand-accent decoration-2 underline-offset-4 hover:bg-brand-accent transition-colors"
                       >
                         {d.label}
                       </SmartLink>
@@ -449,20 +449,20 @@ export function PressPageItem({
                       dark ? "bg-brand-ink text-white" : "bg-brand-accent text-brand-ink"
                     }`}
                   >
-                    <span className="text-[13px] font-semibold tracking-[0.14em] uppercase">
+                    <span className="text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase">
                       {c.label}
                     </span>
                     <span
                       aria-hidden="true"
                       className={`block h-px mt-5 mb-8 ${dark ? "bg-brand-accent" : "bg-brand-ink"}`}
                     />
-                    <span className="block font-light text-[clamp(28px,2.6vw,40px)] leading-[1.06] tracking-[-0.02em] whitespace-pre-line">
+                    <span className="block font-light text-[length:calc(clamp(28px,2.6vw,40px)*var(--schrift-titel,1))] leading-[1.06] tracking-[-0.02em] whitespace-pre-line">
                       {c.name}
                     </span>
                     <span className="mt-auto pt-8 flex flex-wrap justify-between items-end gap-x-10 gap-y-6">
                       {c.lines && (
                         <span
-                          className={`block text-[17px] leading-[1.62] whitespace-pre-line ${
+                          className={`block text-[length:calc(17px*var(--schrift-text,1))] leading-[1.62] whitespace-pre-line ${
                             dark ? "text-neutral-300" : ""
                           }`}
                         >
@@ -470,7 +470,7 @@ export function PressPageItem({
                         </span>
                       )}
                       {(c.phone || c.email) && (
-                        <span className="flex flex-col items-start gap-[5px] font-light text-[15px]">
+                        <span className="flex flex-col items-start gap-[5px] font-light text-[length:calc(15px*var(--schrift-text,1))]">
                           {c.phone && (
                             <a
                               href={`tel:${c.phone.replace(/[^+\d]/g, "")}`}

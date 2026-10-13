@@ -214,7 +214,7 @@ export function NewsletterPopupItem({
           type="button"
           onClick={close}
           aria-label={t.close}
-          className="absolute right-3 top-2.5 cursor-pointer p-1.5 text-[20px] leading-none text-brand-ink opacity-60 hover:opacity-100"
+          className="absolute right-3 top-2.5 cursor-pointer p-1.5 text-[length:calc(20px*var(--schrift-text,1))] leading-none text-brand-ink opacity-60 hover:opacity-100"
         >
           ✕
         </button>
@@ -223,21 +223,21 @@ export function NewsletterPopupItem({
           {/* Gewichtung getauscht (Annalena 18.9.): „INSIDE ART DÜSSELDORF"
               ist die große Zeile, „Get inside." die kleine darüber. */}
           <div>
-            <p className="mb-1 text-[14px] font-bold tracking-[-0.01em]">
+            <p className="mb-1 text-[length:calc(14px*var(--schrift-klein,1))] font-bold tracking-[-0.01em]">
               {headline || t.headline}
             </p>
-            <p className="mb-2 text-[24px] font-bold uppercase leading-[1.1] tracking-[0.08em]">
+            <p className="mb-2 text-[length:calc(24px*var(--schrift-zwischentitel,1))] font-bold uppercase leading-[1.1] tracking-[0.08em]">
               {eyebrow || t.eyebrow}
             </p>
             {/* Nach der Anmeldung fällt der Beschreibungstext weg, damit die
                 Bestätigungs-Botschaft nicht untergeht (Annalena 23.9.). */}
             {status !== 'success' && (
-              <p className="text-[14px] leading-[1.45]">{body || t.body}</p>
+              <p className="text-[length:calc(14px*var(--schrift-klein,1))] leading-[1.45]">{body || t.body}</p>
             )}
           </div>
 
           {status === 'success' ? (
-            <p className="text-[15px] leading-[1.5]" role="status">
+            <p className="text-[length:calc(15px*var(--schrift-text,1))] leading-[1.5]" role="status">
               <strong className="font-bold">{t.successLead}</strong>
               {t.successRest}
             </p>
@@ -253,7 +253,7 @@ export function NewsletterPopupItem({
                 required
                 autoComplete="email"
                 placeholder={t.placeholder}
-                className="border-0 border-b-[1.5px] border-brand-ink bg-transparent px-0.5 py-2 text-[15px] text-brand-ink outline-none placeholder:text-brand-ink-60"
+                className="border-0 border-b-[1.5px] border-brand-ink bg-transparent px-0.5 py-2 text-[length:calc(15px*var(--schrift-text,1))] text-brand-ink outline-none placeholder:text-brand-ink-60"
               />
               <input type="hidden" name="language" value={lang} />
               <BotShieldFields action={action} />
@@ -277,7 +277,7 @@ export function NewsletterPopupItem({
                     <path d="M1 5L4.5 8.5L11 1.5" stroke="currentColor" strokeWidth="2" strokeLinecap="square" />
                   </svg>
                 </span>
-                <span className="text-[12px] leading-[1.4]">
+                <span className="text-[length:calc(12px*var(--schrift-klein,1))] leading-[1.4]">
                   {t.consentPre}{' '}
                   <a href={privacy} target="_blank" rel="noreferrer" className="underline">
                     {t.consentLink}
@@ -289,12 +289,12 @@ export function NewsletterPopupItem({
               <button
                 type="submit"
                 disabled={status === 'loading' || !consent}
-                className="inline-flex w-full cursor-pointer items-center justify-center rounded-full border border-brand-ink bg-brand-ink px-5 py-2.5 text-[15px] font-medium uppercase tracking-[0.02em] text-white disabled:cursor-not-allowed disabled:opacity-40"
+                className="inline-flex w-full cursor-pointer items-center justify-center rounded-full border border-brand-ink bg-brand-ink px-5 py-2.5 text-[length:calc(15px*var(--schrift-text,1))] font-medium uppercase tracking-[0.02em] text-white disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {t.button}
               </button>
 
-              <p className="min-h-[14px] text-[12px]" role="alert">
+              <p className="min-h-[14px] text-[length:calc(12px*var(--schrift-klein,1))]" role="alert">
                 {status === 'error' && t.error}
               </p>
             </form>

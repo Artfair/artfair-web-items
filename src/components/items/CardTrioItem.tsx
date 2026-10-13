@@ -30,14 +30,14 @@ export function CardTrioItem({
   return (
     <section className="px-[var(--page-x)] pb-[clamp(64px,8vw,128px)]">
       {eyebrow && (
-        <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase mb-5">
+        <span className="flex items-center gap-2.5 text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase mb-5">
           <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
           {eyebrow}
         </span>
       )}
       {/* Leere Felder nicht zeichnen — sonst bleibt eine unsichtbare Zeile samt Abstand stehen. */}
       {heading && (
-        <h2 className="font-light text-[clamp(36px,5vw,68px)] leading-[1.02] tracking-[-0.02em] mb-[clamp(28px,3.5vw,56px)]">
+        <h2 className="font-light text-[length:calc(clamp(36px,5vw,68px)*var(--schrift-titel,1))] leading-[1.02] tracking-[-0.02em] mb-[clamp(28px,3.5vw,56px)]">
           {heading}
         </h2>
       )}
@@ -56,13 +56,13 @@ export function CardTrioItem({
               />
             </div>
             {card.label && (
-              <span className="text-[13px] font-medium tracking-[0.14em] uppercase text-neutral-600 mb-2">
+              <span className="text-[length:calc(13px*var(--schrift-klein,1))] font-medium tracking-[0.14em] uppercase text-neutral-600 mb-2">
                 {card.label}
               </span>
             )}
             <h3 className="text-xl font-normal leading-[1.15] mb-2.5">{card.title}</h3>
             {card.body && (
-              <p className="text-[15px] leading-[1.62] text-neutral-600 whitespace-pre-line">
+              <p className="text-[length:calc(15px*var(--schrift-text,1))] leading-[1.62] text-neutral-600 whitespace-pre-line">
                 {card.body}
               </p>
             )}
@@ -70,7 +70,7 @@ export function CardTrioItem({
             {card.link && (
               <Link
                 href={card.link.href}
-                className="self-start text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px] mt-4"
+                className="self-start text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px] mt-4"
               >
                 {card.link.label} →
               </Link>

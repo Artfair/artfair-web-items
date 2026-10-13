@@ -69,15 +69,15 @@ export function PartnerHeroItem({
       <div className="grid md:grid-cols-2 gap-[clamp(20px,2.8vw,40px)] items-stretch">
         <div className="flex flex-col justify-center border-[3px] border-brand-accent p-[clamp(28px,3.3vw,48px)]">
           {eyebrow && (
-            <span className="flex items-center gap-2.5 text-[13px] font-medium tracking-[0.18em] uppercase mb-[clamp(18px,1.8vw,26px)]">
+            <span className="flex items-center gap-2.5 text-[length:calc(13px*var(--schrift-klein,1))] font-medium tracking-[0.18em] uppercase mb-[clamp(18px,1.8vw,26px)]">
               <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
               {eyebrow}
             </span>
           )}
-          <h1 className="font-normal text-[clamp(42px,5.8vw,84px)] leading-[0.98] tracking-[-0.01em]">
+          <h1 className="font-normal text-[length:calc(clamp(42px,5.8vw,84px)*var(--schrift-titel,1))] leading-[0.98] tracking-[-0.01em]">
             {title}
           </h1>
-          <p className="text-[clamp(17px,1.5vw,22px)] leading-[1.4] text-neutral-700 max-w-[460px] mt-[clamp(20px,1.9vw,28px)] mb-[clamp(26px,2.8vw,40px)]">
+          <p className="text-[length:calc(clamp(17px,1.5vw,22px)*var(--schrift-text,1))] leading-[1.4] text-neutral-700 max-w-[460px] mt-[clamp(20px,1.9vw,28px)] mb-[clamp(26px,2.8vw,40px)]">
             {body}
           </p>
           {(primaryCta || secondaryCta) && (
@@ -85,7 +85,7 @@ export function PartnerHeroItem({
               {primaryCta && (
                 <Link
                   href={primaryCta.href}
-                  className="inline-flex items-center gap-2 bg-brand-ink text-white text-[13px] font-medium tracking-[0.14em] uppercase px-[28px] py-[15px]"
+                  className="inline-flex items-center gap-2 bg-brand-ink text-white text-[length:calc(13px*var(--schrift-klein,1))] font-medium tracking-[0.14em] uppercase px-[28px] py-[15px]"
                 >
                   {primaryCta.label} →
                 </Link>
@@ -93,7 +93,7 @@ export function PartnerHeroItem({
               {secondaryCta && (
                 <Link
                   href={secondaryCta.href}
-                  className="inline-flex items-center border border-brand-ink text-[13px] font-medium tracking-[0.14em] uppercase px-[26px] py-[14px]"
+                  className="inline-flex items-center border border-brand-ink text-[length:calc(13px*var(--schrift-klein,1))] font-medium tracking-[0.14em] uppercase px-[26px] py-[14px]"
                 >
                   {secondaryCta.label}
                 </Link>

@@ -67,27 +67,27 @@ export function CtaBandItem({
     <section id={id} className={`grid ${cols} bg-brand-ink scroll-mt-14`}>
       <div className="flex flex-col justify-center gap-7 px-[clamp(40px,5vw,80px)] py-[clamp(64px,8vw,128px)]">
         {eyebrow && (
-          <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase text-neutral-400">
+          <span className="flex items-center gap-2.5 text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase text-neutral-400">
             <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
             {eyebrow}
           </span>
         )}
-        <h2 className="font-light text-[clamp(40px,5vw,72px)] leading-[1.02] tracking-[-0.02em] text-white whitespace-pre-line">
+        <h2 className="font-light text-[length:calc(clamp(40px,5vw,72px)*var(--schrift-titel,1))] leading-[1.02] tracking-[-0.02em] text-white whitespace-pre-line">
           {heading}
         </h2>
-        <p className="text-[17px] leading-[1.6] text-neutral-300 max-w-[44ch]">{body}</p>
+        <p className="text-[length:calc(17px*var(--schrift-text,1))] leading-[1.6] text-neutral-300 max-w-[44ch]">{body}</p>
         {contact && (
           <div className="border-l-2 border-brand-accent pl-5">
-            <span className="block text-[16px] font-medium text-white">{contact.name}</span>
+            <span className="block text-[length:calc(16px*var(--schrift-text,1))] font-medium text-white">{contact.name}</span>
             {contact.role && (
-              <span className="block text-[12px] font-semibold tracking-[0.14em] uppercase text-neutral-400 mt-1">
+              <span className="block text-[length:calc(12px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase text-neutral-400 mt-1">
                 {contact.role}
               </span>
             )}
             {contact.phone && (
               <a
                 href={`tel:${contact.phone.replace(/[\s-]+/g, "")}`}
-                className="inline-block font-light text-[15px] text-neutral-300 mt-2.5 hover:underline underline-offset-[3px]"
+                className="inline-block font-light text-[length:calc(15px*var(--schrift-text,1))] text-neutral-300 mt-2.5 hover:underline underline-offset-[3px]"
               >
                 {contact.phone}
               </a>
@@ -96,7 +96,7 @@ export function CtaBandItem({
         )}
         <CtaLink
           href={cta.href}
-          className="self-start text-[13px] font-semibold tracking-[0.14em] uppercase text-brand-ink bg-brand-accent px-[30px] py-[15px] mt-1.5"
+          className="self-start text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase text-brand-ink bg-brand-accent px-[30px] py-[15px] mt-1.5"
         >
           {cta.label} →
         </CtaLink>

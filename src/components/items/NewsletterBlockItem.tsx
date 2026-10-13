@@ -16,10 +16,10 @@ export function NewsletterBlockItem({
 }) {
   return (
     <section id="newsletter" className="px-[var(--page-x)] py-[clamp(60px,9vw,140px)] text-center scroll-mt-14">
-      <h2 className="font-light text-[clamp(36px,6vw,80px)] leading-[0.98] tracking-[-0.02em] max-w-[16ch] mx-auto mb-4">
+      <h2 className="font-light text-[length:calc(clamp(36px,6vw,80px)*var(--schrift-titel,1))] leading-[0.98] tracking-[-0.02em] max-w-[16ch] mx-auto mb-4">
         {title}
       </h2>
-      <p className="text-[clamp(15px,1.3vw,18px)] text-neutral-600 max-w-[44ch] mx-auto mb-[34px] leading-normal">
+      <p className="text-[length:calc(clamp(15px,1.3vw,18px)*var(--schrift-text,1))] text-neutral-600 max-w-[44ch] mx-auto mb-[34px] leading-normal">
         {body}
       </p>
       <NewsletterForm lang={lang} />

@@ -34,20 +34,20 @@ export function NewsDateItem({
   const text = (
     <div className="flex flex-col gap-7">
       {eyebrow && (
-        <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase">
+        <span className="flex items-center gap-2.5 text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase">
           <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
           {eyebrow}
         </span>
       )}
-      <h2 className="font-light text-[clamp(30px,3.8vw,54px)] leading-[1.04] tracking-[-0.02em] whitespace-pre-line">
+      <h2 className="font-light text-[length:calc(clamp(30px,3.8vw,54px)*var(--schrift-titel,1))] leading-[1.04] tracking-[-0.02em] whitespace-pre-line">
         {heading}
       </h2>
-      <p className="text-[17px] leading-[1.6] text-neutral-600 max-w-[52ch]">{body}</p>
+      <p className="text-[length:calc(17px*var(--schrift-text,1))] leading-[1.6] text-neutral-600 max-w-[52ch]">{body}</p>
       {cta && (
         <a
           href={cta.href}
           {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-          className="self-start text-[13px] font-semibold tracking-[0.14em] uppercase text-white bg-brand-ink px-[30px] py-[15px]"
+          className="self-start text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase text-white bg-brand-ink px-[30px] py-[15px]"
         >
           {cta.label} →
         </a>
@@ -75,16 +75,16 @@ export function NewsDateItem({
           }`}
         >
           {box.kicker && (
-            <span className="text-[12px] tracking-[0.14em] uppercase mb-1">{box.kicker}</span>
+            <span className="text-[length:calc(12px*var(--schrift-klein,1))] tracking-[0.14em] uppercase mb-1">{box.kicker}</span>
           )}
           {box.intro && (
-            <span className="text-[12px] tracking-[0.14em] uppercase mb-4">{box.intro}</span>
+            <span className="text-[length:calc(12px*var(--schrift-klein,1))] tracking-[0.14em] uppercase mb-4">{box.intro}</span>
           )}
-          <span className="font-light text-[clamp(48px,5vw,64px)] leading-none mb-2">
+          <span className="font-light text-[length:calc(clamp(48px,5vw,64px)*var(--schrift-titel,1))] leading-none mb-2">
             {box.date}
           </span>
           {box.label && (
-            <span className="text-[14px] tracking-[0.14em] uppercase leading-[1.8] whitespace-pre-line">
+            <span className="text-[length:calc(14px*var(--schrift-klein,1))] tracking-[0.14em] uppercase leading-[1.8] whitespace-pre-line">
               {box.label}
             </span>
           )}

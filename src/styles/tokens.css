@@ -48,6 +48,16 @@
   --brand-danger:  #E8192C;  /* Fehlermeldungen */
   --brand-border:  #222222;  /* kraeftiger Rahmen */
 
+  /* ── Schriftgrößen je Kategorie (Faktor, 1 = Ausgangsgröße) ─────────
+     Jede Schriftgröße der Bauteile gehört zu einer Kategorie und wird mit
+     deren Faktor multipliziert: text-[length:calc(15px*var(--schrift-text,1))].
+     Eine Messe stellt hier oder in ihrer eigenen CSS (TG: Einstellungen)
+     z. B. --schrift-titel: 0.85 ein. Ohne Wert gilt 1 — unverändert. */
+  --schrift-titel:          1;  /* Aufmacher, Seiten- und Riegel-Überschriften (≥ 40 px) */
+  --schrift-zwischentitel:  1;  /* Zwischentitel, Kartentitel (24–39 px) */
+  --schrift-text:           1;  /* Fließtext, Vorspann (15–23 px) */
+  --schrift-klein:          1;  /* Meta, Bildunterschriften, Labels (≤ 14 px) */
+
   /* Layout — geteilt, weil die Web-Items px-[var(--page-x)] nutzen */
   --page-x:       clamp(20px, 4vw, 56px);  /* Seitenränder links/rechts */
 }

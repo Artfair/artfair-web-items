@@ -44,7 +44,7 @@ function NumRow({ no }: { no: string }) {
   // Keine schwarze Kopflinie — die feine Linie neben der Nummer gliedert.
   return (
     <div className="flex items-center gap-4 mb-4">
-      <span className="text-[15px] text-neutral-600 tracking-[0.08em]">{no}</span>
+      <span className="text-[length:calc(15px*var(--schrift-text,1))] text-neutral-600 tracking-[0.08em]">{no}</span>
       <span aria-hidden="true" className="flex-1 h-px bg-neutral-300" />
     </div>
   );
@@ -52,7 +52,7 @@ function NumRow({ no }: { no: string }) {
 
 function BlockHeading({ children }: { children: React.ReactNode }) {
   return (
-    <h3 className="text-[clamp(20px,1.8vw,26px)] font-normal leading-[1.15] mb-3.5">
+    <h3 className="text-[length:calc(clamp(20px,1.8vw,26px)*var(--schrift-zwischentitel,1))] font-normal leading-[1.15] mb-3.5">
       {children}
     </h3>
   );
@@ -61,7 +61,7 @@ function BlockHeading({ children }: { children: React.ReactNode }) {
 function BlockBody({ block }: { block: NumberedBlock }) {
   return (
     <>
-      <p className="text-[15px] leading-[1.62] text-neutral-600 whitespace-pre-line">
+      <p className="text-[length:calc(15px*var(--schrift-text,1))] leading-[1.62] text-neutral-600 whitespace-pre-line">
         {renderInlineLinks(block.body, { className: INLINE_LINK_LIGHT })}
       </p>
       {block.extra}
@@ -103,12 +103,12 @@ export function NumberedBlocksItem({
   return (
     <section id={id} className="px-[var(--page-x)] py-[clamp(64px,8vw,128px)] scroll-mt-14">
       {eyebrow && (
-        <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase mb-5">
+        <span className="flex items-center gap-2.5 text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase mb-5">
           <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
           {eyebrow}
         </span>
       )}
-      <h2 className="font-light text-[clamp(40px,5.5vw,76px)] leading-[1.02] tracking-[-0.02em] mb-[clamp(28px,3.5vw,56px)]">
+      <h2 className="font-light text-[length:calc(clamp(40px,5.5vw,76px)*var(--schrift-titel,1))] leading-[1.02] tracking-[-0.02em] mb-[clamp(28px,3.5vw,56px)]">
         {heading}
       </h2>
 
@@ -121,7 +121,7 @@ export function NumberedBlocksItem({
             className="w-full aspect-[21/9] object-cover"
           />
           {image.caption && (
-            <span className="absolute left-0 bottom-0 bg-brand-ink text-white text-[11px] tracking-[0.12em] uppercase px-3.5 py-2">
+            <span className="absolute left-0 bottom-0 bg-brand-ink text-white text-[length:calc(11px*var(--schrift-klein,1))] tracking-[0.12em] uppercase px-3.5 py-2">
               {image.caption}
             </span>
           )}
@@ -133,7 +133,7 @@ export function NumberedBlocksItem({
           href={headLink.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px] mb-[clamp(36px,4vw,64px)]"
+          className="inline-block text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px] mb-[clamp(36px,4vw,64px)]"
         >
           {headLink.label} →
         </a>
