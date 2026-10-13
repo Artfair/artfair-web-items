@@ -53,7 +53,7 @@ const BESTAND: Record<string, { regel: Regel; grund: string }[]> = {
   "NewsletterPageItem.tsx": [{ regel: "Messe-Name", grund: "Absender-Vorschau, vor dem Vertrag gebaut" }],
 };
 
-type Regel = "feste Farbe" | "Messe-Name" | "Datenzugriff";
+type Regel = "feste Farbe" | "Messe-Name" | "Datenzugriff" | "freie Schriftgröße";
 
 // ── Datenform: Bauarten und ihre Felder aus src/lib/sections.ts ──────────────
 const SECTIONS = join(WURZEL, "src/lib/sections.ts");
@@ -158,6 +158,8 @@ const ohneKommentare = (s: string) => s.replace(/\/\*[\s\S]*?\*\//g, "").replace
 const REGELN: { regel: Regel; findet: (code: string) => boolean }[] = [
   // Erlaubt: durchsichtiges Schwarz/Weiß (Schleier über Fotos) — markenneutral.
   { regel: "feste Farbe", findet: (c) => /#[0-9a-fA-F]{3,8}\b/.test(c) || /\brgba?\((?!\s*(0\s*,\s*0\s*,\s*0|255\s*,\s*255\s*,\s*255)\s*,)\s*\d/.test(c) },
+  // Schriftgrößen nur mit Kategorie-Faktor: text-[length:calc(X*var(--schrift-<kategorie>,1))]
+  { regel: "freie Schriftgröße", findet: (c) => /(?<![\w-])text-\[(?!length:calc\(|#|var\(|color:)[^\]]*\d(?:px|rem|em|vw)/.test(c) },
   { regel: "Messe-Name", findet: (c) => /art\s*d(ü|ue)sseldorf|art-dus|artdus|tokyo\s*gendai/i.test(c) },
   {
     regel: "Datenzugriff",

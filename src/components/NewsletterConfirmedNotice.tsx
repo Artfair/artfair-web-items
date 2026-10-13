@@ -57,12 +57,12 @@ export function NewsletterConfirmedNotice({lang}: {lang: Lang}) {
       role="status"
       className="fixed left-1/2 top-[72px] z-[1100] flex w-[calc(100%-32px)] max-w-[560px] -translate-x-1/2 items-start gap-3 bg-brand-accent px-5 py-4 text-brand-ink shadow-[0_12px_32px_rgba(0,0,0,0.18)]"
     >
-      <p className="min-w-0 flex-1 text-[15px] leading-[1.5]">{t.text}</p>
+      <p className="min-w-0 flex-1 text-[length:calc(15px*var(--schrift-text,1))] leading-[1.5]">{t.text}</p>
       <button
         type="button"
         onClick={close}
         aria-label={t.close}
-        className="shrink-0 cursor-pointer p-1 text-[18px] leading-none opacity-60 hover:opacity-100"
+        className="shrink-0 cursor-pointer p-1 text-[length:calc(18px*var(--schrift-text,1))] leading-none opacity-60 hover:opacity-100"
       >
         ✕
       </button>

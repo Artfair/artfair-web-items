@@ -22,10 +22,10 @@ export function NavMosaicItem({
   if (tiles.length < 4) return null;
   return (
     <section className="px-[var(--page-x)] pt-[clamp(44px,6vw,90px)] pb-[clamp(56px,7vw,110px)]">
-      <h2 className="font-light text-[clamp(34px,5.4vw,88px)] leading-[0.96] tracking-[-0.03em] mb-[clamp(12px,1.4vw,20px)]">
+      <h2 className="font-light text-[length:calc(clamp(34px,5.4vw,88px)*var(--schrift-titel,1))] leading-[0.96] tracking-[-0.03em] mb-[clamp(12px,1.4vw,20px)]">
         {title}
       </h2>
-      <p className="text-[clamp(15px,1.3vw,19px)] leading-[1.55] text-neutral-600 max-w-[52ch] mb-[clamp(26px,3.4vw,48px)]">
+      <p className="text-[length:calc(clamp(15px,1.3vw,19px)*var(--schrift-text,1))] leading-[1.55] text-neutral-600 max-w-[52ch] mb-[clamp(26px,3.4vw,48px)]">
         {sub}
       </p>
       <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] md:grid-rows-[repeat(2,clamp(140px,18vw,250px))] gap-[clamp(8px,1vw,16px)]">
@@ -44,7 +44,7 @@ export function NavMosaicItem({
             />
             <span
               className={`absolute inset-0 flex items-center justify-center text-white font-semibold tracking-[0.14em] uppercase ${
-                i === 0 ? "text-[clamp(18px,2vw,30px)]" : "text-[clamp(15px,1.4vw,22px)]"
+                i === 0 ? "text-[length:calc(clamp(18px,2vw,30px)*var(--schrift-zwischentitel,1))]" : "text-[length:calc(clamp(15px,1.4vw,22px)*var(--schrift-text,1))]"
               }`}
             >
               {tiles[i].label}
@@ -63,7 +63,7 @@ export function NavMosaicItem({
           loading="lazy"
           className="absolute inset-0 w-full h-full object-cover brightness-[.62] group-hover:brightness-75 transition-[filter]"
         />
-        <span className="absolute inset-0 flex items-center justify-center text-white text-[clamp(18px,2vw,30px)] font-semibold tracking-[0.14em] uppercase">
+        <span className="absolute inset-0 flex items-center justify-center text-white text-[length:calc(clamp(18px,2vw,30px)*var(--schrift-zwischentitel,1))] font-semibold tracking-[0.14em] uppercase">
           {tiles[3].label}
         </span>
       </Link>

@@ -28,10 +28,10 @@ export function ThemesSection({
       className="bg-white px-[var(--page-x)] pt-[clamp(20px,3vw,52px)] pb-[clamp(72px,11vw,160px)] scroll-mt-14"
     >
       <div className="mb-[clamp(48px,7vw,110px)]">
-        <h2 className="font-light text-[clamp(26px,4.4vw,70px)] leading-none tracking-[-0.02em]">
+        <h2 className="font-light text-[length:calc(clamp(26px,4.4vw,70px)*var(--schrift-titel,1))] leading-none tracking-[-0.02em]">
           {title}
         </h2>
-        <p className="text-[clamp(16px,1.3vw,20px)] leading-[1.62] text-neutral-700 mt-[clamp(20px,2.4vw,34px)] max-w-[66ch]">
+        <p className="text-[length:calc(clamp(16px,1.3vw,20px)*var(--schrift-text,1))] leading-[1.62] text-neutral-700 mt-[clamp(20px,2.4vw,34px)] max-w-[66ch]">
           {intro}
         </p>
       </div>
@@ -51,13 +51,13 @@ export function ThemesSection({
             </div>
             <div className={`md:col-span-4 flex flex-col gap-[clamp(16px,2vw,26px)] ${i === 1 ? "md:order-1" : ""}`}>
               <div className="flex items-center gap-3.5">
-                <span className="text-[clamp(13px,1.1vw,16px)] font-medium">{`0${i + 1}`}</span>
+                <span className="text-[length:calc(clamp(13px,1.1vw,16px)*var(--schrift-text,1))] font-medium">{`0${i + 1}`}</span>
                 <span className="w-[34px] h-px bg-[#d8d8d8] block" />
               </div>
-              <h3 className="font-light text-[clamp(28px,3.6vw,58px)] leading-[0.98] tracking-[-0.02em]">
+              <h3 className="font-light text-[length:calc(clamp(28px,3.6vw,58px)*var(--schrift-titel,1))] leading-[0.98] tracking-[-0.02em]">
                 {th.t}
               </h3>
-              <p className="text-[clamp(15px,1.2vw,18px)] leading-[1.62] text-neutral-700 max-w-[44ch]">
+              <p className="text-[length:calc(clamp(15px,1.2vw,18px)*var(--schrift-text,1))] leading-[1.62] text-neutral-700 max-w-[44ch]">
                 {th.b}
               </p>
             </div>

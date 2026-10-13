@@ -52,7 +52,7 @@ interface MockConfig {
 }
 
 const eyebrowClass =
-  'flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase'
+  'flex items-center gap-2.5 text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase'
 const acidSquare = <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent shrink-0" />
 
 // Beispiel-Newsletter im Haus-Look — im Code gebaut statt Screenshot
@@ -64,11 +64,11 @@ function MockNewsletter({mock, compact}: {mock: MockConfig; compact?: boolean}) 
     <div className="bg-white">
       <div className={`bg-brand-ink text-white text-center ${compact ? 'py-3' : 'py-4'}`}>
         <span
-          className={`block font-medium uppercase tracking-[0.3em] ${compact ? 'text-[12px]' : 'text-[15px]'}`}
+          className={`block font-medium uppercase tracking-[0.3em] ${compact ? 'text-[length:calc(12px*var(--schrift-klein,1))]' : 'text-[length:calc(15px*var(--schrift-text,1))]'}`}
         >
           {mock.sender}
         </span>
-        <span className="mt-1 flex items-center justify-center gap-1.5 text-[9px] tracking-[0.22em] uppercase text-neutral-400">
+        <span className="mt-1 flex items-center justify-center gap-1.5 text-[length:calc(9px*var(--schrift-klein,1))] tracking-[0.22em] uppercase text-neutral-400">
           <span aria-hidden="true" className="w-[5px] h-[5px] bg-brand-accent" />
           {mock.mastheadKicker}
         </span>
@@ -80,15 +80,15 @@ function MockNewsletter({mock, compact}: {mock: MockConfig; compact?: boolean}) 
         <div aria-hidden="true" className="w-full aspect-[16/10] bg-neutral-100" />
       )}
       <div className={compact ? 'px-4 py-4' : 'px-6 py-5'}>
-        <span className="flex items-center gap-2 text-[10px] font-semibold tracking-[0.16em] uppercase text-neutral-500">
+        <span className="flex items-center gap-2 text-[length:calc(10px*var(--schrift-klein,1))] font-semibold tracking-[0.16em] uppercase text-neutral-500">
           <span aria-hidden="true" className="w-[5px] h-[5px] bg-brand-accent shrink-0" />
           {mock.kicker}
         </span>
-        <p className={`font-normal leading-[1.2] mt-2 ${compact ? 'text-[16px]' : 'text-[19px]'}`}>
+        <p className={`font-normal leading-[1.2] mt-2 ${compact ? 'text-[length:calc(16px*var(--schrift-text,1))]' : 'text-[length:calc(19px*var(--schrift-text,1))]'}`}>
           {mock.title}
         </p>
-        <p className="text-[13px] leading-[1.55] text-neutral-600 mt-2">{mock.text}</p>
-        <span className="inline-block mt-3 text-[11px] font-semibold tracking-[0.08em] uppercase border-b-2 border-brand-accent pb-[2px]">
+        <p className="text-[length:calc(13px*var(--schrift-klein,1))] leading-[1.55] text-neutral-600 mt-2">{mock.text}</p>
+        <span className="inline-block mt-3 text-[length:calc(11px*var(--schrift-klein,1))] font-semibold tracking-[0.08em] uppercase border-b-2 border-brand-accent pb-[2px]">
           {mock.linkLabel}
         </span>
       </div>
@@ -114,7 +114,7 @@ function BrowserFrame({mock, url}: {mock: MockConfig; url: string}) {
           <span className="w-2 h-2 rounded-full bg-neutral-300" />
         </span>
         <span className="flex-1 text-center">
-          <span className="inline-block bg-brand-surface rounded-full px-4 py-1 text-[12px] tracking-[0.04em] text-neutral-600">
+          <span className="inline-block bg-brand-surface rounded-full px-4 py-1 text-[length:calc(12px*var(--schrift-klein,1))] tracking-[0.04em] text-neutral-600">
             {url}
           </span>
         </span>
@@ -122,7 +122,7 @@ function BrowserFrame({mock, url}: {mock: MockConfig; url: string}) {
       </div>
       <div className="flex aspect-[1040/600] overflow-hidden">
         <div className="w-[30%] shrink-0 border-r border-neutral-200 flex flex-col overflow-hidden">
-          <div className="px-5 py-3 border-b border-neutral-200 text-[11px] font-semibold tracking-[0.14em] uppercase text-neutral-500">
+          <div className="px-5 py-3 border-b border-neutral-200 text-[length:calc(11px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase text-neutral-500">
             {mock.inboxLabel}
           </div>
           {rows.map((r) => (
@@ -133,21 +133,21 @@ function BrowserFrame({mock, url}: {mock: MockConfig; url: string}) {
               }`}
             >
               <div className="flex items-baseline justify-between gap-2">
-                <span className="flex items-center gap-2 min-w-0 text-[13px] font-semibold">
+                <span className="flex items-center gap-2 min-w-0 text-[length:calc(13px*var(--schrift-klein,1))] font-semibold">
                   {r.active && <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-brand-accent shrink-0" />}
                   <span className="truncate">{mock.sender}</span>
                 </span>
-                <span className="text-[11px] text-neutral-400 shrink-0">{r.date}</span>
+                <span className="text-[length:calc(11px*var(--schrift-klein,1))] text-neutral-400 shrink-0">{r.date}</span>
               </div>
-              <div className="text-[12px] truncate mt-0.5">{r.subject}</div>
-              <div className="text-[12px] text-neutral-400 truncate mt-0.5">{r.teaser}</div>
+              <div className="text-[length:calc(12px*var(--schrift-klein,1))] truncate mt-0.5">{r.subject}</div>
+              <div className="text-[length:calc(12px*var(--schrift-klein,1))] text-neutral-400 truncate mt-0.5">{r.teaser}</div>
             </div>
           ))}
         </div>
         <div className="flex-1 min-w-0 flex flex-col">
           <div className="px-6 py-3.5 border-b border-neutral-200">
-            <div className="text-[15px] font-medium truncate">{mock.subject}</div>
-            <div className="text-[12px] text-neutral-500 truncate mt-0.5">{`${mock.sender} <${mock.from}>`}</div>
+            <div className="text-[length:calc(15px*var(--schrift-text,1))] font-medium truncate">{mock.subject}</div>
+            <div className="text-[length:calc(12px*var(--schrift-klein,1))] text-neutral-500 truncate mt-0.5">{`${mock.sender} <${mock.from}>`}</div>
           </div>
           <div className="flex-1 overflow-hidden bg-brand-surface">
             <div className="max-w-[440px] mx-auto mt-6 border border-neutral-200">
@@ -173,17 +173,17 @@ function PhoneFrame({mock, label}: {mock: MockConfig; label: string}) {
     .toUpperCase()
   return (
     <div className="w-[min(280px,78vw)] md:w-[300px] bg-white border border-neutral-300 rounded-[28px] overflow-hidden shadow-[0_24px_60px_rgba(0,0,0,0.12)] md:shadow-none">
-      <div className="text-center py-2.5 border-b border-neutral-200 text-[12px] font-medium tracking-[0.14em] uppercase">
+      <div className="text-center py-2.5 border-b border-neutral-200 text-[length:calc(12px*var(--schrift-klein,1))] font-medium tracking-[0.14em] uppercase">
         {label}
       </div>
       <div className="aspect-[340/620] overflow-hidden flex flex-col">
         <div className="flex items-center gap-3 px-4 py-3 border-b border-neutral-200">
-          <span className="w-9 h-9 shrink-0 bg-brand-ink text-white flex items-center justify-center text-[12px] font-semibold tracking-[0.08em]">
+          <span className="w-9 h-9 shrink-0 bg-brand-ink text-white flex items-center justify-center text-[length:calc(12px*var(--schrift-klein,1))] font-semibold tracking-[0.08em]">
             {monogram}
           </span>
           <span className="min-w-0">
-            <span className="block text-[13px] font-semibold truncate">{mock.sender}</span>
-            <span className="block text-[12px] text-neutral-500 truncate">{mock.subject}</span>
+            <span className="block text-[length:calc(13px*var(--schrift-klein,1))] font-semibold truncate">{mock.sender}</span>
+            <span className="block text-[length:calc(12px*var(--schrift-klein,1))] text-neutral-500 truncate">{mock.subject}</span>
           </span>
         </div>
         <div className="flex-1 overflow-hidden">
@@ -300,7 +300,7 @@ export function NewsletterPageItem({
   }
 
   const pillClass = (active: boolean) =>
-    `rounded-full border border-brand-ink px-4 py-[9px] text-[13px] font-medium tracking-[0.06em] uppercase cursor-pointer transition-colors ${
+    `rounded-full border border-brand-ink px-4 py-[9px] text-[length:calc(13px*var(--schrift-klein,1))] font-medium tracking-[0.06em] uppercase cursor-pointer transition-colors ${
       active ? 'bg-brand-ink text-white' : 'bg-white text-brand-ink hover:bg-brand-ink hover:text-white'
     }`
 
@@ -361,15 +361,15 @@ export function NewsletterPageItem({
             {heroEyebrow}
           </span>
         )}
-        <h1 className="font-normal text-[clamp(38px,5vw,72px)] leading-[1.02] tracking-[-0.01em] max-w-[900px] mt-6">
+        <h1 className="font-normal text-[length:calc(clamp(38px,5vw,72px)*var(--schrift-titel,1))] leading-[1.02] tracking-[-0.01em] max-w-[900px] mt-6">
           {heroTitle}
         </h1>
-        <p className="text-[clamp(17px,1.4vw,20px)] leading-[1.5] text-neutral-700 max-w-[600px] mt-6">
+        <p className="text-[length:calc(clamp(17px,1.4vw,20px)*var(--schrift-text,1))] leading-[1.5] text-neutral-700 max-w-[600px] mt-6">
           {heroBody}
         </p>
 
         {done ? (
-          <p role="status" className="flex items-start gap-3 text-[17px] leading-[1.6] mt-10">
+          <p role="status" className="flex items-start gap-3 text-[length:calc(17px*var(--schrift-text,1))] leading-[1.6] mt-10">
             <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent shrink-0 mt-[9px]" />
             {confirmation}
           </p>
@@ -392,7 +392,7 @@ export function NewsletterPageItem({
                 required
                 autoComplete="email"
                 placeholder={emailPlaceholder}
-                className="flex-[1_1_240px] min-w-0 text-[15px] text-brand-ink px-[18px] py-[14px] border border-brand-ink bg-white outline-none placeholder:text-neutral-500 focus:border-brand-accent focus:ring-1 focus:ring-brand-accent"
+                className="flex-[1_1_240px] min-w-0 text-[length:calc(15px*var(--schrift-text,1))] text-brand-ink px-[18px] py-[14px] border border-brand-ink bg-white outline-none placeholder:text-neutral-500 focus:border-brand-accent focus:ring-1 focus:ring-brand-accent"
               />
               {showLanguageToggle && (
                 <div
@@ -418,13 +418,13 @@ export function NewsletterPageItem({
               <button
                 type="submit"
                 disabled={sending}
-                className="text-[13px] font-medium tracking-[0.14em] uppercase text-white bg-brand-ink px-[30px] py-[14px] cursor-pointer disabled:opacity-60 disabled:cursor-wait"
+                className="text-[length:calc(13px*var(--schrift-klein,1))] font-medium tracking-[0.14em] uppercase text-white bg-brand-ink px-[30px] py-[14px] cursor-pointer disabled:opacity-60 disabled:cursor-wait"
               >
                 {submitLabel}
               </button>
             </div>
             {failed && (
-              <p role="alert" className="text-[14px] leading-[1.5] text-brand-danger mt-4">
+              <p role="alert" className="text-[length:calc(14px*var(--schrift-klein,1))] leading-[1.5] text-brand-danger mt-4">
                 {errorText}
               </p>
             )}
@@ -447,7 +447,7 @@ export function NewsletterPageItem({
                   <path d="M2 6.5L4.8 9.2 10 3.5" stroke="currentColor" strokeWidth="1.8" />
                 </svg>
               </span>
-              <span className="text-[13px] leading-[1.6] text-neutral-500">
+              <span className="text-[length:calc(13px*var(--schrift-klein,1))] leading-[1.6] text-neutral-500">
                 {consentText}{' '}
                 <a href={privacyHref} className="underline underline-offset-[3px] hover:text-brand-ink">
                   {privacyLabel}
@@ -468,7 +468,7 @@ export function NewsletterPageItem({
               {benefitsEyebrow}
             </span>
           )}
-          <h2 className="font-light text-[clamp(30px,3.4vw,52px)] leading-[1.06] tracking-[-0.02em] max-w-[760px] mt-5 mb-[clamp(32px,4vw,56px)]">
+          <h2 className="font-light text-[length:calc(clamp(30px,3.4vw,52px)*var(--schrift-titel,1))] leading-[1.06] tracking-[-0.02em] max-w-[760px] mt-5 mb-[clamp(32px,4vw,56px)]">
             {benefitsHeading}
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-12">
@@ -480,8 +480,8 @@ export function NewsletterPageItem({
                     {b.eyebrow}
                   </span>
                 )}
-                <h3 className="text-[clamp(20px,1.8vw,26px)] font-normal leading-[1.15]">{b.title}</h3>
-                <p className="text-[15px] leading-[1.6] text-neutral-600">{b.body}</p>
+                <h3 className="text-[length:calc(clamp(20px,1.8vw,26px)*var(--schrift-zwischentitel,1))] font-normal leading-[1.15]">{b.title}</h3>
+                <p className="text-[length:calc(15px*var(--schrift-text,1))] leading-[1.6] text-neutral-600">{b.body}</p>
               </div>
             ))}
           </div>
@@ -517,7 +517,7 @@ export function NewsletterPageItem({
                 {previewEyebrow}
               </span>
             )}
-            <h2 className="font-light text-[clamp(30px,3.4vw,52px)] leading-[1.06] tracking-[-0.02em] mt-4">
+            <h2 className="font-light text-[length:calc(clamp(30px,3.4vw,52px)*var(--schrift-titel,1))] leading-[1.06] tracking-[-0.02em] mt-4">
               {previewHeading}
             </h2>
           </div>
@@ -537,11 +537,11 @@ export function NewsletterPageItem({
         <section className="px-[var(--page-x)] py-[clamp(72px,9vw,128px)] flex justify-center">
           <figure className="m-0 max-w-[760px] text-center flex flex-col items-center gap-7">
             <span aria-hidden="true" className="w-2 h-2 bg-brand-accent" />
-            <blockquote className="font-light text-[clamp(24px,2.6vw,40px)] leading-[1.22] tracking-[-0.01em]">
+            <blockquote className="font-light text-[length:calc(clamp(24px,2.6vw,40px)*var(--schrift-titel,1))] leading-[1.22] tracking-[-0.01em]">
               {quoteText}
             </blockquote>
             {quoteAttribution && (
-              <figcaption className="text-[12px] font-semibold tracking-[0.14em] uppercase text-neutral-500">
+              <figcaption className="text-[length:calc(12px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase text-neutral-500">
                 {quoteAttribution}
               </figcaption>
             )}

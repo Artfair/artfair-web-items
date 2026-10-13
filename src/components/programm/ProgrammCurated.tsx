@@ -18,7 +18,7 @@ export function ProgrammCurated({lang}: {lang: Lang}) {
             ? 'Fragile Realities versammelt künstlerische Praktiken, die sich mit der Verschiebung von Realität auseinandersetzen. Die Werke versuchen nicht, Krisen zu erklären — sie nähern sich Fragilität über den Körper, über Materialien oder über Formen der Erinnerung. Eingeladen sind ausschließlich Räume, die von Galeristinnen gegründet wurden: eine strukturelle Perspektive auf kuratorische Praxis, Netzwerke und Sichtbarkeit im Kunstsystem.'
             : 'Fragile Realities brings together artistic practices that engage with shifts in reality. The works do not attempt to explain crises — they approach fragility through the body, through materials or through forms of memory. Only spaces founded by women gallerists are invited: a structural perspective on curatorial practice, networks and visibility within the art system.',
           extra: (
-            <p className="text-[15px] leading-[1.62] text-neutral-600 mt-4">
+            <p className="text-[length:calc(15px*var(--schrift-text,1))] leading-[1.62] text-neutral-600 mt-4">
               {de ? 'Kuratiert von ' : 'Curated by '}
               <span className="font-medium text-brand-ink">Pola van den Hövel</span>.
             </p>
@@ -30,7 +30,7 @@ export function ProgrammCurated({lang}: {lang: Lang}) {
             ? 'International Practices präsentiert kuratierte internationale Perspektiven als integralen Bestandteil der Art Düsseldorf. Das Format vereint Sammlungen, Kooperationen und künstlerische Positionen aus dem Ausland und eröffnet neue Dialoge und Verbindungen — von künstlerischen Praktiken geprägt, die aus unterschiedlichen kulturellen Kontexten kommen.'
             : 'International Practices presents curated international perspectives as an integral part of Art Düsseldorf. The format brings together collections, collaborations and artistic positions from abroad, opening up new dialogues and connections shaped by practices from different cultural contexts.',
           extra: (
-            <p className="text-[15px] leading-[1.62] text-neutral-600 mt-4">
+            <p className="text-[length:calc(15px*var(--schrift-text,1))] leading-[1.62] text-neutral-600 mt-4">
               {de
                 ? 'Zuletzt mit dem anonymous art project, Tokio (kuratiert von '
                 : 'Most recently with the anonymous art project, Tokyo (curated by '}

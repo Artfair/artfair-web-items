@@ -95,17 +95,17 @@ export function FairPlanItem({
   }
 
   const zoomBtn =
-    'w-[44px] h-[44px] border border-brand-ink bg-white text-[20px] leading-none transition-colors hover:bg-brand-ink hover:text-white disabled:opacity-25 disabled:hover:bg-white disabled:hover:text-brand-ink'
+    'w-[44px] h-[44px] border border-brand-ink bg-white text-[length:calc(20px*var(--schrift-text,1))] leading-none transition-colors hover:bg-brand-ink hover:text-white disabled:opacity-25 disabled:hover:bg-white disabled:hover:text-brand-ink'
 
   return (
     <section id={id} className="px-[var(--page-x)] pb-[clamp(64px,8vw,128px)] scroll-mt-14">
       {eyebrow && (
-        <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase mb-5">
+        <span className="flex items-center gap-2.5 text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase mb-5">
           <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
           {eyebrow}
         </span>
       )}
-      <h2 className="font-light text-[clamp(36px,5vw,68px)] leading-[1.02] tracking-[-0.02em] mb-[clamp(28px,3.5vw,56px)]">
+      <h2 className="font-light text-[length:calc(clamp(36px,5vw,68px)*var(--schrift-titel,1))] leading-[1.02] tracking-[-0.02em] mb-[clamp(28px,3.5vw,56px)]">
         {heading}
       </h2>
       <button
@@ -116,19 +116,19 @@ export function FairPlanItem({
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={planSrc} alt={planAlt} loading="lazy" className="w-full h-auto" />
-        <span className="mt-2 flex items-center gap-2 text-[12px] tracking-[0.08em] uppercase text-neutral-500 md:hidden">
-          <span aria-hidden="true" className="inline-flex w-[18px] h-[18px] items-center justify-center border border-neutral-400 text-[13px] leading-none">+</span>
+        <span className="mt-2 flex items-center gap-2 text-[length:calc(12px*var(--schrift-klein,1))] tracking-[0.08em] uppercase text-neutral-500 md:hidden">
+          <span aria-hidden="true" className="inline-flex w-[18px] h-[18px] items-center justify-center border border-neutral-400 text-[length:calc(13px*var(--schrift-klein,1))] leading-none">+</span>
           {t.hint}
         </span>
       </button>
       <div className="mt-[clamp(20px,2.5vw,32px)] flex flex-wrap items-baseline justify-between gap-x-12 gap-y-5">
-        <p className="text-[15px] leading-[1.62] text-neutral-600 max-w-[62ch]">{body}</p>
+        <p className="text-[length:calc(15px*var(--schrift-text,1))] leading-[1.62] text-neutral-600 max-w-[62ch]">{body}</p>
         {link && (
           <a
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px] whitespace-nowrap"
+            className="text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px] whitespace-nowrap"
           >
             {link.label} →
           </a>
@@ -138,7 +138,7 @@ export function FairPlanItem({
       {open && (
         <div role="dialog" aria-modal="true" aria-label={heading} className="fixed inset-0 z-[100] bg-white flex flex-col">
           <div className="flex items-center justify-between gap-4 px-[var(--page-x)] py-3 border-b border-neutral-200 shrink-0">
-            <span className="min-w-0 truncate text-[13px] font-semibold tracking-[0.14em] uppercase">{heading}</span>
+            <span className="min-w-0 truncate text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase">{heading}</span>
             <div className="flex items-center gap-[6px]">
               <button type="button" onClick={() => setZoom((z) => Math.max(MIN_ZOOM, z - 0.5))} disabled={zoom <= MIN_ZOOM} aria-label={t.zoomOut} className={zoomBtn}>
                 −

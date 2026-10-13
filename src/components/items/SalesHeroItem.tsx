@@ -46,15 +46,15 @@ export function SalesHeroItem({
       <div className="grid md:grid-cols-2 gap-[clamp(20px,2.8vw,40px)] items-stretch">
         <div className="flex flex-col justify-center border-[3px] border-brand-accent p-[clamp(28px,3.3vw,48px)]">
           {eyebrow && (
-            <span className="flex items-center gap-2.5 text-[13px] font-medium tracking-[0.18em] uppercase mb-[clamp(18px,1.8vw,26px)]">
+            <span className="flex items-center gap-2.5 text-[length:calc(13px*var(--schrift-klein,1))] font-medium tracking-[0.18em] uppercase mb-[clamp(18px,1.8vw,26px)]">
               <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
               {eyebrow}
             </span>
           )}
-          <h1 className="font-normal text-[clamp(36px,4.5vw,64px)] leading-[1.0] tracking-[-0.01em]">
+          <h1 className="font-normal text-[length:calc(clamp(36px,4.5vw,64px)*var(--schrift-titel,1))] leading-[1.0] tracking-[-0.01em]">
             {title}
           </h1>
-          <p className="text-[clamp(17px,1.5vw,21px)] leading-[1.45] text-neutral-700 max-w-[460px] mt-[clamp(20px,1.9vw,28px)] mb-[clamp(26px,2.8vw,40px)]">
+          <p className="text-[length:calc(clamp(17px,1.5vw,21px)*var(--schrift-text,1))] leading-[1.45] text-neutral-700 max-w-[460px] mt-[clamp(20px,1.9vw,28px)] mb-[clamp(26px,2.8vw,40px)]">
             {body}
           </p>
           {(primaryCta || secondaryCta) && (
@@ -62,7 +62,7 @@ export function SalesHeroItem({
               {primaryCta && (
                 <Link
                   href={primaryCta.href}
-                  className="inline-flex items-center gap-2 bg-brand-accent text-brand-ink text-[13px] font-semibold tracking-[0.14em] uppercase px-[30px] py-[15px]"
+                  className="inline-flex items-center gap-2 bg-brand-accent text-brand-ink text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase px-[30px] py-[15px]"
                 >
                   {primaryCta.label} →
                 </Link>
@@ -70,7 +70,7 @@ export function SalesHeroItem({
               {secondaryCta && (
                 <Link
                   href={secondaryCta.href}
-                  className="inline-flex items-center border border-brand-ink text-[13px] font-medium tracking-[0.14em] uppercase px-[26px] py-[14px]"
+                  className="inline-flex items-center border border-brand-ink text-[length:calc(13px*var(--schrift-klein,1))] font-medium tracking-[0.14em] uppercase px-[26px] py-[14px]"
                 >
                   {secondaryCta.label}
                 </Link>
@@ -94,7 +94,7 @@ export function SalesHeroItem({
             ))}
           </div>
           {imageCaption && (
-            <p className="text-[12px] leading-[1.5] text-neutral-500 mt-2.5">{imageCaption}</p>
+            <p className="text-[length:calc(12px*var(--schrift-klein,1))] leading-[1.5] text-neutral-500 mt-2.5">{imageCaption}</p>
           )}
         </div>
       </div>

@@ -49,12 +49,12 @@ export function LogoGridItem({
   return (
     <section id={id} className="px-[var(--page-x)] pb-[clamp(64px,8vw,128px)] scroll-mt-14">
       {eyebrow && (
-        <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase mb-5">
+        <span className="flex items-center gap-2.5 text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase mb-5">
           <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
           {eyebrow}
         </span>
       )}
-      <h2 className="font-light text-[clamp(36px,5vw,68px)] leading-[1.02] tracking-[-0.02em] mb-[clamp(28px,3.5vw,56px)]">
+      <h2 className="font-light text-[length:calc(clamp(36px,5vw,68px)*var(--schrift-titel,1))] leading-[1.02] tracking-[-0.02em] mb-[clamp(28px,3.5vw,56px)]">
         {heading}
       </h2>
       <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-[clamp(32px,5vw,88px)] gap-y-[clamp(36px,5vw,72px)] list-none">

@@ -66,11 +66,11 @@ export default function Schaukasten({ zurueck, unterzeile }: { zurueck?: { href:
       <header className="sticky top-0 z-20 border-b border-[#d9d5cc] bg-white/95 px-5 py-3 backdrop-blur">
         <div className="mx-auto flex max-w-[1400px] flex-wrap items-center gap-3">
           {zurueck && (
-            <a href={zurueck.href} className="text-[12px] uppercase tracking-[0.12em] text-neutral-500 hover:text-black">← {zurueck.label}</a>
+            <a href={zurueck.href} className="text-[length:calc(12px*var(--schrift-klein,1))] uppercase tracking-[0.12em] text-neutral-500 hover:text-black">← {zurueck.label}</a>
           )}
-          <h1 className="mr-auto text-[20px] font-semibold">
+          <h1 className="mr-auto text-[length:calc(20px*var(--schrift-text,1))] font-semibold">
             Schaukasten · {GRIFFE.length} Leisten mit Griff
-            {unterzeile && <span className="ml-2 text-[12.5px] font-normal text-neutral-500">{unterzeile}</span>}
+            {unterzeile && <span className="ml-2 text-[length:calc(12.5px*var(--schrift-klein,1))] font-normal text-neutral-500">{unterzeile}</span>}
           </h1>
           <div className="flex gap-1">
             {(['de', 'en'] as const).map((l) => <button key={l} style={knopf(lang === l)} onClick={() => setLang(l)}>{l.toUpperCase()}</button>)}
@@ -93,7 +93,7 @@ export default function Schaukasten({ zurueck, unterzeile }: { zurueck?: { href:
             onChange={(e) => setSuche(e.target.value)}
             placeholder="Leiste suchen …"
             aria-label="Leiste suchen"
-            className="ml-auto min-w-0 flex-1 rounded-full border border-[#d9d5cc] px-3 py-1.5 text-[13px] sm:max-w-[260px]"
+            className="ml-auto min-w-0 flex-1 rounded-full border border-[#d9d5cc] px-3 py-1.5 text-[length:calc(13px*var(--schrift-klein,1))] sm:max-w-[260px]"
           />
         </div>
       </header>
@@ -119,14 +119,14 @@ function Vitrine({ griff, fall, lang, stil }: { griff: Griff; fall: Beispielfall
   return (
     <section className="overflow-hidden rounded-xl border border-[#d9d5cc] bg-white">
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b border-[#e6e3db] px-4 py-2.5">
-        <span className="text-[15px] font-semibold">{griff.name}</span>
-        <code className="text-[11.5px] text-neutral-500">{griff.typ}</code>
-        <span className="rounded-full bg-[#f1f0ea] px-2 py-0.5 text-[11px] text-neutral-600">{griff.gruppe ?? 'ohne Gruppe'}</span>
-        <span className="text-[12.5px] text-neutral-500">{griff.hinweis}</span>
+        <span className="text-[length:calc(15px*var(--schrift-text,1))] font-semibold">{griff.name}</span>
+        <code className="text-[length:calc(11.5px*var(--schrift-klein,1))] text-neutral-500">{griff.typ}</code>
+        <span className="rounded-full bg-[#f1f0ea] px-2 py-0.5 text-[length:calc(11px*var(--schrift-klein,1))] text-neutral-600">{griff.gruppe ?? 'ohne Gruppe'}</span>
+        <span className="text-[length:calc(12.5px*var(--schrift-klein,1))] text-neutral-500">{griff.hinweis}</span>
       </div>
       {/* translateZ(0): fest positionierte Teile (z. B. das Newsletter-Popup) bleiben in ihrer Vitrine */}
       {OVERLAYS.includes(griff.typ) ? (
-        <p className="px-4 py-6 text-[13px] text-neutral-500">
+        <p className="px-4 py-6 text-[length:calc(13px*var(--schrift-klein,1))] text-neutral-500">
           Overlay: erscheint auf der Website über der ganzen Seite, sobald man ein Stück gescrollt hat, und sperrt
           solange das Scrollen. Darum hier nicht live — ansehen auf der Startseite in Webby.
         </p>
@@ -136,7 +136,7 @@ function Vitrine({ griff, fall, lang, stil }: { griff: Griff; fall: Beispielfall
         </div>
       )}
       {leer && !OVERLAYS.includes(griff.typ) && (
-        <p className="px-4 py-6 text-[13px] text-neutral-500">
+        <p className="px-4 py-6 text-[length:calc(13px*var(--schrift-klein,1))] text-neutral-500">
           Die Website zeigt diese Leiste mit diesen Daten nicht — sie braucht mehr Inhalt, Live-Daten über einen Anschluss oder erscheint erst beim Scrollen.
         </p>
       )}

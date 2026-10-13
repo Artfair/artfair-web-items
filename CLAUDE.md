@@ -33,6 +33,9 @@ Die Prüfung rendert jede Leiste damit, Webbys **Schaukasten** zeigt sie.
 - Bekommt alles über Props. **Keine Datenzugriffe**: kein `fetch` (außer `POST` zum Absenden
   eines Formulars — der Bot-Schutz `BotShieldFields` holt dafür per `GET` ein Token von derselben
   Formular-Route), keine Imports aus `@sanity/*`, `@supabase/*`, `next/headers`, `server-only`, `node:`.
+- **Schriftgrößen nur mit Kategorie:** `text-[length:calc(<Größe>*var(--schrift-<kategorie>,1))]`,
+  Kategorie nach der größten Größe: `titel` (≥ 40 px), `zwischentitel` (24–39), `text` (15–23),
+  `klein` (≤ 14). So kann jede Messe die Kategorien skalieren. Freie `text-[15px]` lehnt die Prüfung ab.
 - **Nur Marken-Tokens** für Farben und Schriften (`brand-*`, `var(--brand-…)`, `font-*` aus dem
   Preset). Keine festen Farbwerte (`#…`, `rgb(…)`); erlaubt ist durchsichtiges Schwarz/Weiß
   (`rgba(0,0,0,…)`, `rgba(255,255,255,…)`) für Schleier über Fotos.

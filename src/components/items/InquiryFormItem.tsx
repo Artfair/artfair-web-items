@@ -11,9 +11,9 @@ import {useId, useState} from 'react'
 // Alle Beschriftungen kommen als fertige Strings herein (Sprache löst der
 // SectionRenderer bzw. die Seite auf).
 
-const labelClass = 'block text-[13px] font-medium tracking-[0.1em] uppercase mb-2'
+const labelClass = 'block text-[length:calc(13px*var(--schrift-klein,1))] font-medium tracking-[0.1em] uppercase mb-2'
 const fieldClass =
-  'w-full text-[15px] text-brand-ink px-[16px] py-[13px] border border-brand-ink bg-white outline-none placeholder:text-neutral-500 focus:border-brand-accent focus:ring-1 focus:ring-brand-accent'
+  'w-full text-[length:calc(15px*var(--schrift-text,1))] text-brand-ink px-[16px] py-[13px] border border-brand-ink bg-white outline-none placeholder:text-neutral-500 focus:border-brand-accent focus:ring-1 focus:ring-brand-accent'
 
 // Props auch als Typ exportiert — das BusinessPageItem bettet das Formular
 // als Teilobjekt ein (inquiry-Prop) und reicht sie 1:1 durch.
@@ -85,18 +85,18 @@ export function InquiryFormItem({
     <section id={id} className="px-[var(--page-x)] py-[clamp(64px,8vw,128px)] scroll-mt-14">
       <div className="max-w-[720px]">
         {eyebrow && (
-          <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase mb-5">
+          <span className="flex items-center gap-2.5 text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase mb-5">
             <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
             {eyebrow}
           </span>
         )}
-        <h2 className="font-light text-[clamp(30px,3.8vw,54px)] leading-[1.04] tracking-[-0.02em]">
+        <h2 className="font-light text-[length:calc(clamp(30px,3.8vw,54px)*var(--schrift-titel,1))] leading-[1.04] tracking-[-0.02em]">
           {heading}
         </h2>
-        {intro && <p className="text-[17px] leading-[1.6] text-neutral-600 mt-5">{intro}</p>}
+        {intro && <p className="text-[length:calc(17px*var(--schrift-text,1))] leading-[1.6] text-neutral-600 mt-5">{intro}</p>}
 
         {done ? (
-          <p role="status" className="flex items-start gap-3 text-[17px] leading-[1.6] mt-10">
+          <p role="status" className="flex items-start gap-3 text-[length:calc(17px*var(--schrift-text,1))] leading-[1.6] mt-10">
             <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent shrink-0 mt-[9px]" />
             {confirmation}
           </p>
@@ -186,12 +186,12 @@ export function InquiryFormItem({
               <button
                 type="submit"
                 disabled={sending}
-                className="inline-flex items-center gap-2 bg-brand-accent text-brand-ink text-[13px] font-semibold tracking-[0.14em] uppercase px-[30px] py-[15px] cursor-pointer disabled:opacity-60 disabled:cursor-wait"
+                className="inline-flex items-center gap-2 bg-brand-accent text-brand-ink text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase px-[30px] py-[15px] cursor-pointer disabled:opacity-60 disabled:cursor-wait"
               >
                 {submitLabel} →
               </button>
               {failed && (
-                <p role="alert" className="text-[14px] leading-[1.5] text-brand-danger mt-3">
+                <p role="alert" className="text-[length:calc(14px*var(--schrift-klein,1))] leading-[1.5] text-brand-danger mt-3">
                   {errorText ?? ''}
                 </p>
               )}

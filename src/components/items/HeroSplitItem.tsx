@@ -56,26 +56,26 @@ export function HeroSplitItem({
     <section className="grid md:grid-cols-[1fr_1.05fr] gap-[clamp(28px,4vw,72px)] bg-white px-[var(--page-x)] py-[clamp(32px,4.5vw,72px)] md:min-h-[min(76vh,780px)]">
       <div className="bg-brand-accent text-brand-ink flex flex-col justify-center gap-7 px-[clamp(40px,5vw,80px)] py-[clamp(48px,6vw,96px)]">
         {eyebrow && (
-          <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase">
+          <span className="flex items-center gap-2.5 text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase">
             <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-ink" />
             {eyebrow}
           </span>
         )}
-        <h1 className="font-light text-[clamp(44px,6.5vw,92px)] leading-[0.98] tracking-[-0.02em] whitespace-pre-line">
+        <h1 className="font-light text-[length:calc(clamp(44px,6.5vw,92px)*var(--schrift-titel,1))] leading-[0.98] tracking-[-0.02em] whitespace-pre-line">
           {title}
         </h1>
         <p className="text-xl leading-normal max-w-[30ch]">{body}</p>
         <div className="flex flex-wrap gap-3.5 mt-1.5">
           <CtaLink
             href={primaryCta.href}
-            className="text-[13px] font-semibold tracking-[0.14em] uppercase text-white bg-brand-ink px-[30px] py-[15px]"
+            className="text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase text-white bg-brand-ink px-[30px] py-[15px]"
           >
             {primaryCta.label} →
           </CtaLink>
           {secondaryCta && (
             <CtaLink
               href={secondaryCta.href}
-              className="text-[13px] font-semibold tracking-[0.14em] uppercase text-brand-ink border border-brand-ink px-[30px] py-[15px]"
+              className="text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase text-brand-ink border border-brand-ink px-[30px] py-[15px]"
             >
               {secondaryCta.label}
             </CtaLink>

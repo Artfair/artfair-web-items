@@ -30,23 +30,23 @@ export function TextCtaItem({
   const content = (
     <>
       {eyebrow && (
-        <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase">
+        <span className="flex items-center gap-2.5 text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase">
           <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
           {eyebrow}
         </span>
       )}
       {/* Leere Felder nicht zeichnen — sonst bleibt eine unsichtbare Zeile samt Abstand stehen. */}
       {heading && (
-        <h2 className="font-light text-[clamp(30px,3.8vw,54px)] leading-[1.04] tracking-[-0.02em] whitespace-pre-line">
+        <h2 className="font-light text-[length:calc(clamp(30px,3.8vw,54px)*var(--schrift-titel,1))] leading-[1.04] tracking-[-0.02em] whitespace-pre-line">
           {heading}
         </h2>
       )}
-      {body && <p className="text-[17px] leading-[1.6] text-neutral-600 max-w-[52ch] whitespace-pre-line">{body}</p>}
+      {body && <p className="text-[length:calc(17px*var(--schrift-text,1))] leading-[1.6] text-neutral-600 max-w-[52ch] whitespace-pre-line">{body}</p>}
       {cta && (
         <a
           href={cta.href}
           {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-          className="self-start text-[13px] font-semibold tracking-[0.14em] uppercase text-white bg-brand-ink px-[30px] py-[15px]"
+          className="self-start text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase text-white bg-brand-ink px-[30px] py-[15px]"
         >
           {cta.label} →
         </a>

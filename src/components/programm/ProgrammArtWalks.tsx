@@ -29,7 +29,7 @@ export function ProgrammArtWalks({lang, assetBase = ''}: {lang: Lang; assetBase?
           extra: (
             <a
               href={localizeHref('/tickets', lang)}
-              className="self-start inline-block text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px] mt-5"
+              className="self-start inline-block text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px] mt-5"
             >
               {de ? 'Zum Ticketshop' : 'To the ticket shop'} →
             </a>
@@ -42,7 +42,7 @@ export function ProgrammArtWalks({lang, assetBase = ''}: {lang: Lang; assetBase?
             : 'Book a tour tailored to your interests: on your schedule, personal, flexible and professionally guided. In a 60-minute tour, our art guides share fascinating insights into art and current developments — customised to your interests.',
           extra: (
             <div className="mt-6">
-              <ul className="text-[15px]">
+              <ul className="text-[length:calc(15px*var(--schrift-text,1))]">
                 {[
                   {label: de ? 'Gruppengröße' : 'Group size', value: de ? 'max. 15 Personen' : 'max. 15 people'},
                   {
@@ -64,7 +64,7 @@ export function ProgrammArtWalks({lang, assetBase = ''}: {lang: Lang; assetBase?
               </ul>
               <a
                 href="mailto:vip@art-dus.de"
-                className="self-start inline-block text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px] mt-5"
+                className="self-start inline-block text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px] mt-5"
               >
                 vip@art-dus.de →
               </a>

@@ -29,13 +29,13 @@ export function MagazineStripItem({
     <section className="px-[var(--page-x)] py-[clamp(48px,7vw,110px)]">
       {(title || moreHref) && (
         <div className="flex items-baseline justify-between gap-5 flex-wrap mb-[clamp(28px,4vw,48px)]">
-          <h2 className="font-light text-[clamp(30px,4vw,56px)] tracking-[-0.02em] leading-tight">
+          <h2 className="font-light text-[length:calc(clamp(30px,4vw,56px)*var(--schrift-titel,1))] tracking-[-0.02em] leading-tight">
             {title}
           </h2>
           {moreHref && (
             <Link
               href={moreHref}
-              className="text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px]"
+              className="text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px]"
             >
               {moreLabel} →
             </Link>
@@ -58,10 +58,10 @@ export function MagazineStripItem({
                 />
               )}
             </div>
-            <span className="text-[11px] font-semibold tracking-[0.1em] uppercase text-neutral-600">
+            <span className="text-[length:calc(11px*var(--schrift-klein,1))] font-semibold tracking-[0.1em] uppercase text-neutral-600">
               {m.tag}
             </span>
-            <h3 className="font-light text-[clamp(20px,1.8vw,26px)] leading-[1.15]">{m.title}</h3>
+            <h3 className="font-light text-[length:calc(clamp(20px,1.8vw,26px)*var(--schrift-zwischentitel,1))] leading-[1.15]">{m.title}</h3>
           </Link>
         ))}
       </div>

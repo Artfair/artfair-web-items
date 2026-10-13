@@ -385,12 +385,12 @@ export default function Header({
                   <Link
                     href={withLang(col.href)}
                     onClick={close}
-                    className="text-[15px] lg:text-[17px] font-semibold tracking-[0.02em] uppercase underline underline-offset-[5px] hover:text-brand-muted transition-colors self-start"
+                    className="text-[length:calc(15px*var(--schrift-text,1))] lg:text-[length:calc(17px*var(--schrift-text,1))] font-semibold tracking-[0.02em] uppercase underline underline-offset-[5px] hover:text-brand-muted transition-colors self-start"
                   >
                     {col.head}
                   </Link>
                 ) : (
-                  <span className="text-[15px] lg:text-[17px] font-semibold tracking-[0.02em] uppercase underline underline-offset-[5px]">
+                  <span className="text-[length:calc(15px*var(--schrift-text,1))] lg:text-[length:calc(17px*var(--schrift-text,1))] font-semibold tracking-[0.02em] uppercase underline underline-offset-[5px]">
                     {col.head}
                   </span>
                 )}
@@ -402,7 +402,7 @@ export default function Header({
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={close}
-                      className="text-[15px] lg:text-[17px] text-neutral-900 hover:text-brand-muted transition-colors"
+                      className="text-[length:calc(15px*var(--schrift-text,1))] lg:text-[length:calc(17px*var(--schrift-text,1))] text-neutral-900 hover:text-brand-muted transition-colors"
                     >
                       {item.label}
                     </a>
@@ -411,7 +411,7 @@ export default function Header({
                       key={item.label}
                       href={withLang(item.href)}
                       onClick={close}
-                      className="text-[15px] lg:text-[17px] text-neutral-900 hover:text-brand-muted transition-colors"
+                      className="text-[length:calc(15px*var(--schrift-text,1))] lg:text-[length:calc(17px*var(--schrift-text,1))] text-neutral-900 hover:text-brand-muted transition-colors"
                     >
                       {item.label}
                     </Link>
@@ -422,7 +422,7 @@ export default function Header({
 
             {/* Meta-Spalte — schwarze Header, lime unterstrichen */}
             <div className="flex flex-col gap-[13px]">
-              <span className="text-[15px] font-bold tracking-[0.04em] uppercase underline decoration-brand-accent decoration-[3px] underline-offset-[5px]">
+              <span className="text-[length:calc(15px*var(--schrift-text,1))] font-bold tracking-[0.04em] uppercase underline decoration-brand-accent decoration-[3px] underline-offset-[5px]">
                 {moreGroup.head}
               </span>
               {moreGroup.items.map((item) => (
@@ -436,7 +436,7 @@ export default function Header({
                 </Link>
               ))}
               {folgen.length > 0 && (
-              <span className="mt-2.5 text-[15px] font-bold tracking-[0.04em] uppercase underline decoration-brand-accent decoration-[3px] underline-offset-[5px]">
+              <span className="mt-2.5 text-[length:calc(15px*var(--schrift-text,1))] font-bold tracking-[0.04em] uppercase underline decoration-brand-accent decoration-[3px] underline-offset-[5px]">
                 {t.followHead}
               </span>
               )}
@@ -451,7 +451,7 @@ export default function Header({
                   {item.label}
                 </a>
               ))}
-              <span className="mt-2.5 text-[15px] font-bold tracking-[0.04em] uppercase underline decoration-brand-accent decoration-[3px] underline-offset-[5px]">
+              <span className="mt-2.5 text-[length:calc(15px*var(--schrift-text,1))] font-bold tracking-[0.04em] uppercase underline decoration-brand-accent decoration-[3px] underline-offset-[5px]">
                 {companyGroup.head}
               </span>
               {companyGroup.items.map((item) => (
@@ -469,7 +469,7 @@ export default function Header({
             {/* Magazin-Teaser */}
             {teaser && (
               <div className="col-span-2 md:col-span-1 flex flex-col gap-[13px]">
-                <span className="text-[13px] font-bold tracking-[0.06em] uppercase">{t.magHead}</span>
+                <span className="text-[length:calc(13px*var(--schrift-klein,1))] font-bold tracking-[0.06em] uppercase">{t.magHead}</span>
                 <Link href={teaser.href} onClick={close} className="block aspect-[4/3] overflow-hidden bg-brand-ink">
                   {teaser.imageUrl && (
                     // eslint-disable-next-line @next/next/no-img-element
@@ -479,7 +479,7 @@ export default function Header({
                   )}
                 </Link>
                 {teaser.meta && (
-                  <span className="text-[11px] tracking-[0.08em] uppercase text-neutral-600">{teaser.meta}</span>
+                  <span className="text-[length:calc(11px*var(--schrift-klein,1))] tracking-[0.08em] uppercase text-neutral-600">{teaser.meta}</span>
                 )}
                 <Link
                   href={teaser.href}
