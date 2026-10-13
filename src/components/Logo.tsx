@@ -5,6 +5,12 @@ export type Wortmarke = {
   alt: string;
   /** Fassung für dunklen Grund (Fußzeile). Fehlt sie, wird die Marke weiß eingefärbt. */
   hell?: string;
+  /**
+   * Kompakte Fassung für schmale Bildschirme (unter 768 px), z. B. ohne
+   * Partner-Zusatz. Fehlt sie, erscheint auch dort die volle Marke — dann
+   * verkleinert sie sich, statt in die Bedienelemente daneben zu laufen.
+   */
+  kompakt?: string;
 };
 
 type Props = {
@@ -24,10 +30,24 @@ type Props = {
 export default function Logo({ className = "", marke, aufDunkel = false }: Props) {
   if (marke?.src) {
     // Höhe kommt aus className (h-4 / h-6), Breite richtet sich danach.
+    // Breite Marken dürfen schrumpfen (max-w-full), statt Nachbarn zu verdrängen;
+    // object-contain hält das Seitenverhältnis, object-left die Kante.
     const src = aufDunkel && marke.hell ? marke.hell : marke.src;
     const weiss = aufDunkel && !marke.hell ? " brightness-0 invert" : "";
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img src={src} alt={marke.alt} className={className + weiss} />;
+    const bild = (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img src={src} alt={marke.alt} className={className + weiss + " max-w-full object-contain object-left"} />
+    );
+    // Auf hellem Grund und mit kompakter Fassung: unter 768 px (Tailwind md) die kompakte.
+    if (!aufDunkel && marke.kompakt) {
+      return (
+        <picture className="contents">
+          <source media="(max-width: 767px)" srcSet={marke.kompakt} />
+          {bild}
+        </picture>
+      );
+    }
+    return bild;
   }
   return (
     <svg

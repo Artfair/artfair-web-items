@@ -315,11 +315,17 @@ export default function Header({
   return (
     <header className="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-brand-line text-brand-ink">
       <div className="w-full h-full flex items-center justify-between px-[var(--page-x)]">
-        <Link href={lang === langs[0] ? "/" : `/${lang}`} className="flex items-center" onClick={close}>
+        {/* Eigene Marke: Logo darf schrumpfen, die Bedienelemente rechts nicht.
+            Ohne eigene Marke (eingebauter Schriftzug) bleibt alles wie gehabt. */}
+        <Link
+          href={lang === langs[0] ? "/" : `/${lang}`}
+          className={marke?.src ? "flex items-center min-w-0 mr-4" : "flex items-center"}
+          onClick={close}
+        >
           <Logo marke={marke} className="text-brand-ink h-4 md:h-6 w-auto" />
         </Link>
 
-        <div className="flex items-center gap-[18px]">
+        <div className={marke?.src ? "flex items-center gap-[18px] shrink-0" : "flex items-center gap-[18px]"}>
           {langPill}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
