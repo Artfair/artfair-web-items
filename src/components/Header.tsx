@@ -177,6 +177,7 @@ export default function Header({
   texte,
   folgen = FOLLOW,
   ticketsPfad = "/tickets",
+  sprachenImMenue = false,
 }: {
   magazineTeaser?: Partial<Record<string, MagazineTeaser | null>>;
   nav?: SiteNav | null;
@@ -190,6 +191,11 @@ export default function Header({
   folgen?: readonly { label: string; href: string }[];
   /** Pfad, dem der Tickets-Knopf im Menü folgt. */
   ticketsPfad?: string;
+  /**
+   * Schmale Bildschirme (unter 768 px): Sprachwahl nur im Menü statt in der
+   * Kopfzeile — mehr Platz für die Marke. Aus = wie bisher.
+   */
+  sprachenImMenue?: boolean;
 }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -326,7 +332,7 @@ export default function Header({
         </Link>
 
         <div className={marke?.src ? "flex items-center gap-[18px] shrink-0" : "flex items-center gap-[18px]"}>
-          {langPill}
+          {sprachenImMenue ? <span className="hidden md:block">{langPill}</span> : langPill}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? t.menueZu : t.menue}
@@ -363,7 +369,7 @@ export default function Header({
               <Logo marke={marke} className="text-brand-ink h-4 md:h-6 w-auto" />
             </Link>
             <div className="justify-self-end flex items-center gap-3 md:gap-[22px]">
-              <span className="hidden sm:block">{langPill}</span>
+              <span className={sprachenImMenue ? "block" : "hidden sm:block"}>{langPill}</span>
               <button
                 onClick={close}
                 aria-label={t.schliessen}
