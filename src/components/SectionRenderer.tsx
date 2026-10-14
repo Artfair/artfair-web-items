@@ -214,6 +214,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           imageSrc={img(s.image) || undefined}
           imageAlt={s.image?.alt ?? ""}
           ohneAbstand={!!s.ohneAbstand}
+          bildGanz={!!s.bildGanz}
         />
       );
     }

@@ -14,6 +14,7 @@ export function TextCtaItem({
   imageSrc,
   imageAlt,
   ohneAbstand = false,
+  bildGanz = false,
 }: {
   id?: string; // Sprungmarke für Menü-Links (z. B. "hotels")
   eyebrow?: string;
@@ -24,6 +25,8 @@ export function TextCtaItem({
   imageAlt?: string;
   /** Kein Weißraum oben/unten — Luft setzt die Seite per Abstandhalter. */
   ohneAbstand?: boolean;
+  /** Bild in seinem eigenen Seitenverhältnis zeigen (z. B. ein Plakat), statt die Fläche zu füllen und zu beschneiden. */
+  bildGanz?: boolean;
 }) {
   const isExternal = cta ? /^https?:/.test(cta.href) : false;
 
@@ -56,14 +59,18 @@ export function TextCtaItem({
 
   if (imageSrc) {
     return (
-      <section id={id} className="grid md:grid-cols-[0.9fr_1.1fr] px-[var(--page-x)] scroll-mt-[var(--kopf-hoehe,3.5rem)]">
-        <div className="relative min-h-[300px] max-md:order-2">
+      <section
+        id={id}
+        className={`grid md:grid-cols-[0.9fr_1.1fr] px-[var(--page-x)] scroll-mt-[var(--kopf-hoehe,3.5rem)]${bildGanz ? " items-center" : ""}`}
+      >
+        {/* bildGanz: Bild in eigenem Seitenverhältnis (Plakat), sonst füllt es die Fläche. */}
+        <div className={bildGanz ? "max-md:order-2" : "relative min-h-[300px] max-md:order-2"}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={imageSrc}
             alt={imageAlt ?? ""}
             loading="lazy"
-            className="absolute inset-0 w-full h-full object-cover"
+            className={bildGanz ? "block w-full h-auto" : "absolute inset-0 w-full h-full object-cover"}
           />
         </div>
         <div className={`flex flex-col justify-center gap-7 px-[clamp(40px,5vw,80px)] ${ohneAbstand ? "py-0" : "py-[clamp(64px,8vw,128px)]"} max-md:order-1`}>

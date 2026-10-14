@@ -108,6 +108,8 @@ export interface TextCtaSection {
   image?: ImageRef; // optional — mit Bild links, ohne nur Text
   // Ohne eigenen Weißraum oben und unten; Luft dann per Abstandhalter (spacer).
   ohneAbstand?: boolean;
+  // Bild in eigenem Seitenverhältnis zeigen (Plakat), statt zu beschneiden.
+  bildGanz?: boolean;
 }
 
 // 05b — News + Datum (NewsDateItem) — Textsektion wie 05, aber mit

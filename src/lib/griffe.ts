@@ -168,6 +168,7 @@ export const GRIFFE: Griff[] = [
       { art: "loc", feld: "body", label: "Text", mehrzeilig: true },
       { art: "knopf", feld: "cta", label: "Knopf" },
       { art: "bild", feld: "image", label: "Foto links (optional)" },
+      { art: "schalter", feld: "bildGanz", label: "Bild ganz zeigen, nicht beschneiden (z. B. Plakat im Hochformat)", standard: false },
       { art: "schalter", feld: "ohneAbstand", label: "Ohne Abstand oben und unten (Luft dann per Abstandhalter)", standard: false },
     ],
   },
