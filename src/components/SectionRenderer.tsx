@@ -545,6 +545,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
         <MagazineStripItem
           key={s._key}
           title={loc(s.title, lang)}
+          intro={loc(s.intro, lang) || undefined}
           moreLabel={loc(s.moreLabel, lang)}
           moreHref={eigene.length && !s.moreHref ? undefined : withLang(s.moreHref || "/magazine", lang)}
           cards={cards}

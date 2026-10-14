@@ -273,6 +273,7 @@ export interface MagazineStripSection {
   _key: string
   _type: 'magazineStrip'
   title?: Loc
+  intro?: Loc // optionaler Einleitungstext unter der Überschrift
   moreLabel?: Loc
   moreHref?: string
   // Mit eigenen Karten zeigt der Streifen diese; ohne füllt ihn die Seite (magazine).
