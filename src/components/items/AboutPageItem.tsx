@@ -40,18 +40,18 @@ function QuoteFigure({quote}: {quote: Quote}) {
   if (!quote.text) return null
   return (
     <>
-      <blockquote className="font-light text-[clamp(22px,2.2vw,34px)] leading-[1.22] tracking-[-0.01em]">
+      <blockquote className="font-light text-[length:calc(clamp(22px,2.2vw,34px)*var(--schrift-zwischentitel,1))] leading-[1.22] tracking-[-0.01em]">
         {quote.text}
       </blockquote>
       <figcaption>
-        {quote.author ? <span className="block text-[15px] font-medium">{quote.author}</span> : null}
+        {quote.author ? <span className="block text-[length:calc(15px*var(--schrift-text,1))] font-medium">{quote.author}</span> : null}
         {quote.role ? (
-          <span className="block text-[13px] font-semibold tracking-[0.14em] uppercase text-neutral-500 mt-1">
+          <span className="block text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase text-neutral-500 mt-1">
             {quote.role}
           </span>
         ) : null}
         {quote.draft ? (
-          <span className="block text-[13px] text-neutral-500 mt-1">Zitat-Entwurf zur Freigabe</span>
+          <span className="block text-[length:calc(13px*var(--schrift-klein,1))] text-neutral-500 mt-1">Zitat-Entwurf zur Freigabe</span>
         ) : null}
       </figcaption>
     </>
@@ -61,7 +61,7 @@ function QuoteFigure({quote}: {quote: Quote}) {
 function TeamNumRow({no}: {no: string}) {
   return (
     <div className="flex items-center gap-4 mb-4">
-      <span className="text-[15px] text-neutral-600 tracking-[0.08em]">{no}</span>
+      <span className="text-[length:calc(15px*var(--schrift-text,1))] text-neutral-600 tracking-[0.08em]">{no}</span>
       <span aria-hidden="true" className="flex-1 h-px bg-neutral-300" />
     </div>
   )
@@ -69,7 +69,7 @@ function TeamNumRow({no}: {no: string}) {
 
 function TeamName({children}: {children: React.ReactNode}) {
   return (
-    <h3 className="text-[clamp(20px,1.8vw,26px)] font-normal leading-[1.15] mb-2.5">{children}</h3>
+    <h3 className="text-[length:calc(clamp(20px,1.8vw,26px)*var(--schrift-zwischentitel,1))] font-normal leading-[1.15] mb-2.5">{children}</h3>
   )
 }
 
@@ -77,10 +77,10 @@ function TeamCardBody({person, nameHidden}: {person: Member; nameHidden?: boolea
   return (
     <>
       {!nameHidden && <TeamName>{person.name}</TeamName>}
-      <span className="block text-[13px] font-semibold tracking-[0.14em] uppercase text-neutral-500">
+      <span className="block text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase text-neutral-500">
         {person.role}
       </span>
-      <span className="flex flex-col items-start gap-1 mt-[18px] font-light text-[15px]">
+      <span className="flex flex-col items-start gap-1 mt-[18px] font-light text-[length:calc(15px*var(--schrift-text,1))]">
         {person.phone && (
           <a
             href={`tel:${person.phone.replace(/[\s-]+/g, '')}`}
@@ -106,7 +106,7 @@ function enquiryExtra(links: EnquiryLink[]): React.ReactNode {
   return (
     <>
       {mono.length > 0 && (
-        <span className="flex flex-col items-start gap-1 mt-[18px] font-light text-[15px] text-brand-ink">
+        <span className="flex flex-col items-start gap-1 mt-[18px] font-light text-[length:calc(15px*var(--schrift-text,1))] text-brand-ink">
           {mono.map((i) => (
             <a key={i.href} href={i.href} className="hover:underline underline-offset-[3px]">
               {i.label || i.href}
@@ -118,7 +118,7 @@ function enquiryExtra(links: EnquiryLink[]): React.ReactNode {
         <a
           key={i.href}
           href={i.href}
-          className="self-start inline-block mt-[18px] text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px]"
+          className="self-start inline-block mt-[18px] text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px]"
         >
           {i.label || i.href}
         </a>
@@ -195,10 +195,10 @@ export function AboutPageItem(props: {
       <section id="vision" className="px-[var(--page-x)] py-[clamp(72px,10vw,144px)] scroll-mt-14">
         <div className="grid md:grid-cols-2 gap-x-[clamp(40px,6vw,96px)] gap-y-12 items-start">
           <div>
-            <h2 className="font-light text-[clamp(30px,3.4vw,52px)] leading-[1.06] tracking-[-0.02em] max-w-[24ch]">
+            <h2 className="font-light text-[length:calc(clamp(30px,3.4vw,52px)*var(--schrift-titel,1))] leading-[1.06] tracking-[-0.02em] max-w-[24ch]">
               {p.visionHeading}
             </h2>
-            <p className="text-[clamp(17px,1.4vw,20px)] leading-[1.62] text-neutral-600 max-w-[62ch] mt-7 whitespace-pre-line">
+            <p className="text-[length:calc(clamp(17px,1.4vw,20px)*var(--schrift-text,1))] leading-[1.62] text-neutral-600 max-w-[62ch] mt-7 whitespace-pre-line">
               {p.visionBody}
             </p>
           </div>
@@ -226,10 +226,10 @@ export function AboutPageItem(props: {
           </div>
           <div className="flex flex-col justify-center gap-8">
             <div>
-              <h2 className="font-light text-[clamp(30px,3.4vw,52px)] leading-[1.06] tracking-[-0.02em] max-w-[22ch]">
+              <h2 className="font-light text-[length:calc(clamp(30px,3.4vw,52px)*var(--schrift-titel,1))] leading-[1.06] tracking-[-0.02em] max-w-[22ch]">
                 {p.collectorsHeading}
               </h2>
-              <p className="text-[clamp(17px,1.4vw,20px)] leading-[1.62] text-neutral-600 max-w-[52ch] mt-6 whitespace-pre-line">
+              <p className="text-[length:calc(clamp(17px,1.4vw,20px)*var(--schrift-text,1))] leading-[1.62] text-neutral-600 max-w-[52ch] mt-6 whitespace-pre-line">
                 {p.collectorsBody}
               </p>
             </div>
@@ -257,10 +257,10 @@ export function AboutPageItem(props: {
         </div>
         <div className="px-[var(--page-x)] pt-5">
           <div className="grid md:grid-cols-3 gap-x-[clamp(24px,4vw,64px)] gap-y-4 items-start">
-            <p className="text-[13px] font-semibold tracking-[0.14em] uppercase text-neutral-500">
+            <p className="text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase text-neutral-500">
               {p.arealLabel}
             </p>
-            <p className="md:col-span-2 text-[clamp(17px,1.4vw,20px)] leading-[1.62] text-neutral-600 max-w-[74ch] whitespace-pre-line">
+            <p className="md:col-span-2 text-[length:calc(clamp(17px,1.4vw,20px)*var(--schrift-text,1))] leading-[1.62] text-neutral-600 max-w-[74ch] whitespace-pre-line">
               {p.arealBody}
             </p>
           </div>
@@ -269,7 +269,7 @@ export function AboutPageItem(props: {
 
       {/* Kuratorisches Profil */}
       <section id="profil" className="px-[var(--page-x)] pb-[clamp(72px,10vw,144px)] scroll-mt-14">
-        <h2 className="font-light text-[clamp(30px,3.4vw,52px)] leading-[1.06] tracking-[-0.02em] mb-[clamp(32px,4vw,56px)]">
+        <h2 className="font-light text-[length:calc(clamp(30px,3.4vw,52px)*var(--schrift-titel,1))] leading-[1.06] tracking-[-0.02em] mb-[clamp(32px,4vw,56px)]">
           {p.profileHeading}
         </h2>
         <div className="border-t border-brand-ink">
@@ -278,11 +278,11 @@ export function AboutPageItem(props: {
               key={s.name || i}
               className="grid grid-cols-[48px_1fr] md:grid-cols-[64px_minmax(180px,1fr)_minmax(280px,2fr)] gap-x-[clamp(16px,3vw,48px)] gap-y-2 items-baseline py-[clamp(24px,3vw,40px)] border-b border-brand-ink"
             >
-              <span className="text-[15px] text-neutral-600 tracking-[0.08em]">
+              <span className="text-[length:calc(15px*var(--schrift-text,1))] text-neutral-600 tracking-[0.08em]">
                 {String(i + 1).padStart(2, '0')}
               </span>
-              <h3 className="font-light text-[clamp(22px,2.2vw,32px)] leading-[1.1]">{s.name}</h3>
-              <p className="col-start-2 md:col-start-3 text-[15px] leading-[1.62] text-neutral-600 max-w-[60ch]">
+              <h3 className="font-light text-[length:calc(clamp(22px,2.2vw,32px)*var(--schrift-zwischentitel,1))] leading-[1.1]">{s.name}</h3>
+              <p className="col-start-2 md:col-start-3 text-[length:calc(15px*var(--schrift-text,1))] leading-[1.62] text-neutral-600 max-w-[60ch]">
                 {s.body}
               </p>
             </div>
@@ -290,14 +290,14 @@ export function AboutPageItem(props: {
         </div>
         {p.profileThemes.length > 0 && (
           <div className="mt-[clamp(32px,4vw,56px)]">
-            <span className="block text-[13px] font-semibold tracking-[0.14em] uppercase text-neutral-500 mb-5">
+            <span className="block text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase text-neutral-500 mb-5">
               {p.profileThemesLabel}
             </span>
             <div className="flex flex-wrap gap-3">
               {p.profileThemes.map((t) => (
                 <span
                   key={t}
-                  className="inline-flex border border-brand-ink rounded-full px-4 py-[6px] text-[13px] font-medium tracking-[0.06em] uppercase whitespace-nowrap"
+                  className="inline-flex border border-brand-ink rounded-full px-4 py-[6px] text-[length:calc(13px*var(--schrift-klein,1))] font-medium tracking-[0.06em] uppercase whitespace-nowrap"
                 >
                   {t}
                 </span>
@@ -336,17 +336,17 @@ export function AboutPageItem(props: {
             <div>
               {/* Bewusst H1-Größe (wie der Hero): „Kontakt & Team" funktioniert
                   als zweiter Seiteneinstieg (Annalena 25.8.2026). */}
-              <h2 className="font-light text-[clamp(44px,6.5vw,92px)] leading-[0.98] tracking-[-0.02em]">
+              <h2 className="font-light text-[length:calc(clamp(44px,6.5vw,92px)*var(--schrift-titel,1))] leading-[0.98] tracking-[-0.02em]">
                 {p.contactHeading}
               </h2>
-              <p className="text-[clamp(17px,1.4vw,20px)] leading-[1.62] text-neutral-600 max-w-[640px] mt-7 whitespace-pre-line">
+              <p className="text-[length:calc(clamp(17px,1.4vw,20px)*var(--schrift-text,1))] leading-[1.62] text-neutral-600 max-w-[640px] mt-7 whitespace-pre-line">
                 {p.contactBody}
               </p>
             </div>
             {p.contactCta?.href ? (
               <a
                 href={p.contactCta.href}
-                className="inline-flex items-center gap-2 bg-brand-ink text-white text-[13px] font-semibold tracking-[0.14em] uppercase px-7 py-[15px] whitespace-nowrap shrink-0"
+                className="inline-flex items-center gap-2 bg-brand-ink text-white text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase px-7 py-[15px] whitespace-nowrap shrink-0"
               >
                 {p.contactCta.label}
               </a>
@@ -354,7 +354,7 @@ export function AboutPageItem(props: {
           </div>
         </div>
         <div aria-hidden="true" className="h-px bg-brand-ink mt-6" />
-        <div className="mt-5 flex flex-wrap gap-x-8 gap-y-2 text-[13px] font-semibold tracking-[0.14em] uppercase text-neutral-500">
+        <div className="mt-5 flex flex-wrap gap-x-8 gap-y-2 text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase text-neutral-500">
           {p.contactAddressLine ? <span>{p.contactAddressLine}</span> : null}
           {p.contactPhone ? (
             <a
@@ -369,7 +369,7 @@ export function AboutPageItem(props: {
 
       {/* Team-Verzeichnis — mobil eine Spalte, Desktop zwei versetzte Spalten */}
       <section className="px-[var(--page-x)] pt-[clamp(64px,8vw,128px)]">
-        <h2 className="font-light text-[clamp(30px,3.4vw,52px)] leading-[1.06] tracking-[-0.02em] mb-[clamp(28px,3.5vw,56px)]">
+        <h2 className="font-light text-[length:calc(clamp(30px,3.4vw,52px)*var(--schrift-titel,1))] leading-[1.06] tracking-[-0.02em] mb-[clamp(28px,3.5vw,56px)]">
           {p.teamHeading}
         </h2>
         <div className="flex flex-col gap-[clamp(40px,5vw,72px)] md:hidden">
@@ -430,7 +430,7 @@ export function AboutPageItem(props: {
 
       {/* Adressen */}
       <section className="px-[var(--page-x)] pb-[clamp(72px,10vw,140px)]">
-        <h2 className="font-light text-[clamp(30px,3.4vw,52px)] leading-[1.06] tracking-[-0.02em] mb-[clamp(28px,3.5vw,48px)]">
+        <h2 className="font-light text-[length:calc(clamp(30px,3.4vw,52px)*var(--schrift-titel,1))] leading-[1.06] tracking-[-0.02em] mb-[clamp(28px,3.5vw,48px)]">
           {p.addressesHeading}
         </h2>
         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(360px,100%),1fr))] gap-6">
@@ -443,26 +443,26 @@ export function AboutPageItem(props: {
                   dark ? 'bg-brand-ink text-white' : 'bg-brand-accent text-brand-ink'
                 }`}
               >
-                <span className="text-[13px] font-semibold tracking-[0.14em] uppercase">
+                <span className="text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase">
                   {a.label}
                 </span>
                 <span
                   aria-hidden="true"
                   className={`block h-px mt-5 mb-8 ${dark ? 'bg-brand-accent' : 'bg-brand-ink'}`}
                 />
-                <span className="block font-light text-[clamp(28px,2.6vw,40px)] leading-[1.06] tracking-[-0.02em] whitespace-pre-line">
+                <span className="block font-light text-[length:calc(clamp(28px,2.6vw,40px)*var(--schrift-titel,1))] leading-[1.06] tracking-[-0.02em] whitespace-pre-line">
                   {a.name}
                 </span>
                 {a.phone || a.email ? (
                   <span className="mt-auto pt-8 flex flex-wrap justify-between items-end gap-x-10 gap-y-6">
                     <span
-                      className={`block text-[17px] leading-[1.62] whitespace-pre-line ${
+                      className={`block text-[length:calc(17px*var(--schrift-text,1))] leading-[1.62] whitespace-pre-line ${
                         dark ? 'text-neutral-300' : ''
                       }`}
                     >
                       {a.lines}
                     </span>
-                    <span className="flex flex-col items-start gap-[5px] font-light text-[15px]">
+                    <span className="flex flex-col items-start gap-[5px] font-light text-[length:calc(15px*var(--schrift-text,1))]">
                       {a.phone && (
                         <a
                           href={`tel:${a.phone.replace(/[\s-]+/g, '')}`}
@@ -482,7 +482,7 @@ export function AboutPageItem(props: {
                     </span>
                   </span>
                 ) : (
-                  <span className="block text-[17px] leading-[1.62] mt-auto pt-8 whitespace-pre-line">
+                  <span className="block text-[length:calc(17px*var(--schrift-text,1))] leading-[1.62] mt-auto pt-8 whitespace-pre-line">
                     {a.lines}
                   </span>
                 )}

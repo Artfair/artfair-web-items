@@ -25,12 +25,12 @@ export function PartnerFeatureItem({
   return (
     <section id={id} className="px-[var(--page-x)] pb-[clamp(64px,8vw,128px)] scroll-mt-14">
       {eyebrow && (
-        <span className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.14em] uppercase mb-5">
+        <span className="flex items-center gap-2.5 text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase mb-5">
           <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
           {eyebrow}
         </span>
       )}
-      <h2 className="font-light text-[clamp(36px,5vw,68px)] leading-[1.02] tracking-[-0.02em] mb-[clamp(28px,3.5vw,56px)]">
+      <h2 className="font-light text-[length:calc(clamp(36px,5vw,68px)*var(--schrift-titel,1))] leading-[1.02] tracking-[-0.02em] mb-[clamp(28px,3.5vw,56px)]">
         {heading}
       </h2>
       <div className="grid md:grid-cols-[1.15fr_0.85fr] gap-[clamp(28px,4.5vw,72px)] items-start">
@@ -45,13 +45,13 @@ export function PartnerFeatureItem({
         </div>
         <div className="flex flex-col">
           <h3 className="text-2xl font-normal leading-[1.15] mb-3">{title}</h3>
-          <p className="text-[15px] leading-[1.62] text-neutral-600 whitespace-pre-line">
+          <p className="text-[length:calc(15px*var(--schrift-text,1))] leading-[1.62] text-neutral-600 whitespace-pre-line">
             {body}
           </p>
           {link && (
             <Link
               href={link.href}
-              className="self-start text-[13px] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px] mt-5"
+              className="self-start text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.06em] uppercase border-b-2 border-brand-accent pb-[3px] mt-5"
             >
               {link.label} →
             </Link>

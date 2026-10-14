@@ -32,7 +32,7 @@ export default function NewsletterForm({
 
   if (done) {
     return (
-      <p className="text-[15px] text-neutral-600">
+      <p className="text-[length:calc(15px*var(--schrift-text,1))] text-neutral-600">
         {de
           ? "Fast geschafft! Bitte bestätigen Sie Ihre Anmeldung über den Link in Ihrem Postfach."
           : "Almost there! Please confirm your signup via the link in your inbox."}
@@ -70,7 +70,7 @@ export default function NewsletterForm({
           required
           autoComplete="email"
           placeholder={placeholder}
-          className="flex-[1_1_240px] min-w-0 text-[15px] text-brand-ink px-[18px] py-[15px] border border-brand-ink bg-white outline-none placeholder:text-neutral-500"
+          className="flex-[1_1_240px] min-w-0 text-[length:calc(15px*var(--schrift-text,1))] text-brand-ink px-[18px] py-[15px] border border-brand-ink bg-white outline-none placeholder:text-neutral-500"
         />
         <button
           type="submit"
@@ -83,7 +83,7 @@ export default function NewsletterForm({
       <input type="hidden" name="language" value={lang} />
       <BotShieldFields action={action} />
       {failed && (
-        <p role="alert" className="text-[14px] leading-[1.5] text-brand-danger mt-4 text-center">
+        <p role="alert" className="text-[length:calc(14px*var(--schrift-klein,1))] leading-[1.5] text-brand-danger mt-4 text-center">
           {de
             ? "Das hat leider nicht geklappt — bitte versuchen Sie es später erneut."
             : "Something went wrong — please try again later."}
@@ -106,7 +106,7 @@ export default function NewsletterForm({
             <path d="M2 6.5L4.8 9.2 10 3.5" stroke="currentColor" strokeWidth="1.8" />
           </svg>
         </span>
-        <span className="text-[13px] leading-[1.6] text-neutral-500">
+        <span className="text-[length:calc(13px*var(--schrift-klein,1))] leading-[1.6] text-neutral-500">
           {de
             ? "Ich möchte den Newsletter der Art Düsseldorf erhalten. Hinweise zum Widerruf in der"
             : "I would like to receive the Art Düsseldorf newsletter. Details on withdrawal in the"}{" "}

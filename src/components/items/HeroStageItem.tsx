@@ -39,15 +39,15 @@ export function HeroStageItem({
       />
       <div className="absolute left-0 bottom-0 px-[var(--page-x)] pb-[clamp(36px,3.9vw,56px)] max-w-[900px]">
         {eyebrow && (
-          <span className="inline-flex items-center text-[13px] font-medium tracking-[0.18em] uppercase text-white mb-[clamp(14px,1.5vw,22px)]">
+          <span className="inline-flex items-center text-[length:calc(13px*var(--schrift-klein,1))] font-medium tracking-[0.18em] uppercase text-white mb-[clamp(14px,1.5vw,22px)]">
             {eyebrow}
           </span>
         )}
-        <h1 className="font-normal text-[clamp(44px,6.1vw,88px)] leading-[0.98] tracking-[-0.01em] text-white">
+        <h1 className="font-normal text-[length:calc(clamp(44px,6.1vw,88px)*var(--schrift-titel,1))] leading-[0.98] tracking-[-0.01em] text-white">
           {title}
         </h1>
         {body && (
-          <p className="text-[clamp(17px,1.5vw,22px)] leading-[1.4] text-white/85 max-w-[620px] mt-[clamp(16px,1.7vw,24px)]">
+          <p className="text-[length:calc(clamp(17px,1.5vw,22px)*var(--schrift-text,1))] leading-[1.4] text-white/85 max-w-[620px] mt-[clamp(16px,1.7vw,24px)]">
             {body}
           </p>
         )}
@@ -56,7 +56,7 @@ export function HeroStageItem({
             {primaryCta && (
               <Link
                 href={primaryCta.href}
-                className="inline-flex items-center gap-2 bg-white text-brand-ink text-[13px] font-medium tracking-[0.14em] uppercase px-[28px] py-[15px]"
+                className="inline-flex items-center gap-2 bg-white text-brand-ink text-[length:calc(13px*var(--schrift-klein,1))] font-medium tracking-[0.14em] uppercase px-[28px] py-[15px]"
               >
                 {primaryCta.label} →
               </Link>
@@ -64,7 +64,7 @@ export function HeroStageItem({
             {secondaryCta && (
               <Link
                 href={secondaryCta.href}
-                className="inline-flex items-center text-white border border-white text-[13px] font-medium tracking-[0.14em] uppercase px-[26px] py-[14px]"
+                className="inline-flex items-center text-white border border-white text-[length:calc(13px*var(--schrift-klein,1))] font-medium tracking-[0.14em] uppercase px-[26px] py-[14px]"
               >
                 {secondaryCta.label}
               </Link>

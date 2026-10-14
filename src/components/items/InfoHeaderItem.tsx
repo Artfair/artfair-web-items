@@ -33,16 +33,16 @@ export function InfoHeaderItem({
         <div className="flex-1 flex justify-between items-end gap-10 flex-wrap">
           <div className="min-w-0">
             {eyebrow && (
-              <span className="flex items-center gap-2.5 text-[13px] font-medium tracking-[0.18em] uppercase mb-[clamp(16px,1.7vw,24px)]">
+              <span className="flex items-center gap-2.5 text-[length:calc(13px*var(--schrift-klein,1))] font-medium tracking-[0.18em] uppercase mb-[clamp(16px,1.7vw,24px)]">
                 <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
                 {eyebrow}
               </span>
             )}
-            <h1 className="font-normal text-[clamp(42px,5.8vw,84px)] leading-[0.98] tracking-[-0.01em]">
+            <h1 className="font-normal text-[length:calc(clamp(42px,5.8vw,84px)*var(--schrift-titel,1))] leading-[0.98] tracking-[-0.01em]">
               {title}
             </h1>
             {body && (
-              <p className="text-[clamp(18px,1.6vw,23px)] leading-[1.4] text-neutral-700 max-w-[640px] mt-[clamp(20px,1.9vw,28px)]">
+              <p className="text-[length:calc(clamp(18px,1.6vw,23px)*var(--schrift-text,1))] leading-[1.4] text-neutral-700 max-w-[640px] mt-[clamp(20px,1.9vw,28px)]">
                 {/* Links als [Text](https://…) — Impressum/Datenschutz (Annalena 27.8.2026) */}
                 {renderInlineLinks(body, { className: INLINE_LINK_LIGHT })}
               </p>
@@ -52,7 +52,7 @@ export function InfoHeaderItem({
           {action && (
             <Link
               href={action.href}
-              className="inline-flex items-center gap-2 bg-brand-ink text-white text-[13px] font-medium tracking-[0.14em] uppercase px-[28px] py-[15px] whitespace-nowrap shrink-0"
+              className="inline-flex items-center gap-2 bg-brand-ink text-white text-[length:calc(13px*var(--schrift-klein,1))] font-medium tracking-[0.14em] uppercase px-[28px] py-[15px] whitespace-nowrap shrink-0"
             >
               {action.label}
             </Link>
@@ -63,7 +63,7 @@ export function InfoHeaderItem({
         <div aria-hidden="true" className="h-px bg-brand-ink" />
       </div>
       {meta && meta.length > 0 && (
-        <div className="px-[var(--page-x)] pt-5 pb-[clamp(24px,2.8vw,40px)] flex gap-x-8 gap-y-2 flex-wrap text-[13px] tracking-[0.1em] uppercase text-neutral-600">
+        <div className="px-[var(--page-x)] pt-5 pb-[clamp(24px,2.8vw,40px)] flex gap-x-8 gap-y-2 flex-wrap text-[length:calc(13px*var(--schrift-klein,1))] tracking-[0.1em] uppercase text-neutral-600">
           {meta.map((m) => (
             <span key={m}>{m}</span>
           ))}

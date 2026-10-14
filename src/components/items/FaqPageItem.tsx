@@ -62,7 +62,7 @@ export function FaqPageItem({
       type="button"
       aria-pressed={isActive}
       onClick={onClick}
-      className={`rounded-[50px] border border-brand-ink px-[18px] py-[5px] text-[14px] tracking-[0.02em] cursor-pointer transition-colors ${
+      className={`rounded-[50px] border border-brand-ink px-[18px] py-[5px] text-[length:calc(14px*var(--schrift-klein,1))] tracking-[0.02em] cursor-pointer transition-colors ${
         isActive ? 'bg-brand-ink text-white' : 'bg-white hover:bg-brand-ink hover:text-white'
       }`}
     >
@@ -76,11 +76,11 @@ export function FaqPageItem({
         <div aria-hidden="true" className="w-[clamp(16px,1.9vw,28px)] bg-brand-accent shrink-0" />
         <div className="flex-1 flex justify-between items-start gap-x-10 gap-y-6 flex-wrap">
           <div className="flex-[1_1_320px] min-w-0">
-            <h1 className="font-normal text-[clamp(42px,5.8vw,84px)] leading-[0.98] tracking-[-0.01em]">
+            <h1 className="font-normal text-[length:calc(clamp(42px,5.8vw,84px)*var(--schrift-titel,1))] leading-[0.98] tracking-[-0.01em]">
               {title}
             </h1>
             {intro && (
-              <p className="text-[clamp(18px,1.6vw,23px)] leading-[1.4] text-neutral-700 max-w-[640px] mt-[clamp(20px,1.9vw,28px)]">
+              <p className="text-[length:calc(clamp(18px,1.6vw,23px)*var(--schrift-text,1))] leading-[1.4] text-neutral-700 max-w-[640px] mt-[clamp(20px,1.9vw,28px)]">
                 {intro}
               </p>
             )}
@@ -88,10 +88,10 @@ export function FaqPageItem({
           {switchCta && (
             <Link
               href={switchCta.href}
-              className="inline-flex items-center gap-2 rounded-full border border-brand-ink bg-white px-5 py-[9px] mt-1.5 text-[13px] font-medium tracking-[0.1em] uppercase whitespace-nowrap shrink-0 transition-colors hover:bg-brand-ink hover:text-white"
+              className="inline-flex items-center gap-2 rounded-full border border-brand-ink bg-white px-5 py-[9px] mt-1.5 text-[length:calc(13px*var(--schrift-klein,1))] font-medium tracking-[0.1em] uppercase whitespace-nowrap shrink-0 transition-colors hover:bg-brand-ink hover:text-white"
             >
               {switchCta.label}
-              <span aria-hidden="true" className="text-[14px]">↗</span>
+              <span aria-hidden="true" className="text-[length:calc(14px*var(--schrift-klein,1))]">↗</span>
             </Link>
           )}
         </div>
@@ -111,16 +111,16 @@ export function FaqPageItem({
             <li key={f.q} className="border-b border-neutral-200">
               <details className="group py-1">
                 <summary className="flex items-center justify-between gap-6 cursor-pointer list-none py-4 [&::-webkit-details-marker]:hidden">
-                  <span className="text-[17px] font-medium leading-[1.35]">{f.q}</span>
+                  <span className="text-[length:calc(17px*var(--schrift-text,1))] font-medium leading-[1.35]">{f.q}</span>
                   <span
                     aria-hidden="true"
-                    className="w-6 h-6 bg-brand-accent text-brand-ink inline-flex items-center justify-center text-[17px] font-medium shrink-0 group-open:rotate-45 transition-transform"
+                    className="w-6 h-6 bg-brand-accent text-brand-ink inline-flex items-center justify-center text-[length:calc(17px*var(--schrift-text,1))] font-medium shrink-0 group-open:rotate-45 transition-transform"
                   >
                     +
                   </span>
                 </summary>
                 {/* Links im Antwort-Text als [Text](https://…) — Annalena 27.8.2026 */}
-                <p className="text-[16px] leading-[1.6] text-neutral-600 pb-5 max-w-[64ch] whitespace-pre-line">
+                <p className="text-[length:calc(16px*var(--schrift-text,1))] leading-[1.6] text-neutral-600 pb-5 max-w-[64ch] whitespace-pre-line">
                   {renderInlineLinks(f.a, {className: INLINE_LINK_LIGHT})}
                 </p>
               </details>

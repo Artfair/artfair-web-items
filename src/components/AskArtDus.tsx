@@ -141,7 +141,7 @@ export default function AskArtDus({ lang, assetBase = "" }: { lang: Lang; assetB
     </div>
   );
 
-  const roundBtn = (label: string, onClick: () => void, char: string, size = "w-[30px] h-[30px] text-[15px]") => (
+  const roundBtn = (label: string, onClick: () => void, char: string, size = "w-[30px] h-[30px] text-[length:calc(15px*var(--schrift-text,1))]") => (
     <button
       onClick={onClick}
       aria-label={label}
@@ -155,7 +155,7 @@ export default function AskArtDus({ lang, assetBase = "" }: { lang: Lang; assetB
     <button
       key={q}
       onClick={onClick}
-      className="text-[12.5px] leading-[1.3] text-brand-ink bg-white border border-brand-ink rounded-full px-[15px] py-[9px] text-left cursor-pointer hover:bg-brand-ink hover:text-white transition-colors"
+      className="text-[length:calc(12.5px*var(--schrift-klein,1))] leading-[1.3] text-brand-ink bg-white border border-brand-ink rounded-full px-[15px] py-[9px] text-left cursor-pointer hover:bg-brand-ink hover:text-white transition-colors"
     >
       {q}
     </button>
@@ -167,13 +167,13 @@ export default function AskArtDus({ lang, assetBase = "" }: { lang: Lang; assetB
         <div className="fixed right-[clamp(14px,2vw,26px)] bottom-[clamp(14px,2vw,26px)] z-[58] w-[min(430px,calc(100vw-28px))] bg-white border border-brand-ink rounded-[26px] overflow-hidden shadow-[0_26px_64px_rgba(0,0,0,0.24)] animate-dock-in">
           {imageHead(
             <span className="leading-[1.12]">
-              <span className="block font-medium text-[17px] text-white">{t.launcherLabel}</span>
-              <span className="block text-[10px] font-semibold tracking-[0.13em] uppercase text-white/70">
+              <span className="block font-medium text-[length:calc(17px*var(--schrift-text,1))] text-white">{t.launcherLabel}</span>
+              <span className="block text-[length:calc(10px*var(--schrift-klein,1))] font-semibold tracking-[0.13em] uppercase text-white/70">
                 {t.botStatus}
               </span>
             </span>,
             <>
-              {roundBtn(t.botCollapse, () => setCollapsed(true), "›", "w-[30px] h-[30px] text-[17px]")}
+              {roundBtn(t.botCollapse, () => setCollapsed(true), "›", "w-[30px] h-[30px] text-[length:calc(17px*var(--schrift-text,1))]")}
               {roundBtn(t.botClose, () => setCollapsed(true), "×")}
             </>,
             "px-3.5 py-[15px] pl-4",
@@ -191,12 +191,12 @@ export default function AskArtDus({ lang, assetBase = "" }: { lang: Lang; assetB
                 onChange={(e) => setHeroDraft(e.target.value)}
                 placeholder={t.askPlaceholder}
                 aria-label={t.askPlaceholder}
-                className="flex-1 min-w-0 text-[15px] py-[9px] outline-none bg-transparent text-brand-ink placeholder:text-neutral-500"
+                className="flex-1 min-w-0 text-[length:calc(15px*var(--schrift-text,1))] py-[9px] outline-none bg-transparent text-brand-ink placeholder:text-neutral-500"
               />
               <button
                 type="submit"
                 aria-label={t.botSend}
-                className="w-[42px] h-[42px] rounded-full text-[17px] text-white bg-brand-ink shrink-0 cursor-pointer flex items-center justify-center"
+                className="w-[42px] h-[42px] rounded-full text-[length:calc(17px*var(--schrift-text,1))] text-white bg-brand-ink shrink-0 cursor-pointer flex items-center justify-center"
               >
                 →
               </button>
@@ -214,7 +214,7 @@ export default function AskArtDus({ lang, assetBase = "" }: { lang: Lang; assetB
           aria-label={`${t.launcherLabel} öffnen`}
           className="fixed right-3.5 top-1/2 -translate-y-1/2 z-[59] bg-brand-accent text-brand-ink rounded-full px-[15px] py-[26px] flex flex-col items-center cursor-pointer animate-tab-in shadow-[0_8px_20px_rgba(0,0,0,0.22),0_26px_60px_rgba(0,0,0,0.32)] transition-transform hover:-translate-x-1.5"
         >
-          <span className="[writing-mode:vertical-rl] rotate-180 font-semibold text-[15px] tracking-[0.1em] uppercase">
+          <span className="[writing-mode:vertical-rl] rotate-180 font-semibold text-[length:calc(15px*var(--schrift-text,1))] tracking-[0.1em] uppercase">
             {t.launcherLabel}
           </span>
         </button>
@@ -224,8 +224,8 @@ export default function AskArtDus({ lang, assetBase = "" }: { lang: Lang; assetB
         <div className="fixed right-[clamp(14px,2vw,26px)] bottom-[clamp(14px,2vw,26px)] z-[60] w-[min(376px,calc(100vw-28px))] h-[min(560px,74vh)] bg-white border border-brand-ink rounded-[28px] overflow-hidden flex flex-col shadow-[0_30px_70px_rgba(0,0,0,0.24)] animate-chat-pop">
           {imageHead(
             <span className="leading-[1.12]">
-              <span className="block font-light text-[21px] text-white">{t.botName}</span>
-              <span className="block text-[10px] font-semibold tracking-[0.13em] uppercase text-white/70">
+              <span className="block font-light text-[length:calc(21px*var(--schrift-text,1))] text-white">{t.botName}</span>
+              <span className="block text-[length:calc(10px*var(--schrift-klein,1))] font-semibold tracking-[0.13em] uppercase text-white/70">
                 {t.botStatus}
               </span>
             </span>,

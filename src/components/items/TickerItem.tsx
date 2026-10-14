@@ -31,7 +31,7 @@ export function TickerItem({
           verfehlte die Periode — Band sprang); Abstand als margin-right AN JEDER
           Einheit statt gap + padding-left am Track, damit die halbe Breite
           exakt eine Periode ist. */}
-      <div className="relative inline-flex w-max items-center animate-marquee py-[18px] text-[13px] font-medium tracking-[0.14em] uppercase text-white">
+      <div className="relative inline-flex w-max items-center animate-marquee py-[18px] text-[length:calc(13px*var(--schrift-klein,1))] font-medium tracking-[0.14em] uppercase text-white">
         {[...units, ...units].map((text, i) => (
           <span key={i} className="inline-flex items-center gap-[38px] mr-[38px]">
             <span>{text}</span>

@@ -99,7 +99,7 @@ export default function HeaderAnimation({ assetBase = "" }: { assetBase?: string
         }}
       />
       <div className="absolute inset-x-0 top-0 flex items-start justify-between px-[var(--page-x)] pt-[clamp(18px,2.2vw,42px)] pointer-events-none">
-        <span className="text-white text-[clamp(18px,1.78vw,33px)] leading-none tracking-[0.04em] uppercase [text-shadow:0_1px_10px_rgba(0,0,0,0.45)]">
+        <span className="text-white text-[length:calc(clamp(18px,1.78vw,33px)*var(--schrift-zwischentitel,1))] leading-none tracking-[0.04em] uppercase [text-shadow:0_1px_10px_rgba(0,0,0,0.45)]">
           Headline Partner
         </span>
         {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -82,7 +82,7 @@ export function LinkHubItem({
         href={link.href}
         onClick={() => trackClick(label, link.href, l)}
         style={{animationDelay: `${100 + i * 80}ms`, animationFillMode: 'both'}}
-        className="animate-fade-in flex items-center justify-center text-center rounded-[50px] border-2 border-brand-accent text-white min-h-[44px] px-6 py-3 text-[15px] uppercase tracking-[0.14em] font-medium no-underline cursor-pointer transition-colors duration-200 hover:bg-brand-accent hover:text-brand-ink active:translate-y-px"
+        className="animate-fade-in flex items-center justify-center text-center rounded-[50px] border-2 border-brand-accent text-white min-h-[44px] px-6 py-3 text-[length:calc(15px*var(--schrift-text,1))] uppercase tracking-[0.14em] font-medium no-underline cursor-pointer transition-colors duration-200 hover:bg-brand-accent hover:text-brand-ink active:translate-y-px"
       >
         {label}
       </a>
@@ -95,7 +95,7 @@ export function LinkHubItem({
       type="button"
       aria-pressed={l === code}
       onClick={() => setL(code)}
-      className={`px-3 py-2 text-[12px] font-medium uppercase tracking-[0.14em] border cursor-pointer transition-colors duration-150 ${
+      className={`px-3 py-2 text-[length:calc(12px*var(--schrift-klein,1))] font-medium uppercase tracking-[0.14em] border cursor-pointer transition-colors duration-150 ${
         l === code
           ? 'bg-brand-accent text-brand-ink border-brand-accent'
           : 'bg-transparent text-white border-white/25 hover:border-white/60'
@@ -135,10 +135,10 @@ export function LinkHubItem({
           {(loc(dateLine, l) || loc(placeLine, l)) && (
             <div className="flex flex-col items-center gap-1.5 text-center mt-4">
               {loc(dateLine, l) && (
-                <div className="text-[14px] tracking-[0.14em] uppercase text-white/55">{loc(dateLine, l)}</div>
+                <div className="text-[length:calc(14px*var(--schrift-klein,1))] tracking-[0.14em] uppercase text-white/55">{loc(dateLine, l)}</div>
               )}
               {loc(placeLine, l) && (
-                <div className="text-[15px] tracking-[0.14em] uppercase text-white/75">{loc(placeLine, l)}</div>
+                <div className="text-[length:calc(15px*var(--schrift-text,1))] tracking-[0.14em] uppercase text-white/75">{loc(placeLine, l)}</div>
               )}
             </div>
           )}
@@ -152,11 +152,11 @@ export function LinkHubItem({
         {/* Bildnachweise — Textblöcke mit Inline-Links (Fotoquelle + Lizenz) */}
         {credits.length > 0 && (
           <div className="w-full mt-1 pt-5 border-t border-white/15">
-            <div className="text-[13px] font-medium tracking-[0.14em] uppercase text-brand-accent text-center mb-3">
+            <div className="text-[length:calc(13px*var(--schrift-klein,1))] font-medium tracking-[0.14em] uppercase text-brand-accent text-center mb-3">
               {loc(creditsTitle, l) || (l === 'de' ? 'Bildnachweise' : 'Image credits')}
             </div>
             {loc(creditsIntro, l) && (
-              <p className="text-[13px] leading-[1.55] text-white/50 text-center mb-5 whitespace-pre-line">
+              <p className="text-[length:calc(13px*var(--schrift-klein,1))] leading-[1.55] text-white/50 text-center mb-5 whitespace-pre-line">
                 {loc(creditsIntro, l)}
               </p>
             )}
@@ -164,10 +164,10 @@ export function LinkHubItem({
               {credits.map((c, i) => (
                 <li key={i} className={i > 0 ? 'pt-4 border-t border-white/10' : undefined}>
                   {loc(c.heading, l) && (
-                    <div className="text-[14px] font-medium text-white/90 mb-1">{loc(c.heading, l)}</div>
+                    <div className="text-[length:calc(14px*var(--schrift-klein,1))] font-medium text-white/90 mb-1">{loc(c.heading, l)}</div>
                   )}
                   {loc(c.body, l) && (
-                    <p className="text-[13px] leading-[1.6] text-white/65 whitespace-pre-line">
+                    <p className="text-[length:calc(13px*var(--schrift-klein,1))] leading-[1.6] text-white/65 whitespace-pre-line">
                       {renderInlineLinks(loc(c.body, l), {
                         className:
                           'text-white underline decoration-brand-accent underline-offset-[3px] transition-colors hover:text-brand-accent',
@@ -181,7 +181,7 @@ export function LinkHubItem({
           </div>
         )}
 
-        <div className="text-[12px] text-white/40 text-center">
+        <div className="text-[length:calc(12px*var(--schrift-klein,1))] text-white/40 text-center">
           {loc(footerNote, l) || '© Art Düsseldorf'}
         </div>
       </div>

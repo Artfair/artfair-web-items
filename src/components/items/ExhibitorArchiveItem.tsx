@@ -157,7 +157,7 @@ export function ExhibitorArchiveItem({
       type="button"
       aria-pressed={isActive}
       onClick={onClick}
-      className={`rounded-[50px] border px-[14px] py-[3px] min-h-[26px] text-[13px] tracking-[0.06em] uppercase whitespace-nowrap transition-all duration-[120ms] ${
+      className={`rounded-[50px] border px-[14px] py-[3px] min-h-[26px] text-[length:calc(13px*var(--schrift-klein,1))] tracking-[0.06em] uppercase whitespace-nowrap transition-all duration-[120ms] ${
         isActive
           ? 'bg-brand-accent text-brand-ink border-brand-ink'
           : 'bg-white border-brand-ink hover:border-brand-accent hover:shadow-[inset_0_0_0_2px_#E7FA31]'
@@ -190,7 +190,7 @@ export function ExhibitorArchiveItem({
       value={country ?? 'all'}
       onChange={(e) => setCountry(e.target.value === 'all' ? null : e.target.value)}
       aria-label={t.countryLabel}
-      className="border-0 border-b border-neutral-300 rounded-none py-[10px] text-[16px] bg-white outline-none focus:border-b-2 focus:border-brand-ink w-full md:w-[240px]"
+      className="border-0 border-b border-neutral-300 rounded-none py-[10px] text-[length:calc(16px*var(--schrift-text,1))] bg-white outline-none focus:border-b-2 focus:border-brand-ink w-full md:w-[240px]"
     >
       <option value="all">{t.countryAll}</option>
       {countries.map((c) => (
@@ -207,7 +207,7 @@ export function ExhibitorArchiveItem({
         type="button"
         aria-pressed={letter === null}
         onClick={() => setLetter(null)}
-        className={`min-w-[34px] h-[34px] px-2 text-[14px] transition-colors duration-[120ms] ${
+        className={`min-w-[34px] h-[34px] px-2 text-[length:calc(14px*var(--schrift-klein,1))] transition-colors duration-[120ms] ${
           letter === null ? 'bg-brand-accent text-brand-ink' : 'hover:bg-neutral-100'
         }`}
       >
@@ -223,7 +223,7 @@ export function ExhibitorArchiveItem({
             disabled={!available}
             aria-pressed={isActive}
             onClick={() => setLetter(isActive ? null : l)}
-            className={`min-w-[34px] h-[34px] text-[14px] transition-colors duration-[120ms] disabled:opacity-25 ${
+            className={`min-w-[34px] h-[34px] text-[length:calc(14px*var(--schrift-klein,1))] transition-colors duration-[120ms] disabled:opacity-25 ${
               isActive ? 'bg-brand-accent text-brand-ink' : available ? 'hover:bg-neutral-100' : ''
             }`}
           >
@@ -242,9 +242,9 @@ export function ExhibitorArchiveItem({
         onChange={(e) => setQ(e.target.value)}
         placeholder={t.searchPlaceholder}
         aria-label={t.searchLabel}
-        className="flex-1 min-w-0 border-0 outline-none text-[16px] py-[10px] bg-white placeholder:text-neutral-500"
+        className="flex-1 min-w-0 border-0 outline-none text-[length:calc(16px*var(--schrift-text,1))] py-[10px] bg-white placeholder:text-neutral-500"
       />
-      <span aria-hidden="true" className="text-[18px] text-neutral-500 pl-2">⌕</span>
+      <span aria-hidden="true" className="text-[length:calc(18px*var(--schrift-text,1))] text-neutral-500 pl-2">⌕</span>
     </div>
   )
 
@@ -253,20 +253,20 @@ export function ExhibitorArchiveItem({
       {/* Kopf */}
       <div className="px-[var(--page-x)] pt-[clamp(28px,5vw,72px)] flex items-end justify-between gap-x-10 gap-y-3 flex-wrap">
         <div className="min-w-0">
-          <span className="block text-[12px] font-medium tracking-[0.18em] uppercase text-neutral-700">
+          <span className="block text-[length:calc(12px*var(--schrift-klein,1))] font-medium tracking-[0.18em] uppercase text-neutral-700">
             {eyebrow || t.eyebrow}
           </span>
-          <h1 className="font-normal text-[clamp(44px,7.2vw,104px)] leading-[0.92] tracking-[-0.02em] mt-[14px]">
+          <h1 className="font-normal text-[length:calc(clamp(44px,7.2vw,104px)*var(--schrift-titel,1))] leading-[0.92] tracking-[-0.02em] mt-[14px]">
             {title || (lang === 'de' ? `Galerien ${data.edition}.` : `Galleries ${data.edition}.`)}
           </h1>
         </div>
-        <div className="pb-[14px] text-[clamp(15px,1.5vw,22px)] text-neutral-600 whitespace-nowrap">
+        <div className="pb-[14px] text-[length:calc(clamp(15px,1.5vw,22px)*var(--schrift-text,1))] text-neutral-600 whitespace-nowrap">
           <strong className="text-brand-ink font-medium">{data.exhibitors.length}</strong>{' '}
           {t.counter}
         </div>
       </div>
       {intro && (
-        <p className="px-[var(--page-x)] pt-[14px] text-[clamp(16px,1.3vw,19px)] leading-[1.62] text-neutral-600 max-w-[62ch]">
+        <p className="px-[var(--page-x)] pt-[14px] text-[length:calc(clamp(16px,1.3vw,19px)*var(--schrift-text,1))] leading-[1.62] text-neutral-600 max-w-[62ch]">
           {intro}
         </p>
       )}
@@ -280,7 +280,7 @@ export function ExhibitorArchiveItem({
         {themePills && (
           <div className="hidden md:flex items-center justify-between gap-[18px] flex-wrap border-t border-neutral-200 py-[18px]">
             <div className="flex items-center gap-3 flex-wrap">
-              <span className="text-[12px] font-medium tracking-[0.18em] uppercase text-neutral-700">
+              <span className="text-[length:calc(12px*var(--schrift-klein,1))] font-medium tracking-[0.18em] uppercase text-neutral-700">
                 {t.themeLabel}
               </span>
               {themePills}
@@ -301,7 +301,7 @@ export function ExhibitorArchiveItem({
               type="button"
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen((o) => !o)}
-              className="rounded-[50px] bg-brand-ink text-white px-[16px] py-[4px] min-h-[26px] text-[13px] tracking-[0.06em] uppercase whitespace-nowrap shrink-0"
+              className="rounded-[50px] bg-brand-ink text-white px-[16px] py-[4px] min-h-[26px] text-[length:calc(13px*var(--schrift-klein,1))] tracking-[0.06em] uppercase whitespace-nowrap shrink-0"
             >
               {t.filter}
               {activeCount > 0 ? ` (${activeCount})` : ''} {mobileOpen ? '▴' : '▾'}
@@ -312,7 +312,7 @@ export function ExhibitorArchiveItem({
             <div className="flex flex-col gap-4 border-t border-neutral-200 pt-4">
               {themePills && (
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-[12px] font-medium tracking-[0.18em] uppercase text-neutral-700 w-full">
+                  <span className="text-[length:calc(12px*var(--schrift-klein,1))] font-medium tracking-[0.18em] uppercase text-neutral-700 w-full">
                     {t.themeLabel}
                   </span>
                   {themePills}
@@ -330,11 +330,11 @@ export function ExhibitorArchiveItem({
 
       {/* Index */}
       <div className="px-[var(--page-x)] pt-[clamp(28px,3.3vw,48px)] pb-[clamp(56px,7vw,96px)]">
-        {shown.length === 0 && <p className="text-[17px] text-neutral-600 py-6">{t.empty}</p>}
+        {shown.length === 0 && <p className="text-[length:calc(17px*var(--schrift-text,1))] text-neutral-600 py-6">{t.empty}</p>}
         <div className="columns-1 md:columns-2 lg:columns-3 gap-[56px]">
           {groups.map(([l, items]) => (
             <section key={l} className="break-inside-avoid mb-[34px]">
-              <h2 className="text-[34px] font-normal leading-none border-b-[1.5px] border-brand-ink pb-2">
+              <h2 className="text-[length:calc(34px*var(--schrift-zwischentitel,1))] font-normal leading-none border-b-[1.5px] border-brand-ink pb-2">
                 {l}
               </h2>
               <ul className="list-none">
@@ -342,8 +342,8 @@ export function ExhibitorArchiveItem({
                   const row = (
                     <span className="flex items-start justify-between gap-4">
                       <span className="min-w-0">
-                        <span className="block text-[17px] leading-[1.25]">{e.name}</span>
-                        <span className="block text-[12px] tracking-[0.06em] uppercase opacity-55 mt-1">
+                        <span className="block text-[length:calc(17px*var(--schrift-text,1))] leading-[1.25]">{e.name}</span>
+                        <span className="block text-[length:calc(12px*var(--schrift-klein,1))] tracking-[0.06em] uppercase opacity-55 mt-1">
                           {e.cities.join(' · ')}, {countryName(e.country, lang)}
                         </span>
                       </span>
@@ -362,21 +362,21 @@ export function ExhibitorArchiveItem({
                                 className="w-[9px] h-[9px] rounded-full inline-block"
                                 style={{ backgroundColor: meta.color }}
                               />
-                              <span className="text-[10px] font-medium tracking-[0.14em] uppercase">
+                              <span className="text-[length:calc(10px*var(--schrift-klein,1))] font-medium tracking-[0.14em] uppercase">
                                 {loc(meta.label, lang)}
                               </span>
                             </span>
                           )
                         })}
                         {(e.themes ?? []).length > 0 && (
-                          <span className="block text-[13px] italic opacity-55 mt-[5px]">
+                          <span className="block text-[length:calc(13px*var(--schrift-klein,1))] italic opacity-55 mt-[5px]">
                             {(e.themes ?? [])
                               .map((k) => data.themes.find((th) => th.key === k)?.label)
                               .filter(Boolean)
                               .join(' · ')}
                           </span>
                         )}
-                        <span className="block text-[11px] tracking-[0.08em] uppercase text-neutral-500 mt-[5px]">
+                        <span className="block text-[length:calc(11px*var(--schrift-klein,1))] tracking-[0.08em] uppercase text-neutral-500 mt-[5px]">
                           {t.stand} {e.stand}
                         </span>
                       </span>

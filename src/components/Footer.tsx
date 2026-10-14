@@ -136,7 +136,7 @@ export default function Footer({
           <div className="col-span-3 md:col-span-1 flex flex-col gap-6">
             <Logo marke={marke} aufDunkel className="text-white h-4 w-auto self-start" />
             {address && (
-              <div className="text-[13px] leading-[1.7] text-neutral-400 whitespace-pre-line">
+              <div className="text-[length:calc(13px*var(--schrift-klein,1))] leading-[1.7] text-neutral-400 whitespace-pre-line">
                 {address}
               </div>
             )}
@@ -148,7 +148,7 @@ export default function Footer({
                 <Link
                   key={l.label}
                   href={withLang(l.href)}
-                  className="text-[13px] text-white hover:text-brand-accent transition-colors"
+                  className="text-[length:calc(13px*var(--schrift-klein,1))] text-white hover:text-brand-accent transition-colors"
                 >
                   {l.label}
                 </Link>
