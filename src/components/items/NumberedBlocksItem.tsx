@@ -71,7 +71,7 @@ function BlockBody({ block }: { block: NumberedBlock }) {
 
 function BlockCard({ no, block }: { no: string; block: NumberedBlock }) {
   return (
-    <div data-anchor={block.anchor || undefined} className="scroll-mt-14">
+    <div data-anchor={block.anchor || undefined} className="scroll-mt-[var(--kopf-hoehe,3.5rem)]">
       <NumRow no={no} />
       <BlockHeading>{block.heading}</BlockHeading>
       <BlockBody block={block} />
@@ -101,7 +101,7 @@ export function NumberedBlocksItem({
   useAnchorScroll();
 
   return (
-    <section id={id} className="px-[var(--page-x)] py-[clamp(64px,8vw,128px)] scroll-mt-14">
+    <section id={id} className="px-[var(--page-x)] py-[clamp(64px,8vw,128px)] scroll-mt-[var(--kopf-hoehe,3.5rem)]">
       {eyebrow && (
         <span className="flex items-center gap-2.5 text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase mb-5">
           <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
@@ -153,7 +153,7 @@ export function NumberedBlocksItem({
       <div className="hidden md:grid md:grid-cols-2 md:grid-rows-[auto_auto_1fr] gap-x-[clamp(40px,5vw,88px)]">
         {/* Block 01 ist im Desktop-Raster in Zeilen zerlegt — die Sprungmarke
             sitzt auf der Nummernzeile (oberste Kante des Blocks). */}
-        <div className="col-start-1 row-start-1 scroll-mt-14" data-anchor={left[0].anchor || undefined}>
+        <div className="col-start-1 row-start-1 scroll-mt-[var(--kopf-hoehe,3.5rem)]" data-anchor={left[0].anchor || undefined}>
           <NumRow no={no(left[0])} />
         </div>
         <div className="col-start-1 row-start-2">

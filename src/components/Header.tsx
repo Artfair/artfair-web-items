@@ -155,6 +155,37 @@ export interface MagazineTeaser {
   meta: string;
 }
 
+/**
+ * Aussehen der Kopfzeile je Instanz. Jeder Wert ist optional; ohne ihn gilt die
+ * eingebaute Vorgabe (Höhe 56 px, Logo 16/24 px, kompakte Marke unter 768 px,
+ * Sprachwahl als Pille in kompakter Schrift).
+ */
+export type KopfEinstellungen = {
+  /** Höhe in px — `mobil` unter 768 px, `desktop` ab 768 px. */
+  hoehe?: { mobil?: number; desktop?: number };
+  /** Höhe der Marke in px — `mobil` unter 768 px, `desktop` ab 768 px. */
+  logoHoehe?: { mobil?: number; desktop?: number };
+  /** Bis zu dieser Breite (px) erscheint die kompakte Fassung der Marke. */
+  logoKompaktBis?: number;
+  /** Sprachwahl: `pille` mit Rahmen oder `text` ohne; Schrift `kompakt` (fett, gesperrt) oder `ci` (wie der Fließtext). */
+  sprachwahl?: { form?: "pille" | "text"; schrift?: "kompakt" | "ci" };
+};
+
+const zahl = (v: unknown, lo: number, hi: number): number | null =>
+  typeof v === "number" && Number.isFinite(v) ? Math.round(Math.min(hi, Math.max(lo, v))) : null;
+
+// CSS-Variablen der Kopfzeile auf :root — auch der Seiteninhalt rückt danach
+// (pt-[var(--kopf-hoehe,3.5rem)]). Leer, wenn nichts eingestellt ist.
+function kopfCss(k?: KopfEinstellungen | null): string {
+  if (!k) return "";
+  const hm = zahl(k.hoehe?.mobil, 40, 120), hd = zahl(k.hoehe?.desktop, 40, 120);
+  const lm = zahl(k.logoHoehe?.mobil, 10, 80), ld = zahl(k.logoHoehe?.desktop, 10, 80);
+  if (hm === null && hd === null && lm === null && ld === null) return "";
+  const klein = [hm !== null || hd !== null ? `--kopf-hoehe:${hm ?? 56}px` : "", lm !== null || ld !== null ? `--kopf-logo:${lm ?? 16}px` : ""].filter(Boolean).join(";");
+  const gross = [hm !== null || hd !== null ? `--kopf-hoehe:${hd ?? 56}px` : "", lm !== null || ld !== null ? `--kopf-logo:${ld ?? 24}px` : ""].filter(Boolean).join(";");
+  return `:root{${klein}}@media (min-width:768px){:root{${gross}}}`;
+}
+
 /** Feste Texte der Kopfzeile je Sprache — eine Instanz überschreibt, was sie braucht. */
 export type HeaderTexte = {
   tickets: string;
@@ -178,6 +209,7 @@ export default function Header({
   folgen = FOLLOW,
   ticketsPfad = "/tickets",
   sprachenImMenue = false,
+  kopf,
 }: {
   magazineTeaser?: Partial<Record<string, MagazineTeaser | null>>;
   nav?: SiteNav | null;
@@ -196,6 +228,8 @@ export default function Header({
    * Kopfzeile — mehr Platz für die Marke. Aus = wie bisher.
    */
   sprachenImMenue?: boolean;
+  /** Höhe, Marke und Sprachwahl dieser Instanz; ohne Angabe die Vorgaben. */
+  kopf?: KopfEinstellungen | null;
 }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -300,7 +334,30 @@ export default function Header({
 
   // Ein Knopf je Sprache der Instanz — bei zwei Sprachen sieht die Pille aus
   // wie zuvor (DE|EN), bei einer japanischen Messe steht EN|JA darin.
-  const langPill = (
+  // Form und Schrift der Sprachwahl sind einstellbar (kopf.sprachwahl); ohne
+  // Angabe die Pille mit Rahmen in kompakter Schrift wie bisher.
+  const ohnePille = kopf?.sprachwahl?.form === "text";
+  const schriftKlasse =
+    kopf?.sprachwahl?.schrift === "ci"
+      ? "text-[length:calc(14px*var(--schrift-klein,1))] font-normal tracking-normal"
+      : "text-xs font-semibold tracking-[0.08em]";
+  const langPill = ohnePille ? (
+    <div className="inline-flex items-center gap-1">
+      {langs.map((code) => (
+        <Link
+          key={code}
+          href={langHref(code)}
+          onClick={close}
+          aria-current={lang === code ? "true" : undefined}
+          className={`px-1.5 py-[7px] ${schriftKlasse} transition-colors ${
+            lang === code ? "text-brand-ink underline underline-offset-4" : "text-neutral-500 hover:text-brand-ink"
+          }`}
+        >
+          {code.toUpperCase()}
+        </Link>
+      ))}
+    </div>
+  ) : (
     <div className="inline-flex items-center border border-brand-ink rounded-full overflow-hidden">
       {langs.map((code) => (
         <Link
@@ -308,7 +365,7 @@ export default function Header({
           href={langHref(code)}
           onClick={close}
           aria-current={lang === code ? "true" : undefined}
-          className={`px-[15px] py-[7px] text-xs font-semibold tracking-[0.08em] transition-colors ${
+          className={`px-[15px] py-[7px] ${schriftKlasse} transition-colors ${
             lang === code ? "bg-brand-ink text-white" : "text-neutral-600 hover:text-brand-ink"
           }`}
         >
@@ -317,9 +374,15 @@ export default function Header({
       ))}
     </div>
   );
+  const css = kopfCss(kopf);
+  const logoKlasse = css.includes("--kopf-logo") ? "text-brand-ink h-[var(--kopf-logo,1rem)] w-auto" : "text-brand-ink h-4 md:h-6 w-auto";
+  const kompaktBis = zahl(kopf?.logoKompaktBis, 320, 1600) ?? undefined;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-brand-line text-brand-ink">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 ${css.includes("--kopf-hoehe") ? "h-[var(--kopf-hoehe,3.5rem)]" : "h-14"} bg-white border-b border-brand-line text-brand-ink`}
+    >
+      {css && <style dangerouslySetInnerHTML={{ __html: css }} />}
       <div className="w-full h-full flex items-center justify-between px-[var(--page-x)]">
         {/* Eigene Marke: Logo darf schrumpfen, die Bedienelemente rechts nicht.
             Ohne eigene Marke (eingebauter Schriftzug) bleibt alles wie gehabt. */}
@@ -328,7 +391,7 @@ export default function Header({
           className={marke?.src ? "flex items-center min-w-0 mr-4" : "flex items-center"}
           onClick={close}
         >
-          <Logo marke={marke} className="text-brand-ink h-4 md:h-6 w-auto" />
+          <Logo marke={marke} className={logoKlasse} kompaktBis={kompaktBis} />
         </Link>
 
         <div className={marke?.src ? "flex items-center gap-[18px] shrink-0" : "flex items-center gap-[18px]"}>
@@ -366,7 +429,7 @@ export default function Header({
               <span aria-hidden className="justify-self-start" />
             )}
             <Link href={lang === langs[0] ? "/" : `/${lang}`} onClick={close}>
-              <Logo marke={marke} className="text-brand-ink h-4 md:h-6 w-auto" />
+              <Logo marke={marke} className={logoKlasse} kompaktBis={kompaktBis} />
             </Link>
             <div className="justify-self-end flex items-center gap-3 md:gap-[22px]">
               <span className={sprachenImMenue ? "block" : "hidden sm:block"}>{langPill}</span>

@@ -249,7 +249,7 @@ export function ExhibitorArchiveItem({
   )
 
   return (
-    <div id={id} className="scroll-mt-14">
+    <div id={id} className="scroll-mt-[var(--kopf-hoehe,3.5rem)]">
       {/* Kopf */}
       <div className="px-[var(--page-x)] pt-[clamp(28px,5vw,72px)] flex items-end justify-between gap-x-10 gap-y-3 flex-wrap">
         <div className="min-w-0">

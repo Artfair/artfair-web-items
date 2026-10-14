@@ -15,7 +15,7 @@ export function NewsletterBlockItem({
   body: string;
 }) {
   return (
-    <section id="newsletter" className="px-[var(--page-x)] py-[clamp(60px,9vw,140px)] text-center scroll-mt-14">
+    <section id="newsletter" className="px-[var(--page-x)] py-[clamp(60px,9vw,140px)] text-center scroll-mt-[var(--kopf-hoehe,3.5rem)]">
       <h2 className="font-light text-[length:calc(clamp(36px,6vw,80px)*var(--schrift-titel,1))] leading-[0.98] tracking-[-0.02em] max-w-[16ch] mx-auto mb-4">
         {title}
       </h2>

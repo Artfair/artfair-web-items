@@ -23,11 +23,13 @@ type Props = {
   marke?: Wortmarke | null;
   /** Steht auf dunklem Grund: eigene helle Fassung oder die Marke weiß eingefärbt. */
   aufDunkel?: boolean;
+  /** Bis zu dieser Bildschirmbreite (px, ausschließlich) gilt die kompakte Fassung. Standard 768. */
+  kompaktBis?: number;
 };
 
 // Original SVG-Lettermark aus art-dus.de — ART DÜSSELDORF Schriftzug
 // Original viewBox 220x22, fill auf currentColor gesetzt damit Tailwind text-* greift.
-export default function Logo({ className = "", marke, aufDunkel = false }: Props) {
+export default function Logo({ className = "", marke, aufDunkel = false, kompaktBis = 768 }: Props) {
   if (marke?.src) {
     // Höhe kommt aus className (h-4 / h-6), Breite richtet sich danach.
     // Breite Marken dürfen schrumpfen (max-w-full), statt Nachbarn zu verdrängen;
@@ -38,11 +40,11 @@ export default function Logo({ className = "", marke, aufDunkel = false }: Props
       // eslint-disable-next-line @next/next/no-img-element
       <img src={src} alt={marke.alt} className={className + weiss + " max-w-full object-contain object-left"} />
     );
-    // Auf hellem Grund und mit kompakter Fassung: unter 768 px (Tailwind md) die kompakte.
+    // Auf hellem Grund und mit kompakter Fassung: unter `kompaktBis` (Standard 768 px = Tailwind md) die kompakte.
     if (!aufDunkel && marke.kompakt) {
       return (
         <picture className="contents">
-          <source media="(max-width: 767px)" srcSet={marke.kompakt} />
+          <source media={`(max-width: ${kompaktBis - 1}px)`} srcSet={marke.kompakt} />
           {bild}
         </picture>
       );

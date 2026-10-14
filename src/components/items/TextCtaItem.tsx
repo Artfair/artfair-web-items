@@ -56,7 +56,7 @@ export function TextCtaItem({
 
   if (imageSrc) {
     return (
-      <section id={id} className="grid md:grid-cols-[0.9fr_1.1fr] px-[var(--page-x)] scroll-mt-14">
+      <section id={id} className="grid md:grid-cols-[0.9fr_1.1fr] px-[var(--page-x)] scroll-mt-[var(--kopf-hoehe,3.5rem)]">
         <div className="relative min-h-[300px] max-md:order-2">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -74,7 +74,7 @@ export function TextCtaItem({
   }
 
   return (
-    <section id={id} className={`px-[var(--page-x)] ${ohneAbstand ? "py-0" : "py-[clamp(56px,7vw,104px)]"} scroll-mt-14`}>
+    <section id={id} className={`px-[var(--page-x)] ${ohneAbstand ? "py-0" : "py-[clamp(56px,7vw,104px)]"} scroll-mt-[var(--kopf-hoehe,3.5rem)]`}>
       <div className="flex flex-col gap-7">{content}</div>
     </section>
   );

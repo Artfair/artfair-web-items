@@ -98,7 +98,7 @@ export function FairPlanItem({
     'w-[44px] h-[44px] border border-brand-ink bg-white text-[length:calc(20px*var(--schrift-text,1))] leading-none transition-colors hover:bg-brand-ink hover:text-white disabled:opacity-25 disabled:hover:bg-white disabled:hover:text-brand-ink'
 
   return (
-    <section id={id} className="px-[var(--page-x)] pb-[clamp(64px,8vw,128px)] scroll-mt-14">
+    <section id={id} className="px-[var(--page-x)] pb-[clamp(64px,8vw,128px)] scroll-mt-[var(--kopf-hoehe,3.5rem)]">
       {eyebrow && (
         <span className="flex items-center gap-2.5 text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase mb-5">
           <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
