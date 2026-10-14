@@ -60,6 +60,7 @@ const COPY = {
     error: 'Da ist etwas schiefgelaufen — bitte versuchen Sie es erneut.',
     close: 'Schließen',
     dialogLabel: 'Newsletter-Anmeldung',
+    link: 'Zur Anmeldung',
   },
   en: {
     eyebrow: 'Inside Art Düsseldorf',
@@ -76,6 +77,25 @@ const COPY = {
     error: 'Something went wrong — please try again.',
     close: 'Close',
     dialogLabel: 'Newsletter signup',
+    link: 'Subscribe',
+  },
+  // Japanisch: neutrale Standard-Copy (keine Messe genannt) — eine Instanz
+  // setzt ihre eigenen Texte über Webby.
+  ja: {
+    eyebrow: 'Newsletter',
+    headline: '最新情報をお届けします。',
+    body: 'アートフェアの最新情報やハイライトをメールでお届けします。',
+    placeholder: 'メールアドレス',
+    button: '登録する',
+    consentPre: '',
+    consentLink: 'プライバシーポリシー',
+    consentPost: 'に同意し、ニュースレターの受け取りを希望します。いつでも配信を停止できます。',
+    successLead: 'ありがとうございます',
+    successRest: '。確認メールのリンクから登録を完了してください。',
+    error: 'エラーが発生しました。もう一度お試しください。',
+    close: '閉じる',
+    dialogLabel: 'ニュースレター登録',
+    link: '登録する',
   },
 } as const
 
@@ -88,6 +108,13 @@ export interface NewsletterPopupProps {
   imageAlt?: string
   action?: string // Anmelde-Endpoint; Default: bestehende DOI-Route
   privacyHref?: string // Default: /<lang>/datenschutz (beide Sprachen deutscher Slug)
+  /**
+   * Teaser-Variante: Ist ein Link gesetzt, zeigt das Popup statt des Formulars
+   * einen Knopf dorthin (z. B. die Anmeldeseite des Newsletter-Dienstes einer
+   * Instanz ohne eigene Anmelde-Route). Ohne Link: Formular wie bisher.
+   */
+  linkHref?: string
+  linkLabel?: string
 }
 
 export function NewsletterPopupItem({
@@ -99,6 +126,8 @@ export function NewsletterPopupItem({
   imageAlt,
   action = '/api/newsletter',
   privacyHref,
+  linkHref,
+  linkLabel,
 }: NewsletterPopupProps) {
   const t = COPY[lang as keyof typeof COPY] ?? COPY.en
   const privacy = privacyHref ?? `/${lang}/datenschutz`
@@ -236,7 +265,16 @@ export function NewsletterPopupItem({
             )}
           </div>
 
-          {status === 'success' ? (
+          {linkHref ? (
+            <a
+              href={linkHref}
+              {...(/^https?:\/\//.test(linkHref) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              onClick={close}
+              className="inline-flex w-full items-center justify-center rounded-full border border-brand-ink bg-brand-ink px-5 py-2.5 text-[length:calc(15px*var(--schrift-text,1))] font-medium uppercase tracking-[0.02em] text-white"
+            >
+              {linkLabel || t.link}
+            </a>
+          ) : status === 'success' ? (
             <p className="text-[length:calc(15px*var(--schrift-text,1))] leading-[1.5]" role="status">
               <strong className="font-bold">{t.successLead}</strong>
               {t.successRest}

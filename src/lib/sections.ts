@@ -108,6 +108,8 @@ export interface TextCtaSection {
   image?: ImageRef; // optional — mit Bild links, ohne nur Text
   // Ohne eigenen Weißraum oben und unten; Luft dann per Abstandhalter (spacer).
   ohneAbstand?: boolean;
+  // Bild in eigenem Seitenverhältnis zeigen (Plakat), statt zu beschneiden.
+  bildGanz?: boolean;
 }
 
 // 05b — News + Datum (NewsDateItem) — Textsektion wie 05, aber mit
@@ -314,6 +316,8 @@ export interface NewsletterPopupSection {
   headline?: Loc;
   body?: Loc;
   image?: ImageRef; // 3:4-Messefoto links (mobil oben); ohne Bild volle Textbreite
+  linkHref?: string; // Teaser-Variante: Knopf zu dieser Adresse statt Formular
+  linkLabel?: Loc; // Text des Knopfs (leer = „Subscribe" / „登録する" …)
 }
 
 // ── Programm-Bausteine (Partner/Talks) ──────────────────────────────────────
