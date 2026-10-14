@@ -251,6 +251,7 @@ export const GRIFFE: Griff[] = [
     gruppe: "Medien & Logos",
     faecher: [
       { art: "loc", feld: "title", label: "Überschrift" },
+      { art: "loc", feld: "intro", label: "Einleitung unter der Überschrift (optional)", mehrzeilig: true },
       { art: "loc", feld: "moreLabel", label: "Mehr-Link-Beschriftung" },
       { art: "text", feld: "moreHref", label: "Mehr-Link (Adresse)", platzhalter: "/magazine" },
       {

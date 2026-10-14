@@ -17,21 +17,36 @@ export function MagazineStripItem({
   moreLabel,
   moreHref,
   cards,
+  intro,
 }: {
   title: string;
+  /** Optionaler Einleitungstext unter der Überschrift. */
+  intro?: string;
   moreLabel: string;
   /** Ohne Adresse kein „mehr"-Link (nur bei eigenen Karten). */
   moreHref?: string;
   cards: MagCard[];
 }) {
   if (cards.length === 0) return null;
+  const ueberschrift = (
+    <h2 className="font-light text-[length:calc(clamp(30px,4vw,56px)*var(--schrift-titel,1))] tracking-[-0.02em] leading-tight">
+      {title}
+    </h2>
+  );
   return (
     <section className="px-[var(--page-x)] py-[clamp(48px,7vw,110px)]">
       {(title || moreHref) && (
         <div className="flex items-baseline justify-between gap-5 flex-wrap mb-[clamp(28px,4vw,48px)]">
-          <h2 className="font-light text-[length:calc(clamp(30px,4vw,56px)*var(--schrift-titel,1))] tracking-[-0.02em] leading-tight">
-            {title}
-          </h2>
+          {intro ? (
+            <div className="flex flex-col gap-4 min-w-0">
+              {ueberschrift}
+              <p className="text-[length:calc(17px*var(--schrift-text,1))] leading-[1.6] text-neutral-600 max-w-[52ch] whitespace-pre-line">
+                {intro}
+              </p>
+            </div>
+          ) : (
+            ueberschrift
+          )}
           {moreHref && (
             <Link
               href={moreHref}
