@@ -575,6 +575,8 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
           body={loc(s.body, lang) || undefined}
           imageSrc={img(s.image, 800) || undefined}
           imageAlt={s.image?.alt ?? ""}
+          linkHref={s.linkHref || undefined}
+          linkLabel={loc(s.linkLabel, lang) || undefined}
         />
       );
     }

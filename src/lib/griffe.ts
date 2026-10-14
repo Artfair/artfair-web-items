@@ -285,6 +285,8 @@ export const GRIFFE: Griff[] = [
       { art: "loc", feld: "eyebrow", label: "Große Zeile (Standard: INSIDE ART DÜSSELDORF)" },
       { art: "loc", feld: "body", label: "Text", mehrzeilig: true },
       { art: "bild", feld: "image", label: "Foto (3:4, mobil oben)" },
+      { art: "text", feld: "linkHref", label: "Link statt Formular (optional) — z. B. Anmeldeseite eures Newsletter-Dienstes", platzhalter: "https://…" },
+      { art: "loc", feld: "linkLabel", label: "Knopftext für den Link (leer = Subscribe)" },
       {
         art: "notiz",
         text: "Scrollausgelöstes Overlay: erscheint einmal je Sitzung nach ~15 % Scroll; nach Anmeldung dauerhaft still. Leere Textfelder nutzen die abgenommene Standard-Copy; Formular und Verhalten sind fest.",

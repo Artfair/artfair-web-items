@@ -314,6 +314,8 @@ export interface NewsletterPopupSection {
   headline?: Loc;
   body?: Loc;
   image?: ImageRef; // 3:4-Messefoto links (mobil oben); ohne Bild volle Textbreite
+  linkHref?: string; // Teaser-Variante: Knopf zu dieser Adresse statt Formular
+  linkLabel?: Loc; // Text des Knopfs (leer = „Subscribe" / „登録する" …)
 }
 
 // ── Programm-Bausteine (Partner/Talks) ──────────────────────────────────────
