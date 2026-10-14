@@ -48,6 +48,7 @@ export { ProgrammCurated } from './components/programm/ProgrammCurated'
 
 // Magazin-Bausteine (nur Darstellung; Daten, Rubriken und Texte liefert die Instanz)
 export * from './lib/magazin'
+export * from './lib/zuschnitt'
 export { MagArtikel } from './components/magazin/MagArtikel'
 export { MagKarte, type MagKarteProps } from './components/magazin/MagKarte'
 export { MagRubrik } from './components/magazin/MagRubrik'

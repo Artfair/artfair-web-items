@@ -1,3 +1,4 @@
+import { bildMitZuschnitt, type BildFormat, type BildZuschnitt } from "./zuschnitt";
 // ─────────────────────────────────────────────────────────────────────────
 // Magazin — Datenformen und Hilfen für die Magazin-Bausteine
 // (components/magazin). Nur Darstellung: Welche Artikel es gibt, woher sie
@@ -58,12 +59,13 @@ export function magDatum(date: string | null | undefined, lang: string): string 
 
 // Sanity-Bild skalieren. Mit h → fit=crop, Fokuspunkt bei 35 % von oben
 // (Gesichter stehen fast immer im oberen Drittel). Andere Adressen unverändert.
-export function magBild(url: string | null | undefined, width: number, height?: number): string {
-  if (!url) return "";
-  if (!url.includes("cdn.sanity.io")) return url;
-  const sep = url.includes("?") ? "&" : "?";
-  if (height) {
-    return `${url}${sep}w=${width}&h=${height}&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.35&auto=format`;
-  }
-  return `${url}${sep}w=${width}&auto=format&fit=max`;
+// Mit Zuschnitt (siehe lib/zuschnitt) gilt der eigene Ausschnitt bzw. Fokuspunkt.
+export function magBild(
+  url: string | null | undefined,
+  width: number,
+  height?: number,
+  zuschnitt?: BildZuschnitt | null,
+  format?: BildFormat,
+): string {
+  return bildMitZuschnitt(url, width, height, zuschnitt, format);
 }

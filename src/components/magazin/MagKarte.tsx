@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { magBild, magDatum, magEntitaeten } from "../../lib/magazin";
+import type { BildZuschnitt } from "../../lib/zuschnitt";
 
 // Artikel-Karte in Rubrik- und Archiv-Mosaik. Aus AD27 (components/magazine/
 // ArticleCard) übernommen, Markup unverändert; Rubrik-Name und Link liefert
@@ -16,9 +17,11 @@ export interface MagKarteProps {
   /** Für Farb-Regeln in magazine.css (data-cat / data-subcat). */
   kategorie: string;
   unterkategorie?: string | null;
+  /** Eigener Zuschnitt des Bildes (Format „karte“, 3:4); ohne ihn der Standard. */
+  zuschnitt?: BildZuschnitt | null;
 }
 
-export function MagKarte({ href, titel, auszug, bildUrl, kicker, datum, lang, kategorie, unterkategorie }: MagKarteProps) {
+export function MagKarte({ href, titel, auszug, bildUrl, kicker, datum, lang, kategorie, unterkategorie, zuschnitt }: MagKarteProps) {
   const title = magEntitaeten(titel);
   const excerpt = magEntitaeten(auszug);
   return (
@@ -26,7 +29,7 @@ export function MagKarte({ href, titel, auszug, bildUrl, kicker, datum, lang, ka
       <div className={`mag-card__img${bildUrl ? "" : " mag-card__img--empty"}`}>
         {bildUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={magBild(bildUrl, 600, 800)} alt={title} loading="lazy" />
+          <img src={magBild(bildUrl, 600, 800, zuschnitt, "karte")} alt={title} loading="lazy" />
         ) : (
           <span aria-hidden>{title.slice(0, 1)}</span>
         )}

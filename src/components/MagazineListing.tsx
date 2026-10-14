@@ -1,4 +1,5 @@
 import React from 'react'
+import { bildMitZuschnitt, type BildFormat, type BildZuschnitt } from '../lib/zuschnitt'
 import type { Lang } from '../lib/sections';
 
 // Vollständige Magazin-LISTENSEITE als geteilte Anzeige-Komponente (Schrank).
@@ -15,6 +16,8 @@ export interface MagListCard {
   kicker: string // fertig lokalisiertes Label (Rubrik / Menschen-Typ)
   dateLabel?: string | null
   imageUrl?: string | null
+  /** Eigener Zuschnitt des Bildes (Formate aufmacher / karte / karteQuer). */
+  zuschnitt?: BildZuschnitt | null
   category: string
   peopleType?: string | null
 }
@@ -61,13 +64,15 @@ function decode(input: string | null | undefined): string {
 // Zuschnitt (height gesetzt) liegt der Fokuspunkt bei 35 % von oben statt
 // mittig — Gesichter stehen fast immer im oberen Bilddrittel; ein mittiger
 // Crop schneidet bei Hochformat-Quellen die Köpfe an.
-function scaled(url: string | null | undefined, width: number, height?: number): string {
-  if (!url) return ''
-  if (!url.includes('cdn.sanity.io')) return url
-  const sep = url.includes('?') ? '&' : '?'
-  return height
-    ? `${url}${sep}w=${width}&h=${height}&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.35&auto=format`
-    : `${url}${sep}w=${width}&auto=format&fit=max`
+// Mit Zuschnitt gilt der eigene Ausschnitt des Formats bzw. der Fokuspunkt.
+function scaled(
+  url: string | null | undefined,
+  width: number,
+  height?: number,
+  zuschnitt?: BildZuschnitt | null,
+  format?: BildFormat,
+): string {
+  return bildMitZuschnitt(url, width, height, zuschnitt, format)
 }
 
 // wide = Karte auf den Puzzle-Positionen 1/4 im Viererblock (CSS: 3:2 quer).
@@ -83,7 +88,7 @@ function Card({ a, wide = false }: { a: MagListCard; wide?: boolean }) {
         {a.imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={wide ? scaled(a.imageUrl, 900, 600) : scaled(a.imageUrl, 600, 800)}
+            src={wide ? scaled(a.imageUrl, 900, 600, a.zuschnitt, 'karteQuer') : scaled(a.imageUrl, 600, 800, a.zuschnitt, 'karte')}
             alt={title}
             loading="lazy"
           />
@@ -193,7 +198,7 @@ export function MagazineListing({
               <div className="mag-hero__frame">
                 {featured.imageUrl && (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={scaled(featured.imageUrl, 1200, 1500)} alt={decode(featured.title)} />
+                  <img src={scaled(featured.imageUrl, 1200, 1500, featured.zuschnitt, 'aufmacher')} alt={decode(featured.title)} />
                 )}
               </div>
               <div className="mag-hero__bar" aria-hidden="true" />
