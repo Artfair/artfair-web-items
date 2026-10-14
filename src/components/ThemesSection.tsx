@@ -25,7 +25,7 @@ export function ThemesSection({
   return (
     <section
       id={id}
-      className="bg-white px-[var(--page-x)] pt-[clamp(20px,3vw,52px)] pb-[clamp(72px,11vw,160px)] scroll-mt-14"
+      className="bg-white px-[var(--page-x)] pt-[clamp(20px,3vw,52px)] pb-[clamp(72px,11vw,160px)] scroll-mt-[var(--kopf-hoehe,3.5rem)]"
     >
       <div className="mb-[clamp(48px,7vw,110px)]">
         <h2 className="font-light text-[length:calc(clamp(26px,4.4vw,70px)*var(--schrift-titel,1))] leading-none tracking-[-0.02em]">

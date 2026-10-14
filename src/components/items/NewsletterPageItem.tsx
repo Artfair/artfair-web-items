@@ -352,7 +352,7 @@ export function NewsletterPageItem({
   ]
 
   return (
-    <div id={id} className="pt-14 animate-fade-in scroll-mt-14">
+    <div id={id} className="pt-[var(--kopf-hoehe,3.5rem)] animate-fade-in scroll-mt-[var(--kopf-hoehe,3.5rem)]">
       {/* Hero mit Anmeldung */}
       <section className="px-[var(--page-x)] pt-[clamp(64px,9vw,128px)] pb-[clamp(56px,7vw,96px)] flex flex-col items-center text-center border-b border-brand-line">
         {heroEyebrow && (

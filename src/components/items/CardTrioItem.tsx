@@ -43,7 +43,7 @@ export function CardTrioItem({
       )}
       <div className={`grid gap-8 ${cards.length === 2 && !dreiSpalten ? "md:grid-cols-2" : "md:grid-cols-3"}`}>
         {cards.map((card) => (
-          <div key={card.title} id={card.id} className="flex flex-col group scroll-mt-14">
+          <div key={card.title} id={card.id} className="flex flex-col group scroll-mt-[var(--kopf-hoehe,3.5rem)]">
             <div className="overflow-hidden mb-4 bg-neutral-100">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img

@@ -57,7 +57,7 @@ export function NewsDateItem({
 
   if (!box?.date) {
     return (
-      <section id={id} className="px-[var(--page-x)] py-[clamp(56px,7vw,104px)] scroll-mt-14">
+      <section id={id} className="px-[var(--page-x)] py-[clamp(56px,7vw,104px)] scroll-mt-[var(--kopf-hoehe,3.5rem)]">
         {text}
       </section>
     );
@@ -66,7 +66,7 @@ export function NewsDateItem({
   const lime = box.tone === "lime";
 
   return (
-    <section id={id} className="px-[var(--page-x)] py-[clamp(56px,7vw,104px)] scroll-mt-14">
+    <section id={id} className="px-[var(--page-x)] py-[clamp(56px,7vw,104px)] scroll-mt-[var(--kopf-hoehe,3.5rem)]">
       <div className="grid md:grid-cols-[1fr_auto] gap-[clamp(40px,5vw,60px)] items-center">
         {text}
         <div

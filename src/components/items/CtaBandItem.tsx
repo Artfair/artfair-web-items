@@ -64,7 +64,7 @@ export function CtaBandItem({
   // ursprüngliche Gewichtung.
   const cols = videoSrc ? "md:grid-cols-[0.85fr_1.15fr]" : "md:grid-cols-[1.1fr_0.9fr]";
   return (
-    <section id={id} className={`grid ${cols} bg-brand-ink scroll-mt-14`}>
+    <section id={id} className={`grid ${cols} bg-brand-ink scroll-mt-[var(--kopf-hoehe,3.5rem)]`}>
       <div className="flex flex-col justify-center gap-7 px-[clamp(40px,5vw,80px)] py-[clamp(64px,8vw,128px)]">
         {eyebrow && (
           <span className="flex items-center gap-2.5 text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase text-neutral-400">

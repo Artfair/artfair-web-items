@@ -180,7 +180,7 @@ export function AboutPageItem(props: {
 }) {
   const p = props
   return (
-    <div className="pt-14 animate-fade-in">
+    <div className="pt-[var(--kopf-hoehe,3.5rem)] animate-fade-in">
       <HeroSplitItem
         title={p.heroTitle}
         body={p.heroBody}
@@ -192,7 +192,7 @@ export function AboutPageItem(props: {
       />
 
       {/* Vision */}
-      <section id="vision" className="px-[var(--page-x)] py-[clamp(72px,10vw,144px)] scroll-mt-14">
+      <section id="vision" className="px-[var(--page-x)] py-[clamp(72px,10vw,144px)] scroll-mt-[var(--kopf-hoehe,3.5rem)]">
         <div className="grid md:grid-cols-2 gap-x-[clamp(40px,6vw,96px)] gap-y-12 items-start">
           <div>
             <h2 className="font-light text-[length:calc(clamp(30px,3.4vw,52px)*var(--schrift-titel,1))] leading-[1.06] tracking-[-0.02em] max-w-[24ch]">
@@ -243,7 +243,7 @@ export function AboutPageItem(props: {
       </section>
 
       {/* Areal Böhler */}
-      <section id="areal" className="pb-[clamp(72px,10vw,144px)] scroll-mt-14">
+      <section id="areal" className="pb-[clamp(72px,10vw,144px)] scroll-mt-[var(--kopf-hoehe,3.5rem)]">
         <div className="relative w-full h-[clamp(420px,72vh,820px)]">
           {p.arealImage?.src ? (
             // eslint-disable-next-line @next/next/no-img-element
@@ -268,7 +268,7 @@ export function AboutPageItem(props: {
       </section>
 
       {/* Kuratorisches Profil */}
-      <section id="profil" className="px-[var(--page-x)] pb-[clamp(72px,10vw,144px)] scroll-mt-14">
+      <section id="profil" className="px-[var(--page-x)] pb-[clamp(72px,10vw,144px)] scroll-mt-[var(--kopf-hoehe,3.5rem)]">
         <h2 className="font-light text-[length:calc(clamp(30px,3.4vw,52px)*var(--schrift-titel,1))] leading-[1.06] tracking-[-0.02em] mb-[clamp(32px,4vw,56px)]">
           {p.profileHeading}
         </h2>
@@ -328,7 +328,7 @@ export function AboutPageItem(props: {
       {/* Kontakt & Team (#kontakt) */}
       <section
         id={p.contactAnchor || 'kontakt'}
-        className="px-[var(--page-x)] pt-[clamp(48px,6vw,88px)] pb-10 scroll-mt-14"
+        className="px-[var(--page-x)] pt-[clamp(48px,6vw,88px)] pb-10 scroll-mt-[var(--kopf-hoehe,3.5rem)]"
       >
         <div className="flex items-stretch gap-[clamp(20px,2.5vw,36px)]">
           <div aria-hidden="true" className="w-[28px] bg-brand-accent shrink-0" />

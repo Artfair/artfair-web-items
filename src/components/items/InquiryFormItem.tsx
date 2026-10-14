@@ -82,7 +82,7 @@ export function InquiryFormItem({
   }
 
   return (
-    <section id={id} className="px-[var(--page-x)] py-[clamp(64px,8vw,128px)] scroll-mt-14">
+    <section id={id} className="px-[var(--page-x)] py-[clamp(64px,8vw,128px)] scroll-mt-[var(--kopf-hoehe,3.5rem)]">
       <div className="max-w-[720px]">
         {eyebrow && (
           <span className="flex items-center gap-2.5 text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase mb-5">

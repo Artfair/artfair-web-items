@@ -47,7 +47,7 @@ export function LogoGridItem({
   logos: GridLogo[];
 }) {
   return (
-    <section id={id} className="px-[var(--page-x)] pb-[clamp(64px,8vw,128px)] scroll-mt-14">
+    <section id={id} className="px-[var(--page-x)] pb-[clamp(64px,8vw,128px)] scroll-mt-[var(--kopf-hoehe,3.5rem)]">
       {eyebrow && (
         <span className="flex items-center gap-2.5 text-[length:calc(13px*var(--schrift-klein,1))] font-semibold tracking-[0.14em] uppercase mb-5">
           <span aria-hidden="true" className="w-[7px] h-[7px] bg-brand-accent" />
