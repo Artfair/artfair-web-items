@@ -706,6 +706,7 @@ export interface ExhibitorArchiveSection {
 // Seite ohne Header/Footer (Ausnahme in Chrome.tsx).
 export interface LinkHubLinkData extends Cta {
   _key: string;
+  badge?: Loc; // kleines Schild auf der Button-Kante (z. B. „Interviews"); leer = kein Schild
 }
 // Bildnachweis-Eintrag: Textblock statt Pille (Annalena 27.8.2026) — ein
 // Nachweis braucht oft MEHRERE Links (Fotoquelle + Lizenz). Links stehen

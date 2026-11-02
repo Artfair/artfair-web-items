@@ -704,6 +704,7 @@ export const GRIFFE: Griff[] = [
         eintrag: [
           { art: "loc", feld: "label", label: "Beschriftung" },
           { art: "text", feld: "href", label: "Link (https://…, interner Pfad oder mailto:)", platzhalter: "https://…" },
+          { art: "loc", feld: "badge", label: "Schild (kleine Pille auf der Button-Kante, z. B. „Interviews\" — leer = kein Schild)" },
         ],
       },
       { art: "loc", feld: "creditsTitle", label: "Bildnachweis-Überschrift (leer = „Bildnachweise“/„Image credits“)" },

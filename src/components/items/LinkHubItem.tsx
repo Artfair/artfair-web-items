@@ -23,6 +23,7 @@ import { loc, type Lang, type Loc } from '../../lib/sections';
 export interface LinkHubLink {
   label?: Loc
   href: string
+  badge?: Loc // kleines Schild auf der Button-Kante (z. B. „Interviews")
 }
 
 // Bildnachweis als Textblock (statt Pille): Datum/Titel-Zeile + Fließtext.
@@ -76,15 +77,24 @@ export function LinkHubItem({
 
   const pill = (link: LinkHubLink, i: number) => {
     const label = loc(link.label, l)
+    // Schild: kleine Pille auf der oberen Button-Kante (wie ein Etikett).
+    // Beim Hover füllt sich der Button lime — das Schild invertiert dann zu
+    // Schwarz, damit es auf der Kante lesbar bleibt.
+    const badge = loc(link.badge, l)
     return (
       <a
         key={`${i}-${link.href}`}
         href={link.href}
         onClick={() => trackClick(label, link.href, l)}
         style={{animationDelay: `${100 + i * 80}ms`, animationFillMode: 'both'}}
-        className="animate-fade-in flex items-center justify-center text-center rounded-[50px] border-2 border-brand-accent text-white min-h-[44px] px-6 py-3 text-[length:calc(15px*var(--schrift-text,1))] uppercase tracking-[0.14em] font-medium no-underline cursor-pointer transition-colors duration-200 hover:bg-brand-accent hover:text-brand-ink active:translate-y-px"
+        className="group relative animate-fade-in flex items-center justify-center text-center rounded-[50px] border-2 border-brand-accent text-white min-h-[44px] px-6 py-3 text-[length:calc(15px*var(--schrift-text,1))] uppercase tracking-[0.14em] font-medium no-underline cursor-pointer transition-colors duration-200 hover:bg-brand-accent hover:text-brand-ink active:translate-y-px"
       >
         {label}
+        {badge && (
+          <span className="absolute -top-[9px] right-[22px] inline-flex items-center rounded-[999px] bg-brand-accent text-brand-ink px-2.5 py-[3px] text-[length:calc(10px*var(--schrift-klein,1))] tracking-[0.12em] font-semibold transition-colors duration-200 group-hover:bg-brand-ink group-hover:text-brand-accent">
+            {badge}
+          </span>
+        )}
       </a>
     )
   }
