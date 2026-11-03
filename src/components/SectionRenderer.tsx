@@ -283,7 +283,7 @@ function renderSection(s: Section, lang: Lang, magazine: MagCard[], slots: Slots
       // DE/EN clientseitig; `lang` ist nur die Startsprache aus der Route.
       const links = (s.links ?? [])
         .filter((x) => !x.hidden && x.href && (x.label?.de || x.label?.en))
-        .map((x) => ({ label: x.label, href: x.href! }));
+        .map((x) => ({ label: x.label, href: x.href!, badge: x.badge }));
       // Nachweise sind Textblöcke; Links stehen als [Text](URL) im Fließtext.
       const credits = (s.credits ?? [])
         .filter((c) => !c.hidden && (c.heading?.de || c.heading?.en || c.body?.de || c.body?.en))
