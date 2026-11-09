@@ -248,6 +248,7 @@ export default async function BusinessMeetsArt({
         heading={de ? 'Ihre Anfrage.' : 'Your inquiry.'}
         companyLabel={de ? 'Unternehmen' : 'Company'}
         contactLabel={de ? 'Ansprechpartner + Position' : 'Contact person + position'}
+        emailLabel={de ? 'E-Mail-Adresse' : 'Email address'}
         periodLabel={de ? 'Gewünschter Zeitraum' : 'Preferred period'}
         periodOptions={
           de
@@ -292,7 +293,9 @@ export default async function BusinessMeetsArt({
   noch keine Anfrage an das VIP-Team raus.** Andock-Stelle ist fertig: das
   AD27-Team baut eine POST-Route (z. B. `/api/business-inquiry`, E-Mail an
   Johanna Sucec) und setzt `action="/api/business-inquiry"` am
-  `InquiryFormItem`. Feldnamen im FormData: `company`, `contact`, `period`,
-  `guests`, `context`. Fehlerfall zeigt `errorText` unter dem Knopf.
+  `InquiryFormItem`. Feldnamen im FormData: `company`, `contact`, `email`,
+  `period`, `guests`, `context`. Fehlerfall zeigt `errorText` unter dem Knopf.
+  Die Backend-Route muss das neue Pflichtfeld `email` mit in die Mail an das
+  VIP-Team übernehmen (Antwort-Adresse).
 - Kein Kalender-Link als primärer Pfad nach dem Formular; falls gewünscht,
   später als sekundäre Ergänzung unterhalb der Bestätigung.
