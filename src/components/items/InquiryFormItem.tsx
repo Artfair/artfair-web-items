@@ -4,7 +4,7 @@ import {useId, useState} from 'react'
 
 // Baukasten-Item „Anfrage-Formular" — schlankes Kontaktformular (Business
 // meets Art, Sektion 7 der Content-Spez 8/2026): Unternehmen, Ansprechpartner,
-// Zeitraum (Messetage), Gästezahl, optionaler Anlass. Versand: mit `action`
+// E-Mail, Zeitraum (Messetage), Gästezahl, optionaler Anlass. Versand: mit `action`
 // wird per POST an die angegebene Route geschickt (Andock-Stelle fürs
 // AD27-Backend, Entscheidung Annalena 12.8.); ohne `action` bestätigt das
 // Formular rein clientseitig (wie NewsletterForm), es wird nichts verschickt.
@@ -24,6 +24,7 @@ export interface InquiryFormProps {
   intro?: string
   companyLabel: string // Pflichtfeld: Unternehmen
   contactLabel: string // Pflichtfeld: Ansprechpartner + Position
+  emailLabel: string // Pflichtfeld: E-Mail-Adresse (Antwort-Adresse fürs VIP-Team)
   periodLabel: string // Pflichtfeld: gewünschter Zeitraum (Dropdown)
   periodOptions: string[] // Messetage AD27
   guestsLabel: string // Pflichtfeld: ungefähre Gästezahl (Dropdown-Ranges)
@@ -45,6 +46,7 @@ export function InquiryFormItem({
   intro,
   companyLabel,
   contactLabel,
+  emailLabel,
   periodLabel,
   periodOptions,
   guestsLabel,
@@ -131,6 +133,19 @@ export function InquiryFormItem({
                 type="text"
                 required
                 autoComplete="name"
+                className={fieldClass}
+              />
+            </div>
+            <div className="sm:col-span-2">
+              <label htmlFor={`${uid}-email`} className={labelClass}>
+                {emailLabel} *
+              </label>
+              <input
+                id={`${uid}-email`}
+                name="email"
+                type="email"
+                required
+                autoComplete="email"
                 className={fieldClass}
               />
             </div>

@@ -519,6 +519,7 @@ export interface InquiryFormFields {
   intro?: Loc;
   companyLabel?: Loc; // Pflichtfeld: Unternehmen
   contactLabel?: Loc; // Pflichtfeld: Ansprechpartner + Position
+  emailLabel?: Loc; // Pflichtfeld: E-Mail-Adresse (Renderer hat Rückfalltext)
   periodLabel?: Loc; // Pflichtfeld: gewünschter Zeitraum
   periodOptions?: Loc[]; // Messetage AD27
   guestsLabel?: Loc; // Pflichtfeld: ungefähre Gästezahl

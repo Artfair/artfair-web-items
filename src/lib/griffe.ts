@@ -745,7 +745,7 @@ export const GRIFFE: Griff[] = [
   {
     typ: "inquiryForm",
     name: "Anfrage-Formular",
-    hinweis: "Formular: Unternehmen, Ansprechpartner, Zeitraum, Gäste, Kontext",
+    hinweis: "Formular: Unternehmen, Ansprechpartner, E-Mail, Zeitraum, Gäste, Kontext",
     gruppe: "Formulare",
     faecher: [
       { art: "text", feld: "anchor", label: "Sprungmarke (Ziel der Anfrage-senden-Knöpfe)", platzhalter: "anfrage" },
@@ -754,6 +754,7 @@ export const GRIFFE: Griff[] = [
       { art: "loc", feld: "intro", label: "Einleitung (optional)", mehrzeilig: true },
       { art: "loc", feld: "companyLabel", label: "Label: Unternehmen" },
       { art: "loc", feld: "contactLabel", label: "Label: Ansprechpartner + Position" },
+      { art: "loc", feld: "emailLabel", label: "Label: E-Mail-Adresse (Pflichtfeld; leer = E-Mail-Adresse)" },
       { art: "loc", feld: "periodLabel", label: "Label: Zeitraum" },
       { art: "locliste", feld: "periodOptions", label: "Zeitraum-Optionen (Dropdown)", eintrag: "Option {n}", neu: "+ Option" },
       { art: "loc", feld: "guestsLabel", label: "Label: Gästezahl" },

@@ -95,6 +95,9 @@ function resolveInquiry(
     intro: loc(f.intro, lang) || undefined,
     companyLabel: loc(f.companyLabel, lang),
     contactLabel: loc(f.contactLabel, lang),
+    // Rückfalltext: bestehende Webby-Inhalte kennen das Feld noch nicht —
+    // das Pflichtfeld erscheint trotzdem sofort, ohne Pflege im CMS.
+    emailLabel: loc(f.emailLabel, lang) || (lang === "de" ? "E-Mail-Adresse" : "Email address"),
     periodLabel: loc(f.periodLabel, lang),
     periodOptions: opts(f.periodOptions),
     guestsLabel: loc(f.guestsLabel, lang),
